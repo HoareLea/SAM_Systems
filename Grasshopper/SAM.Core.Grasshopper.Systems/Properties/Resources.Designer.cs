@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SAM.Core.Grasshopper.TMP.Properties {
+namespace SAM.Core.Grasshopper.Systems.Properties {
     using System;
     
     

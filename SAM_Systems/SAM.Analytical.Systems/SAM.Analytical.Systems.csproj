@@ -7,8 +7,8 @@
     <ProjectGuid>{1BFC8019-2271-4799-9DD2-CC9275A49D84}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SAM.Analytical.TMP</RootNamespace>
-    <AssemblyName>SAM.Analytical.TMP</AssemblyName>
+    <RootNamespace>SAM.Analytical.Systems</RootNamespace>
+    <AssemblyName>SAM.Analytical.Systems</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>false</Deterministic>
@@ -22,7 +22,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>..\..\build\SAM.Analytical.TMP.xml</DocumentationFile>
+    <DocumentationFile>..\..\build\SAM.Analytical.Systems.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -47,7 +47,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SAM.Core.TMP\SAM.Core.TMP.csproj">
+    <ProjectReference Include="..\SAM.Core.Systems\SAM.Core.Systems.csproj">
       <Project>{1c86b9ac-81b3-41d8-ba48-321f28ab94f4}</Project>
       <Name>SAM.Core.GEM</Name>
     </ProjectReference>
@@ -63,11 +63,8 @@
     <Folder Include="Query\" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="com.angusj.Clipper">
-      <Version>6.4.2</Version>
-    </PackageReference>
     <PackageReference Include="NetTopologySuite">
-      <Version>2.2.0</Version>
+      <Version>2.3.0</Version>
     </PackageReference>
     <PackageReference Include="Newtonsoft.Json">
       <Version>13.0.1</Version>
