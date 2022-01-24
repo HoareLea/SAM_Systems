@@ -1,23 +1,24 @@
 ﻿using Newtonsoft.Json.Linq;
+using SAM.Core;
 
-namespace SAM.Core.Systems
+namespace SAM.Analytical.Systems
 {
-    public class PlantRoom : SAMObject
+    public class Pump : SAMObject
     {
 
-        public PlantRoom(PlantRoom plantRoom)
-            :base(plantRoom)
+        public Pump(Pump pump)
+            :base(pump)
         {
 
         }
 
-        public PlantRoom(JObject jObject)
+        public Pump(JObject jObject)
             : base(jObject)
         {
 
         }
 
-        public PlantRoom(string name)
+        public Pump(string name)
             : base(name)
         {
 

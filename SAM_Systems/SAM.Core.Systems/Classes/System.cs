@@ -2,22 +2,22 @@
 
 namespace SAM.Core.Systems
 {
-    public class PlantRoom : SAMObject
+    public class System : SAMObject
     {
 
-        public PlantRoom(PlantRoom plantRoom)
+        public System(System plantRoom)
             :base(plantRoom)
         {
 
         }
 
-        public PlantRoom(JObject jObject)
+        public System(JObject jObject)
             : base(jObject)
         {
 
         }
 
-        public PlantRoom(string name)
+        public System(string name)
             : base(name)
         {
 
