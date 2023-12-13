@@ -2,25 +2,16 @@
 
 namespace SAM.Core.Systems
 {
-    public class PlantRoom : SAMObject
+    public class AirSystem : SystemObject, IMechanicalSystem
     {
-
-        public PlantRoom(PlantRoom plantRoom)
-            :base(plantRoom)
+        public AirSystem(AirSystem airSystem) 
+            : base(airSystem)
         {
-
         }
 
-        public PlantRoom(JObject jObject)
+        public AirSystem(JObject jObject)
             : base(jObject)
         {
-
-        }
-
-        public PlantRoom(string name)
-            : base(name)
-        {
-
         }
 
         public override bool FromJObject(JObject jObject)
@@ -32,6 +23,5 @@ namespace SAM.Core.Systems
         {
             return base.ToJObject();
         }
-
     }
 }

@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace SAM.Core.Systems
 {
-    public class SystemModel : SAMModel
+    public class SystemModel : SAMModel, ISystemObject
     {
+        private List<SystemPlantRoom> systemPlantRooms;
+
     }
 }

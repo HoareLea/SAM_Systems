@@ -2,23 +2,16 @@
 
 namespace SAM.Core.Systems
 {
-    public class System : SAMObject
+    public class SystemSpace : SystemObject, ISystemSpatialObject
     {
-
-        public System(System plantRoom)
-            :base(plantRoom)
+        public SystemSpace(SystemSpace systemSpace)
+            : base(systemSpace)
         {
 
         }
 
-        public System(JObject jObject)
+        public SystemSpace(JObject jObject)
             : base(jObject)
-        {
-
-        }
-
-        public System(string name)
-            : base(name)
         {
 
         }
@@ -32,6 +25,5 @@ namespace SAM.Core.Systems
         {
             return base.ToJObject();
         }
-
     }
 }
