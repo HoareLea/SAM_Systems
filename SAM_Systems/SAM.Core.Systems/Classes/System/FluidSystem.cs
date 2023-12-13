@@ -2,14 +2,14 @@
 
 namespace SAM.Core.Systems
 {
-    public class PlumbingSystem : SystemObject, IMechanicalSystem
+    public class FluidSystem : SystemObject, IMechanicalSystem
     {
-        public PlumbingSystem(AirSystem airSystem)
+        public FluidSystem(AirSystem airSystem)
             : base(airSystem)
         {
         }
 
-        public PlumbingSystem(JObject jObject)
+        public FluidSystem(JObject jObject)
             : base(jObject)
         {
         }

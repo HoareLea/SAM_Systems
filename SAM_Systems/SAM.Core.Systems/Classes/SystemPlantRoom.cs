@@ -12,7 +12,10 @@ namespace SAM.Core.Systems
         public SystemPlantRoom(SystemPlantRoom systemPlantRoom)
             :base(systemPlantRoom)
         {
-
+            if(systemPlantRoom != null)
+            {
+                relationCluster = systemPlantRoom?.relationCluster == null ? null : new RelationCluster(systemPlantRoom.relationCluster);
+            }
         }
 
         public SystemPlantRoom(JObject jObject)
