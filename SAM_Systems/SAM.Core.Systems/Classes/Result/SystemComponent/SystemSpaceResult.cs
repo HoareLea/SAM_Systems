@@ -1,6 +1,4 @@
 ﻿using Newtonsoft.Json.Linq;
-using SAM.Core;
-using SAM.Core.Systems;
 using System.Collections.Generic;
 
 namespace SAM.Core.Systems

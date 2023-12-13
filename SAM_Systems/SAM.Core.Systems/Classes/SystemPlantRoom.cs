@@ -7,14 +7,14 @@ namespace SAM.Core.Systems
 {
     public class SystemPlantRoom : SAMObject, ISystemSpatialObject
     {
-        private RelationCluster relationCluster;
+        private SystemRelationCluster systemRelationCluster;
 
         public SystemPlantRoom(SystemPlantRoom systemPlantRoom)
             :base(systemPlantRoom)
         {
             if(systemPlantRoom != null)
             {
-                relationCluster = systemPlantRoom?.relationCluster == null ? null : new RelationCluster(systemPlantRoom.relationCluster);
+                systemRelationCluster = systemPlantRoom?.systemRelationCluster == null ? null : new SystemRelationCluster(systemPlantRoom.systemRelationCluster, true);
             }
         }
 
@@ -37,12 +37,12 @@ namespace SAM.Core.Systems
                 return false;
             }
 
-            if (relationCluster == null)
+            if (systemRelationCluster == null)
             {
-                relationCluster = new RelationCluster();
+                systemRelationCluster = new SystemRelationCluster();
             }
 
-            return relationCluster.AddObject(new SystemSpace(systemSpace));
+            return systemRelationCluster.AddObject(new SystemSpace(systemSpace));
         }
 
         public bool Add(ISystemComponent systemComponent)
@@ -53,12 +53,12 @@ namespace SAM.Core.Systems
                 return false;
             }
 
-            if (relationCluster == null)
+            if (systemRelationCluster == null)
             {
-                relationCluster = new RelationCluster();
+                systemRelationCluster = new SystemRelationCluster();
             }
 
-            return relationCluster.AddObject(systemComponent_Temp);
+            return systemRelationCluster.AddObject(systemComponent_Temp);
         }
 
         public bool Add(ISystemSpaceComponent systemSpaceComponent, SystemSpace systemSpace = null)
@@ -74,12 +74,12 @@ namespace SAM.Core.Systems
                 return result;
             }
 
-            if (!relationCluster.Contains(systemSpace))
+            if (!systemRelationCluster.Contains(systemSpace))
             {
                 Add(systemSpace);
             }
 
-            relationCluster.AddRelation(systemSpace, systemSpaceComponent);
+            systemRelationCluster.AddRelation(systemSpace, systemSpaceComponent);
             return true;
         }
 
@@ -91,23 +91,23 @@ namespace SAM.Core.Systems
                 return false;
             }
 
-            if (relationCluster == null)
+            if (systemRelationCluster == null)
             {
-                relationCluster = new RelationCluster();
+                systemRelationCluster = new SystemRelationCluster();
             }
 
-            bool result = relationCluster.AddObject(systemComponentResult_Temp);
+            bool result = systemRelationCluster.AddObject(systemComponentResult_Temp);
             if (!result)
             {
                 return result;
             }
 
-            if (!relationCluster.Contains(systemComponent))
+            if (!systemRelationCluster.Contains(systemComponent))
             {
                 Add(systemComponent);
             }
 
-            relationCluster.AddRelation(systemComponent, systemComponentResult_Temp);
+            systemRelationCluster.AddRelation(systemComponent, systemComponentResult_Temp);
             return true;
         }
 
@@ -119,12 +119,12 @@ namespace SAM.Core.Systems
                 return false;
             }
 
-            if (relationCluster == null)
+            if (systemRelationCluster == null)
             {
-                relationCluster = new RelationCluster();
+                systemRelationCluster = new SystemRelationCluster();
             }
 
-            bool result = relationCluster.AddObject(systemSpaceResult_Temp);
+            bool result = systemRelationCluster.AddObject(systemSpaceResult_Temp);
             if (!result)
             {
                 return result;
@@ -135,23 +135,23 @@ namespace SAM.Core.Systems
                 return result;
             }
 
-            if (!relationCluster.Contains(systemSpace))
+            if (!systemRelationCluster.Contains(systemSpace))
             {
                 Add(systemSpace);
             }
 
-            relationCluster.AddRelation(systemSpace, systemSpaceResult_Temp);
+            systemRelationCluster.AddRelation(systemSpace, systemSpaceResult_Temp);
             return true;
         }
 
         public List<SystemSpace> GetSystemSpaces()
         {
-            return relationCluster?.GetObjects<SystemSpace>()?.ConvertAll(x => new SystemSpace(x));
+            return systemRelationCluster?.GetObjects<SystemSpace>()?.ConvertAll(x => new SystemSpace(x));
         }
 
         public List<T> GetSystemComponents<T>() where T : ISystemComponent
         {
-            return relationCluster?.GetObjects<T>()?.ConvertAll(x => Core.Query.Clone(x)).ConvertAll(x => (T)(object)x);
+            return systemRelationCluster?.GetObjects<T>()?.ConvertAll(x => Core.Query.Clone(x)).ConvertAll(x => (T)(object)x);
         }
 
         public List<ISystemComponent> GetSystemComponents()
@@ -161,7 +161,7 @@ namespace SAM.Core.Systems
 
         public List<T> GetSystemSpaceComponents<T>(SystemSpace systemSpace) where T : ISystemSpaceComponent
         {
-            return relationCluster?.GetRelatedObjects<T>(systemSpace).ConvertAll(x => x.Clone());
+            return systemRelationCluster?.GetRelatedObjects<T>(systemSpace).ConvertAll(x => x.Clone());
         }
 
         public SystemSpace GetSystemSpace(ISystemSpaceComponent systemSpaceComponent)
@@ -171,27 +171,27 @@ namespace SAM.Core.Systems
                 return null;
             }
 
-            return relationCluster?.GetRelatedObjects<SystemSpace>(systemSpaceComponent)?.FirstOrDefault();
+            return systemRelationCluster?.GetRelatedObjects<SystemSpace>(systemSpaceComponent)?.FirstOrDefault();
         }
 
-        public List<ISystemResult> GetSystemResults(ISystemObject systemObject)
+        public List<ISystemResult> GetSystemResults(ISystemJSAMObject systemJSAMObject)
         {
-            return GetSystemResults<ISystemResult>(systemObject);
+            return GetSystemResults<ISystemResult>(systemJSAMObject);
         }
 
-        public List<T> GetSystemResults<T>(ISystemObject systemObject) where T : ISystemResult
+        public List<T> GetSystemResults<T>(ISystemJSAMObject systemJSAMObject) where T : ISystemResult
         {
-            if (relationCluster == null || systemObject == null)
+            if (systemRelationCluster == null || systemJSAMObject == null)
             {
                 return null;
             }
 
-            return relationCluster.GetRelatedObjects<T>(systemObject)?.ConvertAll(x => Core.Query.Clone(x));
+            return systemRelationCluster.GetRelatedObjects<T>(systemJSAMObject)?.ConvertAll(x => Core.Query.Clone(x));
         }
 
         public List<T> GetSystemResults<T>() where T : ISystemResult
         {
-            return relationCluster?.GetObjects<T>()?.ConvertAll(x => Core.Query.Clone(x));
+            return systemRelationCluster?.GetObjects<T>()?.ConvertAll(x => Core.Query.Clone(x));
         }
 
         public List<ISystemResult> GetSystemResults()
@@ -199,9 +199,9 @@ namespace SAM.Core.Systems
             return GetSystemResults<ISystemResult>();
         }
 
-        public T Find<T>(Func<T, bool> func) where T :ISystemObject, IJSAMObject
+        public T Find<T>(Func<T, bool> func) where T : ISystemJSAMObject
         {
-            T t = relationCluster.GetObjects<T>(func).FirstOrDefault();
+            T t = systemRelationCluster.GetObjects<T>(func).FirstOrDefault();
             if (t == null)
             {
                 return t;
@@ -210,9 +210,9 @@ namespace SAM.Core.Systems
             return t.Clone();
         }
 
-        public List<T> FindAll<T>(Func<T, bool> func) where T : ISystemObject, IJSAMObject
+        public List<T> FindAll<T>(Func<T, bool> func) where T : ISystemJSAMObject
         {
-            List<T> ts = relationCluster.GetObjects<T>(func);
+            List<T> ts = systemRelationCluster.GetObjects<T>(func);
             if (ts == null)
             {
                 return ts;
@@ -221,23 +221,23 @@ namespace SAM.Core.Systems
             return ts.ConvertAll(x => x.Clone());
         }
 
-        public List<ISystemObject> GetRelatedObjects(ISystemObject systemObject, Type type = null)
+        public List<ISystemJSAMObject> GetRelatedObjects(ISystemJSAMObject systemJSAMObject, Type type = null)
         {
-            if (systemObject == null)
+            if (systemJSAMObject == null)
             {
                 return null;
             }
 
-            List<object> objects = type == null ? relationCluster?.GetRelatedObjects(systemObject, typeof(ISystemObject)) : relationCluster.GetRelatedObjects(systemObject, type);
+            List<ISystemJSAMObject> objects = type == null ? systemRelationCluster?.GetRelatedObjects(systemJSAMObject, typeof(ISystemJSAMObject)) : systemRelationCluster.GetRelatedObjects(systemJSAMObject, type);
             if (objects == null)
             {
                 return null;
             }
 
-            List<ISystemObject> result = new List<ISystemObject>();
-            foreach (object @object in objects)
+            List<ISystemJSAMObject> result = new List<ISystemJSAMObject>();
+            foreach (ISystemJSAMObject @object in objects)
             {
-                ISystemObject systemObject_Temp = (@object as IJSAMObject)?.Clone() as ISystemObject;
+                ISystemJSAMObject systemObject_Temp = @object?.Clone() as ISystemJSAMObject;
                 if (systemObject_Temp == null)
                 {
                     continue;
@@ -249,14 +249,14 @@ namespace SAM.Core.Systems
             return result;
         }
 
-        public List<T> GetRelatedObjects<T>(ISystemObject systemObject) where T : ISystemObject, IJSAMObject
+        public List<T> GetRelatedObjects<T>(ISystemJSAMObject systemJSAMObject) where T : ISystemJSAMObject
         {
-            if (systemObject == null)
+            if (systemJSAMObject == null)
             {
                 return null;
             }
 
-            List<ISystemObject> systemObjects = GetRelatedObjects(systemObject, typeof(T));
+            List<ISystemJSAMObject> systemObjects = GetRelatedObjects(systemJSAMObject, typeof(T));
             if (systemObjects == null)
             {
                 return null;

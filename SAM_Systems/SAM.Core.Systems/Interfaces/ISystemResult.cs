@@ -1,6 +1,6 @@
 ﻿namespace SAM.Core.Systems
 {
-    public interface ISystemResult : IResult, IJSAMObject, ISystemObject
+    public interface ISystemResult : IResult, ISystemJSAMObject
     {
     }
 }
