@@ -83,9 +83,9 @@ namespace SAM.Core.Systems
             return true;
         }
 
-        public bool Add(ISystemComponentResult systemEquipmentResult, ISystemComponent systemComponent = null)
+        public bool Add(ISystemComponentResult systemComponentResult, ISystemComponent systemComponent = null)
         {
-            ISystemComponentResult systemComponentResult_Temp = systemEquipmentResult?.Clone();
+            ISystemComponentResult systemComponentResult_Temp = systemComponentResult?.Clone();
             if (systemComponentResult_Temp == null)
             {
                 return false;

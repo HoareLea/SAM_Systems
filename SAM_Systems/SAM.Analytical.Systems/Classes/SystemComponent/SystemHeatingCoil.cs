@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json.Linq;
+using SAM.Core.Systems;
 
-namespace SAM.Core.Systems
+namespace SAM.Analytical.Systems
 {
     public class SystemHeatingCoil : SystemComponent
     {

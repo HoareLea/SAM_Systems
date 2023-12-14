@@ -55,6 +55,7 @@
     <Compile Include="Classes\SystemEnergyCentre.cs" />
     <Compile Include="Classes\SystemRelationCluster.cs" />
     <Compile Include="Classes\SystemSpace.cs" />
+    <Compile Include="Interfaces\IControl.cs" />
     <Compile Include="Interfaces\ISystemControl.cs" />
     <Compile Include="Interfaces\ISystemJSAMObject.cs" />
     <Compile Include="Interfaces\ISystemResult.cs" />
