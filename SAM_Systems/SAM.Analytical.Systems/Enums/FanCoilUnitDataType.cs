@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace SAM.Core.Systems
+namespace SAM.Analytical.Systems
 {
     [Description("Fan Coild Unit Data Type")]
     public enum FanCoilUnitDataType

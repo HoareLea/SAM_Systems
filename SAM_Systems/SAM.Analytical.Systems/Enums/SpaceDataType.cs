@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace SAM.Core.Systems
+namespace SAM.Analytical.Systems
 {
     [Description("System Space Data Type")]
     public enum SystemSpaceDataType

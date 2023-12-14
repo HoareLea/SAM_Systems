@@ -1,12 +1,14 @@
 ﻿using Newtonsoft.Json.Linq;
+using SAM.Core;
+using SAM.Core.Systems;
 using System.Collections.Generic;
 
-namespace SAM.Core.Systems
+namespace SAM.Analytical.Systems
 {
     public class SystemFanCoilUnitResult : SystemIndexedDoublesResult, ISystemComponentResult
     {
         public SystemFanCoilUnitResult(string uniqueId, string name, string source, Dictionary<FanCoilUnitDataType, IndexedDoubles> dictionary)
-            : base(uniqueId, name, source, Query.Dictionary(dictionary))
+            : base(uniqueId, name, source, Core.Systems.Query.Dictionary(dictionary))
         {
         }
 

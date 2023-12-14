@@ -1,27 +1,18 @@
 ﻿using Newtonsoft.Json.Linq;
-using SAM.Core;
+using SAM.Core.Systems;
 
 namespace SAM.Analytical.Systems
 {
-    public class HeatingGroup : SAMObject
+    public class FluidSystem : SystemObject, IMechanicalSystem
     {
-
-        public HeatingGroup(HeatingGroup heatingGroup)
-            :base(heatingGroup)
+        public FluidSystem(AirSystem airSystem)
+            : base(airSystem)
         {
-
         }
 
-        public HeatingGroup(JObject jObject)
+        public FluidSystem(JObject jObject)
             : base(jObject)
         {
-
-        }
-
-        public HeatingGroup(string name)
-            : base(name)
-        {
-
         }
 
         public override bool FromJObject(JObject jObject)
@@ -33,6 +24,5 @@ namespace SAM.Analytical.Systems
         {
             return base.ToJObject();
         }
-
     }
 }

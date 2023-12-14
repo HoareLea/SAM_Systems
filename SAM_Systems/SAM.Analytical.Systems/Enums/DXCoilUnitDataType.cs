@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace SAM.Core.Systems
+namespace SAM.Analytical.Systems
 {
     [Description("DX Coil Unit Data Type")]
     public enum DXCoilUnitDataType

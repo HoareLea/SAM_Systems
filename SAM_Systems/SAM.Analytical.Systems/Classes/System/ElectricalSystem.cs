@@ -1,15 +1,16 @@
 ﻿using Newtonsoft.Json.Linq;
+using SAM.Core.Systems;
 
-namespace SAM.Core.Systems
+namespace SAM.Analytical.Systems
 {
-    public class AirSystem : SystemObject, IMechanicalSystem
+    public class ElectricalSystem : SystemObject, ISystem
     {
-        public AirSystem(AirSystem airSystem) 
+        public ElectricalSystem(AirSystem airSystem)
             : base(airSystem)
         {
         }
 
-        public AirSystem(JObject jObject)
+        public ElectricalSystem(JObject jObject)
             : base(jObject)
         {
         }

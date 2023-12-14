@@ -111,9 +111,9 @@ namespace SAM.Core.Systems
             return true;
         }
 
-        public bool Add(SystemSpaceResult systemSpaceResult, SystemSpace systemSpace = null)
+        public bool Add(ISystemSpaceResult systemSpaceResult, SystemSpace systemSpace = null)
         {
-            SystemSpaceResult systemSpaceResult_Temp = systemSpaceResult?.Clone();
+            ISystemSpaceResult systemSpaceResult_Temp = systemSpaceResult?.Clone();
             if (systemSpaceResult_Temp == null)
             {
                 return false;

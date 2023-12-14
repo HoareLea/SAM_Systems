@@ -47,41 +47,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Classes\Result\SystemComponent\SystemSpaceResult.cs" />
-    <Compile Include="Classes\Result\SystemComponent\SystemRadiatorResult.cs" />
-    <Compile Include="Classes\Result\SystemComponent\SystemFanCoilUnitResult.cs" />
-    <Compile Include="Classes\Result\SystemComponent\SystemDXCoilUnitResult.cs" />
-    <Compile Include="Classes\Result\SystemComponent\SystemChilledBeamResult.cs" />
-    <Compile Include="Classes\Result\SystemIndexedDoublesResult.cs" />
-    <Compile Include="Classes\SystemCircuit\SystemCircuit.cs" />
-    <Compile Include="Classes\SystemComponent\SystemDXCoilUnit.cs" />
-    <Compile Include="Classes\SystemComponent\SystemBoiler.cs" />
-    <Compile Include="Classes\SystemComponent\SystemChilledBeam.cs" />
-    <Compile Include="Classes\SystemComponent\SystemCoolingCoil.cs" />
-    <Compile Include="Classes\SystemComponent\SystemFanCoilUnit.cs" />
-    <Compile Include="Classes\SystemComponent\SystemHeatingCoil.cs" />
-    <Compile Include="Classes\SystemComponent\SystemComponent.cs" />
-    <Compile Include="Classes\SystemComponent\SystemRadiator.cs" />
+    <Compile Include="Classes\SystemIndexedDoublesResult.cs" />
+    <Compile Include="Classes\SystemCircuit.cs" />
+    <Compile Include="Classes\SystemComponent.cs" />
     <Compile Include="Classes\SystemObject.cs" />
     <Compile Include="Classes\SystemPlantRoom.cs" />
     <Compile Include="Classes\SystemEnergyCentre.cs" />
     <Compile Include="Classes\SystemRelationCluster.cs" />
     <Compile Include="Classes\SystemSpace.cs" />
-    <Compile Include="Classes\System\AirSystem.cs" />
-    <Compile Include="Classes\System\ElectricalSystem.cs" />
-    <Compile Include="Classes\System\FluidSystem.cs" />
-    <Compile Include="Enums\ChilledBeamDataType.cs" />
-    <Compile Include="Enums\DXCoilUnitDataType.cs" />
-    <Compile Include="Enums\FanCoilUnitDataType.cs" />
-    <Compile Include="Enums\RadiatorDataType.cs" />
-    <Compile Include="Enums\SpaceDataType.cs" />
     <Compile Include="Interfaces\ISystemControl.cs" />
     <Compile Include="Interfaces\ISystemJSAMObject.cs" />
     <Compile Include="Interfaces\ISystemResult.cs" />
     <Compile Include="Interfaces\ISystemSpaceResult.cs" />
     <Compile Include="Interfaces\ISystemComponentResult.cs" />
     <Compile Include="Interfaces\ISystemComponent.cs" />
-    <Compile Include="Interfaces\IMechanicalSystem.cs" />
     <Compile Include="Interfaces\ISystem.cs" />
     <Compile Include="Interfaces\ISystemSpaceComponent.cs" />
     <Compile Include="Interfaces\ISystemSpatialObject.cs" />
@@ -89,11 +68,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Query\Dictionary.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Convert\" />
-    <Folder Include="Create\" />
-    <Folder Include="Modify\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json">
       <Version>13.0.2</Version>

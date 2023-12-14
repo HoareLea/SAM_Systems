@@ -1,7 +1,9 @@
 ﻿using Newtonsoft.Json.Linq;
+using SAM.Core;
+using SAM.Core.Systems;
 using System.Collections.Generic;
 
-namespace SAM.Core.Systems
+namespace SAM.Analytical.Systems
 {
     public class SystemSpaceResult : SystemIndexedDoublesResult, ISystemSpaceResult
     {
@@ -26,7 +28,7 @@ namespace SAM.Core.Systems
         }
 
         public SystemSpaceResult(string uniqueId, string name, string source, double area, double volume, Dictionary<SystemSpaceDataType, IndexedDoubles> dictionary)
-            : base(name, source, uniqueId, Query.Dictionary(dictionary))
+            : base(name, source, uniqueId, Core.Systems.Query.Dictionary(dictionary))
         {
             this.area = area;
             this.volume = volume;

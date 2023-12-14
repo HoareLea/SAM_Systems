@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace SAM.Core.Systems
+namespace SAM.Analytical.Systems
 {
     [Description("Radiator Data Type")]
     public enum RadiatorDataType
