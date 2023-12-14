@@ -1,11 +1,10 @@
 ﻿using Grasshopper.Kernel;
-using SAM.Analytical.Grasshopper.Tas.TPD;
 using SAM.Core.Grasshopper.Systems.Properties;
 using SAM.Core.Systems;
 using System;
 using System.Collections.Generic;
 
-namespace SAM.Core.Grasshopper
+namespace SAM.Core.Grasshopper.Systems
 {
     public class SAMAnalyticalSystemPlantRoomRelatedObjects : GH_SAMVariableOutputParameterComponent
     {
@@ -22,7 +21,7 @@ namespace SAM.Core.Grasshopper
         /// <summary>
         /// Provides an Icon for the component.
         /// </summary>
-        protected override System.Drawing.Bitmap Icon => Resources.SAM_Small;
+        protected override System.Drawing.Bitmap Icon => Resources.SAM3_0;
 
         public override GH_Exposure Exposure => GH_Exposure.primary;
 
@@ -119,132 +118,6 @@ namespace SAM.Core.Grasshopper
             if (index != -1)
                 dataAccess.SetDataList(index, result);
 
-
-
-            //HashSet<string> names = new HashSet<string>();
-            //foreach (object @object in result)
-            //{
-            //    object value = @object;
-            //    if (@object is IGH_Goo)
-            //    {
-            //        value = (@object as dynamic).Value;
-            //    }
-
-            //    string name = value?.GetType()?.Name;
-            //    if (string.IsNullOrWhiteSpace(name))
-            //    {
-            //        continue;
-            //    }
-
-            //    names.Add(name);
-            //}
-
-            //List<string> names_Temp = names.ToList();
-            //names_Temp.Sort();
-
-            //IEnumerable<GooObjectParam> gooParameterParams = names_Temp.ConvertAll(x => new GooObjectParam(x));
-
-
-            //Dictionary<string, IList<IGH_Param>> dictionary = new Dictionary<string, IList<IGH_Param>>();
-            //foreach (IGH_Param param in Params.Output)
-            //{
-            //    if (param.Recipients == null && param.Recipients.Count == 0)
-            //        continue;
-
-            //    GooObjectParam gooParameterParam = param as GooObjectParam;
-            //    if (gooParameterParam == null)
-            //        continue;
-
-            //    dictionary.Add(gooParameterParam.Name, new List<IGH_Param>(gooParameterParam.Recipients));
-            //}
-
-            //while (Params.Output != null && Params.Output.Count() > 0)
-            //    Params.UnregisterOutputParameter(Params.Output[0]);
-
-            //if (gooParameterParams != null)
-            //{
-            //    foreach (GooObjectParam gooParameterParam in gooParameterParams)
-            //    {
-            //        if (gooParameterParam == null)
-            //            continue;
-
-            //        if (gooParameterParam.Attributes is null)
-            //            gooParameterParam.Attributes = new GH_LinkedParamAttributes(gooParameterParam, Attributes);
-
-            //        gooParameterParam.Access = GH_ParamAccess.list;
-            //        Params.RegisterOutputParam(gooParameterParam);
-
-            //        IList<IGH_Param> @params = null;
-
-            //        if (!dictionary.TryGetValue(gooParameterParam.Name, out @params))
-            //            continue;
-
-            //        foreach (IGH_Param param in @params)
-            //            param.AddSource(gooParameterParam);
-            //    }
-            //}
-
-            //List<Tuple<int, string, List<GooObject>>> tuples = new List<Tuple<int, string, List<GooObject>>>();
-            //for (int i = 0; i < Params.Output.Count; ++i)
-            //{
-            //    GooObjectParam gooParameterParam = Params.Output[i] as GooObjectParam;
-            //    if (gooParameterParam == null || string.IsNullOrWhiteSpace(gooParameterParam.Name))
-            //    {
-            //        continue;
-            //    }
-
-            //    tuples.Add(new Tuple<int, string, List<GooObject>>(i, gooParameterParam.Name, new List<GooObject>()));
-            //}
-
-            //for (int i = 0; i < result.Count; i++)
-            //{
-            //    object @object = result[i];
-
-            //    if (@object is IGH_Goo)
-            //    {
-            //        @object = (@object as dynamic).Value;
-            //    }
-
-            //    if (@object is Rhino.Geometry.GeometryBase)
-            //    {
-            //        if (((Rhino.Geometry.GeometryBase)@object).Disposed)
-            //        {
-            //            return;
-            //        }
-
-            //        @object = ((Rhino.Geometry.GeometryBase)@object).Duplicate();
-            //    }
-
-            //    if (@object is IJSAMObject)
-            //    {
-            //        IJSAMObject jSAMObject = Core.Query.Clone((IJSAMObject)@object);
-            //        if (jSAMObject != null)
-            //            @object = jSAMObject;
-            //    }
-
-            //    string name = @object?.GetType()?.Name;
-            //    if (string.IsNullOrWhiteSpace(name))
-            //    {
-            //        continue;
-            //    }
-
-            //    List<GooObject> gooObjects = tuples.Find(x => name.Equals(x.Item2))?.Item3;
-            //    if (gooObjects == null)
-            //    {
-            //        continue;
-            //    }
-
-            //    gooObjects.Add(new GooObject(@object));
-
-            //}
-
-            //for (int i = 0; i < Params.Output.Count; ++i)
-            //{
-            //    List<GooObject> gooObjects = tuples.Find(x => x.Item1 == i)?.Item3;
-            //    dataAccess.SetDataList(i, gooObjects);
-            //}
-
-            //Ex
         }
     }
 }

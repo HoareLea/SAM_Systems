@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace SAM.Analytical.Grasshopper.Tas.TPD
+namespace SAM.Core.Grasshopper.Systems
 {
     public class GooSystemSpace : GooJSAMObject<SystemSpace>
     {
@@ -50,7 +50,7 @@ namespace SAM.Analytical.Grasshopper.Tas.TPD
     {
         public override Guid ComponentGuid => new Guid("07d0a492-c278-494b-91ac-497956f677bd");
 
-        protected override System.Drawing.Bitmap Icon => Resources.SAM_Small;
+        protected override System.Drawing.Bitmap Icon => Resources.SAM3_0;
 
         public GooSystemSpaceParam()
             : base(typeof(SystemSpace).Name, typeof(SystemSpace).Name, typeof(SystemSpace).FullName.Replace(".", " "), "Params", "SAM")

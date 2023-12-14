@@ -1,14 +1,13 @@
 ﻿using Grasshopper.Kernel;
 using Grasshopper.Kernel.Types;
 using SAM.Core.Grasshopper.Systems.Properties;
-using SAM.Core.Grasshopper;
 using SAM.Core.Systems;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace SAM.Analytical.Grasshopper.Tas.TPD
+namespace SAM.Core.Grasshopper.Systems
 {
     public class GooSystemPlantRoom : GooJSAMObject<SystemPlantRoom>
     {
@@ -24,7 +23,7 @@ namespace SAM.Analytical.Grasshopper.Tas.TPD
 
         public override IGH_Goo Duplicate()
         {
-            return new GooSystemObject(Value);
+            return new GooSystemPlantRoom(Value);
         }
 
         public override bool CastFrom(object source)
@@ -48,9 +47,9 @@ namespace SAM.Analytical.Grasshopper.Tas.TPD
 
     public class GooSystemPlantRoomParam : GH_PersistentParam<GooSystemPlantRoom>
     {
-        public override Guid ComponentGuid => new Guid("9845418e-3091-49c4-a7f9-b1ddfb808dab");
+        public override Guid ComponentGuid => new Guid("fec532ae-cc6d-48ae-9765-939c109393c7");
 
-        protected override System.Drawing.Bitmap Icon => Resources.SAM_Small;
+        protected override System.Drawing.Bitmap Icon => Resources.SAM3_0;
 
         public GooSystemPlantRoomParam()
             : base(typeof(SystemPlantRoom).Name, typeof(SystemPlantRoom).Name, typeof(SystemPlantRoom).FullName.Replace(".", " "), "Params", "SAM")

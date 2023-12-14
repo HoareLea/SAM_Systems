@@ -1,14 +1,13 @@
 ﻿using Grasshopper.Kernel;
 using Grasshopper.Kernel.Types;
 using SAM.Core.Grasshopper.Systems.Properties;
-using SAM.Core.Grasshopper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using SAM.Core.Systems;
 
-namespace SAM.Analytical.Grasshopper.Tas.TPD
+namespace SAM.Core.Grasshopper.Systems
 {
     public class GooSystemEnergyCentre : GooJSAMObject<SystemEnergyCentre>
     {
@@ -40,7 +39,7 @@ namespace SAM.Analytical.Grasshopper.Tas.TPD
     {
         public override Guid ComponentGuid => new Guid("49858433-6e52-493a-bea1-e2e76e4e9170");
 
-        protected override System.Drawing.Bitmap Icon => Resources.SAM_Small;
+        protected override System.Drawing.Bitmap Icon => Resources.SAM3_0;
 
         public GooSystemEnergyCentreParam()
             : base(typeof(SystemEnergyCentre).Name, typeof(SystemEnergyCentre).Name, typeof(SystemEnergyCentre).FullName.Replace(".", " "), "Params", "SAM")
@@ -61,7 +60,7 @@ namespace SAM.Analytical.Grasshopper.Tas.TPD
         {
             Menu_AppendItem(menu, "Save As...", Menu_SaveAs, VolatileData.AllData(true).Any());
 
-            //Menu_AppendSeparator(menu);
+            Menu_AppendSeparator(menu);
 
             base.AppendAdditionalMenuItems(menu);
         }
