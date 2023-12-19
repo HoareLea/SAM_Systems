@@ -30,9 +30,10 @@ namespace SAM.Core.Systems
 
         }
 
-        public bool Add(SystemSpace systemSpace)
+        public bool Add(ISystemSpace systemSpace)
         {
-            if (systemSpace == null)
+            ISystemSpace systemSpace_Temp = systemSpace?.Clone();
+            if (systemSpace_Temp == null)
             {
                 return false;
             }
@@ -42,7 +43,7 @@ namespace SAM.Core.Systems
                 systemRelationCluster = new SystemRelationCluster();
             }
 
-            return systemRelationCluster.AddObject(new SystemSpace(systemSpace));
+            return systemRelationCluster.AddObject(systemSpace_Temp);
         }
 
         public bool Add(ISystemComponent systemComponent)
@@ -61,32 +62,10 @@ namespace SAM.Core.Systems
             return systemRelationCluster.AddObject(systemComponent_Temp);
         }
 
-        public bool Add(ISystemSpaceComponent systemSpaceComponent, SystemSpace systemSpace = null)
+        public bool Add(ISystem system)
         {
-            bool result = Add(systemSpaceComponent);
-            if (!result)
-            {
-                return result;
-            }
-
-            if (systemSpace == null)
-            {
-                return result;
-            }
-
-            if (!systemRelationCluster.Contains(systemSpace))
-            {
-                Add(systemSpace);
-            }
-
-            systemRelationCluster.AddRelation(systemSpace, systemSpaceComponent);
-            return true;
-        }
-
-        public bool Add(ISystemComponentResult systemComponentResult, ISystemComponent systemComponent = null)
-        {
-            ISystemComponentResult systemComponentResult_Temp = systemComponentResult?.Clone();
-            if (systemComponentResult_Temp == null)
+            ISystem system_Temp = system?.Clone();
+            if (system_Temp == null)
             {
                 return false;
             }
@@ -96,10 +75,72 @@ namespace SAM.Core.Systems
                 systemRelationCluster = new SystemRelationCluster();
             }
 
-            bool result = systemRelationCluster.AddObject(systemComponentResult_Temp);
-            if (!result)
+            return systemRelationCluster.AddObject(system_Temp);
+        }
+
+        public bool Add(ISystemResult systemResult)
+        {
+            ISystemResult systemResult_Temp = systemResult?.Clone();
+            if (systemResult_Temp == null)
             {
-                return result;
+                return false;
+            }
+
+            if (systemRelationCluster == null)
+            {
+                systemRelationCluster = new SystemRelationCluster();
+            }
+
+            return systemRelationCluster.AddObject(systemResult_Temp);
+        }
+
+        private bool Add(ISystemConnection systemConnection)
+        {
+            ISystemConnection systemConnection_Temp = systemConnection?.Clone();
+            if (systemConnection_Temp == null)
+            {
+                return false;
+            }
+
+            if (systemRelationCluster == null)
+            {
+                systemRelationCluster = new SystemRelationCluster();
+            }
+
+            return systemRelationCluster.AddObject(systemConnection_Temp);
+        }
+
+        public bool Connect(ISystemSpaceComponent systemSpaceComponent, ISystemSpace systemSpace)
+        {
+            if(systemSpaceComponent == null || systemSpace == null)
+            {
+                return false;
+            }
+
+            if (!systemRelationCluster.Contains(systemSpace))
+            {
+                Add(systemSpace);
+            }
+
+            if (!systemRelationCluster.Contains(systemSpaceComponent))
+            {
+                Add(systemSpaceComponent);
+            }
+
+            List<ISystemSpace> systemSpaces = systemRelationCluster?.GetRelatedObjects<ISystemSpace>(systemSpaceComponent);
+            if (systemSpaces != null && systemSpaces.Count != 0)
+            {
+                systemSpaces.ForEach(x => systemRelationCluster.RemoveRelation(x, systemSpaceComponent));
+            }
+
+            return systemRelationCluster.AddRelation(systemSpace, systemSpaceComponent);
+        }
+
+        public bool Connect(ISystemComponentResult systemComponentResult, ISystemComponent systemComponent)
+        {
+            if (systemComponentResult == null || systemComponent == null)
+            {
+                return false;
             }
 
             if (!systemRelationCluster.Contains(systemComponent))
@@ -107,32 +148,19 @@ namespace SAM.Core.Systems
                 Add(systemComponent);
             }
 
-            systemRelationCluster.AddRelation(systemComponent, systemComponentResult_Temp);
-            return true;
+            if (!systemRelationCluster.Contains(systemComponentResult))
+            {
+                Add(systemComponentResult);
+            }
+
+            return systemRelationCluster.AddRelation(systemComponent, systemComponentResult);
         }
 
-        public bool Add(ISystemSpaceResult systemSpaceResult, SystemSpace systemSpace = null)
+        public bool Connect(ISystemSpaceResult systemSpaceResult, ISystemSpace systemSpace)
         {
-            ISystemSpaceResult systemSpaceResult_Temp = systemSpaceResult?.Clone();
-            if (systemSpaceResult_Temp == null)
+            if (systemSpaceResult == null || systemSpace == null)
             {
                 return false;
-            }
-
-            if (systemRelationCluster == null)
-            {
-                systemRelationCluster = new SystemRelationCluster();
-            }
-
-            bool result = systemRelationCluster.AddObject(systemSpaceResult_Temp);
-            if (!result)
-            {
-                return result;
-            }
-
-            if (systemSpace == null)
-            {
-                return result;
             }
 
             if (!systemRelationCluster.Contains(systemSpace))
@@ -140,13 +168,306 @@ namespace SAM.Core.Systems
                 Add(systemSpace);
             }
 
-            systemRelationCluster.AddRelation(systemSpace, systemSpaceResult_Temp);
+            if (!systemRelationCluster.Contains(systemSpaceResult))
+            {
+                Add(systemSpaceResult);
+            }
+
+            return systemRelationCluster.AddRelation(systemSpace, systemSpaceResult);
+        }
+
+        public bool Connect(ISystem system, ISystemComponent systemComponent)
+        {
+            if (systemComponent == null || system == null)
+            {
+                return false;
+            }
+
+            if (!systemRelationCluster.Contains(system))
+            {
+                Add(system);
+            }
+
+            if (!systemRelationCluster.Contains(systemComponent))
+            {
+                Add(systemComponent);
+            }
+
+            return systemRelationCluster.AddRelation(system, systemComponent);
+        }
+
+        public bool Connect(ISystemComponent systemComponent_1, ISystemComponent systemComponent_2, ISystem system = null)
+        {
+            if(systemComponent_1 == null || systemComponent_2 == null)
+            {
+                return false;
+            }
+
+            if (!systemRelationCluster.Contains(systemComponent_1))
+            {
+                Add(systemComponent_1);
+            }
+
+            if (!systemRelationCluster.Contains(systemComponent_2))
+            {
+                Add(systemComponent_2);
+            }
+
+            if(system != null)
+            {
+                if (!systemRelationCluster.Contains(system))
+                {
+                    Add(system);
+                }
+            }
+
+            systemRelationCluster.AddRelation(systemComponent_1, systemComponent_2);
+
+            SystemConnection systemConnection = new SystemConnection();
+            Add(systemConnection);
+
+            systemRelationCluster.AddRelation(systemComponent_1, systemConnection);
+            systemRelationCluster.AddRelation(systemComponent_2, systemConnection);
+
+            if(system != null)
+            {
+                systemRelationCluster.AddRelation(systemComponent_1, system);
+                systemRelationCluster.AddRelation(systemComponent_2, system);
+                systemRelationCluster.AddRelation(systemConnection, system);
+            }
+
             return true;
         }
 
-        public List<SystemSpace> GetSystemSpaces()
+        public bool Connect(ISystemGroup systemGroup, ISystemComponent systemComponent)
         {
-            return systemRelationCluster?.GetObjects<SystemSpace>()?.ConvertAll(x => new SystemSpace(x));
+            if(systemGroup == null || systemComponent == null)
+            {
+                return false;
+            }
+
+            if (!systemRelationCluster.Contains(systemGroup))
+            {
+                Add(systemGroup);
+            }
+
+            if (!systemRelationCluster.Contains(systemComponent))
+            {
+                Add(systemComponent);
+            }
+
+            return systemRelationCluster.AddRelation(systemGroup, systemComponent);
+        }
+
+        public bool Connect(ISystemControl systemControl, ISystemConnection systemConnection)
+        {
+            if (systemControl == null || systemConnection == null)
+            {
+                return false;
+            }
+
+            if (!systemRelationCluster.Contains(systemControl))
+            {
+                Add(systemControl);
+            }
+
+            if (!systemRelationCluster.Contains(systemConnection))
+            {
+                Add(systemConnection);
+            }
+
+            return systemRelationCluster.AddRelation(systemControl, systemConnection);
+        }
+
+        public List<bool> Connect(ISystemGroup systemGroup, IEnumerable<ISystemComponent> systemComponents)
+        {
+            if (systemGroup == null ||  systemComponents == null)
+            {
+                return null;
+            }
+
+            List<bool> result = new List<bool>();
+            foreach(ISystemComponent systemComponent in systemComponents)
+            {
+                result.Add(Connect(systemGroup, systemComponent));
+            }
+
+            return result;
+        }
+
+        public List<bool> Connect(ISystem system, IEnumerable<ISystemComponent> systemComponents)
+        {
+            if(system == null || systemComponents == null)
+            {
+                return null;
+            }
+
+            List<bool> result = new List<bool>();
+            foreach(ISystemComponent systemComponent in systemComponents)
+            {
+                result.Add(Connect(system, systemComponent));
+            }
+
+            return result;
+        }
+
+        public bool Disconnect(ISystemSpaceComponent systemSpaceComponent, ISystemSpace systemSpace)
+        {
+            if (systemSpaceComponent == null || systemSpace == null)
+            {
+                return false;
+            }
+
+            return systemRelationCluster.RemoveRelation(systemSpace, systemSpaceComponent);
+        }
+
+        public bool Disconnect(ISystemComponentResult systemComponentResult, ISystemComponent systemComponent)
+        {
+            if (systemComponentResult == null || systemComponent == null)
+            {
+                return false;
+            }
+
+            return systemRelationCluster.RemoveRelation(systemComponent, systemComponentResult);
+        }
+
+        public bool Disconnect(ISystemSpaceResult systemSpaceResult, ISystemSpace systemSpace)
+        {
+            if (systemSpaceResult == null || systemSpace == null)
+            {
+                return false;
+            }
+
+            return systemRelationCluster.RemoveRelation(systemSpace, systemSpaceResult);
+        }
+
+        public bool Disconnect(ISystem system, ISystemComponent systemComponent)
+        {
+            if (system == null || systemComponent == null)
+            {
+                return false;
+            }
+
+            List<ISystemConnection> systemConnections = systemRelationCluster.GetRelatedObjects<ISystemConnection>(LogicalOperator.And, system, systemComponent);
+            if(systemConnections != null && systemConnections.Count != 0)
+            {
+                foreach(ISystemConnection systemConnection in systemConnections)
+                {
+                    Remove(systemConnection, true);
+                }
+            }
+
+
+            return systemRelationCluster.RemoveRelation(system, systemComponent);
+        }
+
+        public bool Disconnect(ISystemComponent systemComponent_1, ISystemComponent systemComponent_2, ISystem system = null)
+        {
+            List<ISystem> systems = system != null ? new List<ISystem>() { system } : systemRelationCluster.GetRelatedObjects<ISystem>(LogicalOperator.And, systemComponent_1, systemComponent_2);
+            if(systems == null || systems.Count == 0)
+            {
+                return systemRelationCluster.RemoveRelation(systemComponent_1, systemComponent_2);
+            }
+
+            foreach (ISystem system_Temp in systems)
+            {
+                List<ISystemConnection> systemConnections = systemRelationCluster.GetRelatedObjects<ISystemConnection>(LogicalOperator.And, systemComponent_1, systemComponent_2, system_Temp);
+                if(systemConnections != null && systemConnections.Count != 0)
+                {
+                    systemConnections.ForEach(x => Remove(x, false));
+                }
+
+            }
+
+            systems = systemRelationCluster.GetRelatedObjects<ISystem>(LogicalOperator.And, systemComponent_1, systemComponent_2);
+            if(systems == null || systems.Count == 0)
+            {
+                systemRelationCluster.RemoveRelation(systemComponent_1, systemComponent_2);
+            }
+
+            return true;
+        }
+
+        public bool Remove(ISystemConnection systemConnection)
+        {
+            return Remove(systemConnection, true);
+        }
+
+        private bool Remove(ISystemConnection systemConnection, bool removeSystemRelations)
+        {
+            if(systemConnection == null || systemRelationCluster == null)
+            {
+                return false;
+            }
+
+            if(removeSystemRelations)
+            {
+                List<ISystem> systems = systemRelationCluster.GetRelatedObjects<ISystem>(systemConnection);
+                if(systems != null && systems.Count != 0)
+                {
+                    List<Guid> guids = systems.ConvertAll(x => systemRelationCluster.GetGuid(x));
+
+                    List<ISystemComponent> systemComponents = systemRelationCluster.GetRelatedObjects<ISystemComponent>(systemConnection);
+                    if(systemComponents != null && systemComponents.Count != 0)
+                    {
+                        for(int i = 0; i < systemComponents.Count - 1; i++)
+                        {
+                            for (int j = 0; j < systemComponents.Count; j++)
+                            {
+                                List<ISystem> systems_SystemComponents = systemRelationCluster.GetRelatedObjects<ISystem>(LogicalOperator.And, systemComponents[i], systemComponents[j]);
+                                if(systems_SystemComponents != null && systems_SystemComponents.Count != 0)
+                                {
+                                    List<Guid> guids_SystemComponents = systems.ConvertAll(x => systemRelationCluster.GetGuid(x));
+                                    if(guids_SystemComponents.TrueForAll(x => guids.Contains(x)))
+                                    {
+                                        systemRelationCluster.RemoveRelation(systemComponents[i], systemComponents[j]);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+            }
+
+            return systemRelationCluster.RemoveObject(systemConnection);
+        }
+
+        public bool Remove(ISystemComponent systemComponent)
+        {
+            if(systemComponent == null)
+            {
+                return false;
+            }
+
+            List<ISystemConnection> systemConnections = systemRelationCluster.GetRelatedObjects<ISystemConnection>(systemComponent);
+            if (systemConnections != null && systemConnections.Count != 0)
+            {
+                systemConnections.ForEach(x => Remove(x, false));
+            }
+
+            return systemRelationCluster.RemoveObject(systemComponent);
+        }
+
+        public bool Remove(ISystem system)
+        {
+            if(system == null)
+            {
+                return false;
+            }
+
+            List<ISystemConnection> systemConnections = systemRelationCluster.GetRelatedObjects<ISystemConnection>(system);
+            if (systemConnections != null && systemConnections.Count != 0)
+            {
+                systemConnections.ForEach(x => Remove(x, true));
+            }
+
+            return systemRelationCluster.RemoveObject(system);
+        }
+
+        public List<ISystemSpace> GetSystemSpaces()
+        {
+            return systemRelationCluster?.GetObjects<ISystemSpace>()?.ConvertAll(x => x.Clone());
         }
 
         public List<T> GetSystemComponents<T>() where T : ISystemComponent
@@ -159,19 +480,26 @@ namespace SAM.Core.Systems
             return GetSystemComponents<ISystemComponent>();
         }
 
-        public List<T> GetSystemSpaceComponents<T>(SystemSpace systemSpace) where T : ISystemSpaceComponent
+        public List<T> GetSystemSpaceComponents<T>(ISystemSpace systemSpace) where T : ISystemSpaceComponent
         {
             return systemRelationCluster?.GetRelatedObjects<T>(systemSpace).ConvertAll(x => x.Clone());
         }
 
-        public SystemSpace GetSystemSpace(ISystemSpaceComponent systemSpaceComponent)
+        public T GetSystemSpace<T>(ISystemSpaceComponent systemSpaceComponent) where T: ISystemSpace
         {
             if(systemSpaceComponent == null)
             {
-                return null;
+                return default;
             }
 
-            return systemRelationCluster?.GetRelatedObjects<SystemSpace>(systemSpaceComponent)?.FirstOrDefault();
+            List<T> systemSpaces = systemRelationCluster?.GetRelatedObjects<T>(systemSpaceComponent);
+            if(systemSpaces == null || systemSpaces.Count == 0)
+            {
+                return default;
+            }
+
+
+            return systemSpaces[0];
         }
 
         public List<ISystemResult> GetSystemResults(ISystemJSAMObject systemJSAMObject)

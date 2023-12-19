@@ -1,9 +1,10 @@
 ﻿using Newtonsoft.Json.Linq;
 using SAM.Core.Systems;
+using System.Collections.Generic;
 
 namespace SAM.Analytical.Systems
 {
-    public class SystemFanCoilUnit : SystemComponent, ISystemSpaceComponent
+    public class SystemFanCoilUnit : SystemSpaceComponent
     {
         public double Pressure { get; set; }
         public double CoolingDuty { get; set; }
@@ -11,6 +12,17 @@ namespace SAM.Analytical.Systems
         public double DesignFlowRate { get; set; }
         public double HeatingEfficiency { get; set; }
         public double OverallEfficiency { get; set; }
+
+        public override List<SystemConnector> SystemConnectors
+        {
+            get
+            {
+                return new List<SystemConnector>
+                {
+
+                };
+            }
+        }
 
         public SystemFanCoilUnit(string name)
             : base(name)

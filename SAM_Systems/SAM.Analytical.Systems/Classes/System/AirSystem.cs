@@ -1,9 +1,8 @@
 ﻿using Newtonsoft.Json.Linq;
-using SAM.Core.Systems;
 
 namespace SAM.Analytical.Systems
 {
-    public class AirSystem : SystemObject, IMechanicalSystem
+    public class AirSystem : FluidSystem
     {
         public AirSystem(AirSystem airSystem) 
             : base(airSystem)

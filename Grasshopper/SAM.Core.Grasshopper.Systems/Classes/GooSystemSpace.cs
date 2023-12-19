@@ -10,14 +10,14 @@ using System.Windows.Forms;
 
 namespace SAM.Core.Grasshopper.Systems
 {
-    public class GooSystemSpace : GooJSAMObject<SystemSpace>
+    public class GooSystemSpace : GooJSAMObject<ISystemSpace>
     {
         public GooSystemSpace()
             : base()
         {
         }
 
-        public GooSystemSpace(SystemSpace systemSpace)
+        public GooSystemSpace(ISystemSpace systemSpace)
             : base(systemSpace)
         {
         }
@@ -41,7 +41,7 @@ namespace SAM.Core.Grasshopper.Systems
         {
             get
             {
-                return Value == null ? typeof(SystemSpace).Name : Value.GetType().Name;
+                return Value == null ? typeof(ISystemSpace).Name : Value.GetType().Name;
             }
         }
     }
@@ -53,7 +53,7 @@ namespace SAM.Core.Grasshopper.Systems
         protected override System.Drawing.Bitmap Icon => Resources.SAM3_0;
 
         public GooSystemSpaceParam()
-            : base(typeof(SystemSpace).Name, typeof(SystemSpace).Name, typeof(SystemSpace).FullName.Replace(".", " "), "Params", "SAM")
+            : base(typeof(ISystemSpace).Name, typeof(ISystemSpace).Name, typeof(ISystemSpace).FullName.Replace(".", " "), "Params", "SAM")
         {
         }
 

@@ -1,18 +1,25 @@
 ﻿using Newtonsoft.Json.Linq;
-using SAM.Core.Systems;
 
-namespace SAM.Analytical.Systems
+namespace SAM.Core.Systems
 {
-    public class FluidSystem : SystemObject, IMechanicalSystem
+    public abstract class SystemJunction : SystemComponent
     {
-        public FluidSystem(FluidSystem fluidSystem)
-            : base(fluidSystem)
+        public SystemJunction(SystemJunction systemJunction)
+            : base(systemJunction)
         {
+
         }
 
-        public FluidSystem(JObject jObject)
+        public SystemJunction(JObject jObject)
             : base(jObject)
         {
+
+        }
+
+        public SystemJunction(string name)
+            : base(name)
+        {
+
         }
 
         public override bool FromJObject(JObject jObject)

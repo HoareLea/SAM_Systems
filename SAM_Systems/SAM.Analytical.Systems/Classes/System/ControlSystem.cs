@@ -3,14 +3,14 @@ using SAM.Core.Systems;
 
 namespace SAM.Analytical.Systems
 {
-    public class FluidSystem : SystemObject, IMechanicalSystem
+    public class ControlSystem : SystemObject, IControlSystem
     {
-        public FluidSystem(FluidSystem fluidSystem)
-            : base(fluidSystem)
+        public ControlSystem(ControlSystem controlSystem)
+            : base(controlSystem)
         {
         }
 
-        public FluidSystem(JObject jObject)
+        public ControlSystem(JObject jObject)
             : base(jObject)
         {
         }

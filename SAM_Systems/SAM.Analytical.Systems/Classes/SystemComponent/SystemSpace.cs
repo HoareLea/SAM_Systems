@@ -1,8 +1,10 @@
 ﻿using Newtonsoft.Json.Linq;
+using SAM.Core.Systems;
+using System.Collections.Generic;
 
-namespace SAM.Core.Systems
+namespace SAM.Analytical.Systems
 {
-    public class SystemSpace : SystemObject, ISystemSpatialObject
+    public class SystemSpace : SystemObject, ISystemSpace
     {
         private double area;
         private double volume;
@@ -43,6 +45,19 @@ namespace SAM.Core.Systems
             get
             {
                 return volume;
+            }
+        }
+
+        public List<SystemConnector> SystemConnectors
+        {
+            get
+            {
+                return new List<SystemConnector>()
+                { 
+                    Create.SystemConnector<AirSystem>(Core.Direction.In),
+                    Create.SystemConnector<AirSystem>(Core.Direction.Out),
+                    Create.SystemConnector<IControlSystem>()
+                };
             }
         }
 

@@ -1,12 +1,26 @@
 ﻿using Newtonsoft.Json.Linq;
 using SAM.Core.Systems;
+using System.Collections.Generic;
 
 namespace SAM.Analytical.Systems
 {
-    public class SystemRadiator : SystemComponent, ISystemSpaceComponent
+    public class SystemRadiator : SystemSpaceComponent
     {
         public double Efficiency { get; set; }
         public double Duty { get; set; }
+
+        public override List<SystemConnector> SystemConnectors
+        {
+            get
+            {
+                return new List<SystemConnector>()
+                {
+                    Create.SystemConnector<LiquidSystem>(Core.Direction.In),
+                    Create.SystemConnector<LiquidSystem>(Core.Direction.Out),
+                    Create.SystemConnector<ElectricalSystem>(Core.Direction.In),
+                };
+            }
+        }
 
         public SystemRadiator(string name)
             : base(name)

@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json.Linq;
+using System.Collections.Generic;
 
 namespace SAM.Core.Systems
 {
@@ -21,6 +22,8 @@ namespace SAM.Core.Systems
         {
 
         }
+
+        public abstract List<SystemConnector> SystemConnectors { get; }
 
         public override bool FromJObject(JObject jObject)
         {

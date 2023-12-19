@@ -3,7 +3,7 @@ using SAM.Core.Systems;
 
 namespace SAM.Analytical.Systems
 {
-    public class ElectricalSystem : SystemObject, ISystem
+    public class ElectricalSystem : SystemObject, IElectricalSystem
     {
         public ElectricalSystem(AirSystem airSystem)
             : base(airSystem)

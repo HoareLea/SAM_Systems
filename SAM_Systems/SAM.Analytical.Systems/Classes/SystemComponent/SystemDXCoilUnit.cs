@@ -1,9 +1,10 @@
 ﻿using Newtonsoft.Json.Linq;
 using SAM.Core.Systems;
+using System.Collections.Generic;
 
 namespace SAM.Analytical.Systems
 {
-    public class SystemDXCoilUnit : SystemComponent, ISystemSpaceComponent
+    public class SystemDXCoilUnit : SystemSpaceComponent
     {
         public double CoolingDuty { get; set; }
         public double HeatingDuty { get; set; }
@@ -30,6 +31,19 @@ namespace SAM.Analytical.Systems
                 HeatingDuty = systemDXCoilUnit.HeatingDuty;
                 DesignFlowRate = systemDXCoilUnit.DesignFlowRate;
                 OverallEfficiency = systemDXCoilUnit.OverallEfficiency;
+            }
+        }
+
+        public override List<SystemConnector> SystemConnectors
+        {
+            get
+            {
+                return new List<SystemConnector>()
+                {
+                    Create.SystemConnector<RefrigerantSystem>(Core.Direction.In),
+                    Create.SystemConnector<RefrigerantSystem>(Core.Direction.Out),
+                    Create.SystemConnector<IControlSystem>()
+                };
             }
         }
 

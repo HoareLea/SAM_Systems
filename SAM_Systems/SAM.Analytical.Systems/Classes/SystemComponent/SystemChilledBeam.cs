@@ -1,14 +1,27 @@
 ﻿using Newtonsoft.Json.Linq;
 using SAM.Core.Systems;
+using System.Collections.Generic;
 
 namespace SAM.Analytical.Systems
 {
-    public class SystemChilledBeam : SystemComponent, ISystemSpaceComponent
+    public class SystemChilledBeam : SystemSpaceComponent
     {
         public double CoolingDuty { get; set; }
         public double HeatingDuty { get; set; }
         public double DesignFlowRate { get; set; }
         public double HeatingEfficiency { get; set; }
+
+        public override List<SystemConnector> SystemConnectors
+        {
+            get
+            {
+                return new List<SystemConnector>()
+                {
+                    Create.SystemConnector<LiquidSystem>(Core.Direction.In),
+                    Create.SystemConnector<LiquidSystem>(Core.Direction.Out)
+                };
+            }
+        }
 
         public SystemChilledBeam(string name)
             : base(name)

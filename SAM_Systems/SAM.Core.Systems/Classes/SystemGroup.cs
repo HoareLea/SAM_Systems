@@ -1,20 +1,23 @@
 ﻿using Newtonsoft.Json.Linq;
+using System.Collections.Generic;
 
 namespace SAM.Core.Systems
 {
-    public abstract class SystemCircuit : SystemObject
+    public abstract class SystemGroup : SystemObject, ISystemGroup
     {
-        public SystemCircuit(SystemCircuit systemCircuit)
-            : base(systemCircuit)
+        public SystemGroup(SystemGroup systemGroup)
+            : base(systemGroup)
         {
 
         }
 
-        public SystemCircuit(JObject jObject)
+        public SystemGroup(JObject jObject)
             : base(jObject)
         {
 
         }
+
+        public abstract List<SystemConnector> SystemConnectors { get; }
 
         public override bool FromJObject(JObject jObject)
         {
@@ -25,5 +28,6 @@ namespace SAM.Core.Systems
         {
             return base.ToJObject();
         }
+
     }
 }
