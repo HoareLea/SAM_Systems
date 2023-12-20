@@ -49,6 +49,38 @@ namespace SAM.Core.Systems
             return !string.IsNullOrWhiteSpace(typeName) && IsValid(Type);
         }
 
+        public bool IsValid(ISystem system)
+        {
+            if(system == null)
+            {
+                return false;
+            }
+
+            return IsValid(new SystemType(system));
+        }
+
+        public bool IsValid(SystemType systemType)
+        {
+            if (systemType == null)
+            {
+                return false;
+            }
+
+            Type type = Type;
+            if (type == null)
+            {
+                return true;
+            }
+
+            Type type_SystemType = systemType.Type;
+            if (type_SystemType == null)
+            {
+                return false;
+            }
+
+            return type_SystemType.IsAssignableFrom(type);
+        }
+
         public static bool IsValid(Type type)
         {
             if(type == null)

@@ -4,21 +4,21 @@ using System.Collections.Generic;
 
 namespace SAM.Analytical.Systems
 {
-    public class SystemCoolingCoil: SystemComponent
+    public class SystemFan : SystemComponent
     {
-        public SystemCoolingCoil(string name)
+        public SystemFan(string name)
             : base(name)
         {
 
         }
 
-        public SystemCoolingCoil(SystemCoolingCoil systemCoolingCoil)
-            : base(systemCoolingCoil)
+        public SystemFan(SystemFan systemFan)
+            : base(systemFan)
         {
 
         }
 
-        public SystemCoolingCoil(JObject jObject)
+        public SystemFan(JObject jObject)
             : base(jObject)
         {
 
@@ -32,8 +32,7 @@ namespace SAM.Analytical.Systems
                 {
                     Create.SystemConnector<AirSystem>(Core.Direction.In),
                     Create.SystemConnector<AirSystem>(Core.Direction.Out),
-                    Create.SystemConnector<LiquidSystem>(Core.Direction.In),
-                    Create.SystemConnector<LiquidSystem>(Core.Direction.Out),
+                    Create.SystemConnector<ElectricalSystem>(),
                     Create.SystemConnector<IControlSystem>(),
                 };
             }

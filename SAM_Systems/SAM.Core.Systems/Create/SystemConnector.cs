@@ -11,5 +11,25 @@
         {
             return new SystemConnector(new SystemType(typeof(T)), direction);
         }
+
+        public static SystemConnector SystemConnector(System.Type type)
+        {
+            if(type == null || !type.IsAssignableFrom(typeof(ISystem)))
+            {
+                return null;
+            }
+
+            return SystemConnector(Direction.Undefined, type);
+        }
+
+        public static SystemConnector SystemConnector(Direction direction, System.Type type)
+        {
+            if (type == null || !type.IsAssignableFrom(typeof(ISystem)))
+            {
+                return null;
+            }
+
+            return new SystemConnector(new SystemType(type), direction);
+        }
     }
 }

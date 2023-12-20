@@ -1,22 +1,16 @@
 ﻿using Newtonsoft.Json.Linq;
-using SAM.Core.Systems;
 
 namespace SAM.Analytical.Systems
 {
-    public abstract class FluidSystem : SystemObject, IMechanicalSystem
+    public class CoolingSystem : LiquidSystem
     {
-        public FluidSystem(FluidSystem fluidSystem)
-            : base(fluidSystem)
+        public CoolingSystem(CoolingSystem coolingSystem) 
+            : base(coolingSystem)
         {
         }
 
-        public FluidSystem(JObject jObject)
+        public CoolingSystem(JObject jObject)
             : base(jObject)
-        {
-        }
-
-        public FluidSystem(string name)
-            : base(name)
         {
         }
 

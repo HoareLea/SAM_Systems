@@ -149,29 +149,31 @@ namespace SAM.Geometry.Systems
             return result.Clone();
         }
 
-        public DisplaySystemInstance Add(ISystemSpace systemSpace, DisplaySystemPlantRoom displaySystemPlantRoom, Point2D location)
-        {
-            if(systemSpace == null || displaySystemPlantRoom == null || location == null)
-            {
-                return null;
-            }
+        //public DisplaySystemInstance Add(ISystemSpace systemSpace, DisplaySystemPlantRoom displaySystemPlantRoom, Point2D location)
+        //{
+        //    if(systemSpace == null || displaySystemPlantRoom == null || location == null)
+        //    {
+        //        return null;
+        //    }
 
-            DisplaySystemPlantRoom displaySystemPlantRoom_Temp = displaySystemPlantRooms?.Find(x => x.Guid == displaySystemPlantRoom.Guid);
-            if (displaySystemPlantRoom_Temp == null)
-            {
-                return null;
-            }
+        //    DisplaySystemPlantRoom displaySystemPlantRoom_Temp = displaySystemPlantRooms?.Find(x => x.Guid == displaySystemPlantRoom.Guid);
+        //    if (displaySystemPlantRoom_Temp == null)
+        //    {
+        //        return null;
+        //    }
 
-            SystemPlantRoom systemPlantRoom = systemEnergyCentre?.GetSystemPlantRoom(displaySystemPlantRoom.ObjectReference);
-            if(systemPlantRoom == null)
-            {
-                return null;
-            }
+        //    SystemPlantRoom systemPlantRoom = systemEnergyCentre?.GetSystemPlantRoom(displaySystemPlantRoom.ObjectReference);
+        //    if(systemPlantRoom == null)
+        //    {
+        //        return null;
+        //    }
 
-            systemPlantRoom.Add(systemSpace);
+        //    systemPlantRoom.Add(systemSpace);
+
+        //    //DisplaySystemInstance DisplaySystemInstance = new DisplaySystemInstance(systemPlantRoom,)
 
 
-        }
+        //}
 
         public override bool FromJObject(JObject jObject)
         {

@@ -6,6 +6,12 @@ namespace SAM.Analytical.Systems
 {
     public class SystemHeatingCoil : SystemComponent
     {
+        public SystemHeatingCoil(string name)
+            : base(name)
+        {
+
+        }
+
         public SystemHeatingCoil(SystemHeatingCoil systemHeatingCoil)
             : base(systemHeatingCoil)
         {

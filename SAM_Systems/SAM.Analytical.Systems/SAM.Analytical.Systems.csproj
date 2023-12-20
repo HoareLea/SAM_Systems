@@ -52,6 +52,9 @@
     <Compile Include="Classes\Result\SystemFanCoilUnitResult.cs" />
     <Compile Include="Classes\Result\SystemRadiatorResult.cs" />
     <Compile Include="Classes\Result\SystemSpaceResult.cs" />
+    <Compile Include="Classes\SystemComponent\SystemDamper.cs" />
+    <Compile Include="Classes\SystemComponent\SystemFan.cs" />
+    <Compile Include="Classes\SystemComponent\SystemExchanger.cs" />
     <Compile Include="Classes\SystemComponent\SystemBoiler.cs" />
     <Compile Include="Classes\SystemComponent\SystemChilledBeam.cs" />
     <Compile Include="Classes\SystemComponent\SystemCoolingCoil.cs" />
@@ -59,9 +62,12 @@
     <Compile Include="Classes\SystemComponent\SystemFanCoilUnit.cs" />
     <Compile Include="Classes\SystemComponent\SystemHeatingCoil.cs" />
     <Compile Include="Classes\SystemComponent\SystemRadiator.cs" />
+    <Compile Include="Classes\SystemComponent\AirSystemGroup.cs" />
     <Compile Include="Classes\SystemComponent\SystemSpace.cs" />
     <Compile Include="Classes\System\ControlSystem.cs" />
     <Compile Include="Classes\System\ElectricalSystem.cs" />
+    <Compile Include="Classes\System\CoolingSystem.cs" />
+    <Compile Include="Classes\System\HeatingSystem.cs" />
     <Compile Include="Classes\System\RefrigerantSystem.cs" />
     <Compile Include="Classes\System\LiquidSystem.cs" />
     <Compile Include="Classes\System\AirSystem.cs" />

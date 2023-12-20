@@ -1,9 +1,10 @@
 ﻿using Newtonsoft.Json.Linq;
+using System.Collections.Generic;
 
 namespace SAM.Core.Systems
 {
-    public abstract class SystemJunction : SystemComponent
-    {
+    public class SystemJunction : SystemComponent
+    { 
         public SystemJunction(SystemJunction systemJunction)
             : base(systemJunction)
         {
@@ -16,10 +17,28 @@ namespace SAM.Core.Systems
 
         }
 
+        public SystemJunction()
+            : base(typeof(SystemJunction).Name)
+        {
+
+        }
+
         public SystemJunction(string name)
             : base(name)
         {
 
+        }
+
+        public override List<SystemConnector> SystemConnectors
+        {
+            get
+            {
+                return new List<SystemConnector>()
+                {
+                    Create.SystemConnector<ISystem>(Direction.In),
+                    Create.SystemConnector<ISystem>(Direction.Out)
+                };
+            }
         }
 
         public override bool FromJObject(JObject jObject)

@@ -45,6 +45,47 @@ namespace SAM.Core.Systems
             }
         }
 
+        public Direction Direction
+        {
+            get
+            {
+                return direction;
+            }
+        }
+
+        public SystemType SystemType
+        {
+            get
+            {
+                return systemType == null ? null : new SystemType(systemType);
+            }
+        }
+
+        public bool IsValid(ISystem system)
+        {
+            if(systemType == null)
+            {
+                return true;
+            }
+
+            return IsValid(new SystemType(system));
+        }
+
+        public bool IsValid(SystemType systemType)
+        {
+            if(systemType == null)
+            {
+                return false;
+            }
+
+            if (this.systemType == null)
+            {
+                return true;
+            }
+
+            return this.systemType.IsValid(systemType);
+        }
+
         public bool FromJObject(JObject jObject)
         {
             if(jObject == null)

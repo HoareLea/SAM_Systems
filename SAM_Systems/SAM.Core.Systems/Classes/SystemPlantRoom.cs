@@ -196,7 +196,7 @@ namespace SAM.Core.Systems
             return systemRelationCluster.AddRelation(system, systemComponent);
         }
 
-        public bool Connect(ISystemComponent systemComponent_1, ISystemComponent systemComponent_2, ISystem system = null)
+        public bool Connect(ISystemComponent systemComponent_1, ISystemComponent systemComponent_2, ISystem system = null, Direction direction = Direction.Undefined)
         {
             if(systemComponent_1 == null || systemComponent_2 == null)
             {
@@ -242,6 +242,11 @@ namespace SAM.Core.Systems
         public bool Connect(ISystemGroup systemGroup, ISystemComponent systemComponent)
         {
             if(systemGroup == null || systemComponent == null)
+            {
+                return false;
+            }
+
+            if(!systemGroup.IsValid(systemComponent))
             {
                 return false;
             }
@@ -311,6 +316,16 @@ namespace SAM.Core.Systems
             return result;
         }
 
+        public bool Disconnect(ISystemGroup systemGroup, ISystemComponent systemComponent)
+        {
+            if (systemGroup == null || systemComponent == null)
+            {
+                return false;
+            }
+
+            return systemRelationCluster.RemoveRelation(systemGroup, systemComponent);
+        }
+        
         public bool Disconnect(ISystemSpaceComponent systemSpaceComponent, ISystemSpace systemSpace)
         {
             if (systemSpaceComponent == null || systemSpace == null)
@@ -465,6 +480,16 @@ namespace SAM.Core.Systems
             return systemRelationCluster.RemoveObject(system);
         }
 
+        public bool Remove(ISystemGroup systemGroup)
+        {
+            if(systemGroup == null || systemRelationCluster == null)
+            {
+                return false;
+            }
+
+            return systemRelationCluster.RemoveObject(systemGroup);
+        }
+
         public List<ISystemSpace> GetSystemSpaces()
         {
             return systemRelationCluster?.GetObjects<ISystemSpace>()?.ConvertAll(x => x.Clone());
@@ -482,7 +507,7 @@ namespace SAM.Core.Systems
 
         public List<T> GetSystemSpaceComponents<T>(ISystemSpace systemSpace) where T : ISystemSpaceComponent
         {
-            return systemRelationCluster?.GetRelatedObjects<T>(systemSpace).ConvertAll(x => x.Clone());
+            return systemRelationCluster?.GetRelatedObjects<T>(systemSpace)?.ConvertAll(x => x.Clone());
         }
 
         public T GetSystemSpace<T>(ISystemSpaceComponent systemSpaceComponent) where T: ISystemSpace
