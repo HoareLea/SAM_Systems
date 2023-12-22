@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json.Linq;
-using System.Collections.Generic;
 
 namespace SAM.Core.Systems
 {
@@ -29,15 +28,15 @@ namespace SAM.Core.Systems
 
         }
 
-        public override List<SystemConnector> SystemConnectors
+        public override SystemConnectorManager SystemConnectorManager
         {
             get
             {
-                return new List<SystemConnector>()
-                {
-                    Create.SystemConnector<ISystem>(Direction.In),
-                    Create.SystemConnector<ISystem>(Direction.Out)
-                };
+                return Create.SystemConnectorManager
+                (
+                    Create.SystemConnector<ISystem>(Direction.In, 1),
+                    Create.SystemConnector<ISystem>(Direction.Out, 1)
+                );
             }
         }
 

@@ -1,6 +1,5 @@
 ﻿using Newtonsoft.Json.Linq;
 using SAM.Core.Systems;
-using System.Collections.Generic;
 
 namespace SAM.Analytical.Systems
 {
@@ -18,16 +17,16 @@ namespace SAM.Analytical.Systems
 
         }
 
-        public override List<SystemConnector> SystemConnectors
+        public override SystemConnectorManager SystemConnectorManager
         {
             get
             {
-                return new List<SystemConnector>()
-                {
-                    Create.SystemConnector<LiquidSystem>(Core.Direction.In),
-                    Create.SystemConnector<LiquidSystem>(Core.Direction.Out),
-                    Create.SystemConnector<IControlSystem>(),
-                };
+                return Create.SystemConnectorManager
+                (
+                    Create.SystemConnector<LiquidSystem>(Core.Direction.In, 1),
+                    Create.SystemConnector<LiquidSystem>(Core.Direction.Out, 1),
+                    Create.SystemConnector<IControlSystem>()
+                );
             }
         }
 

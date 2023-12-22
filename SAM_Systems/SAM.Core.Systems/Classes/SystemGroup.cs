@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace SAM.Core.Systems
 {
-    public abstract class SystemGroup<T> : SystemObject, ISystemGroup where T : ISystem
+    public abstract class SystemGroup<T> : SystemComponent, ISystemGroup where T : ISystem
     {
         public SystemGroup()
             : base(string.Empty)
@@ -44,31 +44,27 @@ namespace SAM.Core.Systems
                 return false;
             }
 
-            List<SystemConnector> systemConnectors= systemComponent.SystemConnectors;
-            if(systemConnectors == null || systemConnectors.Count == 0)
+            SystemConnectorManager systemConnectorManager = systemComponent.SystemConnectorManager;
+            if(systemConnectorManager == null)
             {
                 return false;
             }
 
-            SystemType systemType = SystemType;
-            if(systemType == null)
-            {
-                return true;
-            }
-
-            return systemConnectors.FindIndex(x => x.IsValid(systemType)) != -1;
+            List<int> indexes = systemConnectorManager.GetIndexes(SystemType);
+            
+            return indexes != null && indexes.Count != 0;
         }
 
-        public virtual List<SystemConnector> SystemConnectors
+        public override SystemConnectorManager SystemConnectorManager
         {
             get
             {
-                return new List<SystemConnector>()
-                {
-                    Create.SystemConnector<T>(Direction.In),
-                    Create.SystemConnector<T>(Direction.Out),
+                return Create.SystemConnectorManager
+                (
+                    Create.SystemConnector<T>(Direction.In, 1),
+                    Create.SystemConnector<T>(Direction.Out, 1),
                     Create.SystemConnector<IControlSystem>()
-                };
+                );
             }
         }
 

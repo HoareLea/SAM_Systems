@@ -4,6 +4,8 @@ namespace SAM.Core.Systems
 {
     public interface ISystemComponent : ISystemJSAMObject
     {
-        List<SystemConnector> SystemConnectors { get; }
+        SystemConnectorManager SystemConnectorManager { get; }
+
+        List<SystemConnector> GetSystemConnectors(SystemPlantRoom systemPlantRoom, ConnectorStatus connectorStatus);
     }
 }

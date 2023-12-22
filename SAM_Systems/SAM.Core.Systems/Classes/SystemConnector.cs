@@ -4,6 +4,7 @@ namespace SAM.Core.Systems
 {
     public class SystemConnector: ISystemJSAMObject
     {
+        private int connectionIndex = -1;
         private Direction direction = Direction.Undefined;
         private SystemType systemType;
 
@@ -19,6 +20,18 @@ namespace SAM.Core.Systems
 
         }
         
+        public SystemConnector(ISystem system, Direction direction, int connectionIndex)
+            : this(new SystemType(system), direction)
+        {
+            this.connectionIndex = connectionIndex;
+        }
+
+        public SystemConnector(SystemType systemType, Direction direction, int connectionIndex)
+            :this(systemType, direction)
+        {
+            this.connectionIndex = connectionIndex;
+        }
+
         public SystemConnector(SystemType systemType, Direction direction)
         {
             this.direction = direction;
@@ -42,9 +55,18 @@ namespace SAM.Core.Systems
             {
                 direction = systemConnector.direction;
                 systemType = systemConnector.systemType == null ? null : new SystemType(systemConnector.systemType);
+                connectionIndex = systemConnector.connectionIndex;
             }
         }
 
+        public int ConnectionIndex
+        {
+            get
+            {
+                return connectionIndex;
+            }
+        }
+        
         public Direction Direction
         {
             get
@@ -103,6 +125,11 @@ namespace SAM.Core.Systems
                 direction = Core.Query.Enum<Direction>(jObject.Value<string>("Direction"));
             }
 
+            if(jObject.ContainsKey("ConnectionIndex"))
+            {
+                connectionIndex = jObject.Value<int>("ConnectionIndex");
+            }
+
             return true;
         }
 
@@ -118,6 +145,8 @@ namespace SAM.Core.Systems
 
             result.Add("Direction", direction.ToString());
 
+            result.Add("ConnectionIndex", connectionIndex);
+
             return result;
         }
 
@@ -129,7 +158,7 @@ namespace SAM.Core.Systems
                 hashCode = systemType.GetHashCode();
             }
 
-            return new { hashCode, direction }.GetHashCode();
+            return new { hashCode, direction, connectionIndex }.GetHashCode();
         }
 
         public override bool Equals(object obj)
@@ -141,7 +170,7 @@ namespace SAM.Core.Systems
 
             SystemConnector systemConnector = (SystemConnector)obj;
 
-            return systemConnector.direction.Equals(direction) && systemConnector?.systemType == systemType;
+            return systemConnector.direction.Equals(direction) && systemConnector.systemType == systemType && systemConnector.connectionIndex == connectionIndex;
         }
 
         public static bool operator ==(SystemConnector systemConnector_1, SystemConnector systemConnector_2)

@@ -196,7 +196,7 @@ namespace SAM.Core.Systems
             return systemRelationCluster.AddRelation(system, systemComponent);
         }
 
-        public bool Connect(ISystemComponent systemComponent_1, ISystemComponent systemComponent_2, ISystem system = null, Direction direction = Direction.Undefined)
+        public bool Connect(ISystemComponent systemComponent_1, ISystemComponent systemComponent_2, ISystem system = null, int index_1 = -1, int index_2 = -1)
         {
             if(systemComponent_1 == null || systemComponent_2 == null)
             {
@@ -213,28 +213,44 @@ namespace SAM.Core.Systems
                 Add(systemComponent_2);
             }
 
-            if(system != null)
+            SystemConnection systemConnection = null;
+
+            if (system == null)
             {
-                if (!systemRelationCluster.Contains(system))
-                {
-                    Add(system);
-                }
+                systemRelationCluster.AddRelation(systemComponent_1, systemComponent_2);
+
+                systemConnection = new SystemConnection(systemComponent_1, systemComponent_2);
+
+                systemRelationCluster.AddRelation(systemComponent_1, systemConnection);
+                systemRelationCluster.AddRelation(systemComponent_2, systemConnection);
+
+                return true;
             }
 
-            systemRelationCluster.AddRelation(systemComponent_1, systemComponent_2);
+            if (!systemRelationCluster.Contains(system))
+            {
+                Add(system);
+            }
 
-            SystemConnection systemConnection = new SystemConnection();
+            if(!Query.TryGetIndexes(this, system, systemComponent_1, systemComponent_2, index_1, index_2, out int index_1_out, out int index_2_out) || index_1_out == -1 || index_2_out == -1)
+            {
+                return false;
+            }
+
+            index_1 = index_1_out;
+            index_2 = index_2_out;
+
+            systemConnection = new SystemConnection(system, systemComponent_1, index_1, systemComponent_2, index_2);
+
             Add(systemConnection);
 
             systemRelationCluster.AddRelation(systemComponent_1, systemConnection);
             systemRelationCluster.AddRelation(systemComponent_2, systemConnection);
 
-            if(system != null)
-            {
-                systemRelationCluster.AddRelation(systemComponent_1, system);
-                systemRelationCluster.AddRelation(systemComponent_2, system);
-                systemRelationCluster.AddRelation(systemConnection, system);
-            }
+
+            systemRelationCluster.AddRelation(systemComponent_1, system);
+            systemRelationCluster.AddRelation(systemComponent_2, system);
+            systemRelationCluster.AddRelation(systemConnection, system);
 
             return true;
         }
@@ -376,31 +392,27 @@ namespace SAM.Core.Systems
             return systemRelationCluster.RemoveRelation(system, systemComponent);
         }
 
-        public bool Disconnect(ISystemComponent systemComponent_1, ISystemComponent systemComponent_2, ISystem system = null)
+        public bool Disconnect(ISystemComponent systemComponent, int index)
         {
-            List<ISystem> systems = system != null ? new List<ISystem>() { system } : systemRelationCluster.GetRelatedObjects<ISystem>(LogicalOperator.And, systemComponent_1, systemComponent_2);
-            if(systems == null || systems.Count == 0)
+            if(systemComponent == null || index == -1)
             {
-                return systemRelationCluster.RemoveRelation(systemComponent_1, systemComponent_2);
+                return false;
             }
 
-            foreach (ISystem system_Temp in systems)
+            List<ISystemConnection> systemConnections = systemRelationCluster.GetRelatedObjects<ISystemConnection>(systemComponent);
+            if (systemConnections == null || systemConnections.Count == 0)
             {
-                List<ISystemConnection> systemConnections = systemRelationCluster.GetRelatedObjects<ISystemConnection>(LogicalOperator.And, systemComponent_1, systemComponent_2, system_Temp);
-                if(systemConnections != null && systemConnections.Count != 0)
-                {
-                    systemConnections.ForEach(x => Remove(x, false));
-                }
-
+                return false;
             }
 
-            systems = systemRelationCluster.GetRelatedObjects<ISystem>(LogicalOperator.And, systemComponent_1, systemComponent_2);
-            if(systems == null || systems.Count == 0)
+            ISystemConnection systemConnection = Query.SystemConnection(systemConnections, systemComponent, index);
+            if(systemConnection == null)
             {
-                systemRelationCluster.RemoveRelation(systemComponent_1, systemComponent_2);
+                return false;
             }
 
-            return true;
+            return Remove(systemConnection, true);
+
         }
 
         public bool Remove(ISystemConnection systemConnection)
@@ -624,6 +636,47 @@ namespace SAM.Core.Systems
             return result;
         }
 
+        public List<T> GetRelatedObjects<T>(ISystemConnection systemConnection, ISystemComponent systemComponent) where T : ISystemComponent
+        {
+            if (systemConnection == null)
+            {
+                return null;
+            }
+
+            List<T> result = GetRelatedObjects<T>(systemConnection);
+            if (result == null)
+            {
+                return null;
+            }
+
+            if (systemComponent == null)
+            {
+                return result;
+            }
+
+            Guid guid = systemRelationCluster.GetGuid(systemComponent);
+
+            bool valid = false;
+            for (int i = result.Count - 1; i >= 0; i++)
+            {
+                Guid guid_Temp = systemRelationCluster.GetGuid(result[i]);
+                if (guid != guid_Temp)
+                {
+                    continue;
+                }
+
+                valid = true;
+                result.RemoveAt(i);
+            }
+
+            if (!valid)
+            {
+                return null;
+            }
+
+            return result;
+        }
+
         public override bool FromJObject(JObject jObject)
         {
             return base.FromJObject(jObject);
@@ -632,6 +685,16 @@ namespace SAM.Core.Systems
         public override JObject ToJObject()
         {
             return base.ToJObject();
+        }
+
+        public Guid GetGuid(ISystemJSAMObject systemJSAMObject)
+        {
+            if(systemJSAMObject == null || systemRelationCluster == null)
+            {
+                return Guid.Empty;
+            }
+
+            return systemRelationCluster.GetGuid(systemJSAMObject);
         }
 
     }

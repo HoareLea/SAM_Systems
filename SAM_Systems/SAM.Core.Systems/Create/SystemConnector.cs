@@ -12,6 +12,11 @@
             return new SystemConnector(new SystemType(typeof(T)), direction);
         }
 
+        public static SystemConnector SystemConnector<T>(Direction direction, int connectionIndex)
+        {
+            return new SystemConnector(new SystemType(typeof(T)), direction, connectionIndex);
+        }
+
         public static SystemConnector SystemConnector(System.Type type)
         {
             if(type == null || !type.IsAssignableFrom(typeof(ISystem)))

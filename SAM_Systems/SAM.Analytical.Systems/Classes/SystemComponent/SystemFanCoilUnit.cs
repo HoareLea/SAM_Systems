@@ -1,6 +1,5 @@
 ﻿using Newtonsoft.Json.Linq;
 using SAM.Core.Systems;
-using System.Collections.Generic;
 
 namespace SAM.Analytical.Systems
 {
@@ -13,14 +12,14 @@ namespace SAM.Analytical.Systems
         public double HeatingEfficiency { get; set; }
         public double OverallEfficiency { get; set; }
 
-        public override List<SystemConnector> SystemConnectors
+        public override SystemConnectorManager SystemConnectorManager
         {
             get
             {
-                return new List<SystemConnector>
-                {
+                return Create.SystemConnectorManager
+                (
 
-                };
+                );
             }
         }
 

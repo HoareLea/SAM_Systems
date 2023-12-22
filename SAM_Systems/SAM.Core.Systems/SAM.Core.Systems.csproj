@@ -47,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\SystemConnectorManager.cs" />
     <Compile Include="Classes\SystemSpaceComponent.cs" />
     <Compile Include="Classes\SystemType.cs" />
     <Compile Include="Classes\SystemConnector.cs" />
@@ -59,9 +60,11 @@
     <Compile Include="Classes\SystemPlantRoom.cs" />
     <Compile Include="Classes\SystemEnergyCentre.cs" />
     <Compile Include="Classes\SystemRelationCluster.cs" />
+    <Compile Include="Create\SystemConnectorManager.cs" />
     <Compile Include="Create\PathReference.cs" />
     <Compile Include="Create\SystemType.cs" />
     <Compile Include="Create\SystemConnector.cs" />
+    <Compile Include="Enums\ConnectorStatus.cs" />
     <Compile Include="Interfaces\ISystemSpace.cs" />
     <Compile Include="Interfaces\ISystemGroup.cs" />
     <Compile Include="Interfaces\ISystemConnection.cs" />
@@ -79,6 +82,12 @@
     <Compile Include="Interfaces\ISystemSpatialObject.cs" />
     <Compile Include="Interfaces\ISystemObject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Query\FindIndex.cs" />
+    <Compile Include="Query\Indexes.cs" />
+    <Compile Include="Query\TryGetIndex.cs" />
+    <Compile Include="Query\TryGetIndexes.cs" />
+    <Compile Include="Query\SystemConnection.cs" />
+    <Compile Include="Query\ConnectorStatus.cs" />
     <Compile Include="Query\Dictionary.cs" />
   </ItemGroup>
   <ItemGroup />
