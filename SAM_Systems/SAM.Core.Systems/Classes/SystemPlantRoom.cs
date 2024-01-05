@@ -507,6 +507,16 @@ namespace SAM.Core.Systems
             return systemRelationCluster?.GetObjects<ISystemSpace>()?.ConvertAll(x => x.Clone());
         }
 
+        public List<ISystem> GetSystems()
+        {
+            return GetSystems<ISystem>();
+        }
+
+        public List<T> GetSystems<T>() where T: ISystem
+        {
+            return systemRelationCluster?.GetObjects<T>()?.ConvertAll(x => x.Clone());
+        }
+
         public List<T> GetSystemComponents<T>() where T : ISystemComponent
         {
             return systemRelationCluster?.GetObjects<T>()?.ConvertAll(x => Core.Query.Clone(x)).ConvertAll(x => (T)(object)x);
