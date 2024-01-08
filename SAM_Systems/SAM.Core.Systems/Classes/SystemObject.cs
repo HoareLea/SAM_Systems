@@ -13,6 +13,8 @@ namespace SAM.Core.Systems
             }
         }
 
+        public string Description { get; set; }
+
         public SystemObject(SystemObject systemObject)
             : base(systemObject)
         {
@@ -39,12 +41,34 @@ namespace SAM.Core.Systems
 
         public override bool FromJObject(JObject jObject)
         {
-            return base.FromJObject(jObject);
+            bool result = base.FromJObject(jObject);
+            if (!result)
+            {
+                return result;
+            }
+
+            if (jObject.ContainsKey("Description"))
+            {
+                Description = jObject.Value<string>("Description");
+            }
+
+            return result;
         }
 
         public override JObject ToJObject()
         {
-            return base.ToJObject();
+            JObject result = base.ToJObject();
+            if (result == null)
+            {
+                return result;
+            }
+
+            if (Description != null)
+            {
+                result.Add("Description", Description);
+            }
+
+            return result;
         }
     }
 }
