@@ -18,7 +18,7 @@ namespace SAM.Core.Systems
         public SystemObject(SystemObject systemObject)
             : base(systemObject)
         {
-
+            Description = systemObject?.Description;
         }
 
         public SystemObject(JObject jObject)

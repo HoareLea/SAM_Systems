@@ -129,7 +129,9 @@ namespace SAM.Core.Systems
             List<int> result = new List<int>();
             foreach (KeyValuePair<int, SystemConnector> keyValuePair in sortedDictionary)
             {
-                if (systemType == keyValuePair.Value?.SystemType && keyValuePair.Value?.Direction == direction)
+                SystemType systemType_Temp = keyValuePair.Value?.SystemType;
+
+                if ((systemType == systemType_Temp || (systemType_Temp != null && systemType_Temp.IsValid(systemType))) && keyValuePair.Value?.Direction == direction)
                 {
                     result.Add(keyValuePair.Key);
                     continue;
