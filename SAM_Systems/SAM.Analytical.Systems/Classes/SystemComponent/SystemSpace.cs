@@ -7,12 +7,16 @@ namespace SAM.Analytical.Systems
     {
         private double area;
         private double volume;
+        private double flowRate;
+        private double freshAirRate;
 
-        public SystemSpace(string name, double area, double volume)
+        public SystemSpace(string name, double area, double volume, double flowRate, double freshAirRate)
             : base(name)
         {
             this.area = area;
             this.volume = volume;
+            this.flowRate = flowRate;
+            this.freshAirRate = freshAirRate;
         }
 
         public SystemSpace(JObject jObject)
@@ -28,6 +32,8 @@ namespace SAM.Analytical.Systems
             {
                 area = systemSpace.area;
                 volume = systemSpace.volume;
+                flowRate = systemSpace.flowRate;
+                freshAirRate = systemSpace.freshAirRate;
             }
         }
 
@@ -44,6 +50,22 @@ namespace SAM.Analytical.Systems
             get
             {
                 return volume;
+            }
+        }
+
+        public double FlowRate
+        {
+            get
+            {
+                return flowRate;
+            }
+        }
+
+        public double FreshAirRate
+        {
+            get
+            {
+                return freshAirRate;
             }
         }
 
@@ -78,6 +100,16 @@ namespace SAM.Analytical.Systems
                 volume = jObject.Value<double>("Volume");
             }
 
+            if (jObject.ContainsKey("FlowRate"))
+            {
+                flowRate = jObject.Value<double>("FlowRate");
+            }
+
+            if (jObject.ContainsKey("FreshAirRate"))
+            {
+                freshAirRate = jObject.Value<double>("FreshAirRate");
+            }
+
             return true;
         }
 
@@ -97,6 +129,16 @@ namespace SAM.Analytical.Systems
             if (!double.IsNaN(volume))
             {
                 result.Add("Volume", volume);
+            }
+
+            if (!double.IsNaN(flowRate))
+            {
+                result.Add("FlowRate", flowRate);
+            }
+
+            if (!double.IsNaN(freshAirRate))
+            {
+                result.Add("FreshAirRate", freshAirRate);
             }
 
             return result;
