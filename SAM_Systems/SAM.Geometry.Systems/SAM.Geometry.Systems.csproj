@@ -33,6 +33,13 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="SAM.Core, Version=1.0.8749.23890, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\SAM\build\SAM.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="SAM.Geometry">
+      <HintPath>..\..\..\SAM\build\SAM.Geometry.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
@@ -44,14 +51,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\DisplaySystemInstance\DisplaySystemInstance.cs" />
+    <Compile Include="Classes\DisplaySystemInstance\DisplaySystemRectangleInstance.cs" />
+    <Compile Include="Classes\DisplaySystemPlantRoom.cs" />
+    <Compile Include="Classes\DisplaySystemEnergyCentre.cs" />
+    <Compile Include="Classes\DisplaySystemSymbol.cs" />
+    <Compile Include="Classes\DisplaySystemInstance\DisplaySystemSegmentInstance.cs" />
+    <Compile Include="Classes\DisplaySystemInstance\DisplaySystemSymbolInstance.cs" />
+    <Compile Include="Interfaces\IDisplaySystemObject.cs" />
+    <Compile Include="Interfaces\IDisplaySystemInstance.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Classes\" />
     <Folder Include="Convert\" />
     <Folder Include="Create\" />
     <Folder Include="Enums\" />
-    <Folder Include="Interfaces\" />
     <Folder Include="Modify\" />
     <Folder Include="Query\" />
   </ItemGroup>
@@ -59,6 +73,12 @@
     <PackageReference Include="Newtonsoft.Json">
       <Version>13.0.2</Version>
     </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SAM.Core.Systems\SAM.Core.Systems.csproj">
+      <Project>{1c86b9ac-81b3-41d8-ba48-321f28ab94f4}</Project>
+      <Name>SAM.Core.Systems</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

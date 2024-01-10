@@ -1,6 +1,6 @@
 ﻿namespace SAM.Core.Systems
 {
-    public interface ISystemSpatialObject : ISystemObject, IJSAMObject
+    public interface ISystemSpatialObject : ISystemJSAMObject
     {
     }
 }

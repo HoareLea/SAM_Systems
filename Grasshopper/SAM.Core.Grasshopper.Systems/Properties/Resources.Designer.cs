@@ -19,7 +19,7 @@ namespace SAM.Core.Grasshopper.Systems.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources {
@@ -39,7 +39,7 @@ namespace SAM.Core.Grasshopper.Systems.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("SAM.Core.Grasshopper.TMP.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("SAM.Core.Grasshopper.Systems.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -73,49 +73,9 @@ namespace SAM.Core.Grasshopper.Systems.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap SAM_Explode {
+        internal static System.Drawing.Bitmap HL_Small {
             get {
-                object obj = ResourceManager.GetObject("SAM_Explode", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap SAM_Get {
-            get {
-                object obj = ResourceManager.GetObject("SAM_Get", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap SAM_Get_Filterpng {
-            get {
-                object obj = ResourceManager.GetObject("SAM_Get_Filterpng", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap SAM_JSON {
-            get {
-                object obj = ResourceManager.GetObject("SAM_JSON", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap SAM_Names {
-            get {
-                object obj = ResourceManager.GetObject("SAM_Names", resourceCulture);
+                object obj = ResourceManager.GetObject("HL_Small", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -126,6 +86,16 @@ namespace SAM.Core.Grasshopper.Systems.Properties {
         internal static System.Drawing.Bitmap SAM_Small {
             get {
                 object obj = ResourceManager.GetObject("SAM_Small", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap SAM3_0 {
+            get {
+                object obj = ResourceManager.GetObject("SAM3_0", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
