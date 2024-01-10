@@ -111,6 +111,16 @@ namespace SAM.Geometry.Systems
             return result;
         }
 
+        public List<DisplaySystemPlantRoom> GetDisplaySystemPlantRooms(SystemPlantRoom systemPlantRoom)
+        {
+            if(systemPlantRoom == null)
+            {
+                return null;
+            }
+
+            return GetDisplaySystemPlantRooms(new ObjectReference(systemPlantRoom));
+        }
+
         public DisplaySystemPlantRoom GetDisplaySystemPlantRoom(System.Guid guid)
         {
             DisplaySystemPlantRoom result = displaySystemPlantRooms?.Find(x => x.Guid == guid);
@@ -148,6 +158,17 @@ namespace SAM.Geometry.Systems
 
             return result.Clone();
         }
+
+        //public DisplaySystemInstance Add(DisplaySystemPlantRoom displaySystemPlantRoom, SystemJunction systemJunction, Point2D location)
+        //{
+        //    SystemPlantRoom systemPlantRoom = systemEnergyCentre.GetSystemPlantRoom(displaySystemPlantRoom.ObjectReference);
+        //    if(systemPlantRoom == null)
+        //    {
+        //        return null;
+        //    }
+
+        //    systemPlantRoom.Add(systemJunction);
+        //}
 
         //public DisplaySystemInstance Add(ISystemSpace systemSpace, DisplaySystemPlantRoom displaySystemPlantRoom, Point2D location)
         //{
