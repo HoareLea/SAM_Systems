@@ -3,11 +3,32 @@ using System.Collections.Generic;
 
 namespace SAM.Core.Systems
 {
-    public class SystemEnergyCentre : SAMModel, ISystemObject
+    public class SystemEnergyCentre : SystemEnergyCentre<SystemPlantRoom>
     {
-        private List<SystemPlantRoom> systemPlantRooms;
+        public SystemEnergyCentre(string name)
+            : base(name)
+        {
 
-        public new string Name 
+        }
+
+        public SystemEnergyCentre(JObject jObject)
+            : base(jObject)
+        {
+
+        }
+
+        public SystemEnergyCentre(SystemEnergyCentre systemEnergyCentre)
+            : base(systemEnergyCentre)
+        {
+
+        }
+    }
+
+    public class SystemEnergyCentre<T> : SAMModel, ISystemObject where T : SystemPlantRoom
+    {
+        private List<T> systemPlantRooms;
+
+        public new string Name
         {
             get
             {
@@ -32,43 +53,43 @@ namespace SAM.Core.Systems
 
         }
 
-        public SystemEnergyCentre(SystemEnergyCentre systemEnergyCentre)
+        public SystemEnergyCentre(SystemEnergyCentre<T> systemEnergyCentre)
             : base(systemEnergyCentre)
         {
             systemPlantRooms = systemEnergyCentre?.systemPlantRooms == null ? null : systemEnergyCentre.systemPlantRooms.ConvertAll(x => x.Clone());
         }
 
-        public List<SystemPlantRoom> GetSystemPlantRooms()
+        public List<T> GetSystemPlantRooms()
         {
-            return systemPlantRooms == null ? null : systemPlantRooms.ConvertAll(x => new SystemPlantRoom(x));
+            return systemPlantRooms == null ? null : systemPlantRooms.ConvertAll(x => x.Clone());
         }
 
-        public bool Add(SystemPlantRoom systemPlantRoom)
+        public bool Add(T systemPlantRoom)
         {
-            if(systemPlantRoom == null)
+            if (systemPlantRoom == null)
             {
                 return false;
             }
 
-            if(systemPlantRooms == null)
+            if (systemPlantRooms == null)
             {
-                systemPlantRooms = new List<SystemPlantRoom>();
+                systemPlantRooms = new List<T>();
             }
 
             int index = systemPlantRooms.FindIndex(x => x.Guid == systemPlantRoom.Guid);
-            if(index == -1)
+            if (index == -1)
             {
-                systemPlantRooms.Add(new SystemPlantRoom(systemPlantRoom));
+                systemPlantRooms.Add(systemPlantRoom.Clone());
             }
             else
             {
-                systemPlantRooms[index] = new SystemPlantRoom(systemPlantRoom);
+                systemPlantRooms[index] = systemPlantRoom.Clone();
             }
 
             return true;
         }
 
-        public bool Remove(SystemPlantRoom systemPlantRoom)
+        public bool Remove(T systemPlantRoom)
         {
             if (systemPlantRoom == null || systemPlantRooms == null || systemPlantRooms.Count == 0)
             {
@@ -88,21 +109,21 @@ namespace SAM.Core.Systems
         public override bool FromJObject(JObject jObject)
         {
             bool result = base.FromJObject(jObject);
-            if(!result)
+            if (!result)
             {
                 return result;
             }
 
-            if(jObject.ContainsKey("SystemPlantRooms"))
+            if (jObject.ContainsKey("SystemPlantRooms"))
             {
                 JArray jArray = jObject.Value<JArray>("SystemPlantRooms");
-                if(jArray != null)
+                if (jArray != null)
                 {
-                    systemPlantRooms = new List<SystemPlantRoom>();
-                    foreach(JObject jObject_Temp in jArray)
+                    systemPlantRooms = new List<T>();
+                    foreach (JObject jObject_Temp in jArray)
                     {
-                        SystemPlantRoom systemPlantRoom = Core.Query.IJSAMObject<SystemPlantRoom>(jObject_Temp);
-                        if(systemPlantRoom == null)
+                        T systemPlantRoom = Core.Query.IJSAMObject<T>(jObject_Temp);
+                        if (systemPlantRoom == null)
                         {
                             continue;
                         }
@@ -115,24 +136,24 @@ namespace SAM.Core.Systems
             return result;
         }
 
-        public SystemPlantRoom GetSystemPlantRoom(ObjectReference objectReference)
+        public T GetSystemPlantRoom(ObjectReference objectReference)
         {
-            if(objectReference == null || systemPlantRooms == null)
+            if (objectReference == null || systemPlantRooms == null)
             {
                 return null;
             }
 
-            for(int i =0; i < systemPlantRooms.Count; i++)
+            for (int i = 0; i < systemPlantRooms.Count; i++)
             {
-                SystemPlantRoom systemPlantRoom = systemPlantRooms[i];
-                if(systemPlantRoom == null)
+                T systemPlantRoom = systemPlantRooms[i];
+                if (systemPlantRoom == null)
                 {
                     continue;
                 }
 
                 ObjectReference objectReference_Temp = new ObjectReference(systemPlantRoom);
 
-                if(objectReference_Temp == objectReference)
+                if (objectReference_Temp == objectReference)
                 {
                     return systemPlantRoom.Clone();
                 }
@@ -144,15 +165,15 @@ namespace SAM.Core.Systems
         public override JObject ToJObject()
         {
             JObject result = base.ToJObject();
-            if(result == null)
+            if (result == null)
             {
                 return result;
             }
 
-            if(systemPlantRooms != null)
+            if (systemPlantRooms != null)
             {
                 JArray jArray = new JArray();
-                foreach(SystemPlantRoom systemPlantRoom in systemPlantRooms)
+                foreach (T systemPlantRoom in systemPlantRooms)
                 {
                     jArray.Add(systemPlantRoom.ToJObject());
                 }

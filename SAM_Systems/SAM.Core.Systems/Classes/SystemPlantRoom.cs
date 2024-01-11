@@ -213,7 +213,7 @@ namespace SAM.Core.Systems
                 Add(systemComponent_2);
             }
 
-            SystemConnection systemConnection = null;
+            ISystemConnection systemConnection = null;
 
             if (system == null)
             {
