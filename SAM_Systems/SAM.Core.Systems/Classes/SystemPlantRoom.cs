@@ -30,6 +30,26 @@ namespace SAM.Core.Systems
 
         }
 
+        protected virtual ISystemConnection CreateSystemConnection(ISystemComponent systemComponent_1, ISystemComponent systemComponent_2, ISystem system = null, int index_1 = -1, int index_2 = -1)
+        {
+            if (systemComponent_1 == null || systemComponent_2 == null)
+            {
+                return null;
+            }
+
+            if (system == null)
+            {
+                return new SystemConnection(systemComponent_1, systemComponent_2);
+            }
+
+            if (!Query.TryGetIndexes(this, system, systemComponent_1, systemComponent_2, index_1, index_2, out int index_1_out, out int index_2_out) || index_1_out == -1 || index_2_out == -1)
+            {
+                return null;
+            }
+
+            return new SystemConnection(system, systemComponent_1, index_1, systemComponent_2, index_2);
+        }
+
         public bool Add(ISystemSpace systemSpace)
         {
             ISystemSpace systemSpace_Temp = systemSpace?.Clone();
@@ -213,44 +233,27 @@ namespace SAM.Core.Systems
                 Add(systemComponent_2);
             }
 
-            ISystemConnection systemConnection = null;
-
-            if (system == null)
-            {
-                systemRelationCluster.AddRelation(systemComponent_1, systemComponent_2);
-
-                systemConnection = new SystemConnection(systemComponent_1, systemComponent_2);
-
-                systemRelationCluster.AddRelation(systemComponent_1, systemConnection);
-                systemRelationCluster.AddRelation(systemComponent_2, systemConnection);
-
-                return true;
-            }
-
-            if (!systemRelationCluster.Contains(system))
+            if(system != null && !systemRelationCluster.Contains(system))
             {
                 Add(system);
             }
 
-            if(!Query.TryGetIndexes(this, system, systemComponent_1, systemComponent_2, index_1, index_2, out int index_1_out, out int index_2_out) || index_1_out == -1 || index_2_out == -1)
+            ISystemConnection systemConnection = CreateSystemConnection(systemComponent_1, systemComponent_2, system, index_1, index_2);
+            if(systemConnection == null)
             {
                 return false;
             }
 
-            index_1 = index_1_out;
-            index_2 = index_2_out;
-
-            systemConnection = new SystemConnection(system, systemComponent_1, index_1, systemComponent_2, index_2);
-
-            Add(systemConnection);
-
+            systemRelationCluster.AddRelation(systemComponent_1, systemComponent_2);
             systemRelationCluster.AddRelation(systemComponent_1, systemConnection);
             systemRelationCluster.AddRelation(systemComponent_2, systemConnection);
 
-
-            systemRelationCluster.AddRelation(systemComponent_1, system);
-            systemRelationCluster.AddRelation(systemComponent_2, system);
-            systemRelationCluster.AddRelation(systemConnection, system);
+            if(system != null)
+            {
+                systemRelationCluster.AddRelation(systemComponent_1, system);
+                systemRelationCluster.AddRelation(systemComponent_2, system);
+                systemRelationCluster.AddRelation(systemConnection, system);
+            }
 
             return true;
         }
