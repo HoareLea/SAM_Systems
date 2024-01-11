@@ -40,6 +40,19 @@ namespace SAM.Core.Systems
             }
         }
 
+        public SystemIndexedDoublesResult(string uniqueId, string name, string source, Dictionary<System.Enum, IndexedDoubles> dictionary)
+            : base(name, source, uniqueId)
+        {
+            if (dictionary != null)
+            {
+                this.dictionary = new Dictionary<string, IndexedDoubles>();
+                foreach (KeyValuePair<System.Enum, IndexedDoubles> keyValuePair in dictionary)
+                {
+                    this.dictionary[keyValuePair.Key.Description()] = keyValuePair.Value == null ? null : new IndexedDoubles(keyValuePair.Value);
+                }
+            }
+        }
+
         public List<string> Keys
         {
             get
@@ -67,6 +80,29 @@ namespace SAM.Core.Systems
 
                 return dictionary[key];
             }
+        }
+
+        public IndexedDoubles this[System.Enum @enum]
+        {
+            get 
+            {
+                return this[@enum.Description()];
+            }
+        }
+
+        public bool Contains(string key)
+        {
+            if(key == null)
+            {
+                return false;
+            }
+
+            return dictionary != null && dictionary.ContainsKey(key);
+        }
+
+        public bool Contains(System.Enum @enum)
+        {
+            return dictionary != null && dictionary.ContainsKey(@enum.Description());
         }
 
         public override bool FromJObject(JObject jObject)
