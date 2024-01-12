@@ -51,7 +51,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\DisplaySystemConnection.cs" />
+    <Compile Include="Classes\DisplaySystemEnergyCentre.cs" />
     <Compile Include="Classes\DisplaySystemJunction.cs" />
+    <Compile Include="Classes\DisplaySystemPlantRoom.cs" />
     <Compile Include="Classes\SystemPolyline.cs" />
     <Compile Include="Classes\SystemGeometryInstance.cs" />
     <Compile Include="Classes\SystemGeometrySymbol.cs" />
