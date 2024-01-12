@@ -51,15 +51,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Classes\DisplaySystemInstance\DisplaySystemInstance.cs" />
-    <Compile Include="Classes\DisplaySystemInstance\DisplaySystemRectangleInstance.cs" />
-    <Compile Include="Classes\DisplaySystemPlantRoom.cs" />
-    <Compile Include="Classes\DisplaySystemEnergyCentre.cs" />
-    <Compile Include="Classes\DisplaySystemSymbol.cs" />
-    <Compile Include="Classes\DisplaySystemInstance\DisplaySystemSegmentInstance.cs" />
-    <Compile Include="Classes\DisplaySystemInstance\DisplaySystemSymbolInstance.cs" />
-    <Compile Include="Interfaces\IDisplaySystemObject.cs" />
-    <Compile Include="Interfaces\IDisplaySystemInstance.cs" />
+    <Compile Include="Classes\DisplaySystemJunction.cs" />
+    <Compile Include="Classes\SystemPolyline.cs" />
+    <Compile Include="Classes\SystemGeometryInstance.cs" />
+    <Compile Include="Classes\SystemGeometrySymbol.cs" />
+    <Compile Include="Interfaces\IDisplayObject.cs" />
+    <Compile Include="Interfaces\ISystemGeometry.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
