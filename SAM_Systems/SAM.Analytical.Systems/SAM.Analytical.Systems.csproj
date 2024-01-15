@@ -78,7 +78,6 @@
     <Compile Include="Enums\RadiatorDataType.cs" />
     <Compile Include="Enums\SpaceDataType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Query\IndexedDoubles.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SAM.Core.Systems\SAM.Core.Systems.csproj">
@@ -92,6 +91,7 @@
   <ItemGroup>
     <Folder Include="Create\" />
     <Folder Include="Modify\" />
+    <Folder Include="Query\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="NetTopologySuite">

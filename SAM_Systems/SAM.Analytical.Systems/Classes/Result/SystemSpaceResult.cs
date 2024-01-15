@@ -16,7 +16,6 @@ namespace SAM.Analytical.Systems
             FromJObject(jObject);
         }
 
-
         public SystemSpaceResult(SystemSpaceResult spaceSystemResult)
             : base(spaceSystemResult)
         {
@@ -27,7 +26,7 @@ namespace SAM.Analytical.Systems
             }
         }
 
-        public SystemSpaceResult(string uniqueId, string name, string source, double area, double volume, Dictionary<SystemSpaceDataType, IndexedDoubles> dictionary)
+        public SystemSpaceResult(string uniqueId, string name, string source, double area, double volume, Dictionary<SpaceDataType, IndexedDoubles> dictionary)
             : base(name, source, uniqueId, Core.Systems.Query.Dictionary(dictionary))
         {
             this.area = area;

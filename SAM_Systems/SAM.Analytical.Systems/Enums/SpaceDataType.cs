@@ -2,13 +2,19 @@
 
 namespace SAM.Analytical.Systems
 {
-    [Description("System Space Data Type")]
-    public enum SystemSpaceDataType
+    [Description("Space Data Type")]
+    public enum SpaceDataType
     {
-        [Description("Heating Load")] HeatingLoad = 1,
-        [Description("Cooling Sensible Load")] CoolingSensibleLoad = 2,
-        [Description("Cooling Latent Load")] CoolingLatentLoad = 3,
-        [Description("Electrical Load")] ElectricalLoad = 4,
-        [Description("Condensation")] Condensation = 5,
+        [Description("Flow Rate")] FlowRate = 1,
+        [Description("Pressure")] Pressure = 2,
+        [Description("Temperature")] Temperature = 3,
+        [Description("Humidity Ratio")] HumidityRatio = 4,
+        [Description("Relative Humidity")] RelativeHumidity = 5,
+        [Description("Wet Bulb Temperature")] WetBulbTemperature = 6,
+        [Description("Enthalpy")] Enthalpy = 7,
+        [Description("Pollutant")] Pollutant = 8,
+        [Description("Zone Temperature")] ZoneTemperature = 9,
+        [Description("Equipment Gain")] EquipmentGain = 10,
+        [Description("Lighting Gain")] LightingGain = 11,
     }
 }
