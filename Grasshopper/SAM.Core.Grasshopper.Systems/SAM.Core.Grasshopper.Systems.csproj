@@ -65,6 +65,7 @@
     <Compile Include="Classes\GooSystemObject.cs" />
     <Compile Include="Classes\GooSystemPlantRoom.cs" />
     <Compile Include="Classes\GooSystemSpace.cs" />
+    <Compile Include="Component\SAMAnalyticalSystemResultValueByIndex.cs" />
     <Compile Include="Component\SAMAnalyticalSystemResultValues.cs" />
     <Compile Include="Component\SAMAnalyticalSystemPlantRoomRelatedObjects.cs" />
     <Compile Include="Kernel\AssemblyInfo.cs" />
