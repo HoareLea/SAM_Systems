@@ -55,6 +55,7 @@
     <Compile Include="Classes\Result\SystemFanResult.cs" />
     <Compile Include="Classes\Result\SystemRadiatorResult.cs" />
     <Compile Include="Classes\Result\SystemSpaceResult.cs" />
+    <Compile Include="Classes\SystemComponent\SystemAirJunction.cs" />
     <Compile Include="Classes\SystemComponent\SystemDamper.cs" />
     <Compile Include="Classes\SystemComponent\SystemFan.cs" />
     <Compile Include="Classes\SystemComponent\SystemExchanger.cs" />
