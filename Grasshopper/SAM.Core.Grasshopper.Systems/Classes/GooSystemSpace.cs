@@ -1,7 +1,6 @@
 ﻿using Grasshopper.Kernel;
 using Grasshopper.Kernel.Types;
 using SAM.Core.Grasshopper.Systems.Properties;
-using SAM.Core.Grasshopper;
 using SAM.Core.Systems;
 using System;
 using System.Collections.Generic;
