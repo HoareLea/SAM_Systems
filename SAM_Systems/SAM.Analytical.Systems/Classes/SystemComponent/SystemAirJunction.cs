@@ -23,6 +23,12 @@ namespace SAM.Analytical.Systems
 
         }
 
+        public SystemAirJunction(string name)
+            : base(name)
+        {
+
+        }
+
         public override bool FromJObject(JObject jObject)
         {
             return base.FromJObject(jObject);

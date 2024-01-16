@@ -21,6 +21,12 @@ namespace SAM.Core.Systems
         {
 
         }
+
+        public SystemJunction(string name)
+            : base(name)
+        {
+
+        }
     }
 
     public abstract class SystemJunction<T> : SystemComponent where T : ISystem
