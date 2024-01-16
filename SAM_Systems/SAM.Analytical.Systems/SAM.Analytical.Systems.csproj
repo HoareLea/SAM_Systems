@@ -51,6 +51,7 @@
     <Compile Include="Classes\Result\SystemDXCoilUnitResult.cs" />
     <Compile Include="Classes\Result\SystemFanCoilUnitResult.cs" />
     <Compile Include="Classes\Result\SystemCoolingCoilResult.cs" />
+    <Compile Include="Classes\Result\SystemAirJunctionResult.cs" />
     <Compile Include="Classes\Result\SystemHeatingCoilResult.cs" />
     <Compile Include="Classes\Result\SystemFanResult.cs" />
     <Compile Include="Classes\Result\SystemRadiatorResult.cs" />
@@ -80,6 +81,7 @@
     <Compile Include="Enums\DXCoilUnitDataType.cs" />
     <Compile Include="Enums\FanCoilUnitDataType.cs" />
     <Compile Include="Enums\CoolingCoilDataType.cs" />
+    <Compile Include="Enums\AirJunctionDataType.cs" />
     <Compile Include="Enums\HeatingCoilDataType.cs" />
     <Compile Include="Enums\FanDataType.cs" />
     <Compile Include="Enums\RadiatorDataType.cs" />
