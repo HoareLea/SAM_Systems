@@ -2,8 +2,8 @@
 
 namespace SAM.Analytical.Systems
 {
-    [Description("Heating Coil Data Type")]
-    public enum HeatingCoilDataType
+    [Description("Mixing Box Data Type")]
+    public enum MixingBoxDataType
     {
         [Description("Flow Rate")] FlowRate = 1,
         [Description("Pressure")] Pressure = 2,
@@ -13,6 +13,5 @@ namespace SAM.Analytical.Systems
         [Description("Wet Bulb Temperature")] WetBulbTemperature = 6,
         [Description("Enthalpy")] Enthalpy = 7,
         [Description("Pollutant")] Pollutant = 8,
-        [Description("Sensible Load")] SensibleLoad = 9,
     }
 }
