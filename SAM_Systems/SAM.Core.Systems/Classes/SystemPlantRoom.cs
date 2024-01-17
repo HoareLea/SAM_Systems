@@ -244,6 +244,8 @@ namespace SAM.Core.Systems
                 return false;
             }
 
+            Add(systemConnection);
+
             systemRelationCluster.AddRelation(systemComponent_1, systemComponent_2);
             systemRelationCluster.AddRelation(systemComponent_1, systemConnection);
             systemRelationCluster.AddRelation(systemComponent_2, systemConnection);
