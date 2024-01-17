@@ -53,6 +53,7 @@
     <Compile Include="Classes\Result\SystemCoolingCoilResult.cs" />
     <Compile Include="Classes\Result\SystemAirJunctionResult.cs" />
     <Compile Include="Classes\Result\SystemEconomiserResult.cs" />
+    <Compile Include="Classes\Result\SystemSteamHumidifierResult.cs" />
     <Compile Include="Classes\Result\SystemMixingBoxResult.cs" />
     <Compile Include="Classes\Result\SystemHeatingCoilResult.cs" />
     <Compile Include="Classes\Result\SystemFanResult.cs" />
@@ -61,6 +62,8 @@
     <Compile Include="Classes\Result\SystemSpaceResult.cs" />
     <Compile Include="Classes\SystemComponent\SystemAirJunction.cs" />
     <Compile Include="Classes\SystemComponent\SystemEconomiser.cs" />
+    <Compile Include="Classes\SystemComponent\SystemSteamHumidifier.cs" />
+    <Compile Include="Classes\SystemComponent\SystemHumidifier.cs" />
     <Compile Include="Classes\SystemComponent\SystemMixingBox.cs" />
     <Compile Include="Classes\SystemComponent\SystemDamper.cs" />
     <Compile Include="Classes\SystemComponent\SystemFan.cs" />
@@ -84,6 +87,7 @@
     <Compile Include="Classes\System\FluidSystem.cs" />
     <Compile Include="Enums\ChilledBeamDataType.cs" />
     <Compile Include="Enums\DXCoilUnitDataType.cs" />
+    <Compile Include="Enums\SteamHumidifierDataType.cs" />
     <Compile Include="Enums\FanCoilUnitDataType.cs" />
     <Compile Include="Enums\CoolingCoilDataType.cs" />
     <Compile Include="Enums\AirJunctionDataType.cs" />
