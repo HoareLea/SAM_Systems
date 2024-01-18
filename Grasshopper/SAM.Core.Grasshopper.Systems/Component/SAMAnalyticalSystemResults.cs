@@ -12,7 +12,7 @@ using System.Windows.Forms;
 
 namespace SAM.Core.Grasshopper
 {
-    public class SAMAnalyticalSystemResultValues : GH_Component, IGH_VariableParameterComponent, IGH_SAMComponent
+    public class SAMAnalyticalSystemResults : GH_Component, IGH_VariableParameterComponent, IGH_SAMComponent
     {
         /// <summary>
         /// Gets the unique ID for this component. Do not change this ID after release.
@@ -22,7 +22,7 @@ namespace SAM.Core.Grasshopper
         /// <summary>
         /// The latest version of this component
         /// </summary>
-        public string LatestComponentVersion => "1.0.0";
+        public string LatestComponentVersion => "1.0.1";
 
         public override GH_Exposure Exposure => GH_Exposure.tertiary;
 
@@ -42,9 +42,9 @@ namespace SAM.Core.Grasshopper
         /// <summary>
         /// Initializes a new instance of the SAM_point3D class.
         /// </summary>
-        public SAMAnalyticalSystemResultValues()
-          : base("SAMAnalytical.SystemResultValues", "SAMAnalytical.SystemResultValues",
-              "SAMAnalytical SystemResult values",
+        public SAMAnalyticalSystemResults()
+          : base("SAMAnalytical.SystemResults", "SAMAnalytical.SystemResults",
+              "SAMAnalytical SystemResults",
               "SAM", "Analytical")
         {
             SetValue("SAM_SAMVersion", Core.Query.CurrentVersion());

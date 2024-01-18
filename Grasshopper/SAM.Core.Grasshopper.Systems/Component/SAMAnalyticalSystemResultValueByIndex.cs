@@ -15,7 +15,7 @@ namespace SAM.Core.Grasshopper.Systems
         /// <summary>
         /// The latest version of this component
         /// </summary>
-        public override string LatestComponentVersion => "1.0.0";
+        public override string LatestComponentVersion => "1.0.1";
 
         /// <summary>
         /// Provides an Icon for the component.
@@ -42,7 +42,7 @@ namespace SAM.Core.Grasshopper.Systems
             get
             {
                 List<GH_SAMParam> result = new List<GH_SAMParam>();
-                result.Add(new GH_SAMParam(new GooIndexedObjectsParam() { Name = "_values", NickName = "_values", Description = "values (Indexed Doubles)", Access = GH_ParamAccess.item }, ParamVisibility.Binding));
+                result.Add(new GH_SAMParam(new GooIndexedObjectsParam() { Name = "_result", NickName = "_result", Description = "Result (Indexed Doubles)", Access = GH_ParamAccess.item }, ParamVisibility.Binding));
 
                 global::Grasshopper.Kernel.Parameters.Param_Integer integer = null;
 
@@ -77,7 +77,7 @@ namespace SAM.Core.Grasshopper.Systems
             int index = -1;
 
             IIndexedObjects indexedObjects = null;
-            index = Params.IndexOfInputParam("_values");
+            index = Params.IndexOfInputParam("_result");
             if (index == -1 || !dataAccess.GetData(index, ref indexedObjects) || indexedObjects == null)
             {
                 AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "Invalid data");
