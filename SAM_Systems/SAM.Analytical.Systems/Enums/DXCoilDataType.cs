@@ -14,7 +14,8 @@ namespace SAM.Analytical.Systems
         [Description("Enthalpy")] Enthalpy = 7,
         [Description("Pollutant")] Pollutant = 8,
         [Description("Heating Sensible Load")] HeatingSensibleLoad = 9,
-        [Description("Cooling Latent Load")] CoolingLatentLoad = 10,
-        [Description("Condensation")] Condensation = 11,
+        [Description("Cooling Sensible Load")] CoolingSensibleLoad = 10,
+        [Description("Cooling Latent Load")] CoolingLatentLoad = 11,
+        [Description("Condensation")] Condensation = 12,
     }
 }

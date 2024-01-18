@@ -581,7 +581,7 @@ namespace SAM.Core.Systems
 
         public T Find<T>(Func<T, bool> func) where T : ISystemJSAMObject
         {
-            T t = systemRelationCluster.GetObjects<T>(func).FirstOrDefault();
+            T t = systemRelationCluster?.GetObjects<T>(func)?.FirstOrDefault();
             if (t == null)
             {
                 return t;
