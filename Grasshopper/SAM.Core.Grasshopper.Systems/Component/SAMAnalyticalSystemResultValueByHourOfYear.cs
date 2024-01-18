@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace SAM.Core.Grasshopper.Systems
 {
-    public class SAMAnalyticalSystemResultValueByIndex : GH_SAMVariableOutputParameterComponent
+    public class SAMAnalyticalSystemResultValueByHourOfYear : GH_SAMVariableOutputParameterComponent
     {
         /// <summary>
         /// Gets the unique ID for this component. Do not change this ID after release.
@@ -15,7 +15,7 @@ namespace SAM.Core.Grasshopper.Systems
         /// <summary>
         /// The latest version of this component
         /// </summary>
-        public override string LatestComponentVersion => "1.0.1";
+        public override string LatestComponentVersion => "1.0.2";
 
         /// <summary>
         /// Provides an Icon for the component.
@@ -27,9 +27,9 @@ namespace SAM.Core.Grasshopper.Systems
         /// <summary>
         /// Initializes a new instance of the SAM_point3D class.
         /// </summary>
-        public SAMAnalyticalSystemResultValueByIndex()
-          : base("SAMAnalytical.SystemResultValueByIndex", "SAMAnalytical.SystemResultValueByIndex",
-              "System Result Value By Index",
+        public SAMAnalyticalSystemResultValueByHourOfYear()
+          : base("SAMAnalytical.SystemResultValueByHourOfYear", "SAMAnalytical.SystemResultValueByHourOfYear",
+              "System Result Value By Hour Of Year Index",
               "SAM WIP", "Tas")
         {
         }
@@ -46,7 +46,7 @@ namespace SAM.Core.Grasshopper.Systems
 
                 global::Grasshopper.Kernel.Parameters.Param_Integer integer = null;
 
-                integer = new global::Grasshopper.Kernel.Parameters.Param_Integer() { Name = "_index", NickName = "_index", Description = "Value index", Access = GH_ParamAccess.item };
+                integer = new global::Grasshopper.Kernel.Parameters.Param_Integer() { Name = "_hourOfYear", NickName = "_hourOfYear", Description = "Hour Of Year index [0-8760]", Access = GH_ParamAccess.item };
 
                 result.Add(new GH_SAMParam(integer, ParamVisibility.Binding));
                 return result.ToArray();
@@ -87,7 +87,7 @@ namespace SAM.Core.Grasshopper.Systems
 
 
             int valueIndex = -1;
-            index = Params.IndexOfInputParam("_index");
+            index = Params.IndexOfInputParam("_hourOfYear");
             if (index == -1 || !dataAccess.GetData(index, ref valueIndex) || valueIndex == -1)
             {
                 AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "Invalid data");
