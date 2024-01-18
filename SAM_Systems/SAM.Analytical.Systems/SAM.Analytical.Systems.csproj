@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\Result\SystemChilledBeamResult.cs" />
+    <Compile Include="Classes\Result\SystemDXCoilResult.cs" />
     <Compile Include="Classes\Result\SystemDXCoilUnitResult.cs" />
     <Compile Include="Classes\Result\SystemDesiccantWheelResult.cs" />
     <Compile Include="Classes\Result\SystemFanCoilUnitResult.cs" />
@@ -66,6 +67,7 @@
     <Compile Include="Classes\SystemComponent\SystemAirJunction.cs" />
     <Compile Include="Classes\SystemComponent\SystemEconomiser.cs" />
     <Compile Include="Classes\SystemComponent\SystemDesiccantWheel.cs" />
+    <Compile Include="Classes\SystemComponent\SystemDXCoil.cs" />
     <Compile Include="Classes\SystemComponent\SystemSprayHumidifier.cs" />
     <Compile Include="Classes\SystemComponent\SystemDirectEvaporativeCooler.cs" />
     <Compile Include="Classes\SystemComponent\SystemSteamHumidifier.cs" />
@@ -92,6 +94,7 @@
     <Compile Include="Classes\System\AirSystem.cs" />
     <Compile Include="Classes\System\FluidSystem.cs" />
     <Compile Include="Enums\ChilledBeamDataType.cs" />
+    <Compile Include="Enums\DXCoilDataType.cs" />
     <Compile Include="Enums\DXCoilUnitDataType.cs" />
     <Compile Include="Enums\DirectEvaporativeCoolerDataType.cs" />
     <Compile Include="Enums\DesiccantWheelDataType.cs" />
