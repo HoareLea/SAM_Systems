@@ -52,7 +52,7 @@ namespace SAM.Core.Grasshopper.Systems
         protected override System.Drawing.Bitmap Icon => Resources.SAM3_0;
 
         public GooSystemResultParam()
-            : base(typeof(ISystemObject).Name, typeof(ISystemObject).Name, typeof(ISystemObject).FullName.Replace(".", " "), "Params", "SAM")
+            : base(typeof(ISystemResult).Name, typeof(ISystemResult).Name, typeof(ISystemResult).FullName.Replace(".", " "), "Params", "SAM")
         {
         }
 
