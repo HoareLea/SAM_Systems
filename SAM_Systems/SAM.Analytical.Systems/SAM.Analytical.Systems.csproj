@@ -36,6 +36,10 @@
     <Reference Include="SAM.Core">
       <HintPath>..\..\..\SAM\build\SAM.Core.dll</HintPath>
     </Reference>
+    <Reference Include="SAM.Geometry, Version=1.0.8816.30195, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\SAM\build\SAM.Geometry.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Numerics" />
@@ -47,6 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\DisplayObject\DisplaySystemHeatingCoil.cs" />
     <Compile Include="Classes\Result\SystemChilledBeamResult.cs" />
     <Compile Include="Classes\Result\SystemDXCoilResult.cs" />
     <Compile Include="Classes\Result\SystemDXCoilUnitResult.cs" />
@@ -116,6 +121,10 @@
     <ProjectReference Include="..\SAM.Core.Systems\SAM.Core.Systems.csproj">
       <Project>{1c86b9ac-81b3-41d8-ba48-321f28ab94f4}</Project>
       <Name>SAM.Core.GEM</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SAM.Geometry.Systems\SAM.Geometry.Systems.csproj">
+      <Project>{e5550801-4863-4036-904d-7563c9722760}</Project>
+      <Name>SAM.Geometry.Systems</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
