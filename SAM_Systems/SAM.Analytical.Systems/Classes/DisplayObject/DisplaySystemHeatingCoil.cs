@@ -14,10 +14,10 @@ namespace SAM.Analytical.Systems
             systemGeometryInstance = new SystemGeometryInstance(systemGeometrySymbol, location);
         }
 
-        public DisplaySystemHeatingCoil(DisplaySystemHeatingCoil displaySystemJunction)
-            : base(displaySystemJunction)
+        public DisplaySystemHeatingCoil(DisplaySystemHeatingCoil displaySystemHeatingCoil)
+            : base(displaySystemHeatingCoil)
         {
-            systemGeometryInstance = displaySystemJunction?.systemGeometryInstance == null ? null : new SystemGeometryInstance(displaySystemJunction?.systemGeometryInstance);
+            systemGeometryInstance = displaySystemHeatingCoil?.systemGeometryInstance == null ? null : new SystemGeometryInstance(displaySystemHeatingCoil?.systemGeometryInstance);
         }
 
         public DisplaySystemHeatingCoil(JObject jObject)

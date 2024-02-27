@@ -20,5 +20,10 @@ namespace SAM.Geometry.Systems
             : base(systemPolyline)
         {
         }
+
+        public ISAMGeometry2DObject GetGeometry()
+        {
+            return new Polyline2DObject(this);
+        }
     }
 }
