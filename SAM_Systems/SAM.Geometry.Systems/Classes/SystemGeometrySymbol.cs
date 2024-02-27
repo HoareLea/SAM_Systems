@@ -45,7 +45,7 @@ namespace SAM.Geometry.Systems
             }
         }
 
-        public bool FromJObject(JObject jObject)
+        public override bool FromJObject(JObject jObject)
         {
             bool result = base.FromJObject(jObject);
             if (!result)
@@ -66,7 +66,7 @@ namespace SAM.Geometry.Systems
             return result;
         }
 
-        public JObject ToJObject()
+        public override JObject ToJObject()
         {
             JObject result = base.ToJObject();
 
