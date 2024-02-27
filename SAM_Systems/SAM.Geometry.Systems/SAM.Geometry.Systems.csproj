@@ -52,9 +52,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\DisplaySystemConnection.cs" />
+    <Compile Include="Classes\DisplaySystemConnectorManager.cs" />
     <Compile Include="Classes\DisplaySystemEnergyCentre.cs" />
     <Compile Include="Classes\DisplaySystemJunction.cs" />
+    <Compile Include="Classes\DisplaySystemConnector.cs" />
     <Compile Include="Classes\DisplaySystemPlantRoom.cs" />
+    <Compile Include="Classes\SystemGeometrySymbolManager.cs" />
+    <Compile Include="Classes\DisplaySystemManager.cs" />
     <Compile Include="Classes\SystemPolyline.cs" />
     <Compile Include="Classes\SystemGeometryInstance.cs" />
     <Compile Include="Classes\SystemGeometrySymbol.cs" />

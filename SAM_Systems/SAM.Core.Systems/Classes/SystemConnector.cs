@@ -108,7 +108,7 @@ namespace SAM.Core.Systems
             return this.systemType.IsValid(systemType);
         }
 
-        public bool FromJObject(JObject jObject)
+        public virtual bool FromJObject(JObject jObject)
         {
             if(jObject == null)
             {
@@ -133,7 +133,7 @@ namespace SAM.Core.Systems
             return true;
         }
 
-        public JObject ToJObject()
+        public virtual JObject ToJObject()
         {
             JObject result = new JObject();
             result.Add("_type", Core.Query.FullTypeName(this));

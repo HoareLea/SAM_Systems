@@ -73,11 +73,11 @@ namespace SAM.Analytical.Systems
         {
             get
             {
-                return Create.SystemConnectorManager
+                return Core.Systems.Create.SystemConnectorManager
                 (
-                    Create.SystemConnector<AirSystem>(Core.Direction.In),
-                    Create.SystemConnector<AirSystem>(Core.Direction.Out),
-                    Create.SystemConnector<IControlSystem>()
+                    Core.Systems.Create.SystemConnector<AirSystem>(Core.Direction.In),
+                    Core.Systems.Create.SystemConnector<AirSystem>(Core.Direction.Out),
+                    Core.Systems.Create.SystemConnector<IControlSystem>()
                 );
             }
         }

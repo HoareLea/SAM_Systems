@@ -27,11 +27,11 @@ namespace SAM.Analytical.Systems
         {
             get
             {
-                return Create.SystemConnectorManager
+                return Core.Systems.Create.SystemConnectorManager
                 (
-                    Create.SystemConnector<RefrigerantSystem>(Core.Direction.In, 1),
-                    Create.SystemConnector<RefrigerantSystem>(Core.Direction.Out, 1),
-                    Create.SystemConnector<IControlSystem>()
+                    Core.Systems.Create.SystemConnector<RefrigerantSystem>(Core.Direction.In, 1),
+                    Core.Systems.Create.SystemConnector<RefrigerantSystem>(Core.Direction.Out, 1),
+                    Core.Systems.Create.SystemConnector<IControlSystem>()
 
                 );
             }
