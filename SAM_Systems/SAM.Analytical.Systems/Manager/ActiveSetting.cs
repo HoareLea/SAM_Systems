@@ -39,7 +39,7 @@ namespace SAM.Analytical.Systems
 
             string path = null;
 
-            path = Query.DefaultPath(AnalyticalSystemSettingParameter.DefaultDisplaySystemManagerFileName);
+            path = Query.DefaultPath(result, AnalyticalSystemSettingParameter.DefaultDisplaySystemManagerFileName);
             if (System.IO.File.Exists(path))
             {
                 result.SetValue(AnalyticalSystemSettingParameter.DefaultDisplaySystemManager, Core.Create.IJSAMObject<DisplaySystemManager>(System.IO.File.ReadAllText(path)));

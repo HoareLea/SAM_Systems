@@ -1,10 +1,17 @@
-﻿namespace SAM.Analytical.Systems
+﻿using SAM.Core;
+
+namespace SAM.Analytical.Systems
 {
     public static partial class Query
     {
-        public static string DefaultPath(this AnalyticalSystemSettingParameter analyticalSystemSettingParameter)
+        public static string DefaultPath(this Setting setting, AnalyticalSystemSettingParameter analyticalSystemSettingParameter)
         {
-            if (!ActiveSetting.Setting.TryGetValue(analyticalSystemSettingParameter, out string name) || string.IsNullOrWhiteSpace(name))
+            if(setting == null)
+            {
+                return null;
+            }
+
+            if (!setting.TryGetValue(analyticalSystemSettingParameter, out string name) || string.IsNullOrWhiteSpace(name))
             {
                 return null;
             }

@@ -1,6 +1,6 @@
 [
   {
-    "_type": "SAM.Geometry.Systems.SystemGeometryManager,SAM.Geometry.Systems",
+    "_type": "SAM.Geometry.Systems.DisplaySystemManager,SAM.Geometry.Systems",
     "SystemGeometrySymbolManager": {
       "_type": "SAM.Geometry.Systems.SystemGeometrySymbolManager,SAM.Geometry.Systems",
       "SystemGeometrySymbols": [
@@ -8,7 +8,7 @@
           "SAM.Analytical.Systems.SystemHeatingCoil,SAM.Analytical.Systems",
           {
             "_type": "SAM.Geometry.Systems.SystemGeometrySymbol,SAM.Geometry.Systems",
-            "Guid": "229cd3cc-a519-4d4b-8a6f-58f313b7c92c",
+            "Guid": "91ec2ce3-cfd6-42ff-8191-b8c7a25f6634",
             "Geometry": {
               "_type": "SAM.Geometry.Object.Planar.SAMGeometry2DObjectCollection,SAM.Geometry",
               "Geometry2DObjects": [

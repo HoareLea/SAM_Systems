@@ -12,6 +12,16 @@ namespace SAM.Geometry.Systems
 
         }
 
+        public DisplaySystemManager(JObject jObject)
+        {
+            FromJObject(jObject);
+        }
+
+        public DisplaySystemManager(DisplaySystemManager displaySystemManager)
+        {
+            systemGeometrySymbolManager = displaySystemManager?.systemGeometrySymbolManager == null ? null : new SystemGeometrySymbolManager(displaySystemManager.SystemGeometrySymbolManager);
+        }
+
         public SystemGeometrySymbolManager SystemGeometrySymbolManager
         {
             get
