@@ -101,23 +101,38 @@ namespace SAM.Geometry.Systems
 
         public SystemGeometrySymbol GetSystemGeometrySymbol<T>() where T : ISystemObject
         {
-            string fullTypeName = Core.Query.FullTypeName(typeof(T));
+            return GetSystemGeometrySymbol(typeof(T));
+        }
+
+        public SystemGeometrySymbol GetSystemGeometrySymbol(System.Type type)
+        {
+            if (type == null)
+            {
+                return null;
+            }
+
+            if (!typeof(ISystemObject).IsAssignableFrom(type))
+            {
+                return null;
+            }
+
+            string fullTypeName = Core.Query.FullTypeName(type);
             if (string.IsNullOrWhiteSpace(fullTypeName))
             {
                 return null;
             }
 
-            if(!dictionary.TryGetValue(fullTypeName, out SystemGeometrySymbol result))
+            if (!dictionary.TryGetValue(fullTypeName, out SystemGeometrySymbol result))
             {
-                foreach(KeyValuePair<string, SystemGeometrySymbol> keyValuePair in dictionary)
+                foreach (KeyValuePair<string, SystemGeometrySymbol> keyValuePair in dictionary)
                 {
-                    System.Type type = Core.Query.Type(keyValuePair.Key);
-                    if(type == null)
+                    System.Type type_Temp = Core.Query.Type(keyValuePair.Key);
+                    if (type_Temp == null)
                     {
                         continue;
                     }
 
-                    if(type.IsAssignableFrom(typeof(T)))
+                    if (type_Temp.IsAssignableFrom(type))
                     {
                         return keyValuePair.Value;
                     }

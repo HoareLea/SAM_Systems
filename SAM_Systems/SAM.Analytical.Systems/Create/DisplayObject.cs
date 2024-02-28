@@ -23,19 +23,27 @@ namespace SAM.Analytical.Systems
                 return default(T);
             }
 
+            SystemGeometrySymbol systemGeometrySymbol = displaySystemManager.SystemGeometrySymbolManager.GetSystemGeometrySymbol(systemComponent.GetType());
+            if (systemGeometrySymbol == null)
+            {
+                return default(T);
+            }
+
             IDisplaySystemObject displayObject = null;
             if (systemComponent is SystemHeatingCoil)
             {
-                SystemGeometrySymbol systemGeometrySymbol = displaySystemManager.SystemGeometrySymbolManager.GetSystemGeometrySymbol<SystemHeatingCoil>();
-                if(systemGeometrySymbol == null)
-                {
-                    return default(T);
-                }
-
                 displayObject = new DisplaySystemHeatingCoil((SystemHeatingCoil)systemComponent, systemGeometrySymbol, location);
             }
+            else if (systemComponent is SystemCoolingCoil)
+            {
+                displayObject = new DisplaySystemCoolingCoil((SystemCoolingCoil)systemComponent, systemGeometrySymbol, location);
+            }
+            else if (systemComponent is SystemFan)
+            {
+                displayObject = new DisplaySystemFan((SystemFan)systemComponent, systemGeometrySymbol, location);
+            }
 
-            if(!(displayObject is T))
+            if (!(displayObject is T))
             {
                 return default(T);
             }
