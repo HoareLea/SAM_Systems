@@ -2,10 +2,11 @@
 using Newtonsoft.Json.Linq;
 using SAM.Core;
 using System.Collections.Generic;
+using SAM.Core.Systems;
 
 namespace SAM.Geometry.Systems
 {
-    public class SystemGeometrySymbol : SAMObject, ISAMGeometry2DObject
+    public class SystemGeometrySymbol : SAMObject, ISAMGeometry2DObject, ISystemObject
     {
         private ISAMGeometry2DObject geometry;
         private DisplaySystemConnectorManager displaySystemConnectorManager;
