@@ -2,15 +2,16 @@
 using Grasshopper.Kernel.Attributes;
 using Grasshopper.Kernel.Types;
 using SAM.Core.Grasshopper.Systems;
-using SAM.Core.Grasshopper.Systems.Properties;
+using SAM.Analytical.Grasshopper.Systems.Properties;
 using SAM.Core.Systems;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Windows.Forms;
+using SAM.Core.Grasshopper;
 
-namespace SAM.Core.Grasshopper
+namespace SAM.Analytical.Grasshopper
 {
     public class SAMAnalyticalSystemResults : GH_Component, IGH_VariableParameterComponent, IGH_SAMComponent
     {
@@ -22,7 +23,7 @@ namespace SAM.Core.Grasshopper
         /// <summary>
         /// The latest version of this component
         /// </summary>
-        public string LatestComponentVersion => "1.0.1";
+        public string LatestComponentVersion => "1.0.2";
 
         public override GH_Exposure Exposure => GH_Exposure.tertiary;
 
@@ -35,7 +36,7 @@ namespace SAM.Core.Grasshopper
         {
             get
             {
-                return Query.Obsolete(this);
+                return Core.Grasshopper.Query.Obsolete(this);
             }
         }
 

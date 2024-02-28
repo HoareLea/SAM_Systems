@@ -71,8 +71,11 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Classes\GooSystemGeometry.cs" />
+    <Compile Include="Classes\GooSystemObject.cs" />
     <Compile Include="Component\SAMAnalyticalSystemConnector.cs" />
+    <Compile Include="Component\SAMAnalyticalSystemPlantRoomRelatedObjects.cs" />
+    <Compile Include="Component\SAMAnalyticalSystemResults.cs" />
+    <Compile Include="Component\SAMAnalyticalSystemResultValueByHourOfYear.cs" />
     <Compile Include="Component\SAMAnalyticalSystemType.cs" />
     <Compile Include="Kernel\AssemblyInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

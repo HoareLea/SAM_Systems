@@ -6,7 +6,7 @@ namespace SAM.Analytical.Systems
 {
     public static partial class Create
     {
-        public static T DisplayObject<T>(this SystemComponent systemComponent, Point2D location, DisplaySystemManager displaySystemManager) where T :IDisplayObject
+        public static T DisplayObject<T>(this SystemComponent systemComponent, Point2D location, DisplaySystemManager displaySystemManager) where T :IDisplaySystemObject
         {
             if(systemComponent == null || displaySystemManager == null)
             {
@@ -18,12 +18,12 @@ namespace SAM.Analytical.Systems
                 return (T)(object)systemComponent;
             }
 
-            if(systemComponent is IDisplayObject)
+            if(systemComponent is IDisplaySystemObject)
             {
                 return default(T);
             }
 
-            IDisplayObject displayObject = null;
+            IDisplaySystemObject displayObject = null;
             if (systemComponent is SystemHeatingCoil)
             {
                 SystemGeometrySymbol systemGeometrySymbol = displaySystemManager.SystemGeometrySymbolManager.GetSystemGeometrySymbol<SystemHeatingCoil>();

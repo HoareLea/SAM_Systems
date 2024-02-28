@@ -4,9 +4,17 @@ using SAM.Geometry.Planar;
 
 namespace SAM.Geometry.Systems
 {
-    public class DisplaySystemJunction : SystemJunction, IDisplayObject<SystemGeometryInstance>
+    public class DisplaySystemJunction : SystemJunction, IDisplaySystemObject<SystemGeometryInstance>
     {
         private SystemGeometryInstance systemGeometryInstance;
+
+        public SystemGeometryInstance SystemGeometry
+        {
+            get 
+            { 
+                return systemGeometryInstance == null ? null : new SystemGeometryInstance(systemGeometryInstance); 
+            }
+        }
 
         public DisplaySystemJunction(SystemJunction systemJunction, SystemGeometrySymbol systemGeometrySymbol, Point2D location)
             :base(systemJunction)

@@ -4,9 +4,17 @@ using SAM.Geometry.Systems;
 
 namespace SAM.Analytical.Systems
 {
-    public class DisplaySystemHeatingCoil : SystemHeatingCoil, IDisplayObject<SystemGeometryInstance>
+    public class DisplaySystemHeatingCoil : SystemHeatingCoil, IDisplaySystemObject<SystemGeometryInstance>
     {
         private SystemGeometryInstance systemGeometryInstance;
+
+        public SystemGeometryInstance SystemGeometry
+        {
+            get
+            {
+                return systemGeometryInstance == null ? null : new SystemGeometryInstance(systemGeometryInstance);
+            }
+        }
 
         public DisplaySystemHeatingCoil(SystemHeatingCoil systemHeatingCoil, SystemGeometrySymbol systemGeometrySymbol, Point2D location)
             :base(systemHeatingCoil)

@@ -4,9 +4,17 @@ using SAM.Geometry.Planar;
 
 namespace SAM.Geometry.Systems
 {
-    public class DisplaySystemConnection : SystemConnection, IDisplayObject<SystemPolyline>
+    public class DisplaySystemConnection : SystemConnection, IDisplaySystemObject<SystemPolyline>
     {
         private SystemPolyline systemPolyline;
+
+        public SystemPolyline SystemGeometry
+        {
+            get
+            {
+                return systemPolyline == null ? null : new SystemPolyline(systemPolyline);
+            }
+        }
 
         public DisplaySystemConnection(SystemConnection systemConnection, params Point2D[] point2Ds)
             :base(systemConnection)

@@ -30,7 +30,7 @@ namespace SAM.Geometry.Systems
                 return null;
             }
 
-            if(!(systemComponent_1 is IDisplayObject) || !(systemComponent_2 is IDisplayObject))
+            if(!(systemComponent_1 is IDisplaySystemObject) || !(systemComponent_2 is IDisplaySystemObject))
             {
                 return base.CreateSystemConnection(systemComponent_1, systemComponent_2, system, index_1, index_2);
             }

@@ -62,7 +62,7 @@
     <Compile Include="Classes\SystemPolyline.cs" />
     <Compile Include="Classes\SystemGeometryInstance.cs" />
     <Compile Include="Classes\SystemGeometrySymbol.cs" />
-    <Compile Include="Interfaces\IDisplayObject.cs" />
+    <Compile Include="Interfaces\IDisplaySystemObject.cs" />
     <Compile Include="Interfaces\ISystemGeometry.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -6,6 +6,7 @@ using Rhino.Geometry;
 using SAM.Analytical.Grasshopper.Systems.Properties;
 using SAM.Core.Grasshopper;
 using SAM.Core.Systems;
+using SAM.Geometry.Object.Planar;
 using SAM.Geometry.Systems;
 using System;
 using System.Collections.Generic;
@@ -14,21 +15,21 @@ using System.Windows.Forms;
 
 namespace SAM.Analytical.Grasshopper.Systems
 {
-    public class GooSystemGeometry : GooJSAMObject<ISystemGeometry>, IGH_PreviewData, IGH_BakeAwareData
+    public class GooSystemObject : GooJSAMObject<ISystemJSAMObject>, IGH_PreviewData, IGH_BakeAwareData
     {
-        public GooSystemGeometry()
+        public GooSystemObject()
             : base()
         {
         }
 
-        public GooSystemGeometry(ISystemGeometry systemGeometry)
-            : base(systemGeometry)
+        public GooSystemObject(ISystemJSAMObject systemObject)
+            : base(systemObject)
         {
         }
 
         public override IGH_Goo Duplicate()
         {
-            return new GooSystemGeometry(Value);
+            return new GooSystemObject(Value);
         }
 
         public override bool CastFrom(object source)
@@ -43,7 +44,17 @@ namespace SAM.Analytical.Grasshopper.Systems
 
         public void DrawViewportWires(GH_PreviewWireArgs args)
         {
-            Geometry.Grasshopper.Modify.DrawViewportWires(Value.GetGeometry(), args, args.Color);
+            ISAMGeometry2DObject sAMGeometry2DObject = null;
+
+            if(Value is IDisplaySystemObject)
+            {
+                sAMGeometry2DObject = Analytical.Systems.Query.SAMGeometry2Dobject((IDisplaySystemObject)Value);
+            }
+
+            if(sAMGeometry2DObject != null)
+            {
+                Geometry.Grasshopper.Modify.DrawViewportWires(sAMGeometry2DObject, args, args.Color);
+            }
         }
 
         public void DrawViewportMeshes(GH_PreviewMeshArgs args)
@@ -58,8 +69,19 @@ namespace SAM.Analytical.Grasshopper.Systems
             {
                 return false;
             }
+            ISAMGeometry2DObject sAMGeometry2DObject = null;
 
-            bool result = Geometry.Rhino.Modify.BakeGeometry(Value.GetGeometry(), doc, att, out List<Guid> obj_guids);
+            if (Value is IDisplaySystemObject)
+            {
+                sAMGeometry2DObject = Analytical.Systems.Query.SAMGeometry2Dobject((IDisplaySystemObject)Value);
+            }
+
+            if(sAMGeometry2DObject == null)
+            {
+                return false;
+            }
+
+            bool result = Geometry.Rhino.Modify.BakeGeometry(sAMGeometry2DObject, doc, att, out List<Guid> obj_guids);
             if (!result)
             {
                 return false;
@@ -96,12 +118,12 @@ namespace SAM.Analytical.Grasshopper.Systems
             }
         }
 
-        public BoundingBox ClippingBox => throw new NotImplementedException();
+        public BoundingBox ClippingBox => BoundingBox.Unset;
     }
 
-    public class GooSystemGeometryParam : GH_PersistentParam<GooSystemGeometry>, IGH_PreviewObject, IGH_BakeAwareObject
+    public class GooSystemObjectParam : GH_PersistentParam<GooSystemObject>, IGH_PreviewObject, IGH_BakeAwareObject
     {
-        public override Guid ComponentGuid => new Guid("0e030609-4654-4850-9c48-390dcbdac05c");
+        public override Guid ComponentGuid => new Guid("55d4a95d-124b-4e7d-b415-f77e12b6f2dc");
 
         protected override System.Drawing.Bitmap Icon => Resources.SAM_Small;
 
@@ -111,19 +133,19 @@ namespace SAM.Analytical.Grasshopper.Systems
 
         public BoundingBox ClippingBox => Preview_ComputeClippingBox();
 
-        public bool IsBakeCapable => true;
+        public bool IsBakeCapable => throw new NotImplementedException();
 
-        public GooSystemGeometryParam()
-            : base(typeof(ISystemGeometry).Name, typeof(ISystemGeometry).Name, typeof(ISystemGeometry).FullName.Replace(".", " "), "Params", "SAM")
+        public GooSystemObjectParam()
+            : base(typeof(ISystemObject).Name, typeof(ISystemObject).Name, typeof(ISystemObject).FullName.Replace(".", " "), "Params", "SAM")
         {
         }
 
-        protected override GH_GetterResult Prompt_Plural(ref List<GooSystemGeometry> values)
+        protected override GH_GetterResult Prompt_Plural(ref List<GooSystemObject> values)
         {
             throw new NotImplementedException();
         }
 
-        protected override GH_GetterResult Prompt_Singular(ref GooSystemGeometry value)
+        protected override GH_GetterResult Prompt_Singular(ref GooSystemObject value)
         {
             throw new NotImplementedException();
         }

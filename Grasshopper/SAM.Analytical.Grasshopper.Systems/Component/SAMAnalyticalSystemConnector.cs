@@ -1,10 +1,8 @@
 ﻿using Grasshopper.Kernel;
-using Grasshopper.Kernel.Types;
 using SAM.Analytical.Grasshopper.Systems.Properties;
 using SAM.Analytical.Systems;
 using SAM.Core;
 using SAM.Core.Grasshopper;
-using SAM.Core.Grasshopper.Systems;
 using SAM.Core.Systems;
 using SAM.Geometry.Planar;
 using SAM.Geometry.Rhino;
@@ -12,7 +10,6 @@ using SAM.Geometry.Spatial;
 using SAM.Geometry.Systems;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 
 namespace SAM.Analytical.Grasshopper.Systems
 {
@@ -26,7 +23,7 @@ namespace SAM.Analytical.Grasshopper.Systems
         /// <summary>
         /// The latest version of this component
         /// </summary>
-        public override string LatestComponentVersion => "1.0.0";
+        public override string LatestComponentVersion => "1.0.1";
 
         /// <summary>
         /// Provides an Icon for the component.
