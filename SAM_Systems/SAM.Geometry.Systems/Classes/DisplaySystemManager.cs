@@ -4,7 +4,7 @@ using SAM.Core.Systems;
 
 namespace SAM.Geometry.Systems
 {
-    public class DisplaySystemManager :IJSAMObject, ISystemObject
+    public class DisplaySystemManager :IJSAMObject, ISystemJSAMObject
     {
         private SystemGeometrySymbolManager systemGeometrySymbolManager;
 

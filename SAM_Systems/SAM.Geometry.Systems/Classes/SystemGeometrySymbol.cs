@@ -6,7 +6,7 @@ using SAM.Core.Systems;
 
 namespace SAM.Geometry.Systems
 {
-    public class SystemGeometrySymbol : SAMObject, ISAMGeometry2DObject, ISystemObject
+    public class SystemGeometrySymbol : SAMObject, ISAMGeometry2DObject, ISystemJSAMObject
     {
         private ISAMGeometry2DObject geometry;
         private DisplaySystemConnectorManager displaySystemConnectorManager;
