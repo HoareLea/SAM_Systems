@@ -101,6 +101,7 @@
     <Compile Include="Classes\System\FluidSystem.cs" />
     <Compile Include="Create\DisplayObject.cs" />
     <Compile Include="Create\SystemType.cs" />
+    <Compile Include="Enums\AnalyticalSystemComponentType.cs" />
     <Compile Include="Enums\ChilledBeamDataType.cs" />
     <Compile Include="Enums\DXCoilDataType.cs" />
     <Compile Include="Enums\DXCoilUnitDataType.cs" />
@@ -122,6 +123,7 @@
     <Compile Include="Enums\SpaceDataType.cs" />
     <Compile Include="Manager\ActiveSetting.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Query\Type.cs" />
     <Compile Include="Query\DefaultPath.cs" />
     <Compile Include="Query\DefaultDisplaySystemManager.cs" />
     <Compile Include="Query\SAMGeometry2Dobject.cs" />

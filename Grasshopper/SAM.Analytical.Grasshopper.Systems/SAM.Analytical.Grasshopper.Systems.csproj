@@ -73,9 +73,13 @@
   <ItemGroup>
     <Compile Include="Classes\GooSystemObject.cs" />
     <Compile Include="Component\SAMAnalyticalSystemConnector.cs" />
+    <Compile Include="Component\SAMAnalyticalSystemCreateDisplaySystemConnectorManager.cs" />
+    <Compile Include="Component\SAMAnalyticalSystemCreateSystemGeometrySymbol.cs" />
     <Compile Include="Component\SAMAnalyticalSystemPlantRoomRelatedObjects.cs" />
     <Compile Include="Component\SAMAnalyticalSystemResults.cs" />
+    <Compile Include="Component\SAMAnalyticalSystemCreateDisplaySystemManager.cs" />
     <Compile Include="Component\SAMAnalyticalSystemResultValueByHourOfYear.cs" />
+    <Compile Include="Component\SAMAnalyticalSystemComponentType.cs" />
     <Compile Include="Component\SAMAnalyticalSystemType.cs" />
     <Compile Include="Kernel\AssemblyInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

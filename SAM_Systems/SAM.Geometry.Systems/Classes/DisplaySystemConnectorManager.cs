@@ -1,11 +1,12 @@
 ﻿using Newtonsoft.Json.Linq;
 using SAM.Core;
+using SAM.Core.Systems;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace SAM.Geometry.Systems
 {
-    public class DisplaySystemConnectorManager : IJSAMObject
+    public class DisplaySystemConnectorManager : IJSAMObject, ISystemObject
     {
         private List<DisplaySystemConnector> displaySystemConnectors;
 

@@ -53,6 +53,29 @@ namespace SAM.Geometry.Systems
             return true;
         }
 
+        public bool Add(System.Type type, SystemGeometrySymbol systemGeometrySymbol)
+        {
+            if (systemGeometrySymbol == null || type == null)
+            {
+                return false;
+            }
+
+            if(!typeof(ISystemObject).IsAssignableFrom(type))
+            {
+                return false;
+            }
+
+            string fullTypeName = Core.Query.FullTypeName(type);
+
+            if (string.IsNullOrWhiteSpace(fullTypeName))
+            {
+                return false;
+            }
+
+            dictionary[fullTypeName] = systemGeometrySymbol;
+            return true;
+        }
+
         public bool FromJObject(JObject jObject)
         {
             if(jObject == null)

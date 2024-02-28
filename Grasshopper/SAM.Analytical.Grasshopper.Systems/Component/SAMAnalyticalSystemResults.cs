@@ -46,7 +46,7 @@ namespace SAM.Analytical.Grasshopper
         public SAMAnalyticalSystemResults()
           : base("SAMAnalytical.SystemResults", "SAMAnalytical.SystemResults",
               "SAMAnalytical SystemResults",
-              "SAM", "Analytical")
+              "SAM", "Systems")
         {
             SetValue("SAM_SAMVersion", Core.Query.CurrentVersion());
             SetValue("SAM_ComponentVersion", LatestComponentVersion);

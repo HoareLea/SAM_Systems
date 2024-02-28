@@ -5,7 +5,7 @@ using System;
 
 namespace SAM.Analytical.Grasshopper.Systems
 {
-    public class SAMAnalyticalSystemType : GH_SAMEnumComponent<AnalyticalSystemType>
+    public class SAMAnalyticalSystemComponentType : GH_SAMEnumComponent<AnalyticalSystemComponentType>
     {
         /// <summary>
         /// Gets the unique ID for this component. Do not change this ID after release.
@@ -15,7 +15,7 @@ namespace SAM.Analytical.Grasshopper.Systems
         /// <summary>
         /// The latest version of this component
         /// </summary>
-        public override string LatestComponentVersion => "1.0.2";
+        public override string LatestComponentVersion => "1.0.1";
 
         /// <summary>
         /// Provides an Icon for the component.
@@ -25,9 +25,9 @@ namespace SAM.Analytical.Grasshopper.Systems
         /// <summary>
         /// About SAM Enum Component
         /// </summary>
-        public SAMAnalyticalSystemType()
-          : base("SAM.AnalyticalSystemType", "SAM.AnalyticalSystemType",
-              "AnalyticalSystemType",
+        public SAMAnalyticalSystemComponentType()
+          : base("SAM.AnalyticalSystemComponentType", "SAM.AnalyticalSystemComponentType",
+              "AnalyticalSystemComponentType",
               "SAM WIP", "Systems")
         {
         }

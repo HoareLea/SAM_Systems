@@ -32,7 +32,7 @@ namespace SAM.Analytical.Grasshopper.Systems
         public SAMAnalyticalSystemResultValueByHourOfYear()
           : base("SAMAnalytical.SystemResultValueByHourOfYear", "SAMAnalytical.SystemResultValueByHourOfYear",
               "System Result Value By Hour Of Year Index",
-              "SAM WIP", "Tas")
+              "SAM WIP", "Systems")
         {
         }
 
