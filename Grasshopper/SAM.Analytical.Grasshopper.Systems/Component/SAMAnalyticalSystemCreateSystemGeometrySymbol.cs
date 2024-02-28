@@ -1,6 +1,5 @@
 ﻿using Grasshopper.Kernel;
 using SAM.Analytical.Grasshopper.Systems.Properties;
-using SAM.Core;
 using SAM.Core.Grasshopper;
 using SAM.Core.Systems;
 using SAM.Geometry;
