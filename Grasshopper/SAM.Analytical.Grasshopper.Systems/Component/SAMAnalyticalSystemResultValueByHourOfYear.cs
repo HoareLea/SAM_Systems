@@ -1,9 +1,11 @@
 ﻿using Grasshopper.Kernel;
-using SAM.Core.Grasshopper.Systems.Properties;
+using SAM.Analytical.Grasshopper.Systems.Properties;
+using SAM.Core;
+using SAM.Core.Grasshopper;
 using System;
 using System.Collections.Generic;
 
-namespace SAM.Core.Grasshopper.Systems
+namespace SAM.Analytical.Grasshopper.Systems
 {
     public class SAMAnalyticalSystemResultValueByHourOfYear : GH_SAMVariableOutputParameterComponent
     {
@@ -15,12 +17,12 @@ namespace SAM.Core.Grasshopper.Systems
         /// <summary>
         /// The latest version of this component
         /// </summary>
-        public override string LatestComponentVersion => "1.0.2";
+        public override string LatestComponentVersion => "1.0.3";
 
         /// <summary>
         /// Provides an Icon for the component.
         /// </summary>
-        protected override System.Drawing.Bitmap Icon => Resources.SAM3_0;
+        protected override System.Drawing.Bitmap Icon => Resources.SAM_Small;
 
         public override GH_Exposure Exposure => GH_Exposure.primary;
 
@@ -30,7 +32,7 @@ namespace SAM.Core.Grasshopper.Systems
         public SAMAnalyticalSystemResultValueByHourOfYear()
           : base("SAMAnalytical.SystemResultValueByHourOfYear", "SAMAnalytical.SystemResultValueByHourOfYear",
               "System Result Value By Hour Of Year Index",
-              "SAM WIP", "Tas")
+              "SAM WIP", "Systems")
         {
         }
 

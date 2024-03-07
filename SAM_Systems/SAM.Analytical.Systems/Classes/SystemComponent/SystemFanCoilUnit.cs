@@ -16,7 +16,7 @@ namespace SAM.Analytical.Systems
         {
             get
             {
-                return Create.SystemConnectorManager
+                return Core.Systems.Create.SystemConnectorManager
                 (
 
                 );

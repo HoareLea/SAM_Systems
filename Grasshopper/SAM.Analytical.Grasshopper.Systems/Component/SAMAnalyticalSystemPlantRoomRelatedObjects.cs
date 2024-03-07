@@ -1,10 +1,12 @@
 ﻿using Grasshopper.Kernel;
-using SAM.Core.Grasshopper.Systems.Properties;
+using SAM.Analytical.Grasshopper.Systems.Properties;
+using SAM.Core.Grasshopper;
+using SAM.Core.Grasshopper.Systems;
 using SAM.Core.Systems;
 using System;
 using System.Collections.Generic;
 
-namespace SAM.Core.Grasshopper.Systems
+namespace SAM.Analytical.Grasshopper.Systems
 {
     public class SAMAnalyticalSystemPlantRoomRelatedObjects : GH_SAMVariableOutputParameterComponent
     {
@@ -16,12 +18,12 @@ namespace SAM.Core.Grasshopper.Systems
         /// <summary>
         /// The latest version of this component
         /// </summary>
-        public override string LatestComponentVersion => "1.0.0";
+        public override string LatestComponentVersion => "1.0.1";
 
         /// <summary>
         /// Provides an Icon for the component.
         /// </summary>
-        protected override System.Drawing.Bitmap Icon => Resources.SAM3_0;
+        protected override System.Drawing.Bitmap Icon => Resources.SAM_Small;
 
         public override GH_Exposure Exposure => GH_Exposure.primary;
 
@@ -31,7 +33,7 @@ namespace SAM.Core.Grasshopper.Systems
         public SAMAnalyticalSystemPlantRoomRelatedObjects()
           : base("SystemPlantRoom.RelatedObjects", "SystemPlantRoom.RelatedObjects",
               "Related Objects in SystemPlantRoom",
-              "SAM WIP", "Tas")
+              "SAM WIP", "Systems")
         {
         }
 

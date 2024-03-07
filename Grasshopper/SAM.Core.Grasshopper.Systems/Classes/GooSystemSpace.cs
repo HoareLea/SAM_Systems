@@ -23,7 +23,7 @@ namespace SAM.Core.Grasshopper.Systems
 
         public override IGH_Goo Duplicate()
         {
-            return new GooSystemObject(Value);
+            return new GooSystemSpace(Value);
         }
 
         public override bool CastFrom(object source)

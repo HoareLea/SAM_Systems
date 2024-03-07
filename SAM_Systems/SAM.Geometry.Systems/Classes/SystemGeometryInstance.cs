@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json.Linq;
 using SAM.Core;
+using SAM.Geometry.Object.Planar;
 using SAM.Geometry.Planar;
 using SAM.Geometry.Spatial;
 
@@ -12,7 +13,7 @@ namespace SAM.Geometry.Systems
 
         public SystemGeometryInstance(SystemGeometryInstance systemGeometryInstance)
         {
-            if(systemGeometryInstance != null)
+            if (systemGeometryInstance != null)
             {
                 systemGeometrySymbol = systemGeometryInstance.systemGeometrySymbol?.Clone();
                 coordinateSystem = systemGeometryInstance.coordinateSystem?.Clone();
@@ -32,7 +33,7 @@ namespace SAM.Geometry.Systems
 
         public bool Move(Vector2D vector2D)
         {
-            if(vector2D == null)
+            if (vector2D == null)
             {
                 return false;
             }
@@ -74,6 +75,57 @@ namespace SAM.Geometry.Systems
             if (coordinateSystem != null)
             {
                 result.Add("CoordinateSystem", coordinateSystem.ToJObject());
+            }
+
+            return result;
+        }
+
+        public ISAMGeometry2DObject GetGeometry()
+        {
+            ISAMGeometry2DObject sAMGeometry2DObject = systemGeometrySymbol?.Geometry;
+            if (sAMGeometry2DObject == null)
+            {
+                return null;
+            }
+
+            ISAMGeometry2DObject result = sAMGeometry2DObject.Clone();
+            if (coordinateSystem == null)
+            {
+                return result;
+            }
+
+
+            Vector2D vector2D = coordinateSystem?.Origin?.ToVector();
+            if (vector2D == null || vector2D.Length == 0)
+            {
+                return result;
+            }
+
+            if (result is IMovable2D)
+            {
+                ((IMovable2D)result).Move(vector2D);
+            }
+            else if (result is SAMGeometry2DObjectCollection)
+            {
+                SAMGeometry2DObjectCollection sAMGeometry2DObjectCollection = new SAMGeometry2DObjectCollection();
+                foreach (ISAMGeometry2DObject sAMGeometry2DObject_Temp in (SAMGeometry2DObjectCollection)result)
+                {
+                    if (sAMGeometry2DObject_Temp == null)
+                    {
+                        continue;
+                    }
+
+                    ISAMGeometry2DObject sAMGeometry2DObject_Clone = sAMGeometry2DObject_Temp.Clone();
+
+                    if (sAMGeometry2DObject_Clone is IMovable2D)
+                    {
+                        ((IMovable2D)sAMGeometry2DObject_Clone).Move(vector2D);
+                    }
+
+                    sAMGeometry2DObjectCollection.Add(sAMGeometry2DObject_Clone);
+                }
+
+                result = sAMGeometry2DObjectCollection;
             }
 
             return result;

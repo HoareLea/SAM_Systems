@@ -42,6 +42,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.IO.Compression" />
     <Reference Include="System.Numerics" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -51,6 +52,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\DisplayObject\DisplaySystemFan.cs" />
+    <Compile Include="Classes\DisplayObject\DisplaySystemCoolingCoil.cs" />
     <Compile Include="Classes\DisplayObject\DisplaySystemHeatingCoil.cs" />
     <Compile Include="Classes\Result\SystemChilledBeamResult.cs" />
     <Compile Include="Classes\Result\SystemDXCoilResult.cs" />
@@ -98,11 +101,16 @@
     <Compile Include="Classes\System\LiquidSystem.cs" />
     <Compile Include="Classes\System\AirSystem.cs" />
     <Compile Include="Classes\System\FluidSystem.cs" />
+    <Compile Include="Create\DisplayObject.cs" />
+    <Compile Include="Create\SystemType.cs" />
+    <Compile Include="Enums\AnalyticalSystemComponentType.cs" />
     <Compile Include="Enums\ChilledBeamDataType.cs" />
     <Compile Include="Enums\DXCoilDataType.cs" />
     <Compile Include="Enums\DXCoilUnitDataType.cs" />
     <Compile Include="Enums\DirectEvaporativeCoolerDataType.cs" />
     <Compile Include="Enums\DesiccantWheelDataType.cs" />
+    <Compile Include="Enums\AnalyticalSystemType.cs" />
+    <Compile Include="Enums\Parameters\AnalyticalSystemSettingParameter.cs" />
     <Compile Include="Enums\SprayHumidifierDataType.cs" />
     <Compile Include="Enums\SteamHumidifierDataType.cs" />
     <Compile Include="Enums\FanCoilUnitDataType.cs" />
@@ -115,7 +123,13 @@
     <Compile Include="Enums\FanDataType.cs" />
     <Compile Include="Enums\RadiatorDataType.cs" />
     <Compile Include="Enums\SpaceDataType.cs" />
+    <Compile Include="Manager\ActiveSetting.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Query\Type.cs" />
+    <Compile Include="Query\DefaultPath.cs" />
+    <Compile Include="Query\DefaultDisplaySystemManager.cs" />
+    <Compile Include="Query\SAMGeometry2Dobject.cs" />
+    <Compile Include="Query\ResourcesDirectory.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SAM.Core.Systems\SAM.Core.Systems.csproj">
@@ -131,9 +145,7 @@
     <None Include="app.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Create\" />
     <Folder Include="Modify\" />
-    <Folder Include="Query\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="NetTopologySuite">

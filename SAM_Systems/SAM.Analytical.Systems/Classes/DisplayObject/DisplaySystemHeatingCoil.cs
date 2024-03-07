@@ -1,13 +1,20 @@
 ﻿using Newtonsoft.Json.Linq;
-using SAM.Core.Systems;
 using SAM.Geometry.Planar;
 using SAM.Geometry.Systems;
 
 namespace SAM.Analytical.Systems
 {
-    public class DisplaySystemHeatingCoil : SystemHeatingCoil, IDisplayObject<SystemGeometryInstance>
+    public class DisplaySystemHeatingCoil : SystemHeatingCoil, IDisplaySystemObject<SystemGeometryInstance>
     {
         private SystemGeometryInstance systemGeometryInstance;
+
+        public SystemGeometryInstance SystemGeometry
+        {
+            get
+            {
+                return systemGeometryInstance == null ? null : new SystemGeometryInstance(systemGeometryInstance);
+            }
+        }
 
         public DisplaySystemHeatingCoil(SystemHeatingCoil systemHeatingCoil, SystemGeometrySymbol systemGeometrySymbol, Point2D location)
             :base(systemHeatingCoil)
@@ -15,10 +22,10 @@ namespace SAM.Analytical.Systems
             systemGeometryInstance = new SystemGeometryInstance(systemGeometrySymbol, location);
         }
 
-        public DisplaySystemHeatingCoil(DisplaySystemHeatingCoil displaySystemJunction)
-            : base(displaySystemJunction)
+        public DisplaySystemHeatingCoil(DisplaySystemHeatingCoil displaySystemHeatingCoil)
+            : base(displaySystemHeatingCoil)
         {
-            systemGeometryInstance = displaySystemJunction?.systemGeometryInstance == null ? null : new SystemGeometryInstance(displaySystemJunction?.systemGeometryInstance);
+            systemGeometryInstance = displaySystemHeatingCoil?.systemGeometryInstance == null ? null : new SystemGeometryInstance(displaySystemHeatingCoil?.systemGeometryInstance);
         }
 
         public DisplaySystemHeatingCoil(JObject jObject)
