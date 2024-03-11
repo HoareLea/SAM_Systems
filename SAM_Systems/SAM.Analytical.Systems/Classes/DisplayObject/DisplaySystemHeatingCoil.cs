@@ -22,6 +22,12 @@ namespace SAM.Analytical.Systems
             systemGeometryInstance = new SystemGeometryInstance(systemGeometrySymbol, location);
         }
 
+        public DisplaySystemHeatingCoil(SystemHeatingCoil systemHeatingCoil, SystemGeometrySymbol systemGeometrySymbol, CoordinateSystem2D coordinateSystem2D)
+    : base(systemHeatingCoil)
+        {
+            systemGeometryInstance = new SystemGeometryInstance(systemGeometrySymbol, coordinateSystem2D);
+        }
+
         public DisplaySystemHeatingCoil(DisplaySystemHeatingCoil displaySystemHeatingCoil)
             : base(displaySystemHeatingCoil)
         {

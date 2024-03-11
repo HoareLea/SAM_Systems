@@ -28,7 +28,13 @@ namespace SAM.Geometry.Systems
         public SystemGeometryInstance(SystemGeometrySymbol systemGeometrySymbol, Point2D location)
         {
             this.systemGeometrySymbol = systemGeometrySymbol;
-            coordinateSystem = new CoordinateSystem2D(location);
+            coordinateSystem = location == null ? null : new CoordinateSystem2D(location);
+        }
+
+        public SystemGeometryInstance(SystemGeometrySymbol systemGeometrySymbol, CoordinateSystem2D coordinateSystem2D)
+        {
+            this.systemGeometrySymbol = systemGeometrySymbol;
+            coordinateSystem = coordinateSystem2D == null ? null : new CoordinateSystem2D(coordinateSystem2D);
         }
 
         public bool Move(Vector2D vector2D)
