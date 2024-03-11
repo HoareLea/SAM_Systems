@@ -14,6 +14,7 @@ namespace SAM.Analytical.Systems
         [Description("System Chilled Beam")] SystemChilledBeam,
         [Description("System Damper")] SystemDamper,
         [Description("System Desiccant Wheel")] SystemDesiccantWheel,
+        [Description("System Exchanger")] SystemExchanger,
         [Description("System Direct Evaporative Cooler")] SystemDirectEvaporativeCooler,
         [Description("System DX Coil Unit")] SystemDXCoilUnit,
         [Description("System Economiser")] SystemEconomiser,

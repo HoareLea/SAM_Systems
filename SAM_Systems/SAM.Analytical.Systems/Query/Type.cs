@@ -35,6 +35,9 @@
                 case AnalyticalSystemComponentType.SystemDesiccantWheel:
                     return typeof(SystemDesiccantWheel);
 
+                case AnalyticalSystemComponentType.SystemExchanger:
+                    return typeof(SystemExchanger);
+
                 case AnalyticalSystemComponentType.SystemDirectEvaporativeCooler:
                     return typeof(SystemDirectEvaporativeCooler);
 

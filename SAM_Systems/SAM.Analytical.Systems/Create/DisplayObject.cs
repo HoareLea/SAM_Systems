@@ -42,6 +42,18 @@ namespace SAM.Analytical.Systems
             {
                 displayObject = new DisplaySystemFan((SystemFan)systemComponent, systemGeometrySymbol, location);
             }
+            else if (systemComponent is SystemDesiccantWheel)
+            {
+                displayObject = new DisplaySystemDesiccantWheel((SystemDesiccantWheel)systemComponent, systemGeometrySymbol, location);
+            }
+            else if (systemComponent is SystemExchanger)
+            {
+                displayObject = new DisplaySystemExchanger((SystemExchanger)systemComponent, systemGeometrySymbol, location);
+            }
+            else if (systemComponent is SystemAirJunction)
+            {
+                displayObject = new DisplaySystemAirJunction((SystemAirJunction)systemComponent, systemGeometrySymbol, location);
+            }
 
             if (!(displayObject is T))
             {

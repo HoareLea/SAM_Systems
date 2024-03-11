@@ -4,7 +4,7 @@ using SAM.Geometry.Systems;
 
 namespace SAM.Analytical.Systems
 {
-    public class DisplaySystemFan : SystemFan, IDisplaySystemObject<SystemGeometryInstance>
+    public class DisplaySystemDesiccantWheel : SystemDesiccantWheel, IDisplaySystemObject<SystemGeometryInstance>
     {
         private SystemGeometryInstance systemGeometryInstance;
 
@@ -16,19 +16,19 @@ namespace SAM.Analytical.Systems
             }
         }
 
-        public DisplaySystemFan(SystemFan systemFan, SystemGeometrySymbol systemGeometrySymbol, Point2D location)
-            :base(systemFan)
+        public DisplaySystemDesiccantWheel(SystemDesiccantWheel systemDesiccantWheel, SystemGeometrySymbol systemGeometrySymbol, Point2D location)
+            :base(systemDesiccantWheel)
         {
             systemGeometryInstance = new SystemGeometryInstance(systemGeometrySymbol, location);
         }
 
-        public DisplaySystemFan(DisplaySystemFan displaySystemFan)
-            : base(displaySystemFan)
+        public DisplaySystemDesiccantWheel(DisplaySystemDesiccantWheel displaySystemDesiccantWheel)
+            : base(displaySystemDesiccantWheel)
         {
-            systemGeometryInstance = displaySystemFan?.systemGeometryInstance == null ? null : new SystemGeometryInstance(displaySystemFan?.systemGeometryInstance);
+            systemGeometryInstance = displaySystemDesiccantWheel?.systemGeometryInstance == null ? null : new SystemGeometryInstance(displaySystemDesiccantWheel?.systemGeometryInstance);
         }
 
-        public DisplaySystemFan(JObject jObject)
+        public DisplaySystemDesiccantWheel(JObject jObject)
             : base(jObject)
         {
 
