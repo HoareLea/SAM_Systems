@@ -42,6 +42,17 @@ namespace SAM.Geometry.Systems
             return true;
         }
 
+        public bool Transform(Transform2D transform2D)
+        {
+            if(transform2D == null)
+            {
+                return false;
+            }
+
+            coordinateSystem = coordinateSystem.GetTransformed(transform2D);
+            return true;
+        }
+
         public bool FromJObject(JObject jObject)
         {
             if (jObject == null)
@@ -94,16 +105,12 @@ namespace SAM.Geometry.Systems
                 return result;
             }
 
-
-            Vector2D vector2D = coordinateSystem?.Origin?.ToVector();
-            if (vector2D == null || vector2D.Length == 0)
+            Transform2D transform2D = Transform2D.GetCoordinateSystem2DToCoordinateSystem2D(coordinateSystem, CoordinateSystem2D.World);
+            if(result is ISAMGeometry2D)
             {
-                return result;
-            }
-
-            if (result is IMovable2D)
-            {
-                ((IMovable2D)result).Move(vector2D);
+                ISAMGeometry2D sAMGeometry2D = ((ISAMGeometry2D)result).Clone() as ISAMGeometry2D;
+                sAMGeometry2D.Transform(transform2D);
+                return sAMGeometry2D as ISAMGeometry2DObject;
             }
             else if (result is SAMGeometry2DObjectCollection)
             {
@@ -117,9 +124,9 @@ namespace SAM.Geometry.Systems
 
                     ISAMGeometry2DObject sAMGeometry2DObject_Clone = sAMGeometry2DObject_Temp.Clone();
 
-                    if (sAMGeometry2DObject_Clone is IMovable2D)
+                    if (sAMGeometry2DObject_Clone is ISAMGeometry2D)
                     {
-                        ((IMovable2D)sAMGeometry2DObject_Clone).Move(vector2D);
+                        ((ISAMGeometry2D)sAMGeometry2DObject_Clone).Transform(transform2D);
                     }
 
                     sAMGeometry2DObjectCollection.Add(sAMGeometry2DObject_Clone);
