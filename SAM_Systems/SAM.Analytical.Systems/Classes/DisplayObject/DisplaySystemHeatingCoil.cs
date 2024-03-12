@@ -50,6 +50,16 @@ namespace SAM.Analytical.Systems
             return systemGeometryInstance.Move(vector2D);
         }
 
+        public bool Transform(ITransform2D transform2D)
+        {
+            if (systemGeometryInstance == null || transform2D == null)
+            {
+                return false;
+            }
+
+            return systemGeometryInstance.Transform(transform2D);
+        }
+
         public override bool FromJObject(JObject jObject)
         {
             bool result = base.FromJObject(jObject);
