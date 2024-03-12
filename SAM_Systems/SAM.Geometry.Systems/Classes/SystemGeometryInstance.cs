@@ -48,7 +48,7 @@ namespace SAM.Geometry.Systems
             return true;
         }
 
-        public bool Transform(Transform2D transform2D)
+        public bool Transform(ITransform2D transform2D)
         {
             if(transform2D == null)
             {

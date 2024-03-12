@@ -44,7 +44,7 @@ namespace SAM.Analytical.Systems
             return systemGeometryInstance.Move(vector2D);
         }
 
-        public bool Transform(Transform2D transform2D)
+        public bool Transform(ITransform2D transform2D)
         {
             if (systemGeometryInstance == null || transform2D == null)
             {
