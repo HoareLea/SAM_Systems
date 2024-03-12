@@ -5,6 +5,10 @@ namespace SAM.Analytical.Systems
 {
     public class SystemCoolingCoil: SystemComponent
     {
+        public double BypassFactor { get; set; }
+
+        public Duty Duty { get; set; }
+
         public SystemCoolingCoil(string name)
             : base(name)
         {
@@ -14,7 +18,11 @@ namespace SAM.Analytical.Systems
         public SystemCoolingCoil(SystemCoolingCoil systemCoolingCoil)
             : base(systemCoolingCoil)
         {
-
+            if(systemCoolingCoil != null)
+            {
+                BypassFactor = systemCoolingCoil.BypassFactor;
+                Duty = Core.Query.Clone(systemCoolingCoil.Duty);
+            }
         }
 
         public SystemCoolingCoil(JObject jObject)
@@ -40,12 +48,44 @@ namespace SAM.Analytical.Systems
 
         public override bool FromJObject(JObject jObject)
         {
-            return base.FromJObject(jObject);
+            bool result = base.FromJObject(jObject);
+            if(!result)
+            {
+                return result;
+            }
+
+            if(jObject.ContainsKey("BypassFactor"))
+            {
+                BypassFactor = jObject.Value<double>("BypassFactor");
+            }
+
+            if (jObject.ContainsKey("Duty"))
+            {
+                Duty = Core.Query.IJSAMObject<Duty>(jObject.Value<JObject>("Duty"));
+            }
+
+            return result;
         }
 
         public override JObject ToJObject()
         {
-            return base.ToJObject();
+            JObject result = base.ToJObject();
+            if(result == null)
+            {
+                return result;
+            }
+
+            if(!double.IsNaN(BypassFactor))
+            {
+                result.Add("BypassFactor", BypassFactor);
+            }
+
+            if(Duty != null)
+            {
+                result.Add("Duty", Duty.ToJObject());
+            }
+
+            return result;
         }
     }
 }
