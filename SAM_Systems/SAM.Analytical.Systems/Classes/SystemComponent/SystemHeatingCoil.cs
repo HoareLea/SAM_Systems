@@ -16,7 +16,10 @@ namespace SAM.Analytical.Systems
         public SystemHeatingCoil(SystemHeatingCoil systemHeatingCoil)
             : base(systemHeatingCoil)
         {
-
+            if(systemHeatingCoil != null)
+            {
+                Duty = systemHeatingCoil.Duty;
+            }
         }
 
         public SystemHeatingCoil(JObject jObject)

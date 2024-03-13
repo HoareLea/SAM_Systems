@@ -22,7 +22,13 @@ namespace SAM.Analytical.Systems
         public SystemFan(SystemFan systemFan)
             : base(systemFan)
         {
-
+            if(systemFan != null)
+            {
+                OverallEfficiency = systemFan.OverallEfficiency;
+                HeatGainFactor = systemFan.HeatGainFactor;
+                Pressure = systemFan.Pressure;
+                DesignFlowRate = systemFan.DesignFlowRate;
+            }
         }
 
         public SystemFan(JObject jObject)
