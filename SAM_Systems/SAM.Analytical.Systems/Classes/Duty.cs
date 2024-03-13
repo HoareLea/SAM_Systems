@@ -12,6 +12,7 @@ namespace SAM.Analytical.Systems
 
         public Duty(double value)
         {
+            Value = value;
         }
 
         public Duty(Duty duty)
