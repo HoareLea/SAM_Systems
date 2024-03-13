@@ -18,7 +18,11 @@ namespace SAM.Analytical.Systems
         public SystemExchanger(SystemExchanger systemExchanger)
             : base(systemExchanger)
         {
-
+            if(systemExchanger != null)
+            {
+                SensibleEfficiency = systemExchanger.SensibleEfficiency;
+                LatentEfficiency = systemExchanger.LatentEfficiency;
+            }
         }
 
         public SystemExchanger(JObject jObject)
