@@ -5,6 +5,14 @@ namespace SAM.Analytical.Systems
 {
     public class SystemFan : SystemComponent
     {
+        public double OverallEfficiency { get; set; }
+
+        public double HeatGainFactor { get; set; }
+
+        public double Pressure { get; set; }
+
+        public double DesignFlowRate { get; set; }
+
         public SystemFan(string name)
             : base(name)
         {
@@ -39,12 +47,64 @@ namespace SAM.Analytical.Systems
 
         public override bool FromJObject(JObject jObject)
         {
-            return base.FromJObject(jObject);
+            bool result = base.FromJObject(jObject);
+            if (!result)
+            {
+                return result;
+            }
+
+            if (jObject.ContainsKey("OverallEfficiency"))
+            {
+                OverallEfficiency = jObject.Value<double>("OverallEfficiency");
+            }
+
+            if (jObject.ContainsKey("HeatGainFactor"))
+            {
+                HeatGainFactor = jObject.Value<double>("HeatGainFactor");
+            }
+
+            if (jObject.ContainsKey("Pressure"))
+            {
+                Pressure = jObject.Value<double>("Pressure");
+            }
+
+            if (jObject.ContainsKey("DesignFlowRate"))
+            {
+                DesignFlowRate = jObject.Value<double>("DesignFlowRate");
+            }
+
+            return result;
         }
 
         public override JObject ToJObject()
         {
-            return base.ToJObject();
+            JObject result = base.ToJObject();
+            if (result == null)
+            {
+                return null;
+            }
+
+            if (!double.IsNaN(OverallEfficiency))
+            {
+                result.Add("OverallEfficiency", OverallEfficiency);
+            }
+
+            if (!double.IsNaN(HeatGainFactor))
+            {
+                result.Add("HeatGainFactor", HeatGainFactor);
+            }
+
+            if (!double.IsNaN(Pressure))
+            {
+                result.Add("Pressure", Pressure);
+            }
+
+            if (!double.IsNaN(DesignFlowRate))
+            {
+                result.Add("DesignFlowRate", DesignFlowRate);
+            }
+
+            return result;
         }
     }
 }

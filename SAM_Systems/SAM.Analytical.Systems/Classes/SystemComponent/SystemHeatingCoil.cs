@@ -5,6 +5,8 @@ namespace SAM.Analytical.Systems
 {
     public class SystemHeatingCoil : SystemComponent
     {
+        public Duty Duty { get; set; }
+
         public SystemHeatingCoil(string name)
             : base(name)
         {
@@ -42,12 +44,34 @@ namespace SAM.Analytical.Systems
 
         public override bool FromJObject(JObject jObject)
         {
-            return base.FromJObject(jObject);
+            bool result = base.FromJObject(jObject);
+            if (!result)
+            {
+                return result;
+            }
+
+            if (jObject.ContainsKey("Duty"))
+            {
+                Duty = Core.Query.IJSAMObject<Duty>(jObject.Value<JObject>("Duty"));
+            }
+
+            return result;
         }
 
         public override JObject ToJObject()
         {
-            return base.ToJObject();
+            JObject result = base.ToJObject();
+            if (result == null)
+            {
+                return null;
+            }
+
+            if (Duty != null)
+            {
+                result.Add("Duty", Duty.ToJObject());
+            }
+
+            return result;
         }
     }
 }
