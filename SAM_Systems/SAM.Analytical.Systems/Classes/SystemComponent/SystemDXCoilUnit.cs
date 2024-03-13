@@ -5,8 +5,8 @@ namespace SAM.Analytical.Systems
 {
     public class SystemDXCoilUnit : SystemSpaceComponent
     {
-        public double CoolingDuty { get; set; }
-        public double HeatingDuty { get; set; }
+        public Duty CoolingDuty { get; set; }
+        public Duty HeatingDuty { get; set; }
         public double DesignFlowRate { get; set; }
         public double OverallEfficiency { get; set; }
 
@@ -56,12 +56,12 @@ namespace SAM.Analytical.Systems
 
             if (jObject.ContainsKey("CoolingDuty"))
             {
-                CoolingDuty = jObject.Value<double>("CoolingDuty");
+                CoolingDuty = Core.Query.IJSAMObject<Duty>(jObject.Value<JObject>("CoolingDuty"));
             }
 
             if (jObject.ContainsKey("HeatingDuty"))
             {
-                HeatingDuty = jObject.Value<double>("HeatingDuty");
+                HeatingDuty = Core.Query.IJSAMObject<Duty>(jObject.Value<JObject>("HeatingDuty"));
             }
 
             if (jObject.ContainsKey("DesignFlowRate"))
@@ -85,14 +85,14 @@ namespace SAM.Analytical.Systems
                 return null;
             }
 
-            if (!double.IsNaN(CoolingDuty))
+            if (CoolingDuty != null)
             {
-                result.Add("CoolingDuty", CoolingDuty);
+                result.Add("CoolingDuty", CoolingDuty.ToJObject());
             }
 
-            if (!double.IsNaN(HeatingDuty))
+            if (HeatingDuty != null)
             {
-                result.Add("HeatingDuty", HeatingDuty);
+                result.Add("HeatingDuty", HeatingDuty.ToJObject());
             }
 
             if (!double.IsNaN(DesignFlowRate))

@@ -6,7 +6,7 @@ namespace SAM.Analytical.Systems
     public class SystemRadiator : SystemSpaceComponent
     {
         public double Efficiency { get; set; }
-        public double Duty { get; set; }
+        public Duty Duty { get; set; }
 
         public override SystemConnectorManager SystemConnectorManager
         {
@@ -57,7 +57,7 @@ namespace SAM.Analytical.Systems
 
             if (jObject.ContainsKey("Duty"))
             {
-                Duty = jObject.Value<double>("Duty");
+                Duty = Core.Query.IJSAMObject<Duty>(jObject.Value<JObject>("Duty"));
             }
 
             return true;
@@ -76,9 +76,9 @@ namespace SAM.Analytical.Systems
                 result.Add("Efficiency", Efficiency);
             }
 
-            if (!double.IsNaN(Duty))
+            if (Duty != null)
             {
-                result.Add("Duty", Duty);
+                result.Add("Duty", Duty.ToJObject());
             }
 
             return result;
