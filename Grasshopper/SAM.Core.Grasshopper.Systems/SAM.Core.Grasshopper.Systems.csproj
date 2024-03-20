@@ -62,7 +62,6 @@
   <ItemGroup>
     <Compile Include="Classes\GooSystemEnergyCentre.cs" />
     <Compile Include="Classes\GooSystemResult.cs" />
-    <Compile Include="Classes\GooSystemObject.cs" />
     <Compile Include="Classes\GooSystemPlantRoom.cs" />
     <Compile Include="Classes\GooSystemSpace.cs" />
     <Compile Include="Kernel\AssemblyInfo.cs" />

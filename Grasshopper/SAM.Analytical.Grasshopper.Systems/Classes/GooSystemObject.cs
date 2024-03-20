@@ -129,6 +129,8 @@ namespace SAM.Analytical.Grasshopper.Systems
 
         public bool Hidden { get; set; }
 
+        public override GH_Exposure Exposure => GH_Exposure.hidden;
+
         public bool IsPreviewCapable => !VolatileData.IsEmpty;
 
         public BoundingBox ClippingBox => Preview_ComputeClippingBox();
