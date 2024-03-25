@@ -142,6 +142,22 @@ namespace SAM.Geometry.Systems
             return result;
         }
 
+        public List<SystemGeometrySymbol> GetSystemGeometrySymbols()
+        {
+            if(dictionary == null)
+            {
+                return null;
+            }
+
+            List<SystemGeometrySymbol> result = new List<SystemGeometrySymbol>();
+            foreach(KeyValuePair<string, SystemGeometrySymbol> keyValuePair in dictionary)
+            {
+                result.Add(new SystemGeometrySymbol(keyValuePair.Value));
+            }
+
+            return result;
+        }
+
         public JObject ToJObject()
         {
             JObject jObject = new JObject();

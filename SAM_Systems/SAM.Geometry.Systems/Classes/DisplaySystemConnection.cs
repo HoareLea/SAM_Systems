@@ -19,7 +19,7 @@ namespace SAM.Geometry.Systems
         public DisplaySystemConnection(SystemConnection systemConnection, params Point2D[] point2Ds)
             :base(systemConnection)
         {
-            
+            systemPolyline = new SystemPolyline(new Polyline2D(point2Ds));
         }
 
         public DisplaySystemConnection(JObject jObject)

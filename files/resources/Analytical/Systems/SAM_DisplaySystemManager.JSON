@@ -1940,8 +1940,8 @@
                   "ConnectionIndex": 1,
                   "Location": {
                     "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
-                    "X": -0.0043054296564048328,
-                    "Y": -0.70076788090781716
+                    "X": -0.087,
+                    "Y": -0.05
                   }
                 },
                 {
@@ -1954,8 +1954,8 @@
                   "ConnectionIndex": 1,
                   "Location": {
                     "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
-                    "X": 1.7372226433179876,
-                    "Y": -0.70076019206662921
+                    "X": 0.087,
+                    "Y": -0.05
                   }
                 }
               ]

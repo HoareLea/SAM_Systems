@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json.Linq;
 using SAM.Core;
+using SAM.Core.Systems;
 using SAM.Geometry.Object.Planar;
 using SAM.Geometry.Planar;
 using SAM.Geometry.Spatial;
@@ -142,6 +143,23 @@ namespace SAM.Geometry.Systems
             }
 
             return result;
+        }
+
+        public Point2D GetPoint2D(SystemType systemType, int connectionIndex = -1, Direction direction = Direction.Undefined)
+        {
+            Point2D point2D = systemGeometrySymbol?.GetPoint2D(systemType, connectionIndex, direction);
+            if (point2D == null)
+            {
+                return null;
+            }
+
+            Transform2D transform2D = Transform2D.GetCoordinateSystem2DToCoordinateSystem2D(coordinateSystem, CoordinateSystem2D.World);
+            if (transform2D != null)
+            {
+                point2D.Transform(transform2D);
+            }
+
+            return point2D;
         }
     }
 }

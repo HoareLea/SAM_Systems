@@ -3,6 +3,7 @@ using Newtonsoft.Json.Linq;
 using SAM.Core;
 using System.Collections.Generic;
 using SAM.Core.Systems;
+using SAM.Geometry.Planar;
 
 namespace SAM.Geometry.Systems
 {
@@ -44,6 +45,46 @@ namespace SAM.Geometry.Systems
             {
                 return geometry?.Clone();
             }
+        }
+
+        public List<DisplaySystemConnector> DisplaySystemConnectors
+        {
+            get
+            {
+                return displaySystemConnectorManager?.DisplaySystemConnectors;
+            }
+        }
+
+        public Point2D GetPoint2D(SystemType systemType, int connectionIndex = -1, Direction direction = Direction.Undefined)
+        {
+            List<DisplaySystemConnector> displaySystemConnectors = displaySystemConnectorManager?.DisplaySystemConnectors;
+            if (displaySystemConnectors == null)
+            {
+                return null;
+            }
+
+            foreach(DisplaySystemConnector displaySystemConnector in displaySystemConnectors)
+            {
+                if(displaySystemConnector?.SystemType != systemType)
+                {
+                    continue;
+                }
+
+                if(connectionIndex != -1 && displaySystemConnector.ConnectionIndex != connectionIndex)
+                {
+                    continue;
+                }
+
+                if (direction != Direction.Undefined && displaySystemConnector.Direction != direction)
+                {
+                    continue;
+                }
+
+                return displaySystemConnector.Location == null ? null : new Point2D(displaySystemConnector.Location);
+
+            }
+
+            return null;
         }
 
         public override bool FromJObject(JObject jObject)

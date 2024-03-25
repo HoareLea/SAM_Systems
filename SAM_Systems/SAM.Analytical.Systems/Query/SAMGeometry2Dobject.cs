@@ -19,6 +19,13 @@ namespace SAM.Analytical.Systems
                 return systemGeometryInstance.GetGeometry();
             }
 
+            if(displaySystemObject is IDisplaySystemObject<SystemPolyline>)
+            {
+                IDisplaySystemObject<SystemPolyline> displaySystemObject_Temp = displaySystemObject as IDisplaySystemObject<SystemPolyline>;
+                SystemPolyline systemPolyline = displaySystemObject_Temp.SystemGeometry;
+                return systemPolyline;
+            }
+
             return null;
         }
     }
