@@ -54,6 +54,10 @@ namespace SAM.Analytical.Systems
             {
                 displayObject = new DisplaySystemAirJunction((SystemAirJunction)systemComponent, systemGeometrySymbol, location);
             }
+            else if (systemComponent is SystemDamper)
+            {
+                displayObject = new DisplaySystemDamper((SystemDamper)systemComponent, systemGeometrySymbol, location);
+            }
 
             if (!(displayObject is T))
             {

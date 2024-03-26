@@ -11,8 +11,8 @@ namespace SAM.Analytical.Systems
 
         }
 
-        public SystemDamper(SystemFan systemFan)
-            : base(systemFan)
+        public SystemDamper(SystemDamper systemDamper)
+            : base(systemDamper)
         {
 
         }
