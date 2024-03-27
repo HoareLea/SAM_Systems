@@ -58,6 +58,9 @@
 
                 case AnalyticalSystemComponentType.SystemSteamHumidifier:
                     return typeof(SystemSteamHumidifier);
+
+                case AnalyticalSystemComponentType.SystemSpace:
+                    return typeof(SystemSpace);
             }
 
             return null;

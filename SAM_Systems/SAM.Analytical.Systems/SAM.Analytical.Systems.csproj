@@ -56,6 +56,7 @@
     <Compile Include="Classes\DisplayObject\DisplaySystemExchanger.cs" />
     <Compile Include="Classes\DisplayObject\DisplaySystemAirJunction.cs" />
     <Compile Include="Classes\DisplayObject\DisplaySystemDamper.cs" />
+    <Compile Include="Classes\DisplayObject\DisplaySystemSpace.cs" />
     <Compile Include="Classes\DisplayObject\DisplaySystemFan.cs" />
     <Compile Include="Classes\DisplayObject\DisplaySystemCoolingCoil.cs" />
     <Compile Include="Classes\DisplayObject\DisplaySystemHeatingCoil.cs" />

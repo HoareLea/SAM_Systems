@@ -22,5 +22,6 @@ namespace SAM.Analytical.Systems
         [Description("System Mixing Box")] SystemMixingBox,
         [Description("System Spray Humidifier")] SystemSprayHumidifier,
         [Description("System Steam Humidifier")] SystemSteamHumidifier,
+        [Description("System Space")] SystemSpace,
     }
 }
