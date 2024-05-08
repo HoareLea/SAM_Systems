@@ -75,5 +75,15 @@ namespace SAM.Geometry.Systems
 
             return result;
         }
+
+        public bool Transform(ITransform2D transform2D)
+        {
+            if (systemGeometryInstance == null || transform2D == null)
+            {
+                return false;
+            }
+
+            return systemGeometryInstance.Transform(transform2D);
+        }
     }
 }

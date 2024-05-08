@@ -44,6 +44,16 @@ namespace SAM.Geometry.Systems
             return systemPolyline.Move(vector2D);
         }
 
+        public bool Transform(ITransform2D transform2D)
+        {
+            if (transform2D == null)
+            {
+                return false;
+            }
+            systemPolyline = systemPolyline.GetTransformed(transform2D) as SystemPolyline;
+            return true;
+        }
+
         public override bool FromJObject(JObject jObject)
         {
             bool result = base.FromJObject(jObject);

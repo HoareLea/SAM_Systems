@@ -551,6 +551,30 @@ namespace SAM.Core.Systems
             return default;
         }
 
+        public T GetSystem<T>(Func<T, bool> func) where T : ISystem
+        {
+            List<T> objects = systemRelationCluster?.GetObjects<T>();
+            if (objects == null || objects.Count == 0)
+            {
+                return default;
+            }
+
+            if (func == null)
+            {
+                return Core.Query.Clone(objects[0]);
+            }
+
+            for (int i = 0; i < objects.Count; i++)
+            {
+                if (func.Invoke(objects[i]))
+                {
+                    return Core.Query.Clone(objects[i]);
+                }
+            }
+
+            return default;
+        }
+
         public List<ISystemComponent> GetSystemComponents()
         {
             return GetSystemComponents<ISystemComponent>();
@@ -632,7 +656,7 @@ namespace SAM.Core.Systems
 
         public List<T> FindAll<T>(Func<T, bool> func) where T : ISystemJSAMObject
         {
-            List<T> ts = systemRelationCluster.GetObjects<T>(func);
+            List<T> ts = systemRelationCluster.GetObjects(func);
             if (ts == null)
             {
                 return ts;

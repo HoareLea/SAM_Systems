@@ -11,5 +11,7 @@ namespace SAM.Geometry.Systems
     public interface IDisplaySystemObject
     {
         bool Move(Vector2D vector2D);
+
+        bool Transform(ITransform2D transform2D);
     }
 }
