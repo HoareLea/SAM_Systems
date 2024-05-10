@@ -47,17 +47,41 @@ namespace SAM.Geometry.Systems
             }
         }
 
-        public List<DisplaySystemConnector> DisplaySystemConnectors
+        public IEnumerable<DisplaySystemConnector> DisplaySystemConnectors
         {
             get
             {
-                return displaySystemConnectorManager?.DisplaySystemConnectors;
+                return displaySystemConnectorManager?.SystemConnectors;
             }
+        }
+
+        public Point2D GetPoint2D(int index)
+        {
+            if(displaySystemConnectorManager == null)
+            {
+                return null;
+            }
+
+            DisplaySystemConnector displaySystemConnector = displaySystemConnectorManager[index];
+
+            return displaySystemConnector?.Location == null ? null : new Point2D(displaySystemConnector.Location);
+        }
+
+        public SystemConnector GetSystemConnector(int index)
+        {
+            if (displaySystemConnectorManager == null)
+            {
+                return null;
+            }
+
+            DisplaySystemConnector displaySystemConnector = displaySystemConnectorManager[index];
+
+            return displaySystemConnector == null ? null : new SystemConnector(displaySystemConnector);
         }
 
         public Point2D GetPoint2D(SystemType systemType, int connectionIndex = -1, Direction direction = Direction.Undefined)
         {
-            List<DisplaySystemConnector> displaySystemConnectors = displaySystemConnectorManager?.DisplaySystemConnectors;
+            IEnumerable<DisplaySystemConnector> displaySystemConnectors = displaySystemConnectorManager?.SystemConnectors;
             if (displaySystemConnectors == null)
             {
                 return null;

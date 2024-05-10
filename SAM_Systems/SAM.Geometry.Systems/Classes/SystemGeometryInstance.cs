@@ -4,6 +4,7 @@ using SAM.Core.Systems;
 using SAM.Geometry.Object.Planar;
 using SAM.Geometry.Planar;
 using SAM.Geometry.Spatial;
+using System.Reflection;
 
 namespace SAM.Geometry.Systems
 {
@@ -160,6 +161,39 @@ namespace SAM.Geometry.Systems
             }
 
             return point2D;
+        }
+
+        public Point2D GetPoint2D(int index)
+        {
+            Point2D point2D = systemGeometrySymbol?.GetPoint2D(index);
+            if (point2D == null)
+            {
+                return null;
+            }
+
+            Transform2D transform2D = Transform2D.GetCoordinateSystem2DToCoordinateSystem2D(coordinateSystem, CoordinateSystem2D.World);
+            if (transform2D != null)
+            {
+                point2D.Transform(transform2D);
+            }
+
+            return point2D;
+        }
+
+        public SystemConnector GetSystemConnector(int index)
+        {
+            return systemGeometrySymbol?.GetSystemConnector(index);
+        }
+
+        public DisplaySystemConnector GetDisplaySystemConnector(int index)
+        {
+            SystemConnector systemConnector = systemGeometrySymbol?.GetSystemConnector(index);
+            if(systemConnector == null)
+            {
+                return null;
+            }
+
+            return new DisplaySystemConnector(systemConnector, GetPoint2D(index));
         }
     }
 }

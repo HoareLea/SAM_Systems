@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace SAM.Core.Systems
 {
@@ -12,28 +13,13 @@ namespace SAM.Core.Systems
                 return -1;
             }
 
-            List<int> indexes = direction == null  || !direction.HasValue ? systemComponent.SystemConnectorManager?.GetIndexes(systemType) : systemComponent.SystemConnectorManager?.GetIndexes(systemType, direction.Value);
-            if (indexes == null || indexes.Count == 0)
+            HashSet<int> indexes = FindIndexes(systemPlantRoom, systemComponent, systemType, connectorStatus, direction);
+            if(indexes == null || indexes.Count == 0)
             {
                 return -1;
             }
 
-            if(connectorStatus == Systems.ConnectorStatus.Undefined)
-            {
-                return indexes[0];
-            }
-
-            foreach (int index in indexes)
-            {
-                ISystemConnection systemConnection = SystemConnection(systemPlantRoom, systemComponent, index);
-
-                if((systemConnection == null && connectorStatus == Systems.ConnectorStatus.Unconnected) || (systemConnection != null && connectorStatus == Systems.ConnectorStatus.Connected))
-                {
-                    return index;
-                }
-            }
-
-            return -1;
+            return indexes.First();
         }
     }
 }

@@ -4,23 +4,23 @@ using System.Linq;
 
 namespace SAM.Core.Systems
 {
-    public class SystemConnectorManager : ISystemJSAMObject
+    public abstract class SystemConnectorManager<T> : ISystemJSAMObject where T : SystemConnector
     {
-        private SortedDictionary<int, SystemConnector> sortedDictionary;
+        private SortedDictionary<int, T> sortedDictionary;
 
-        public SystemConnectorManager(IEnumerable<SystemConnector> systemConnectors)
+        public SystemConnectorManager(IEnumerable<T> systemConnectors)
         {
             if (systemConnectors == null)
             {
                 return;
             }
 
-            sortedDictionary = new SortedDictionary<int, SystemConnector>();
+            sortedDictionary = new SortedDictionary<int, T>();
             for (int i = 0; i < systemConnectors.Count(); i++)
             {
-                SystemConnector systemConnector = systemConnectors.ElementAt(i);
+                T systemConnector = systemConnectors.ElementAt(i);
 
-                sortedDictionary[i] = systemConnector == null ? null : new SystemConnector(systemConnector);
+                sortedDictionary[i] = systemConnector?.Clone();
             }
         }
 
@@ -34,19 +34,19 @@ namespace SAM.Core.Systems
             FromJObject(jObject);
         }
 
-        public SystemConnectorManager(SystemConnectorManager systemConnectorManager)
+        public SystemConnectorManager(SystemConnectorManager<T> systemConnectorManager)
         {
             if(systemConnectorManager?.sortedDictionary != null)
             {
-                sortedDictionary = new SortedDictionary<int, SystemConnector>();
-                foreach (KeyValuePair<int, SystemConnector> keyValuePair in systemConnectorManager.sortedDictionary)
+                sortedDictionary = new SortedDictionary<int, T>();
+                foreach (KeyValuePair<int, T> keyValuePair in systemConnectorManager.sortedDictionary)
                 {
-                    sortedDictionary[keyValuePair.Key] = keyValuePair.Value == null ? null : new SystemConnector(keyValuePair.Value);
+                    sortedDictionary[keyValuePair.Key] = keyValuePair.Value?.Clone();
                 }
             }
         }
 
-        public SystemConnector this[int index]
+        public T this[int index]
         {
             get
             {
@@ -55,12 +55,12 @@ namespace SAM.Core.Systems
                     return null;
                 }
 
-                if(!sortedDictionary.TryGetValue(index, out SystemConnector systemConnector) || systemConnector == null)
+                if(!sortedDictionary.TryGetValue(index, out T systemConnector) || systemConnector == null)
                 {
                     return null;
                 }
 
-                return new SystemConnector(systemConnector);
+                return systemConnector.Clone();
             }
         }
         
@@ -72,7 +72,7 @@ namespace SAM.Core.Systems
             }
         }
 
-        public IEnumerable<SystemConnector> SystemConnectors
+        public IEnumerable<T> SystemConnectors
         {
             get
             {
@@ -81,10 +81,10 @@ namespace SAM.Core.Systems
                     return null;
                 }
 
-                List<SystemConnector> result = new List<SystemConnector>();
-                foreach(KeyValuePair<int, SystemConnector> keyValuePair in sortedDictionary)
+                List<T> result = new List<T>();
+                foreach(KeyValuePair<int, T> keyValuePair in sortedDictionary)
                 {
-                    SystemConnector systemConnector = keyValuePair.Value == null ? null : new SystemConnector(keyValuePair.Value);
+                    T systemConnector = keyValuePair.Value?.Clone();
                     if(systemConnector == null)
                     {
                         continue;
@@ -105,7 +105,7 @@ namespace SAM.Core.Systems
             }
 
             List<int> result = new List<int>();
-            foreach(KeyValuePair<int, SystemConnector> keyValuePair in sortedDictionary)
+            foreach(KeyValuePair<int, T> keyValuePair in sortedDictionary)
             {
                 SystemType systemType_Temp = keyValuePair.Value?.SystemType;
 
@@ -127,7 +127,7 @@ namespace SAM.Core.Systems
             }
 
             List<int> result = new List<int>();
-            foreach (KeyValuePair<int, SystemConnector> keyValuePair in sortedDictionary)
+            foreach (KeyValuePair<int, T> keyValuePair in sortedDictionary)
             {
                 SystemType systemType_Temp = keyValuePair.Value?.SystemType;
 
@@ -143,7 +143,7 @@ namespace SAM.Core.Systems
 
         public List<int> GetConnectedIndexes(int index)
         {
-            SystemConnector systemConnector = this[index];
+            T systemConnector = this[index];
             if(systemConnector == null || systemConnector.ConnectionIndex == -1)
             {
                 return null;
@@ -152,9 +152,9 @@ namespace SAM.Core.Systems
             int connectionIndex = systemConnector.ConnectionIndex;
 
             List<int> result = new List<int>();
-            foreach(KeyValuePair<int, SystemConnector> keyValuePair in sortedDictionary)
+            foreach(KeyValuePair<int, T> keyValuePair in sortedDictionary)
             {
-                SystemConnector systemConnector_Temp = keyValuePair.Value;
+                T systemConnector_Temp = keyValuePair.Value;
                 if(systemConnector_Temp == null)
                 {
                     continue;
@@ -171,14 +171,14 @@ namespace SAM.Core.Systems
 
         public HashSet<int> GetConnectionIndexes()
         {
-            IEnumerable<SystemConnector> systemConnectors = SystemConnectors;
+            IEnumerable<T> systemConnectors = SystemConnectors;
             if(systemConnectors == null)
             {
                 return null;
             }
 
             HashSet<int> result = new HashSet<int>();
-            foreach(SystemConnector systemConnector in systemConnectors)
+            foreach(T systemConnector in systemConnectors)
             {
                 if(systemConnector == null || systemConnector.ConnectionIndex == -1)
                 {
@@ -198,7 +198,7 @@ namespace SAM.Core.Systems
                 return null;
             }
 
-            if(!sortedDictionary.TryGetValue(index, out SystemConnector systemConnector))
+            if(!sortedDictionary.TryGetValue(index, out T systemConnector))
             {
                 return null;
             }
@@ -213,7 +213,7 @@ namespace SAM.Core.Systems
                 return Direction.Undefined;
             }
 
-            if (!sortedDictionary.TryGetValue(index, out SystemConnector systemConnector) || systemConnector == null)
+            if (!sortedDictionary.TryGetValue(index, out T systemConnector) || systemConnector == null)
             {
                 return Direction.Undefined;
             }
@@ -238,7 +238,7 @@ namespace SAM.Core.Systems
                 return false;
             }
 
-            foreach(KeyValuePair<int, SystemConnector> keyValuePair in sortedDictionary)
+            foreach(KeyValuePair<int, T> keyValuePair in sortedDictionary)
             {
                 if(keyValuePair.Value != null)
                 {
@@ -256,7 +256,7 @@ namespace SAM.Core.Systems
                 return false;
             }
 
-            foreach (KeyValuePair<int, SystemConnector> keyValuePair in sortedDictionary)
+            foreach (KeyValuePair<int, T> keyValuePair in sortedDictionary)
             {
                 if (keyValuePair.Value != null)
                 {
@@ -274,7 +274,7 @@ namespace SAM.Core.Systems
 
         public bool IsValid(int index, SystemType systemType)
         {
-            if(!TryGetSystemConnector(index, out SystemConnector systemConnector) || systemConnector == null)
+            if(!TryGetSystemConnector(index, out T systemConnector) || systemConnector == null)
             {
                 return false;
             }
@@ -282,7 +282,7 @@ namespace SAM.Core.Systems
             return systemConnector.IsValid(systemType);
         }
 
-        public bool TryGetSystemConnector(int index, out SystemConnector systemConnector)
+        public bool TryGetSystemConnector(int index, out T systemConnector)
         {
             systemConnector = null;
 
@@ -296,30 +296,30 @@ namespace SAM.Core.Systems
                 return false;
             }
 
-            systemConnector = systemConnector == null ? null : new SystemConnector(systemConnector);
+            systemConnector = systemConnector?.Clone();
             return true;
         }
 
-        public List<SystemConnector> GetSystemConnectors(IEnumerable<int> indexes)
+        public List<T> GetSystemConnectors(IEnumerable<int> indexes)
         {
             if(indexes == null || sortedDictionary == null)
             {
                 return null;
             }
 
-            List<SystemConnector> result = new List<SystemConnector>();
+            List<T> result = new List<T>();
             foreach(int index in indexes)
             {
-                if (sortedDictionary.TryGetValue(index, out SystemConnector systemConnector) && systemConnector != null)
+                if (sortedDictionary.TryGetValue(index, out T systemConnector) && systemConnector != null)
                 {
-                    result.Add(new SystemConnector(systemConnector));
+                    result.Add(systemConnector.Clone());
                 }
             }
 
             return result;
         }
 
-        public List<SystemConnector> GetSystemConnectors(SystemType systemType)
+        public List<T> GetSystemConnectors(SystemType systemType)
         {
             List<int> indexes = GetIndexes(systemType);
             if(indexes == null)
@@ -330,7 +330,7 @@ namespace SAM.Core.Systems
             return GetSystemConnectors(indexes);
         }
 
-        public List<SystemConnector> GetSystemConnectors(SystemType systemType, Direction direction)
+        public List<T> GetSystemConnectors(SystemType systemType, Direction direction)
         {
             List<int> indexes = GetIndexes(systemType, direction);
             if (indexes == null)
@@ -341,7 +341,7 @@ namespace SAM.Core.Systems
             return GetSystemConnectors(indexes);
         }
 
-        public bool FromJObject(JObject jObject)
+        public virtual bool FromJObject(JObject jObject)
         {
             if(jObject == null)
             {
@@ -353,23 +353,36 @@ namespace SAM.Core.Systems
                 JArray jArray = jObject.Value<JArray>("SystemConnectors");
                 if(jArray != null)
                 {
-                    sortedDictionary = new SortedDictionary<int, SystemConnector>();
-                    foreach(JArray jArray_Temp in jArray)
+                    sortedDictionary = new SortedDictionary<int, T>();
+                    foreach(JToken jToken in jArray)
                     {
-                        if(jArray_Temp == null || jArray_Temp.Count < 1)
+                        if(jToken is JArray)
                         {
-                            continue;
+                            JArray jArray_Temp = (JArray)jToken;
+                            
+                            if (jArray_Temp == null || jArray_Temp.Count < 1)
+                            {
+                                continue;
+                            }
+
+                            int index = jArray_Temp[0].Value<int>();
+
+                            T systemConnector = null;
+                            if (jArray_Temp.Count > 1)
+                            {
+                                systemConnector = Core.Query.IJSAMObject<T>(jArray_Temp[1].Value<JObject>());
+                            }
+
+                            sortedDictionary[index] = systemConnector;
+                        }
+                        else if (jToken is JObject)
+                        {
+                            int index = sortedDictionary.Keys.Count == 0 ? 0 : sortedDictionary.Keys.Max() + 1;
+                            T systemConnector = Core.Query.IJSAMObject<T>((JObject)jToken);
+                            sortedDictionary[index] = systemConnector;
                         }
 
-                        int index = jArray_Temp[0].Value<int>();
 
-                        SystemConnector systemConnector = null;
-                        if(jArray_Temp.Count > 1)
-                        {
-                            systemConnector = new SystemConnector(jArray_Temp[1].Value<JObject>());
-                        }
-
-                        sortedDictionary[index] = systemConnector;
                     }
                 }
             }
@@ -377,7 +390,7 @@ namespace SAM.Core.Systems
             return true;
         }
 
-        public JObject ToJObject()
+        public virtual JObject ToJObject()
         {
             JObject result = new JObject();
             result.Add("_type", Core.Query.FullTypeName(this));
@@ -385,7 +398,7 @@ namespace SAM.Core.Systems
             if(sortedDictionary != null)
             {
                 JArray jArray = new JArray();
-                foreach(KeyValuePair<int, SystemConnector> keyValuePair in sortedDictionary)
+                foreach(KeyValuePair<int, T> keyValuePair in sortedDictionary)
                 {
                     JArray jArray_Temp = new JArray() { keyValuePair.Key };
                     if(keyValuePair.Value != null)
@@ -399,6 +412,31 @@ namespace SAM.Core.Systems
             }
 
             return result;
+        }
+    }
+
+    public class SystemConnectorManager : SystemConnectorManager<SystemConnector>
+    {
+        public SystemConnectorManager(IEnumerable<SystemConnector> systemConnectors)
+            :base(systemConnectors)
+        {
+        }
+
+        public SystemConnectorManager()
+        {
+
+        }
+
+        public SystemConnectorManager(JObject jObject)
+            :base(jObject)
+        {
+
+        }
+
+        public SystemConnectorManager(SystemConnectorManager systemConnectorManager)
+            : base(systemConnectorManager)
+        {
+
         }
     }
 }

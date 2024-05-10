@@ -589,7 +589,7 @@
             },
             "DisplaySystemConnectorManager": {
               "_type": "SAM.Geometry.Systems.DisplaySystemConnectorManager,SAM.Geometry.Systems",
-              "DisplaySystemConnectors": [
+              "SystemConnectors": [
                 {
                   "_type": "SAM.Geometry.Systems.DisplaySystemConnector,SAM.Geometry.Systems",
                   "SystemType": {
@@ -1273,7 +1273,7 @@
             },
             "DisplaySystemConnectorManager": {
               "_type": "SAM.Geometry.Systems.DisplaySystemConnectorManager,SAM.Geometry.Systems",
-              "DisplaySystemConnectors": [
+              "SystemConnectors": [
                 {
                   "_type": "SAM.Geometry.Systems.DisplaySystemConnector,SAM.Geometry.Systems",
                   "SystemType": {
@@ -1631,7 +1631,7 @@
             },
             "DisplaySystemConnectorManager": {
               "_type": "SAM.Geometry.Systems.DisplaySystemConnectorManager,SAM.Geometry.Systems",
-              "DisplaySystemConnectors": [
+              "SystemConnectors": [
                 {
                   "_type": "SAM.Geometry.Systems.DisplaySystemConnector,SAM.Geometry.Systems",
                   "SystemType": {
@@ -2256,7 +2256,7 @@
             },
             "DisplaySystemConnectorManager": {
               "_type": "SAM.Geometry.Systems.DisplaySystemConnectorManager,SAM.Geometry.Systems",
-              "DisplaySystemConnectors": [
+              "SystemConnectors": [
                 {
                   "_type": "SAM.Geometry.Systems.DisplaySystemConnector,SAM.Geometry.Systems",
                   "SystemType": {
@@ -2535,7 +2535,7 @@
             },
             "DisplaySystemConnectorManager": {
               "_type": "SAM.Geometry.Systems.DisplaySystemConnectorManager,SAM.Geometry.Systems",
-              "DisplaySystemConnectors": [
+              "SystemConnectors": [
                 {
                   "_type": "SAM.Geometry.Systems.DisplaySystemConnector,SAM.Geometry.Systems",
                   "SystemType": {
@@ -3127,7 +3127,7 @@
             },
             "DisplaySystemConnectorManager": {
               "_type": "SAM.Geometry.Systems.DisplaySystemConnectorManager,SAM.Geometry.Systems",
-              "DisplaySystemConnectors": [
+              "SystemConnectors": [
                 {
                   "_type": "SAM.Geometry.Systems.DisplaySystemConnector,SAM.Geometry.Systems",
                   "SystemType": {
@@ -3660,7 +3660,7 @@
             },
             "DisplaySystemConnectorManager": {
               "_type": "SAM.Geometry.Systems.DisplaySystemConnectorManager,SAM.Geometry.Systems",
-              "DisplaySystemConnectors": [
+              "SystemConnectors": [
                 {
                   "_type": "SAM.Geometry.Systems.DisplaySystemConnector,SAM.Geometry.Systems",
                   "SystemType": {
@@ -4226,7 +4226,7 @@
             },
             "DisplaySystemConnectorManager": {
               "_type": "SAM.Geometry.Systems.DisplaySystemConnectorManager,SAM.Geometry.Systems",
-              "DisplaySystemConnectors": [
+              "SystemConnectors": [
                 {
                   "_type": "SAM.Geometry.Systems.DisplaySystemConnector,SAM.Geometry.Systems",
                   "SystemType": {

@@ -82,6 +82,7 @@
     <Compile Include="Interfaces\ISystemSpatialObject.cs" />
     <Compile Include="Interfaces\ISystemObject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Query\FindIndexes.cs" />
     <Compile Include="Query\FindIndex.cs" />
     <Compile Include="Query\Indexes.cs" />
     <Compile Include="Query\TryGetIndex.cs" />
