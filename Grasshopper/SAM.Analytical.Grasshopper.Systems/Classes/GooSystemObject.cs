@@ -34,7 +34,19 @@ namespace SAM.Analytical.Grasshopper.Systems
 
         public override bool CastFrom(object source)
         {
-            return base.CastFrom(source);
+            object @object = source;
+            if(@object is IGH_Goo)
+            {
+                @object = (@object as dynamic).Value;
+            }
+
+            if(@object is ISystemJSAMObject)
+            {
+                Value = (ISystemJSAMObject)@object;
+                return true;
+            }
+
+            return base.CastFrom(@object);
         }
 
         public override bool CastTo<Y>(ref Y target)
@@ -135,7 +147,7 @@ namespace SAM.Analytical.Grasshopper.Systems
 
         public BoundingBox ClippingBox => Preview_ComputeClippingBox();
 
-        public bool IsBakeCapable => throw new NotImplementedException();
+        public bool IsBakeCapable => true;
 
         public GooSystemObjectParam()
             : base(typeof(ISystemObject).Name, typeof(ISystemObject).Name, typeof(ISystemObject).FullName.Replace(".", " "), "Params", "SAM")
