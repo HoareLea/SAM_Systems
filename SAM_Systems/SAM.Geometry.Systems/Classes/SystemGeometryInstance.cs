@@ -4,7 +4,6 @@ using SAM.Core.Systems;
 using SAM.Geometry.Object.Planar;
 using SAM.Geometry.Planar;
 using SAM.Geometry.Spatial;
-using System.Reflection;
 
 namespace SAM.Geometry.Systems
 {
@@ -194,6 +193,30 @@ namespace SAM.Geometry.Systems
             }
 
             return new DisplaySystemConnector(systemConnector, GetPoint2D(index));
+        }
+
+        public BoundingBox2D BoundingBox2D
+        {
+            get
+            {
+                ISAMGeometry2DObject sAMGeometry2DObject = GetGeometry();
+                if(sAMGeometry2DObject == null)
+                {
+                    return null;
+                }
+
+                if(sAMGeometry2DObject is IBoundable2DObject)
+                {
+                    return ((IBoundable2DObject)sAMGeometry2DObject).GetBoundingBox();
+                }
+
+                if(sAMGeometry2DObject is SAMGeometry2DObjectCollection)
+                {
+                    return Query.BoundingBox2D(((SAMGeometry2DObjectCollection)sAMGeometry2DObject));
+                }
+
+                return null;
+            }
         }
     }
 }

@@ -16,6 +16,8 @@ namespace SAM.Geometry.Systems
             }
         }
 
+        public BoundingBox2D BoundingBox2D => throw new System.NotImplementedException();
+
         public DisplaySystemJunction(SystemJunction systemJunction, SystemGeometrySymbol systemGeometrySymbol, Point2D location)
             :base(systemJunction)
         {

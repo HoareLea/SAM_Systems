@@ -52,6 +52,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\DisplayObject\DisplayAirSystemGroup.cs" />
     <Compile Include="Classes\DisplayObject\DisplaySystemDesiccantWheel.cs" />
     <Compile Include="Classes\DisplayObject\DisplaySystemExchanger.cs" />
     <Compile Include="Classes\DisplayObject\DisplaySystemAirJunction.cs" />

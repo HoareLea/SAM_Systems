@@ -26,6 +26,13 @@ namespace SAM.Analytical.Systems
                 return systemPolyline;
             }
 
+            if (displaySystemObject is IDisplaySystemObject<SystemPolygon>)
+            {
+                IDisplaySystemObject<SystemPolygon> displaySystemObject_Temp = displaySystemObject as IDisplaySystemObject<SystemPolygon>;
+                SystemPolygon systemPolygon = displaySystemObject_Temp.SystemGeometry;
+                return systemPolygon;
+            }
+
             return null;
         }
     }

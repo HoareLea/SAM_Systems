@@ -59,12 +59,14 @@
     <Compile Include="Classes\DisplaySystemPlantRoom.cs" />
     <Compile Include="Classes\SystemGeometrySymbolManager.cs" />
     <Compile Include="Classes\DisplaySystemManager.cs" />
+    <Compile Include="Classes\SystemPolygon.cs" />
     <Compile Include="Classes\SystemPolyline.cs" />
     <Compile Include="Classes\SystemGeometryInstance.cs" />
     <Compile Include="Classes\SystemGeometrySymbol.cs" />
     <Compile Include="Interfaces\IDisplaySystemObject.cs" />
     <Compile Include="Interfaces\ISystemGeometry.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Query\BoundingBox2D.cs" />
     <Compile Include="Query\FindIndex.cs" />
   </ItemGroup>
   <ItemGroup>

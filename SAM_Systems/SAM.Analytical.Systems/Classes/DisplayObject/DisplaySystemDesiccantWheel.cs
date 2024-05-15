@@ -16,6 +16,14 @@ namespace SAM.Analytical.Systems
             }
         }
 
+        public BoundingBox2D BoundingBox2D
+        {
+            get
+            {
+                return systemGeometryInstance?.BoundingBox2D;
+            }
+        }
+
         public DisplaySystemDesiccantWheel(SystemDesiccantWheel systemDesiccantWheel, SystemGeometrySymbol systemGeometrySymbol, Point2D location)
             :base(systemDesiccantWheel)
         {

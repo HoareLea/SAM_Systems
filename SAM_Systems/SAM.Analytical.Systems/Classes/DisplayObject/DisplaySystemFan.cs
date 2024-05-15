@@ -16,6 +16,14 @@ namespace SAM.Analytical.Systems
             }
         }
 
+        public BoundingBox2D BoundingBox2D
+        {
+            get
+            {
+                return systemGeometryInstance?.BoundingBox2D;
+            }
+        }
+
         public DisplaySystemFan(SystemFan systemFan, SystemGeometrySymbol systemGeometrySymbol, Point2D location)
             :base(systemFan)
         {

@@ -16,6 +16,14 @@ namespace SAM.Analytical.Systems
             }
         }
 
+        public BoundingBox2D BoundingBox2D
+        {
+            get
+            {
+                return systemGeometryInstance?.BoundingBox2D;
+            }
+        }
+
         public DisplaySystemExchanger(SystemExchanger systemExchanger, SystemGeometrySymbol systemGeometrySymbol, Point2D location)
             :base(systemExchanger)
         {

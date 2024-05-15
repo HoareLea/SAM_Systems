@@ -16,6 +16,14 @@ namespace SAM.Geometry.Systems
             }
         }
 
+        public BoundingBox2D BoundingBox2D
+        {
+            get
+            {
+                return systemPolyline?.GetBoundingBox();
+            }
+        }
+
         public DisplaySystemConnection(SystemConnection systemConnection, params Point2D[] point2Ds)
             :base(systemConnection)
         {
