@@ -29,7 +29,7 @@ namespace SAM.Core.Systems
         }
     }
 
-    public abstract class SystemJunction<T> : SystemComponent where T : ISystem
+    public abstract class SystemJunction<T> : SystemComponent, ISystemJunction where T : ISystem
     { 
         public SystemJunction(SystemJunction<T> systemJunction)
             : base(systemJunction)

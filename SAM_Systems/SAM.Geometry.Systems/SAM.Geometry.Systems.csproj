@@ -67,7 +67,7 @@
     <Compile Include="Interfaces\ISystemGeometry.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Query\BoundingBox2D.cs" />
-    <Compile Include="Query\FindIndex.cs" />
+    <Compile Include="Query\TryGetIndexes.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Convert\" />

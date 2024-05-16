@@ -216,9 +216,11 @@ namespace SAM.Core.Systems
             return systemRelationCluster.AddRelation(system, systemComponent);
         }
 
-        public bool Connect(ISystemComponent systemComponent_1, ISystemComponent systemComponent_2, ISystem system = null, int index_1 = -1, int index_2 = -1)
+        public bool Connect(ISystemComponent systemComponent_1, ISystemComponent systemComponent_2, out ISystemConnection systemConnection, ISystem system = null, int index_1 = -1, int index_2 = -1)
         {
-            if(systemComponent_1 == null || systemComponent_2 == null)
+            systemConnection = null;
+
+            if (systemComponent_1 == null || systemComponent_2 == null)
             {
                 return false;
             }
@@ -238,7 +240,7 @@ namespace SAM.Core.Systems
                 Add(system);
             }
 
-            ISystemConnection systemConnection = CreateSystemConnection(systemComponent_1, systemComponent_2, system, index_1, index_2);
+            systemConnection = CreateSystemConnection(systemComponent_1, systemComponent_2, system, index_1, index_2);
             if(systemConnection == null)
             {
                 return false;
@@ -255,6 +257,68 @@ namespace SAM.Core.Systems
                 systemRelationCluster.AddRelation(systemComponent_1, system);
                 systemRelationCluster.AddRelation(systemComponent_2, system);
                 systemRelationCluster.AddRelation(systemConnection, system);
+            }
+
+            return true;
+        }
+
+        public bool Connect(SystemConnection systemConnection, ISystem system = null)
+        {
+            List<ISystemComponent> systemComponents = Query.SystemComponents<ISystemComponent>(this, systemConnection);
+            if (systemComponents == null || systemComponents.Count == 0)
+            {
+                return false;
+            }
+
+            if(system != null && systemConnection.SystemType != new SystemType(system))
+            {
+                return false;
+            }
+
+            SystemConnection systemConnection_Temp = systemConnection.Clone();
+            if(systemConnection_Temp == null)
+            {
+                return false;
+            }
+
+            systemRelationCluster.AddObject(systemConnection_Temp);
+            if(system != null)
+            {
+                systemRelationCluster.AddRelation(systemConnection_Temp, system);
+            }
+
+
+            if (systemComponents.Count == 1)
+            {
+                systemRelationCluster.AddRelation(systemConnection_Temp, systemComponents[0]);
+
+                if (system != null)
+                {
+                    systemRelationCluster.AddRelation(systemComponents[0], system);
+                }
+
+                return true;
+            }
+
+            foreach(ISystemComponent systemComponent in systemComponents)
+            {
+                systemRelationCluster.AddRelation(systemConnection_Temp, systemComponent);
+                if (system != null)
+                {
+                    systemRelationCluster.AddRelation(systemComponent, system);
+                }
+            }
+
+            for (int i = 0; i < systemComponents.Count - 1; i++)
+            {
+                ISystemComponent systemComponent_1 = systemComponents[i];
+
+                for (int j = i + 1; j < systemComponents.Count; j++)
+                {
+                    ISystemComponent systemComponent_2 = systemComponents[j];
+
+                    systemRelationCluster.AddRelation(systemComponent_1, systemComponent_2);
+                }
             }
 
             return true;
@@ -304,6 +368,8 @@ namespace SAM.Core.Systems
 
             return systemRelationCluster.AddRelation(systemControl, systemConnection);
         }
+
+
 
         public List<bool> Connect(ISystemGroup systemGroup, IEnumerable<ISystemComponent> systemComponents)
         {
@@ -525,6 +591,22 @@ namespace SAM.Core.Systems
         public List<T> GetSystemComponents<T>() where T : ISystemComponent
         {
             return systemRelationCluster?.GetObjects<T>()?.ConvertAll(x => Core.Query.Clone(x)).ConvertAll(x => (T)(object)x);
+        }
+
+        public T GetSystemComponent<T>(ObjectReference objectReference) where T : ISystemComponent
+        {
+            if (objectReference == null || !objectReference.IsValid())
+            {
+                return default;
+            }
+
+            List<T> ts = systemRelationCluster.GetObjects<T>(objectReference);
+            if(ts == null || ts.Count == 0)
+            {
+                return default;
+            }
+
+            return Core.Query.Clone(ts[0]);
         }
 
         public T GetSystemComponent<T>(Func<T, bool> func) where T : ISystemComponent

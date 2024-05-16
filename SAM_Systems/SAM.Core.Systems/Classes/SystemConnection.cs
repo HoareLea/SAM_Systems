@@ -186,5 +186,13 @@ namespace SAM.Core.Systems
 
             return result;
         }
+
+        public List<ObjectReference> ObjectReferences
+        {
+            get
+            {
+                return dictionary == null ? null : new List<ObjectReference>(dictionary.Keys);
+            }
+        }
     }
 }

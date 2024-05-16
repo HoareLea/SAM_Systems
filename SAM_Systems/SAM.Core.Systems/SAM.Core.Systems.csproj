@@ -65,6 +65,7 @@
     <Compile Include="Create\SystemType.cs" />
     <Compile Include="Create\SystemConnector.cs" />
     <Compile Include="Enums\ConnectorStatus.cs" />
+    <Compile Include="Interfaces\ISystemJunction.cs" />
     <Compile Include="Interfaces\ISystemSpace.cs" />
     <Compile Include="Interfaces\ISystemGroup.cs" />
     <Compile Include="Interfaces\ISystemConnection.cs" />
@@ -85,6 +86,7 @@
     <Compile Include="Query\FindIndexes.cs" />
     <Compile Include="Query\FindIndex.cs" />
     <Compile Include="Query\Indexes.cs" />
+    <Compile Include="Query\SystemComponents.cs" />
     <Compile Include="Query\TryGetIndex.cs" />
     <Compile Include="Query\TryGetIndexes.cs" />
     <Compile Include="Query\SystemConnection.cs" />
