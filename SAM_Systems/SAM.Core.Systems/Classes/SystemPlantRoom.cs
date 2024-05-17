@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 
 namespace SAM.Core.Systems
 {
@@ -591,6 +592,22 @@ namespace SAM.Core.Systems
         public List<T> GetSystemComponents<T>() where T : ISystemComponent
         {
             return systemRelationCluster?.GetObjects<T>()?.ConvertAll(x => Core.Query.Clone(x)).ConvertAll(x => (T)(object)x);
+        }
+
+        public List<T> GetSystemComponents<T>(ISystem system) where T : ISystemComponent
+        {
+            if (system == null)
+            {
+                return default;
+            }
+
+            List<T> ts = systemRelationCluster.GetRelatedObjects<T>(system);
+            if (ts == null || ts.Count == 0)
+            {
+                return default;
+            }
+
+            return ts.ConvertAll(x => Core.Query.Clone(x));
         }
 
         public T GetSystemComponent<T>(ObjectReference objectReference) where T : ISystemComponent

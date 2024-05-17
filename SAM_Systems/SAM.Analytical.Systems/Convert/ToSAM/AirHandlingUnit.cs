@@ -1,5 +1,6 @@
-﻿
-using SAM.Core.Systems;
+﻿using SAM.Core.Systems;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace SAM.Analytical.Systems
 {
@@ -14,8 +15,19 @@ namespace SAM.Analytical.Systems
 
             //TODO: [JAKUB] Implement conversion here
 
-            return new AirHandlingUnit("AHU", double.NaN, double.NaN);
+            SystemExchanger systemExchanger = systemPlantRoom.GetSystemComponents<SystemExchanger>(airSystem)?.FirstOrDefault();
+            if(systemExchanger == null)
+            {
+                
+            }
+            else
+            {
+                List<ISystemComponent> systemComponents = systemPlantRoom.GetRelatedObjects<ISystemComponent>(systemExchanger);
+            }
 
+            AirHandlingUnit result = new AirHandlingUnit("AHU", double.NaN, double.NaN);
+
+            return result;
         }
     }
 }
