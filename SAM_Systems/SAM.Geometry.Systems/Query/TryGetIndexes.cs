@@ -17,22 +17,32 @@ namespace SAM.Geometry.Systems
                 return false;
             }
 
-            ConnectorStatus connectorStatus;
-
-            connectorStatus = systemComponent_1 is ISystemJunction ? ConnectorStatus.Undefined : ConnectorStatus.Unconnected;
-
-            HashSet<int> indexes_1 = Core.Systems.Query.FindIndexes(systemPlantRoom, systemComponent_1, systemType, connectorStatus, direction);
+            HashSet<int> indexes_1 = Core.Systems.Query.FindIndexes(systemPlantRoom, systemComponent_1, systemType, ConnectorStatus.Unconnected, direction);
             if(indexes_1 == null || indexes_1.Count == 0)
             {
-                return false;
+                if(systemComponent_1 is ISystemJunction)
+                {
+                    indexes_1 = Core.Systems.Query.FindIndexes(systemPlantRoom, systemComponent_1, systemType, ConnectorStatus.Undefined, direction);
+                }
+
+                if (indexes_1 == null || indexes_1.Count == 0)
+                {
+                    return false;
+                }
             }
 
-            connectorStatus = systemComponent_2 is ISystemJunction ? ConnectorStatus.Undefined : ConnectorStatus.Unconnected;
-
-            HashSet<int> indexes_2 = Core.Systems.Query.FindIndexes(systemPlantRoom, systemComponent_2, systemType, connectorStatus, direction.Opposite());
+            HashSet<int> indexes_2 = Core.Systems.Query.FindIndexes(systemPlantRoom, systemComponent_2, systemType, ConnectorStatus.Unconnected, direction.Opposite());
             if (indexes_2 == null || indexes_2.Count == 0)
             {
-                return false;
+                if (systemComponent_2 is ISystemJunction)
+                {
+                    indexes_2 = Core.Systems.Query.FindIndexes(systemPlantRoom, systemComponent_2, systemType, ConnectorStatus.Undefined, direction.Opposite());
+                }
+
+                if (indexes_2 == null || indexes_2.Count == 0)
+                {
+                    return false;
+                }
             }
 
             if (indexes_1.Count == 1 && indexes_2.Count == 1)
