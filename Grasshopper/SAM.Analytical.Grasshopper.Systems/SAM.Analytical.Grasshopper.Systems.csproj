@@ -44,6 +44,12 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="SAM.Analytical">
+      <HintPath>..\..\..\SAM\build\SAM.Analytical.dll</HintPath>
+    </Reference>
+    <Reference Include="SAM.Analytical.Grasshopper">
+      <HintPath>..\..\..\SAM\build\SAM.Analytical.Grasshopper.dll</HintPath>
+    </Reference>
     <Reference Include="SAM.Core, Version=1.0.8823.17615, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\SAM\build\SAM.Core.dll</HintPath>
@@ -79,6 +85,7 @@
     <Compile Include="Component\SAMAnalyticalSystemResults.cs" />
     <Compile Include="Component\SAMAnalyticalSystemCreateDisplaySystemManager.cs" />
     <Compile Include="Component\SAMAnalyticalSystemResultValueByHourOfYear.cs" />
+    <Compile Include="Component\SAMAnalyticalSystemToAHU.cs" />
     <Compile Include="Component\SAMAnalyticalSystemComponentType.cs" />
     <Compile Include="Component\SAMAnalyticalSystemType.cs" />
     <Compile Include="Kernel\AssemblyInfo.cs" />

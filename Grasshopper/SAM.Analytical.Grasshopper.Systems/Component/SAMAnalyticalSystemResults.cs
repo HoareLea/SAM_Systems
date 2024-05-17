@@ -66,8 +66,8 @@ namespace SAM.Analytical.Grasshopper
             base.AppendAdditionalMenuItems(menu);
             Menu_AppendSeparator(menu);
 
-            Modify.AppendSourceCodeAdditionalMenuItem(this, menu);
-            Modify.AppendNewComponentAdditionalMenuItem(this, menu);
+            Core.Grasshopper.Modify.AppendSourceCodeAdditionalMenuItem(this, menu);
+            Core.Grasshopper.Modify.AppendNewComponentAdditionalMenuItem(this, menu);
         }
 
         private void PopulateOutputParameters(IEnumerable<GooObjectParam> gooParameterParams)
