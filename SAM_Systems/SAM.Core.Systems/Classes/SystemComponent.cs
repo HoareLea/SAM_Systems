@@ -117,5 +117,68 @@ namespace SAM.Core.Systems
 
             return systemConnectionManager.GetSystemConnectors(indexes);
         }
+
+        public virtual List<ISystemConnection> GetSystemConnections(SystemPlantRoom systemPlantRoom, SystemConnector systemConnector)
+        {
+            if(systemPlantRoom == null || systemConnector == null)
+            {
+                return null;
+            }
+
+            SystemConnectorManager systemConnectionManager = SystemConnectorManager;
+            if (systemConnectionManager == null)
+            {
+                return null;
+            }
+
+            List<int> indexes = systemConnectionManager.GetIndexes(systemConnector.SystemType);
+            if(indexes == null || indexes.Count == 0)
+            {
+                return null;
+            }
+
+            List<ISystemConnection> systemConnections = systemPlantRoom.GetRelatedObjects<ISystemConnection>(this);
+            if (systemConnections == null || systemConnections.Count == 0)
+            {
+                return systemConnections;
+            }
+
+            List<ISystemConnection> result = new List<ISystemConnection>();
+            for (int i = 0; i < indexes.Count; i++)
+            {
+                int index = indexes[i];
+
+                if (!systemConnectionManager.TryGetSystemConnector(index, out SystemConnector systemConnector_Temp) || systemConnector_Temp == null)
+                {
+                    continue;
+                }
+
+                if(systemConnector_Temp != systemConnector)
+                {
+                    continue;
+                }
+
+                foreach(ISystemConnection systemConnection in systemConnections)
+                {
+                    if (systemConnection == null)
+                    {
+                        continue;
+                    }
+
+                    if (!systemConnection.TryGetIndex(this, out int index_Temp))
+                    {
+                        continue;
+                    }
+
+                    if(index_Temp == index)
+                    {
+                        result.Add(systemConnection);
+                    }
+                }
+            }
+
+            return result;
+
+        }
     }
 }

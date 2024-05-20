@@ -1,6 +1,7 @@
 ﻿using SAM.Core.Systems;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace SAM.Analytical.Systems
 {
@@ -25,14 +26,34 @@ namespace SAM.Analytical.Systems
                 List<ISystemComponent> systemComponents_Space = systemComponents.FindAll(x => Query.ContainsSystemSpaceComponent(systemPlantRoom, x));
                 if(systemComponents_Space == null || systemComponents_Space.Count == 0)
                 {
+                    ISystemComponent systemComponent = systemPlantRoom.GetSystemComponents<ISystemComponent>(airSystem, ConnectorStatus.Unconnected, Core.Direction.In)?.FirstOrDefault();
+                    if(systemComponent == null)
+                    {
+                        return result;
+                    }
 
+                    List<SystemComponent> systemComponents_Temp = systemPlantRoom.GetOrderedSystemComponents(systemComponent as SystemComponent, airSystem, Core.Direction.Out);
+                    if(systemComponents_Temp == null || systemComponents_Temp.Count == 0)
+
+                    {
+                        return result;
+                    }
                 }
                 else
                 {
                     foreach(ISystemComponent systemComponent_Space in systemComponents_Space)
                     {
+                        List<SystemComponent> systemComponents_Temp = systemPlantRoom.GetOrderedSystemComponents(systemComponent_Space as SystemComponent, airSystem, Core.Direction.In);
+                        if(systemComponents_Temp == null || systemComponents_Temp.Count == 0)
+                        {
+                            continue;
+                        }
 
+
+                    
                     }
+
+
                 }
             }
 

@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.Serialization;
 
 namespace SAM.Core.Systems
 {
@@ -608,6 +607,106 @@ namespace SAM.Core.Systems
             }
 
             return ts.ConvertAll(x => Core.Query.Clone(x));
+        }
+
+        public List<T> GetSystemComponents<T>(ISystem system, ConnectorStatus connectorStatus, Direction? direction) where T : ISystemComponent
+        {
+            List<T> ts = systemRelationCluster.GetRelatedObjects<T>(system);
+            if (ts == null || ts.Count == 0)
+            {
+                return default;
+            }
+
+            List<T> result = new List<T>();
+            foreach(T t in ts)
+            {
+                List<SystemConnector> systemConnectors = t.GetSystemConnectors(this, connectorStatus)?.FindAll(x => x.SystemType == new SystemType(system));
+                if(systemConnectors == null || systemConnectors.Count == 0)
+                {
+                    continue;
+                }
+
+                if(direction != null && direction.HasValue)
+                {
+                    systemConnectors.RemoveAll(x => x.Direction != direction.Value);
+                }
+
+                if(systemConnectors != null && systemConnectors.Count != 0)
+                {
+                    result.Add(t);
+                }
+            }
+
+            return result;
+        }
+
+        public List<T> GetNextSystemComponents<T>(ISystemComponent systemComponent, ISystem system, Direction direction) where T : ISystemComponent
+        {
+            if(systemComponent == null || system == null || direction == Direction.Undefined)
+            {
+                return null;
+            }
+
+            List<SystemConnector> systemConnectors = systemComponent.GetSystemConnectors(this, ConnectorStatus.Connected)?.FindAll(x => x.SystemType == new SystemType(system));
+            if (systemConnectors == null || systemConnectors.Count == 0)
+            {
+                return null;
+            }
+
+            List<T> result = new List<T>();
+            foreach(SystemConnector systemConnector in systemConnectors)
+            {
+                List<ISystemConnection> systemConnections = systemComponent.GetSystemConnections(this, systemConnector);
+                if(systemConnections == null || systemConnections.Count == 0)
+                {
+                    continue;
+                }
+
+
+                foreach(ISystemConnection systemConnection in systemConnections)
+                {
+                    List<T> ts = systemRelationCluster.GetRelatedObjects<T>(systemConnection);
+                    if(ts != null && ts.Count != 0)
+                    {
+                        result.AddRange(ts.ConvertAll(x => x.Clone()));
+                    }
+
+                }
+            }
+
+            return result;
+        }
+
+        public List<SystemComponent> GetOrderedSystemComponents(SystemComponent systemComponent, ISystem system, Direction direction)
+        {
+            if (systemComponent == null || system == null || direction == Direction.Undefined)
+            {
+                return null;
+            }
+
+            List<SystemComponent> result = new List<SystemComponent>();
+
+            SystemComponent systemComponent_Temp = systemComponent;
+
+            do
+            {
+                List<SystemComponent> systemComponents = GetNextSystemComponents<SystemComponent>(systemComponent_Temp, system, direction);
+                if(systemComponents == null || systemComponents.Count == 0)
+                {
+                    break;
+                }
+
+                systemComponent_Temp = systemComponents.FindAll(x => result.Find(y => x.Guid == y.Guid) == null)?.FirstOrDefault();
+                if(systemComponent_Temp == null)
+                {
+                    break;
+                }
+
+                result.Add(systemComponent_Temp);
+            }
+            while (systemComponent_Temp != null);
+
+            return result;
         }
 
         public T GetSystemComponent<T>(ObjectReference objectReference) where T : ISystemComponent

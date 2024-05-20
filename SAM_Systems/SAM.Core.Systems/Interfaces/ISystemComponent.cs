@@ -7,5 +7,7 @@ namespace SAM.Core.Systems
         SystemConnectorManager SystemConnectorManager { get; }
 
         List<SystemConnector> GetSystemConnectors(SystemPlantRoom systemPlantRoom, ConnectorStatus connectorStatus);
+
+        List<ISystemConnection> GetSystemConnections(SystemPlantRoom systemPlantRoom, SystemConnector systemConnector);
     }
 }
