@@ -11,6 +11,11 @@ namespace SAM.Core.Systems
             {
                 name = value;
             }
+
+            get
+            {
+                return name;
+            }
         }
 
         public string Description { get; set; }
