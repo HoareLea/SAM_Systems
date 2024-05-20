@@ -5,7 +5,7 @@ namespace SAM.Analytical.Systems
 {
     public static partial class Query
     {
-        public static bool ContainsSystemSpaceComponent(this SystemPlantRoom systemPlantRoom, ISystemGroup systemGroup)
+        public static bool ContainsSystemSpace(this SystemPlantRoom systemPlantRoom, ISystemGroup systemGroup)
         {
             if(systemPlantRoom == null || systemGroup == null)
             {
@@ -18,14 +18,14 @@ namespace SAM.Analytical.Systems
                 return false;
             }
 
-            if(systemComponents.Find(x => x is ISystemSpaceComponent) != null)
+            if(systemComponents.Find(x => x is ISystemSpace) != null)
             {
                 return true;
             }
 
             foreach(ISystemComponent systemComponent in systemComponents)
             {
-                if(systemComponent is ISystemGroup && ContainsSystemSpaceComponent(systemPlantRoom, (ISystemGroup)systemComponent))
+                if(systemComponent is ISystemGroup && ContainsSystemSpace(systemPlantRoom, (ISystemGroup)systemComponent))
                 {
                     return true;
                 }
@@ -34,21 +34,21 @@ namespace SAM.Analytical.Systems
             return false;
         }
 
-        public static bool ContainsSystemSpaceComponent(this SystemPlantRoom systemPlantRoom, ISystemComponent systemComponent)
+        public static bool ContainsSystemSpace(this SystemPlantRoom systemPlantRoom, ISystemComponent systemComponent)
         {
             if (systemPlantRoom == null || systemComponent == null)
             {
                 return false;
             }
 
-            if(systemComponent is ISystemSpaceComponent)
+            if(systemComponent is ISystemSpace)
             {
                 return true;
             }
 
             if(systemComponent is ISystemGroup)
             {
-                return ContainsSystemSpaceComponent(systemPlantRoom, (ISystemGroup)systemComponent);
+                return ContainsSystemSpace(systemPlantRoom, (ISystemGroup)systemComponent);
             }
 
             return false;

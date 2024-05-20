@@ -23,7 +23,7 @@ namespace SAM.Analytical.Systems
             {
                 Dictionary<Guid, SimpleEquipment> dictionary = new Dictionary<Guid, SimpleEquipment>(); 
                 
-                List<ISystemComponent> systemComponents_Space = systemComponents.FindAll(x => Query.ContainsSystemSpaceComponent(systemPlantRoom, x));
+                List<ISystemComponent> systemComponents_Space = systemComponents.FindAll(x => Query.ContainsSystemSpace(systemPlantRoom, x));
                 if(systemComponents_Space == null || systemComponents_Space.Count == 0)
                 {
                     ISystemComponent systemComponent = systemPlantRoom.GetSystemComponents<ISystemComponent>(airSystem, ConnectorStatus.Unconnected, Core.Direction.In)?.FirstOrDefault();
@@ -32,57 +32,146 @@ namespace SAM.Analytical.Systems
                         return result;
                     }
 
-                    List<SystemComponent> systemComponents_Temp = systemPlantRoom.GetOrderedSystemComponents(systemComponent as SystemComponent, airSystem, Core.Direction.Out);
-                    if(systemComponents_Temp == null || systemComponents_Temp.Count == 0)
-
+                    List<SystemComponent> systemComponents_Ordered = systemPlantRoom.GetOrderedSystemComponents(systemComponent as SystemComponent, airSystem, Core.Direction.Out);
+                    if(systemComponents_Ordered == null || systemComponents_Ordered.Count == 0)
                     {
                         return result;
                     }
+
+                    List<ISimpleEquipment> simpleEquipments = new List<ISimpleEquipment>();
+
+                    foreach (SystemComponent systemComponent_Ordered in systemComponents_Ordered)
+                    {
+                        SimpleEquipment simpleEquipment = systemComponent_Ordered.ToSAM();
+                        if (simpleEquipment == null)
+                        {
+                            continue;
+                        }
+
+                        simpleEquipments.Add(simpleEquipment);
+                    }
+
+                    result.AddSimpleEquipments(FlowClassification.Extract, simpleEquipments.ToArray());
+
                 }
                 else
                 {
                     foreach(ISystemComponent systemComponent_Space in systemComponents_Space)
                     {
-                        List<SystemComponent> systemComponents_Temp = systemPlantRoom.GetOrderedSystemComponents(systemComponent_Space as SystemComponent, airSystem, Core.Direction.In);
-                        if(systemComponents_Temp == null || systemComponents_Temp.Count == 0)
+                        List<SystemComponent> systemComponents_Ordered = systemPlantRoom.GetOrderedSystemComponents(systemComponent_Space as SystemComponent, airSystem, Core.Direction.In);
+                        if(systemComponents_Ordered == null || systemComponents_Ordered.Count == 0)
                         {
                             continue;
                         }
 
+                        systemComponents_Ordered.Reverse();
 
-                    
+                        List<ISimpleEquipment> simpleEquipments = new List<ISimpleEquipment>();
+
+                        foreach (SystemComponent systemComponent_Ordered in systemComponents_Ordered)
+                        {
+                            SimpleEquipment simpleEquipment = systemComponent_Ordered.ToSAM();
+                            if (simpleEquipment == null)
+                            {
+                                continue;
+                            }
+
+                            simpleEquipments.Add(simpleEquipment);
+                        }
+
+                        result.AddSimpleEquipments(FlowClassification.Extract, simpleEquipments.ToArray());
+
                     }
-
-
                 }
             }
 
-
-
-
-            //SystemExchanger systemExchanger = 
-            //if(systemExchanger == null)
-            //{
-                
-            //}
-            //else
-            //{
-            //    List<ISystemComponent> systemComponents = systemPlantRoom.GetRelatedObjects<ISystemComponent>(systemExchanger);
-
-            //    List<ISimpleEquipment> simpleEquipments = null;
-
-            //    HeatRecoveryUnit heatRecoveryUnit = new HeatRecoveryUnit(systemExchanger.Name, 76, 0, 76, 0, double.NaN, double.NaN, double.NaN, double.NaN);
-
-            //    simpleEquipments = new List<ISimpleEquipment>();
-            //    simpleEquipments.Add(heatRecoveryUnit);
-            //    result.AddSimpleEquipments(FlowClassification.Supply, simpleEquipments.ToArray());
-
-            //    simpleEquipments = new List<ISimpleEquipment>();
-            //    simpleEquipments.Add(heatRecoveryUnit);
-            //    result.AddSimpleEquipments(FlowClassification.Extract, simpleEquipments.ToArray());
-            //}
-
             return result;
+        }
+
+
+        public static SimpleEquipment ToSAM(this SystemComponent systemComponent)
+        {
+            if(systemComponent == null)
+            {
+                return null;
+            }
+
+            if(systemComponent is SystemCoolingCoil)
+            {
+                return ToSAM((SystemCoolingCoil)systemComponent);
+            }
+
+            if (systemComponent is SystemHeatingCoil)
+            {
+                return ToSAM((SystemHeatingCoil)systemComponent);
+            }
+
+            if (systemComponent is SystemHumidifier)
+            {
+                return ToSAM((SystemHumidifier)systemComponent);
+            }
+
+            if (systemComponent is SystemFan)
+            {
+                return ToSAM((SystemFan)systemComponent);
+            }
+
+            if (systemComponent is SystemExchanger)
+            {
+                return ToSAM((SystemExchanger)systemComponent);
+            }
+
+            return null;
+        }
+
+        public static CoolingCoil ToSAM(this SystemCoolingCoil systemCoolingCoil)
+        {
+            if(systemCoolingCoil == null)
+            {
+                return null;
+            }
+
+            return new CoolingCoil(double.NaN, double.NaN, double.NaN, double.NaN);
+        }
+
+        public static HeatingCoil ToSAM(this SystemHeatingCoil systemHeatingCoil)
+        {
+            if (systemHeatingCoil == null)
+            {
+                return null;
+            }
+
+            return new HeatingCoil(double.NaN, double.NaN, double.NaN, double.NaN);
+        }
+
+        public static Humidifier ToSAM(this SystemHumidifier systemHumidifier)
+        {
+            if (systemHumidifier == null)
+            {
+                return null;
+            }
+
+            return new Humidifier(systemHumidifier.Name);
+        }
+
+        public static Fan ToSAM(this SystemFan systemFan)
+        {
+            if (systemFan == null)
+            {
+                return null;
+            }
+
+            return new Fan(systemFan.Name);
+        }
+
+        public static HeatRecoveryUnit ToSAM(this SystemExchanger systemExchanger)
+        {
+            if (systemExchanger == null)
+            {
+                return null;
+            }
+
+            return new HeatRecoveryUnit(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN, double.NaN, double.NaN, double.NaN);
         }
     }
 }
