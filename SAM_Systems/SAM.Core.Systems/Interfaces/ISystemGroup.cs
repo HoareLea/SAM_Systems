@@ -3,5 +3,7 @@
     public interface ISystemGroup : ISystemComponent
     {
         bool IsValid(ISystemComponent systemComponent);
+
+        SystemType SystemType { get; }
     }
 }

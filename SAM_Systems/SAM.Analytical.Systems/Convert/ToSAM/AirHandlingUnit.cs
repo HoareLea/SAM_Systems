@@ -56,9 +56,11 @@ namespace SAM.Analytical.Systems
                 }
                 else
                 {
-                    foreach(ISystemComponent systemComponent_Space in systemComponents_Space)
+                    List<SystemComponent> systemComponents_Top = Geometry.Systems.Query.TopSystemComponents(systemPlantRoom, systemComponents_Space.ConvertAll(x => x as SystemComponent), new SystemType(airSystem));
+
+                    foreach (ISystemComponent systemComponent_Space in systemComponents_Top)
                     {
-                        List<SystemComponent> systemComponents_Ordered = systemPlantRoom.GetOrderedSystemComponents(systemComponent_Space as SystemComponent, airSystem, Core.Direction.In);
+                        List<SystemComponent> systemComponents_Ordered = systemPlantRoom.GetOrderedSystemComponents(systemComponent_Space as SystemComponent, airSystem, Core.Direction.Out);
                         if(systemComponents_Ordered == null || systemComponents_Ordered.Count == 0)
                         {
                             continue;
