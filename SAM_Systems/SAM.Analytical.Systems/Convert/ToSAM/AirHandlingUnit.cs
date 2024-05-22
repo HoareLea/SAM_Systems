@@ -58,31 +58,40 @@ namespace SAM.Analytical.Systems
                 {
                     List<SystemComponent> systemComponents_Top = Geometry.Systems.Query.TopSystemComponents(systemPlantRoom, systemComponents_Space.ConvertAll(x => x as SystemComponent), new SystemType(airSystem));
 
+                    Tuple<Core.Direction, FlowClassification>[] tuples = new Tuple<Core.Direction, FlowClassification>[] { new Tuple<Core.Direction, FlowClassification>(Core.Direction.Out, FlowClassification.Extract), new Tuple<Core.Direction, FlowClassification>(Core.Direction.In, FlowClassification.Supply) };
+
                     foreach (ISystemComponent systemComponent_Space in systemComponents_Top)
                     {
-                        List<SystemComponent> systemComponents_Ordered = systemPlantRoom.GetOrderedSystemComponents(systemComponent_Space as SystemComponent, airSystem, Core.Direction.Out);
-                        if(systemComponents_Ordered == null || systemComponents_Ordered.Count == 0)
+                        foreach(Tuple<Core.Direction, FlowClassification> tuple in tuples)
                         {
-                            continue;
-                        }
-
-                        systemComponents_Ordered.Reverse();
-
-                        List<ISimpleEquipment> simpleEquipments = new List<ISimpleEquipment>();
-
-                        foreach (SystemComponent systemComponent_Ordered in systemComponents_Ordered)
-                        {
-                            SimpleEquipment simpleEquipment = systemComponent_Ordered.ToSAM();
-                            if (simpleEquipment == null)
+                            List<SystemComponent> systemComponents_Ordered = systemPlantRoom.GetOrderedSystemComponents(systemComponent_Space as SystemComponent, airSystem, tuple.Item1);
+                            if (systemComponents_Ordered == null || systemComponents_Ordered.Count == 0)
                             {
                                 continue;
                             }
 
-                            simpleEquipments.Add(simpleEquipment);
+                            systemComponents_Ordered.Reverse();
+
+                            List<ISimpleEquipment> simpleEquipments = new List<ISimpleEquipment>();
+
+                            foreach (SystemComponent systemComponent_Ordered in systemComponents_Ordered)
+                            {
+                                if (!dictionary.TryGetValue(systemComponent_Ordered.Guid, out SimpleEquipment simpleEquipment))
+                                {
+                                    simpleEquipment = systemComponent_Ordered.ToSAM();
+                                    if (simpleEquipment == null)
+                                    {
+                                        continue;
+                                    }
+
+                                    dictionary[systemComponent_Ordered.Guid] = simpleEquipment;
+                                }
+
+                                simpleEquipments.Add(simpleEquipment);
+                            }
+
+                            result.AddSimpleEquipments(tuple.Item2, simpleEquipments.ToArray());
                         }
-
-                        result.AddSimpleEquipments(FlowClassification.Extract, simpleEquipments.ToArray());
-
                     }
                 }
             }

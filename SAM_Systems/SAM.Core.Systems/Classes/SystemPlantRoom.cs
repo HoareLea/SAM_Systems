@@ -640,7 +640,7 @@ namespace SAM.Core.Systems
             return result;
         }
 
-        public List<T> GetNextSystemComponents<T>(ISystemComponent systemComponent, ISystem system, Direction direction) where T : ISystemComponent
+        public List<T> GetNextSystemComponents<T>(SystemComponent systemComponent, ISystem system, Direction direction) where T : SystemComponent
         {
             if(systemComponent == null || system == null || direction == Direction.Undefined)
             {
@@ -656,6 +656,11 @@ namespace SAM.Core.Systems
             List<T> result = new List<T>();
             foreach(SystemConnector systemConnector in systemConnectors)
             {
+                if(systemConnector.Direction != direction)
+                {
+                    continue;
+                }
+                
                 List<ISystemConnection> systemConnections = systemComponent.GetSystemConnections(this, systemConnector);
                 if(systemConnections == null || systemConnections.Count == 0)
                 {
@@ -668,7 +673,13 @@ namespace SAM.Core.Systems
                     List<T> ts = systemRelationCluster.GetRelatedObjects<T>(systemConnection);
                     if(ts != null && ts.Count != 0)
                     {
-                        result.AddRange(ts.ConvertAll(x => x.Clone()));
+                        foreach(T t in ts)
+                        {
+                            if(t.Guid != systemComponent.Guid  && result.Find(x => x.Guid == t.Guid) == null)
+                            {
+                                result.Add(t);
+                            }
+                        }
                     }
 
                 }
@@ -686,7 +697,20 @@ namespace SAM.Core.Systems
 
             List<SystemComponent> result = new List<SystemComponent>();
 
+            HashSet<Guid> guids = new HashSet<Guid>();
+
             SystemComponent systemComponent_Temp = systemComponent;
+            if(systemComponent_Temp is ISystemGroup)
+            {
+                List<SystemComponent> systemComponents = GetRelatedObjects<SystemComponent>(systemComponent_Temp);
+                if(systemComponents == null || systemComponents.Count == 0)
+                {
+                    return null;
+                }
+
+                systemComponents.ForEach(x => guids.Add(x.Guid));
+                systemComponent_Temp = systemComponents[0];
+            }
 
             do
             {
@@ -702,7 +726,10 @@ namespace SAM.Core.Systems
                     break;
                 }
 
-                result.Add(systemComponent_Temp);
+                if(!guids.Contains(systemComponent_Temp.Guid))
+                {
+                    result.Add(systemComponent_Temp);
+                }
             }
             while (systemComponent_Temp != null);
 
