@@ -66,6 +66,22 @@ namespace SAM.Analytical.Systems
             {
                 displayObject = new DisplaySystemSteamHumidifier((SystemSteamHumidifier)systemComponent, systemGeometrySymbol, location);
             }
+            else if (systemComponent is SystemSprayHumidifier)
+            {
+                displayObject = new DisplaySystemSprayHumidifier((SystemSprayHumidifier)systemComponent, systemGeometrySymbol, location);
+            }
+            else if (systemComponent is SystemDXCoil)
+            {
+                displayObject = new DisplaySystemDXCoil((SystemDXCoil)systemComponent, systemGeometrySymbol, location);
+            }
+            else if (systemComponent is SystemEconomiser)
+            {
+                displayObject = new DisplaySystemEconomiser((SystemEconomiser)systemComponent, systemGeometrySymbol, location);
+            }
+            else if (systemComponent is SystemMixingBox)
+            {
+                displayObject = new DisplaySystemMixingBox((SystemMixingBox)systemComponent, systemGeometrySymbol, location);
+            }
 
             if (!(displayObject is T))
             {

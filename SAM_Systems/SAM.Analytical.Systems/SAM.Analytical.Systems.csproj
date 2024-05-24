@@ -56,7 +56,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\DisplayObject\DisplayAirSystemGroup.cs" />
+    <Compile Include="Classes\DisplayObject\DisplaySystemMixingBox.cs" />
+    <Compile Include="Classes\DisplayObject\DisplaySystemEconomiser.cs" />
+    <Compile Include="Classes\DisplayObject\DisplaySystemDXCoil.cs" />
     <Compile Include="Classes\DisplayObject\DisplaySystemDesiccantWheel.cs" />
+    <Compile Include="Classes\DisplayObject\DisplaySystemSprayHumidifier.cs" />
     <Compile Include="Classes\DisplayObject\DisplaySystemSteamHumidifier.cs" />
     <Compile Include="Classes\DisplayObject\DisplaySystemExchanger.cs" />
     <Compile Include="Classes\DisplayObject\DisplaySystemAirJunction.cs" />
