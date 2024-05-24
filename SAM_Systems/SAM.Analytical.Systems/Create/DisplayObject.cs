@@ -62,6 +62,10 @@ namespace SAM.Analytical.Systems
             {
                 displayObject = new DisplaySystemSpace((SystemSpace)systemComponent, systemGeometrySymbol, location);
             }
+            else if (systemComponent is SystemSteamHumidifier)
+            {
+                displayObject = new DisplaySystemSteamHumidifier((SystemSteamHumidifier)systemComponent, systemGeometrySymbol, location);
+            }
 
             if (!(displayObject is T))
             {
