@@ -82,6 +82,10 @@ namespace SAM.Analytical.Systems
             {
                 displayObject = new DisplaySystemMixingBox((SystemMixingBox)systemComponent, systemGeometrySymbol, location);
             }
+            else if (systemComponent is SystemDirectEvaporativeCooler)
+            {
+                displayObject = new DisplaySystemDirectEvaporativeCooler((SystemDirectEvaporativeCooler)systemComponent, systemGeometrySymbol, location);
+            }
 
             if (!(displayObject is T))
             {

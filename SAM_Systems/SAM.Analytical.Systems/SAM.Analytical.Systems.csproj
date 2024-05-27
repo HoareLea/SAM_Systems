@@ -60,6 +60,7 @@
     <Compile Include="Classes\DisplayObject\DisplaySystemEconomiser.cs" />
     <Compile Include="Classes\DisplayObject\DisplaySystemDXCoil.cs" />
     <Compile Include="Classes\DisplayObject\DisplaySystemDesiccantWheel.cs" />
+    <Compile Include="Classes\DisplayObject\DisplaySystemDirectEvaporativeCooler.cs" />
     <Compile Include="Classes\DisplayObject\DisplaySystemSprayHumidifier.cs" />
     <Compile Include="Classes\DisplayObject\DisplaySystemSteamHumidifier.cs" />
     <Compile Include="Classes\DisplayObject\DisplaySystemExchanger.cs" />
