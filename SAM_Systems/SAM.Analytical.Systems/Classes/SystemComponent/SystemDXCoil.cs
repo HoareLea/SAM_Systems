@@ -29,10 +29,12 @@ namespace SAM.Analytical.Systems
             {
                 return Core.Systems.Create.SystemConnectorManager
                 (
-                    Core.Systems.Create.SystemConnector<RefrigerantSystem>(Core.Direction.In, 1),
-                    Core.Systems.Create.SystemConnector<RefrigerantSystem>(Core.Direction.Out, 1),
+                    Core.Systems.Create.SystemConnector<AirSystem>(Core.Direction.In, 1),
+                    Core.Systems.Create.SystemConnector<AirSystem>(Core.Direction.Out, 1),
+                    Core.Systems.Create.SystemConnector<RefrigerantSystem>(Core.Direction.In, 2),
+                    Core.Systems.Create.SystemConnector<RefrigerantSystem>(Core.Direction.Out, 2),
+                    Core.Systems.Create.SystemConnector<IControlSystem>(),
                     Core.Systems.Create.SystemConnector<IControlSystem>()
-
                 );
             }
         }
