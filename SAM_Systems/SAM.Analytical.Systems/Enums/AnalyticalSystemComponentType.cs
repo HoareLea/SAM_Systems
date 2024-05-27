@@ -16,7 +16,7 @@ namespace SAM.Analytical.Systems
         [Description("System Desiccant Wheel")] SystemDesiccantWheel,
         [Description("System Exchanger")] SystemExchanger,
         [Description("System Direct Evaporative Cooler")] SystemDirectEvaporativeCooler,
-        [Description("System DX Coil Unit")] SystemDXCoilUnit,
+        [Description("System DX Coil")] SystemDXCoil,
         [Description("System Economiser")] SystemEconomiser,
         [Description("System Humidifier")] SystemHumidifier,
         [Description("System Mixing Box")] SystemMixingBox,

@@ -41,8 +41,8 @@
                 case AnalyticalSystemComponentType.SystemDirectEvaporativeCooler:
                     return typeof(SystemDirectEvaporativeCooler);
 
-                case AnalyticalSystemComponentType.SystemDXCoilUnit:
-                    return typeof(SystemDXCoilUnit);
+                case AnalyticalSystemComponentType.SystemDXCoil:
+                    return typeof(SystemDXCoil);
 
                 case AnalyticalSystemComponentType.SystemEconomiser:
                     return typeof(SystemEconomiser);
