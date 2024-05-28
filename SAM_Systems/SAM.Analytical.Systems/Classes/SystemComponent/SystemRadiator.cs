@@ -6,7 +6,7 @@ namespace SAM.Analytical.Systems
     public class SystemRadiator : SystemSpaceComponent
     {
         public double Efficiency { get; set; }
-        public Duty Duty { get; set; }
+        public SizableValue Duty { get; set; }
 
         public override SystemConnectorManager SystemConnectorManager
         {
@@ -57,7 +57,7 @@ namespace SAM.Analytical.Systems
 
             if (jObject.ContainsKey("Duty"))
             {
-                Duty = Core.Query.IJSAMObject<Duty>(jObject.Value<JObject>("Duty"));
+                Duty = Core.Query.IJSAMObject<SizableValue>(jObject.Value<JObject>("Duty"));
             }
 
             return true;

@@ -87,9 +87,9 @@
     <Compile Include="Classes\Result\SystemExchangerResult.cs" />
     <Compile Include="Classes\Result\SystemRadiatorResult.cs" />
     <Compile Include="Classes\Result\SystemSpaceResult.cs" />
-    <Compile Include="Classes\UnlimitedDuty.cs" />
-    <Compile Include="Classes\Duty.cs" />
-    <Compile Include="Classes\SizedDuty.cs" />
+    <Compile Include="Classes\UnlimitedValue.cs" />
+    <Compile Include="Classes\SizableValue.cs" />
+    <Compile Include="Classes\SizedValue.cs" />
     <Compile Include="Classes\SystemComponent\SystemAirJunction.cs" />
     <Compile Include="Classes\SystemComponent\SystemEconomiser.cs" />
     <Compile Include="Classes\SystemComponent\SystemDesiccantWheel.cs" />
@@ -142,7 +142,7 @@
     <Compile Include="Enums\FanDataType.cs" />
     <Compile Include="Enums\RadiatorDataType.cs" />
     <Compile Include="Enums\SpaceDataType.cs" />
-    <Compile Include="Interfaces\IDuty.cs" />
+    <Compile Include="Interfaces\ISizableValue.cs" />
     <Compile Include="Manager\ActiveSetting.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Query\ContainsSystemSpace.cs" />

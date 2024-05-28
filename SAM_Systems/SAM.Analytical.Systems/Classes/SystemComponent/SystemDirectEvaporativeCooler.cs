@@ -1,9 +1,22 @@
 ﻿using Newtonsoft.Json.Linq;
+using SAM.Core;
 
 namespace SAM.Analytical.Systems
 {
     public class SystemDirectEvaporativeCooler : SystemHumidifier
     {
+        public ModifiableValue Setpoint { get; set; }
+
+        public ModifiableValue Effectiveness { get; set; }
+
+        public SizableValue WaterFlowCapacity { get; set; }
+
+        public ModifiableValue ElectricalLoad { get; set; }
+
+        public double TankVolume { get; set; }
+
+        public double HoursBeforePurgingTank { get; set; }
+
         public SystemDirectEvaporativeCooler(string name)
             : base(name)
         {
@@ -13,7 +26,15 @@ namespace SAM.Analytical.Systems
         public SystemDirectEvaporativeCooler(SystemDirectEvaporativeCooler systemDirectEvaporativeCooler)
             : base(systemDirectEvaporativeCooler)
         {
-
+            if(systemDirectEvaporativeCooler != null)
+            {
+                Setpoint = systemDirectEvaporativeCooler.Setpoint?.Clone();
+                Effectiveness = systemDirectEvaporativeCooler.Effectiveness?.Clone();
+                WaterFlowCapacity = systemDirectEvaporativeCooler.WaterFlowCapacity?.Clone();
+                ElectricalLoad = systemDirectEvaporativeCooler.ElectricalLoad?.Clone();
+                TankVolume = systemDirectEvaporativeCooler.TankVolume;
+                HoursBeforePurgingTank = systemDirectEvaporativeCooler.HoursBeforePurgingTank;
+            }
         }
 
         public SystemDirectEvaporativeCooler(JObject jObject)
@@ -24,12 +45,84 @@ namespace SAM.Analytical.Systems
 
         public override bool FromJObject(JObject jObject)
         {
-            return base.FromJObject(jObject);
+            bool result = base.FromJObject(jObject);
+            if (!result)
+            {
+                return result;
+            }
+
+            if (jObject.ContainsKey("Setpoint"))
+            {
+                Setpoint = Core.Query.IJSAMObject<ModifiableValue>(jObject.Value<JObject>("Setpoint"));
+            }
+
+            if (jObject.ContainsKey("Effectiveness"))
+            {
+                Effectiveness = Core.Query.IJSAMObject<ModifiableValue>(jObject.Value<JObject>("Effectiveness"));
+            }
+
+            if (jObject.ContainsKey("WaterFlowCapacity"))
+            {
+                WaterFlowCapacity = Core.Query.IJSAMObject<SizableValue>(jObject.Value<JObject>("WaterFlowCapacity"));
+            }
+
+            if (jObject.ContainsKey("ElectricalLoad"))
+            {
+                ElectricalLoad = Core.Query.IJSAMObject<ModifiableValue>(jObject.Value<JObject>("ElectricalLoad"));
+            }
+
+            if(jObject.ContainsKey("TankVolume"))
+            {
+                TankVolume = jObject.Value<double>("TankVolume");
+            }
+
+            if (jObject.ContainsKey("HoursBeforePurgingTank"))
+            {
+                HoursBeforePurgingTank = jObject.Value<double>("HoursBeforePurgingTank");
+            }
+
+            return result;
         }
 
         public override JObject ToJObject()
         {
-            return base.ToJObject();
+            JObject result = base.ToJObject();
+            if (result == null)
+            {
+                return null;
+            }
+
+            if (Setpoint != null)
+            {
+                result.Add("Setpoint", Setpoint.ToJObject());
+            }
+
+            if (Effectiveness != null)
+            {
+                result.Add("Effectiveness", Effectiveness.ToJObject());
+            }
+
+            if (WaterFlowCapacity != null)
+            {
+                result.Add("WaterFlowCapacity", WaterFlowCapacity.ToJObject());
+            }
+
+            if (ElectricalLoad != null)
+            {
+                result.Add("ElectricalLoad", ElectricalLoad.ToJObject());
+            }
+
+            if(!double.IsNaN(TankVolume))
+            {
+                result.Add("TankVolume", TankVolume);
+            }
+
+            if (!double.IsNaN(HoursBeforePurgingTank))
+            {
+                result.Add("HoursBeforePurgingTank", HoursBeforePurgingTank);
+            }
+
+            return result;
         }
     }
 }

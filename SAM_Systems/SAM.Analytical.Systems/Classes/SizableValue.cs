@@ -3,28 +3,28 @@ using SAM.Core;
 
 namespace SAM.Analytical.Systems
 {
-    public class Duty : IDuty
+    public class SizableValue : ISizableValue
     {
         public virtual ModifiableValue ModifiableValue { get; set; }
 
-        public Duty()
+        public SizableValue()
         {
         }
 
-        public Duty(double value)
+        public SizableValue(double value)
         {
             ModifiableValue = value;
         }
 
-        public Duty(Duty duty)
+        public SizableValue(SizableValue sizableValue)
         {
-            if(duty != null)
+            if(sizableValue != null)
             {
-                ModifiableValue = duty.ModifiableValue;
+                ModifiableValue = sizableValue.ModifiableValue;
             }
         }
 
-        public Duty(JObject jObject)
+        public SizableValue(JObject jObject)
         {
             FromJObject(jObject);
         }

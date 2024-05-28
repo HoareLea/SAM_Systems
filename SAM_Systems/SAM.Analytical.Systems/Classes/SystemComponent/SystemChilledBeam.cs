@@ -5,8 +5,8 @@ namespace SAM.Analytical.Systems
 {
     public class SystemChilledBeam : SystemSpaceComponent
     {
-        public Duty CoolingDuty { get; set; }
-        public Duty HeatingDuty { get; set; }
+        public SizableValue CoolingDuty { get; set; }
+        public SizableValue HeatingDuty { get; set; }
         public double DesignFlowRate { get; set; }
         public double HeatingEfficiency { get; set; }
 
@@ -55,12 +55,12 @@ namespace SAM.Analytical.Systems
 
             if (jObject.ContainsKey("CoolingDuty"))
             {
-                CoolingDuty = Core.Query.IJSAMObject<Duty>(jObject.Value<JObject>("CoolingDuty"));
+                CoolingDuty = Core.Query.IJSAMObject<SizableValue>(jObject.Value<JObject>("CoolingDuty"));
             }
 
             if (jObject.ContainsKey("HeatingDuty"))
             {
-                HeatingDuty = Core.Query.IJSAMObject<Duty>(jObject.Value<JObject>("HeatingDuty"));
+                HeatingDuty = Core.Query.IJSAMObject<SizableValue>(jObject.Value<JObject>("HeatingDuty"));
             }
 
             if (jObject.ContainsKey("DesignFlowRate"))

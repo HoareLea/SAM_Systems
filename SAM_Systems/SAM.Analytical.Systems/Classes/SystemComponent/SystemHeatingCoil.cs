@@ -5,7 +5,7 @@ namespace SAM.Analytical.Systems
 {
     public class SystemHeatingCoil : SystemComponent
     {
-        public Duty Duty { get; set; }
+        public SizableValue Duty { get; set; }
 
         public SystemHeatingCoil(string name)
             : base(name)
@@ -54,7 +54,7 @@ namespace SAM.Analytical.Systems
 
             if (jObject.ContainsKey("Duty"))
             {
-                Duty = Core.Query.IJSAMObject<Duty>(jObject.Value<JObject>("Duty"));
+                Duty = Core.Query.IJSAMObject<SizableValue>(jObject.Value<JObject>("Duty"));
             }
 
             return result;

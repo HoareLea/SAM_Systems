@@ -7,7 +7,7 @@ namespace SAM.Analytical.Systems
     {
         public double BypassFactor { get; set; }
 
-        public Duty Duty { get; set; }
+        public SizableValue Duty { get; set; }
 
         public SystemCoolingCoil(string name)
             : base(name)
@@ -61,7 +61,7 @@ namespace SAM.Analytical.Systems
 
             if (jObject.ContainsKey("Duty"))
             {
-                Duty = Core.Query.IJSAMObject<Duty>(jObject.Value<JObject>("Duty"));
+                Duty = Core.Query.IJSAMObject<SizableValue>(jObject.Value<JObject>("Duty"));
             }
 
             return result;

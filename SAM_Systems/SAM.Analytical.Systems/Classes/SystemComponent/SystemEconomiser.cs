@@ -1,10 +1,13 @@
 ﻿using Newtonsoft.Json.Linq;
+using SAM.Core;
 using SAM.Core.Systems;
 
 namespace SAM.Analytical.Systems
 {
     public class SystemEconomiser : SystemComponent
     {
+        public ModifiableValue Setpoint { get; set; }
+
         public SystemEconomiser(string name)
             : base(name)
         {
@@ -14,7 +17,10 @@ namespace SAM.Analytical.Systems
         public SystemEconomiser(SystemEconomiser systemEconomiser)
             : base(systemEconomiser)
         {
-
+            if(systemEconomiser != null)
+            {
+                Setpoint = systemEconomiser.Setpoint.Clone();   
+            }
         }
 
         public SystemEconomiser(JObject jObject)
@@ -39,12 +45,34 @@ namespace SAM.Analytical.Systems
 
         public override bool FromJObject(JObject jObject)
         {
-            return base.FromJObject(jObject);
+            bool result = base.FromJObject(jObject);
+            if (!result)
+            {
+                return result;
+            }
+
+            if (jObject.ContainsKey("Setpoint"))
+            {
+                Setpoint = Core.Query.IJSAMObject<ModifiableValue>(jObject.Value<JObject>("Setpoint"));
+            }
+
+            return result;
         }
 
         public override JObject ToJObject()
         {
-            return base.ToJObject();
+            JObject result = base.ToJObject();
+            if (result == null)
+            {
+                return null;
+            }
+
+            if (Setpoint != null)
+            {
+                result.Add("Setpoint", Setpoint.ToJObject());
+            }
+
+            return result;
         }
     }
 }

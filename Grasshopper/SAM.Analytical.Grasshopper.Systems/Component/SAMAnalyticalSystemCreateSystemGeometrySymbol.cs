@@ -135,7 +135,7 @@ namespace SAM.Analytical.Grasshopper.Systems
                 sAMGeometry2Ds.Add(sAMGeometry2D);
             }
 
-            SAMGeometry2DObjectCollection sAMGeometry2DObjects = SAM.Geometry.Object.Planar.Create.SAMGeometry2DObjectCollection(sAMGeometry2Ds,
+            SAMGeometry2DObjectCollection sAMGeometry2DObjects = Geometry.Object.Planar.Create.SAMGeometry2DObjectCollection(sAMGeometry2Ds,
                 new Geometry.Object.SurfaceAppearance(System.Drawing.Color.White, System.Drawing.Color.Black, 1),
                 new Geometry.Object.CurveAppearance(System.Drawing.Color.Black, 1));
 

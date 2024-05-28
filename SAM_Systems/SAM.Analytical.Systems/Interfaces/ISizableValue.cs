@@ -2,7 +2,7 @@
 
 namespace SAM.Analytical.Systems
 {
-    public interface IDuty : ISystemJSAMObject
+    public interface ISizableValue : ISystemJSAMObject
     {
         Core.ModifiableValue ModifiableValue { get; }
 

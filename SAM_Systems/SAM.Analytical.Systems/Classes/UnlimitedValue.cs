@@ -3,7 +3,7 @@ using SAM.Core;
 
 namespace SAM.Analytical.Systems
 {
-    public class UnlimitedDuty : Duty
+    public class UnlimitedValue : SizableValue
     {
         public override ModifiableValue ModifiableValue 
         { 
@@ -18,16 +18,16 @@ namespace SAM.Analytical.Systems
             }
         }
 
-        public UnlimitedDuty()
+        public UnlimitedValue()
         {
         }
 
-        public UnlimitedDuty(UnlimitedDuty unlimitedDuty)
-            :base(unlimitedDuty)
+        public UnlimitedValue(UnlimitedValue unlimitedValue)
+            :base(unlimitedValue)
         {
         }
 
-        public UnlimitedDuty(JObject jObject)
+        public UnlimitedValue(JObject jObject)
             :base(jObject)
         {
 

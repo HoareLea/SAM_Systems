@@ -2,26 +2,26 @@
 
 namespace SAM.Analytical.Systems
 {
-    public class SizedDuty : Duty
+    public class SizedValue : SizableValue
     {
         public double SizeFraction { get; set; }
 
-        public SizedDuty(double value, double sizeFraction)
+        public SizedValue(double value, double sizeFraction)
             : base(value)
         {
             SizeFraction = sizeFraction;
         }
 
-        public SizedDuty(SizedDuty sizedDuty)
-            :base(sizedDuty)
+        public SizedValue(SizedValue sizedValue)
+            :base(sizedValue)
         {
-            if(sizedDuty != null)
+            if(sizedValue != null)
             {
-                SizeFraction = sizedDuty.SizeFraction;
+                SizeFraction = sizedValue.SizeFraction;
             }
         }
 
-        public SizedDuty(JObject jObject)
+        public SizedValue(JObject jObject)
             :base(jObject)
         {
 
