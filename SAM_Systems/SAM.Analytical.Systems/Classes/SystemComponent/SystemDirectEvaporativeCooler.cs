@@ -13,7 +13,7 @@ namespace SAM.Analytical.Systems
 
         public ModifiableValue ElectricalLoad { get; set; }
 
-        public double TankVolume { get; set; }
+        public SizableValue TankVolume { get; set; }
 
         public double HoursBeforePurgingTank { get; set; }
 
@@ -32,7 +32,7 @@ namespace SAM.Analytical.Systems
                 Effectiveness = systemDirectEvaporativeCooler.Effectiveness?.Clone();
                 WaterFlowCapacity = systemDirectEvaporativeCooler.WaterFlowCapacity?.Clone();
                 ElectricalLoad = systemDirectEvaporativeCooler.ElectricalLoad?.Clone();
-                TankVolume = systemDirectEvaporativeCooler.TankVolume;
+                TankVolume = systemDirectEvaporativeCooler.TankVolume?.Clone();
                 HoursBeforePurgingTank = systemDirectEvaporativeCooler.HoursBeforePurgingTank;
             }
         }
@@ -71,9 +71,9 @@ namespace SAM.Analytical.Systems
                 ElectricalLoad = Core.Query.IJSAMObject<ModifiableValue>(jObject.Value<JObject>("ElectricalLoad"));
             }
 
-            if(jObject.ContainsKey("TankVolume"))
+            if (jObject.ContainsKey("TankVolume"))
             {
-                TankVolume = jObject.Value<double>("TankVolume");
+                TankVolume = Core.Query.IJSAMObject<SizableValue>(jObject.Value<JObject>("TankVolume"));
             }
 
             if (jObject.ContainsKey("HoursBeforePurgingTank"))
@@ -112,9 +112,9 @@ namespace SAM.Analytical.Systems
                 result.Add("ElectricalLoad", ElectricalLoad.ToJObject());
             }
 
-            if(!double.IsNaN(TankVolume))
+            if (TankVolume != null)
             {
-                result.Add("TankVolume", TankVolume);
+                result.Add("TankVolume", TankVolume.ToJObject());
             }
 
             if (!double.IsNaN(HoursBeforePurgingTank))
