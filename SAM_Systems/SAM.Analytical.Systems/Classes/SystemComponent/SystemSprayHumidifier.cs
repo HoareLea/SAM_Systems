@@ -4,6 +4,8 @@ namespace SAM.Analytical.Systems
 {
     public class SystemSprayHumidifier : SystemHumidifier
     {
+        public double SizeFraction { get; set; }
+
         public SystemSprayHumidifier(string name)
             : base(name)
         {

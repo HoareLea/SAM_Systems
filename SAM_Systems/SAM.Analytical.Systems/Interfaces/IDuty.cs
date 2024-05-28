@@ -4,6 +4,8 @@ namespace SAM.Analytical.Systems
 {
     public interface IDuty : ISystemJSAMObject
     {
-        double Value { get; }
+        Core.ModifiableValue ModifiableValue { get; }
+
+        double GetValue(int index);
     }
 }

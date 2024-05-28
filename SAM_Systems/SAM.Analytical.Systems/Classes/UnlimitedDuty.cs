@@ -1,10 +1,11 @@
 ﻿using Newtonsoft.Json.Linq;
+using SAM.Core;
 
 namespace SAM.Analytical.Systems
 {
     public class UnlimitedDuty : Duty
     {
-        public override double Value 
+        public override ModifiableValue ModifiableValue 
         { 
             get
             {
@@ -30,6 +31,11 @@ namespace SAM.Analytical.Systems
             :base(jObject)
         {
 
+        }
+
+        public override double GetValue(int index)
+        {
+            return double.NaN;
         }
     }
 }

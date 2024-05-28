@@ -1,10 +1,11 @@
 ﻿using Newtonsoft.Json.Linq;
+using SAM.Core;
 
 namespace SAM.Analytical.Systems
 {
     public class Duty : IDuty
     {
-        public virtual double Value { get; set; }
+        public virtual ModifiableValue ModifiableValue { get; set; }
 
         public Duty()
         {
@@ -12,20 +13,30 @@ namespace SAM.Analytical.Systems
 
         public Duty(double value)
         {
-            Value = value;
+            ModifiableValue = value;
         }
 
         public Duty(Duty duty)
         {
             if(duty != null)
             {
-                Value = duty.Value;
+                ModifiableValue = duty.ModifiableValue;
             }
         }
 
         public Duty(JObject jObject)
         {
             FromJObject(jObject);
+        }
+
+        public virtual double GetValue(int index)
+        {
+            if(ModifiableValue == null)
+            {
+                return double.NaN;
+            }
+
+            return ModifiableValue.GetCalculatedValue(index);
         }
 
         public virtual bool FromJObject(JObject jObject)
@@ -35,9 +46,9 @@ namespace SAM.Analytical.Systems
                 return false;
             }
 
-            if(jObject.ContainsKey("Value"))
+            if(jObject.ContainsKey("ModifiableValue"))
             {
-                Value = jObject.Value<double>("Value");
+                ModifiableValue = Core.Query.IJSAMObject<ModifiableValue>(jObject.Value<JObject>("ModifiableValue"));
             }
 
             return true;
@@ -48,9 +59,9 @@ namespace SAM.Analytical.Systems
             JObject result = new JObject();
             result.Add("_type", Core.Query.FullTypeName(this));
 
-            if(!double.IsNaN(Value))
+            if(ModifiableValue != null)
             {
-                result.Add("Value", Value);
+                result.Add("ModifiableValue", ModifiableValue.ToJObject());
             }
 
             return result;

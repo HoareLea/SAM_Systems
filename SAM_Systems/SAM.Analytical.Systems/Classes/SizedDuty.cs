@@ -27,6 +27,22 @@ namespace SAM.Analytical.Systems
 
         }
 
+        public override double GetValue(int index)
+        {
+            double result = base.GetValue(index);
+            if(double.IsNaN(result))
+            {
+                return result;
+            }
+
+            if(double.IsNaN(SizeFraction))
+            {
+                return result;
+            }
+
+            return result * SizeFraction;
+        }
+
         public override bool FromJObject(JObject jObject)
         {
             if(!base.FromJObject(jObject))
