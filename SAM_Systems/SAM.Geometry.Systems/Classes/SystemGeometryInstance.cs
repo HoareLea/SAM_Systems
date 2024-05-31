@@ -218,5 +218,13 @@ namespace SAM.Geometry.Systems
                 return null;
             }
         }
+
+        public Point2D Location
+        {
+            get
+            {
+                return coordinateSystem.Origin;
+            }
+        }
     }
 }
