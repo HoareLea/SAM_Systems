@@ -983,12 +983,34 @@ namespace SAM.Core.Systems
 
         public override bool FromJObject(JObject jObject)
         {
-            return base.FromJObject(jObject);
+            bool result = base.FromJObject(jObject);
+            if(!result)
+            {
+                return result;
+            }
+
+            if(jObject.ContainsKey("SystemRelationCluster"))
+            {
+                systemRelationCluster = Core.Query.IJSAMObject<SystemRelationCluster>(jObject.Value<JObject>("SystemRelationCluster"));
+            }
+
+            return result;
         }
 
         public override JObject ToJObject()
         {
-            return base.ToJObject();
+            JObject result =  base.ToJObject();
+            if(result == null)
+            {
+                return result;
+            }
+
+            if(systemRelationCluster != null)
+            {
+                result.Add("SystemRelationCluster", systemRelationCluster.ToJObject());
+            }
+
+            return result;
         }
 
         public Guid GetGuid(ISystemJSAMObject systemJSAMObject)
