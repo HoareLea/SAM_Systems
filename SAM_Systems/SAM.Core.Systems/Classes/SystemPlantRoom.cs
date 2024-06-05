@@ -369,8 +369,6 @@ namespace SAM.Core.Systems
             return systemRelationCluster.AddRelation(systemControl, systemConnection);
         }
 
-
-
         public List<bool> Connect(ISystemGroup systemGroup, IEnumerable<ISystemComponent> systemComponents)
         {
             if (systemGroup == null ||  systemComponents == null)
