@@ -219,11 +219,11 @@ namespace SAM.Geometry.Systems
             }
         }
 
-        public Point2D Location
+        public CoordinateSystem2D CoordinateSystem2D
         {
             get
             {
-                return coordinateSystem.Origin;
+                return coordinateSystem == null ? null : new CoordinateSystem2D(coordinateSystem);
             }
         }
     }
