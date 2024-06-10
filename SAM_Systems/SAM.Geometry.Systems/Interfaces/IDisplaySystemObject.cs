@@ -10,6 +10,8 @@ namespace SAM.Geometry.Systems
 
     public interface IDisplaySystemObject
     {
+        System.Guid Guid { get; }
+        
         BoundingBox2D BoundingBox2D { get; }
 
         bool Move(Vector2D vector2D);
