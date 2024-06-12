@@ -1,6 +1,8 @@
 ﻿using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design.Serialization;
+using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 
 namespace SAM.Core.Systems
@@ -638,9 +640,15 @@ namespace SAM.Core.Systems
             return result;
         }
 
-        public List<T> GetNextSystemComponents<T>(SystemComponent systemComponent, ISystem system, Direction direction) where T : SystemComponent
+        public List<T> GetNextSystemComponents<T>(ISystemComponent systemComponent, ISystem system, Direction direction) where T : ISystemComponent
         {
             if(systemComponent == null || system == null || direction == Direction.Undefined)
+            {
+                return null;
+            }
+
+            Guid guid = systemRelationCluster.GetGuid(systemComponent);
+            if (guid == Guid.Empty)
             {
                 return null;
             }
@@ -665,15 +673,16 @@ namespace SAM.Core.Systems
                     continue;
                 }
 
-
-                foreach(ISystemConnection systemConnection in systemConnections)
+                foreach (ISystemConnection systemConnection in systemConnections)
                 {
                     List<T> ts = systemRelationCluster.GetRelatedObjects<T>(systemConnection);
                     if(ts != null && ts.Count != 0)
                     {
                         foreach(T t in ts)
                         {
-                            if(t.Guid != systemComponent.Guid  && result.Find(x => x.Guid == t.Guid) == null)
+                            Guid guid_Temp = systemRelationCluster.GetGuid(t);
+
+                            if (guid_Temp != guid  && result.Find(x => systemRelationCluster.GetGuid(x) == guid_Temp) == null)
                             {
                                 result.Add(t);
                             }
@@ -686,45 +695,203 @@ namespace SAM.Core.Systems
             return result;
         }
 
-        public List<SystemComponent> GetOrderedSystemComponents(SystemComponent systemComponent, ISystem system, Direction direction)
+
+        private bool TryGetConnectionIndexes(ISystemComponent systemComponent, ISystem system, Direction direction, ConnectorStatus connectorStatus, out List<int> connectionIndexes)
+        {
+            connectionIndexes = null;
+            List<SystemConnector> systemConnectors = systemComponent?.GetSystemConnectors(this, connectorStatus)?.FindAll(x => x.SystemType == new SystemType(system));
+            if (systemConnectors == null || systemConnectors.Count == 0)
+            {
+                return false;
+            }
+
+            connectionIndexes = new List<int>();
+            foreach (SystemConnector systemConnector in systemConnectors)
+            {
+                if (systemConnector.Direction != direction)
+                {
+                    continue;
+                }
+
+                int connectionIndex = systemConnector.ConnectionIndex;
+                if(connectionIndex != -1)
+                {
+                    connectionIndexes.Add(connectionIndex);
+                }
+            }
+
+            return connectionIndexes != null && connectionIndexes.Count != 0;
+        }
+
+        private bool TryGetConnectionIndex(ISystemComponent systemComponent_1, ISystemComponent systemComponent_2, ISystem system, int connectionIndex_1, out int connectionIndex_2)
+        {
+            connectionIndex_2 = -1;
+            List<SystemConnector> systemConnectors_1 = systemComponent_1?.GetSystemConnectors(this, ConnectorStatus.Connected)?.FindAll(x => x.SystemType == new SystemType(system));
+            if (systemConnectors_1 == null || systemConnectors_1.Count == 0)
+            {
+                return false;
+            }
+
+            foreach(SystemConnector systemConnector_1 in systemConnectors_1)
+            {
+                if(systemConnector_1.ConnectionIndex != connectionIndex_1)
+                {
+                    continue;
+                }
+
+                List<ISystemConnection> systemConnections = systemComponent_1.GetSystemConnections(this, systemConnector_1);
+                if(systemConnections == null || systemConnections.Count == 0)
+                {
+                    continue;
+                }
+
+                foreach(ISystemConnection systemConnection in systemConnections)
+                {
+                    if(!systemConnection.TryGetIndex(systemComponent_2, out int index) || index == -1)
+                    {
+                        continue;
+                    }
+
+                    if (!systemComponent_2.SystemConnectorManager.TryGetSystemConnector(index, out SystemConnector systemConnector_2) || systemConnector_2 == null)
+                    {
+                        continue;
+                    }
+
+                    connectionIndex_2 = systemConnector_2.ConnectionIndex;
+                    return true;
+                }
+
+            }
+
+            return false;
+        }
+
+        private bool TryGetSystemComponent(ISystemComponent systemComponent, IEnumerable<ISystemComponent> systemComponents, ISystem system, Direction direction, int connectionIndex, out ISystemComponent systemComponent_Out)
+        {
+            systemComponent_Out = null;
+
+            if(systemComponents == null || systemComponent == null)
+            {
+                return false;
+            }
+
+            List<SystemConnector> systemConnectors = systemComponent?.GetSystemConnectors(this, ConnectorStatus.Connected)?.FindAll(x => x.SystemType == new SystemType(system) && x.Direction == direction && x.ConnectionIndex == connectionIndex);
+            if (systemConnectors == null || systemConnectors.Count == 0)
+            {
+                return false;
+            }
+
+            SystemConnector systemConnector = systemConnectors[0];
+
+            List<ISystemConnection> systemConnections = systemComponent.GetSystemConnections(this, systemConnector);
+            if (systemConnections == null || systemConnections.Count == 0)
+            {
+                return false;
+            }
+
+            List<Guid> guids = systemComponents.ToList().ConvertAll(x => systemRelationCluster.GetGuid(x));
+
+            foreach(ISystemConnection systemConnection in systemConnections)
+            {
+                List<ISystemComponent> systemComponents_Related = systemRelationCluster.GetRelatedObjects<ISystemComponent>(systemConnection);
+                if(systemComponents_Related == null || systemComponents_Related.Count == 0)
+                {
+                    continue;
+                }
+
+                List<Guid> guids_Temp = systemComponents_Related.ToList().ConvertAll(x => systemRelationCluster.GetGuid(x));
+
+                int index = guids.FindIndex(x => guids_Temp.Contains(x));
+                if(index != -1)
+                {
+                    systemComponent_Out = systemComponents.ElementAt(index);
+                    return true;
+                }
+
+            }
+
+            return false;
+        }
+
+
+
+        public List<ISystemComponent> GetOrderedSystemComponents(ISystemComponent systemComponent, ISystem system, Direction direction, int connectionIndex = -1)
         {
             if (systemComponent == null || system == null || direction == Direction.Undefined)
             {
                 return null;
             }
 
-            List<SystemComponent> result = new List<SystemComponent>();
+            List<ISystemComponent> result = new List<ISystemComponent>();
 
             HashSet<Guid> guids = new HashSet<Guid>();
 
-            SystemComponent systemComponent_Temp = systemComponent;
+            ISystemComponent systemComponent_Temp = systemComponent;
             if(systemComponent_Temp is ISystemGroup)
             {
-                List<SystemComponent> systemComponents = GetRelatedObjects<SystemComponent>(systemComponent_Temp);
-                if(systemComponents == null || systemComponents.Count == 0)
+                List<ISystemComponent> systemComponents_Related = GetRelatedObjects<ISystemComponent>(systemComponent_Temp);
+                if(systemComponents_Related == null || systemComponents_Related.Count == 0)
                 {
                     return null;
                 }
 
-                systemComponents.ForEach(x => guids.Add(x.Guid));
-                systemComponent_Temp = systemComponents[0];
+                foreach(ISystemComponent systemComponent_Related in systemComponents_Related)
+                {
+                    guids.Add(systemRelationCluster.GetGuid(systemComponent_Related));
+                }
+
+                systemComponent_Temp = systemComponents_Related[0];
+            }
+
+            if(connectionIndex == -1)
+            {
+                if(TryGetConnectionIndexes(systemComponent_Temp, system, direction, ConnectorStatus.Connected, out List<int> connectionIndexes) && connectionIndexes != null && connectionIndexes.Count != 0)
+                {
+                    connectionIndex = connectionIndexes[0];
+                }
             }
 
             do
             {
-                List<SystemComponent> systemComponents = GetNextSystemComponents<SystemComponent>(systemComponent_Temp, system, direction);
-                if(systemComponents == null || systemComponents.Count == 0)
+                List<ISystemComponent> systemComponents_Next = GetNextSystemComponents<ISystemComponent>(systemComponent_Temp, system, direction);
+                systemComponents_Next?.RemoveAll(x => result.Find(y => systemRelationCluster.GetGuid(x) == systemRelationCluster.GetGuid(y)) != null);
+                if (systemComponents_Next == null || systemComponents_Next.Count == 0)
                 {
                     break;
                 }
 
-                systemComponent_Temp = systemComponents.FindAll(x => result.Find(y => x.Guid == y.Guid) == null)?.FirstOrDefault();
-                if(systemComponent_Temp == null)
+                ISystemComponent systemComponent_Next = null;
+
+                if(connectionIndex != -1)
+                {
+                    TryGetSystemComponent(systemComponent_Temp, systemComponents_Next, system, direction, connectionIndex, out systemComponent_Next);
+                }
+
+                if(systemComponent_Next == null)
+                {
+                    systemComponent_Next = systemComponents_Next.FirstOrDefault();
+                }
+
+                if(systemComponent_Next == null)
                 {
                     break;
                 }
 
-                if(!guids.Contains(systemComponent_Temp.Guid))
+
+                if (connectionIndex != -1 && TryGetConnectionIndex(systemComponent_Temp, systemComponent_Next, system, connectionIndex, out int connectionIndex_Next))
+                {
+                    connectionIndex = connectionIndex_Next;
+                }
+                else
+                {
+                    connectionIndex = -1;
+                }
+
+                systemComponent_Temp = systemComponent_Next;
+
+                Guid guid = systemRelationCluster.GetGuid(systemComponent_Temp);
+
+                if (!guids.Contains(guid))
                 {
                     result.Add(systemComponent_Temp);
                 }
@@ -806,6 +973,53 @@ namespace SAM.Core.Systems
         public List<ISystemConnection> GetSystemConnections()
         {
             return systemRelationCluster?.GetObjects<ISystemConnection>()?.ConvertAll(x => Core.Query.Clone(x)).ConvertAll(x => (ISystemConnection)(object)x);
+        }
+
+        public List<ISystemConnection> GetSystemConnections(ISystemComponent systemComponent_1, ISystemComponent systemComponent_2, SystemType systemType = null)
+        {
+            if(systemComponent_1 == null || systemComponent_2 == null)
+            {
+                return null;
+            }
+
+            List<ISystemConnection> systemConnections = GetRelatedObjects<ISystemConnection>(systemComponent_1);
+            if(systemConnections == null || systemConnections.Count == 0)
+            {
+                return null;
+            }
+
+            Guid guid = systemRelationCluster.GetGuid(systemComponent_2);
+            if(guid == Guid.Empty)
+            {
+                return null;
+            }
+
+            List<ISystemConnection> result = new List<ISystemConnection>();
+            foreach (ISystemConnection systemConnection in systemConnections)
+            {
+                if(systemType != null && systemConnection.SystemType != systemType)
+                {
+                    continue;
+                }
+
+                List<ISystemComponent> systemComponents = GetRelatedObjects<ISystemComponent>(systemConnection);
+                if(systemComponents == null || systemComponents.Count == 0)
+                {
+                    continue;
+                }
+
+                foreach(ISystemComponent systemComponent in systemComponents)
+                {
+                    Guid guid_Temp = systemRelationCluster.GetGuid(systemComponent);
+                    if(guid_Temp == guid)
+                    {
+                        result.Add(systemConnection);
+                        break;
+                    }
+                }
+            }
+
+            return result;
         }
 
         public List<T> GetSystemSpaceComponents<T>(ISystemSpace systemSpace) where T : ISystemSpaceComponent

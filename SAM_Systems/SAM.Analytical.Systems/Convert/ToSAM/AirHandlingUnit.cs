@@ -32,7 +32,7 @@ namespace SAM.Analytical.Systems
                         return result;
                     }
 
-                    List<SystemComponent> systemComponents_Ordered = systemPlantRoom.GetOrderedSystemComponents(systemComponent as SystemComponent, airSystem, Core.Direction.Out);
+                    List<ISystemComponent> systemComponents_Ordered = systemPlantRoom.GetOrderedSystemComponents(systemComponent, airSystem, Core.Direction.Out);
                     if(systemComponents_Ordered == null || systemComponents_Ordered.Count == 0)
                     {
                         return result;
@@ -64,7 +64,7 @@ namespace SAM.Analytical.Systems
                     {
                         foreach(Tuple<Core.Direction, FlowClassification> tuple in tuples)
                         {
-                            List<SystemComponent> systemComponents_Ordered = systemPlantRoom.GetOrderedSystemComponents(systemComponent_Space as SystemComponent, airSystem, tuple.Item1);
+                            List<ISystemComponent> systemComponents_Ordered = systemPlantRoom.GetOrderedSystemComponents(systemComponent_Space, airSystem, tuple.Item1);
                             if (systemComponents_Ordered == null || systemComponents_Ordered.Count == 0)
                             {
                                 continue;
