@@ -35,7 +35,8 @@ namespace SAM.Analytical.Systems
             Setting result = new Setting(Assembly.GetExecutingAssembly());
 
             result.SetValue(AnalyticalSystemSettingParameter.DefaultDisplaySystemManagerFileName, "SAM_DisplaySystemManager.JSON");
-
+            result.SetValue(AnalyticalSystemSettingParameter.DefaultDisplaySystemManagerFileName, "SAM_DisplaySystemManager.JSON");
+            result.SetValue(AnalyticalSystemSettingParameter.DefaultSystemEnergyCentreDirectoryName, "SystemEnergyCentre");
 
             string path = null;
 
@@ -44,6 +45,15 @@ namespace SAM.Analytical.Systems
             {
                 result.SetValue(AnalyticalSystemSettingParameter.DefaultDisplaySystemManager, Core.Create.IJSAMObject<DisplaySystemManager>(System.IO.File.ReadAllText(path)));
             }
+
+            string directory = null;
+
+            directory = Query.DefaultPath(result, AnalyticalSystemSettingParameter.DefaultSystemEnergyCentreDirectoryName);
+            if (System.IO.File.Exists(directory))
+            {
+                result.SetValue(AnalyticalSystemSettingParameter.DefaultSystemEnergyCentreFileDirectory, directory);
+            }
+
 
             return result;
         }

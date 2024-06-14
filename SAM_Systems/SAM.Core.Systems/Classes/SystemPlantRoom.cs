@@ -49,7 +49,7 @@ namespace SAM.Core.Systems
                 return null;
             }
 
-            return new SystemConnection(system, systemComponent_1, index_1, systemComponent_2, index_2);
+            return new SystemConnection(new SystemType(system), systemComponent_1, index_1, systemComponent_2, index_2);
         }
 
         public bool Add(ISystemSpace systemSpace)
@@ -264,7 +264,7 @@ namespace SAM.Core.Systems
             return true;
         }
 
-        public bool Connect(SystemConnection systemConnection, ISystem system = null)
+        public bool Connect(ISystemConnection systemConnection, ISystem system = null)
         {
             List<ISystemComponent> systemComponents = Query.SystemComponents<ISystemComponent>(this, systemConnection);
             if (systemComponents == null || systemComponents.Count == 0)
@@ -277,7 +277,7 @@ namespace SAM.Core.Systems
                 return false;
             }
 
-            SystemConnection systemConnection_Temp = systemConnection.Clone();
+            ISystemConnection systemConnection_Temp = systemConnection.Clone();
             if(systemConnection_Temp == null)
             {
                 return false;
@@ -695,7 +695,6 @@ namespace SAM.Core.Systems
             return result;
         }
 
-
         private bool TryGetConnectionIndexes(ISystemComponent systemComponent, ISystem system, Direction direction, ConnectorStatus connectorStatus, out List<int> connectionIndexes)
         {
             connectionIndexes = null;
@@ -812,8 +811,6 @@ namespace SAM.Core.Systems
 
             return false;
         }
-
-
 
         public List<ISystemComponent> GetOrderedSystemComponents(ISystemComponent systemComponent, ISystem system, Direction direction, int connectionIndex = -1)
         {

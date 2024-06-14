@@ -79,6 +79,7 @@
   <ItemGroup>
     <Compile Include="Classes\GooSystemObject.cs" />
     <Compile Include="Component\SAMAnalyticalSystemConnector.cs" />
+    <Compile Include="Component\SAMAnalyticalSystemCreateSystemEnergyCentre.cs" />
     <Compile Include="Component\SAMAnalyticalSystemCreateDisplaySystemConnectorManager.cs" />
     <Compile Include="Component\SAMAnalyticalSystemCreateSystemGeometrySymbol.cs" />
     <Compile Include="Component\SAMAnalyticalSystemPlantRoomRelatedObjects.cs" />
@@ -88,6 +89,7 @@
     <Compile Include="Component\SAMAnalyticalSystemToAHU.cs" />
     <Compile Include="Component\SAMAnalyticalSystemComponentType.cs" />
     <Compile Include="Component\SAMAnalyticalSystemType.cs" />
+    <Compile Include="Enums\Parameter\AnalyticalModelParameter.cs" />
     <Compile Include="Kernel\AssemblyInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">

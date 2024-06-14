@@ -11,5 +11,9 @@ namespace SAM.Analytical.Systems
         [ParameterProperties("Default DisplaySystemManager File Name", "Default DisplaySystemManager File Name"), ParameterValue(ParameterType.String)] DefaultDisplaySystemManagerFileName,
 
         [ParameterProperties("Default DisplaySystemManager", "Default DisplaySystemManager"), SAMObjectParameterValue(typeof(DisplaySystemManager))] DefaultDisplaySystemManager,
+
+        [ParameterProperties("Default SystemEnergyCentre File Directory", "Default SystemEnergyCentre File Directory"), SAMObjectParameterValue(typeof(DisplaySystemManager))] DefaultSystemEnergyCentreFileDirectory,
+
+        [ParameterProperties("Default SystemEnergyCentre Directory Name", "Default SystemEnergyCentre Directory Name"), SAMObjectParameterValue(typeof(DisplaySystemManager))] DefaultSystemEnergyCentreDirectoryName,
     }
 }

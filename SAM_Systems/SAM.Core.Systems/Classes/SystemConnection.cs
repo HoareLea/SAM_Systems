@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 
 namespace SAM.Core.Systems
@@ -57,11 +58,10 @@ namespace SAM.Core.Systems
             }
         }
 
-        public SystemConnection(ISystem system, ISystemComponent systemComponent_1, int index_1, ISystemComponent systemComponent_2, int index_2)
+        public SystemConnection(SystemType systemType, ISystemComponent systemComponent_1, int index_1, ISystemComponent systemComponent_2, int index_2)
             : base(typeof(SystemConnection).Name)
         {
-            SystemType systemType = new SystemType(system);
-            if(systemType.IsValid())
+            if(systemType != null &&  systemType.IsValid())
             {
                 this.systemType = systemType;
 
@@ -79,6 +79,25 @@ namespace SAM.Core.Systems
             }
         }
 
+        public SystemConnection(SystemType systemType, IEnumerable<Tuple<ObjectReference, int>> tuples)
+            : base(typeof(SystemConnection).Name)
+        {
+            this.systemType = systemType;
+            if(tuples != null)
+            {
+                dictionary = new Dictionary<ObjectReference, int>();
+                foreach(Tuple<ObjectReference, int> tuple in tuples)
+                {
+                    if(tuple.Item1 == null)
+                    {
+                        continue;
+                    }
+
+                    dictionary[tuple.Item1] = tuple.Item2;
+                }
+            }
+        }
+
         public SystemType SystemType
         {
             get
@@ -91,13 +110,24 @@ namespace SAM.Core.Systems
         {
             index = -1;
 
-            ObjectReference objectReference = new ObjectReference((SAMObject)systemComponent);
-            if(!objectReference.IsValid())
+            if(systemComponent == null)
             {
                 return false;
             }
 
-            if(!dictionary.TryGetValue(objectReference, out index))
+            return TryGetIndex(new ObjectReference((SAMObject)systemComponent), out index);
+        }
+
+        public bool TryGetIndex(ObjectReference objectReference, out int index)
+        {
+            index = -1;
+
+            if (objectReference == null || !objectReference.IsValid())
+            {
+                return false;
+            }
+
+            if (!dictionary.TryGetValue(objectReference, out index))
             {
                 return false;
             }

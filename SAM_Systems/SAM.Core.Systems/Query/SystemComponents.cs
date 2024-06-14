@@ -5,7 +5,7 @@ namespace SAM.Core.Systems
     public static partial class Query
     {
         
-        public static List<T> SystemComponents<T>(this SystemPlantRoom systemPlantRoom, SystemConnection systemConnection) where T: ISystemComponent
+        public static List<T> SystemComponents<T>(this SystemPlantRoom systemPlantRoom, ISystemConnection systemConnection) where T: ISystemComponent
         {
             if(systemPlantRoom == null || systemConnection == null)
             {

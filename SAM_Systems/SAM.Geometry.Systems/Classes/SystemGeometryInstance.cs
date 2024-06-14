@@ -226,5 +226,13 @@ namespace SAM.Geometry.Systems
                 return coordinateSystem == null ? null : new CoordinateSystem2D(coordinateSystem);
             }
         }
+
+        public SystemGeometrySymbol SystemGeometrySymbol
+        {
+            get
+            {
+                return systemGeometrySymbol == null ? null : systemGeometrySymbol.Clone();
+            }
+        }
     }
 }
