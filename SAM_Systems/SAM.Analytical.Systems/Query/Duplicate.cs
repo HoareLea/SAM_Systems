@@ -1,4 +1,5 @@
-﻿using SAM.Core;
+﻿using NetTopologySuite.Geometries;
+using SAM.Core;
 using SAM.Core.Systems;
 using SAM.Geometry.Systems;
 using System;
@@ -55,6 +56,14 @@ namespace SAM.Analytical.Systems
 
                         ISystemConnection systemConnection_New = Duplicate(systemPlantRoom, systemConnection_Old, systemSpace, result);
                         systemPlantRoom.Connect(systemConnection_New, systemPlantRoom.GetRelatedObjects<Core.Systems.ISystem>(systemConnection_Old).FirstOrDefault());
+                    }
+                    else if(systemJSAMObject is Core.Systems.ISystem)
+                    {
+                        systemPlantRoom.Connect((Core.Systems.ISystem)systemJSAMObject, result);
+                    }
+                    else if (systemJSAMObject is ISystemGroup)
+                    {
+                        systemPlantRoom.Connect((ISystemGroup)systemJSAMObject, result);
                     }
                 }
             }
