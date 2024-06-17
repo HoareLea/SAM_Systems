@@ -3,7 +3,6 @@ using SAM.Analytical.Grasshopper.Systems.Properties;
 using SAM.Core.Grasshopper;
 using SAM.Core.Grasshopper.Systems;
 using SAM.Core.Systems;
-using SAM.Geometry.Systems;
 using System;
 using System.Collections.Generic;
 

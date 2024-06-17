@@ -1,5 +1,4 @@
-﻿using SAM.Core;
-using SAM.Geometry.Object.Planar;
+﻿using SAM.Geometry.Object.Planar;
 using SAM.Geometry.Planar;
 
 namespace SAM.Geometry.Systems
