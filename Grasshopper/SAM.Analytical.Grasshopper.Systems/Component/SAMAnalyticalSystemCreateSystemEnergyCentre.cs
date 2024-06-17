@@ -75,7 +75,7 @@ namespace SAM.Analytical.Grasshopper.Systems
             int index = -1;
 
             AnalyticalModel analyticalModel = null;
-            index = Params.IndexOfInputParam("analyticalModel");
+            index = Params.IndexOfInputParam("_analyticalModel");
             if (index == -1 || !dataAccess.GetData(index, ref analyticalModel) || analyticalModel == null)
             {
                 AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "Invalid data");

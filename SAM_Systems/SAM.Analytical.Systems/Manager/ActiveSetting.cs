@@ -49,7 +49,7 @@ namespace SAM.Analytical.Systems
             string directory = null;
 
             directory = Query.DefaultPath(result, AnalyticalSystemSettingParameter.DefaultSystemEnergyCentreDirectoryName);
-            if (System.IO.File.Exists(directory))
+            if (System.IO.Directory.Exists(directory))
             {
                 result.SetValue(AnalyticalSystemSettingParameter.DefaultSystemEnergyCentreFileDirectory, directory);
             }
