@@ -1,5 +1,4 @@
-﻿using NetTopologySuite.Geometries;
-using SAM.Core;
+﻿using SAM.Core;
 using SAM.Core.Systems;
 using SAM.Geometry.Systems;
 using System;
