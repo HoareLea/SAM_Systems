@@ -87,7 +87,7 @@ namespace SAM.Analytical.Grasshopper.Systems
             SystemEnergyCentre systemEnergyCentre = Analytical.Systems.Create.SystemEnergyCentre(analyticalModel);
             if(systemEnergyCentre != null)
             {
-                analyticalModel.SetValue(AnalyticalModelParameter.SystemEnergyCentre, systemEnergyCentre);
+                analyticalModel.SetValue(Analytical.Systems.AnalyticalModelParameter.SystemEnergyCentre, systemEnergyCentre);
             }
 
             index = Params.IndexOfOutputParam("analyticalModel");

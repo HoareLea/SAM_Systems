@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using SAM.Core.Attributes;
 
-namespace SAM.Analytical.Grasshopper.Systems
+namespace SAM.Analytical.Systems
 {
     [AssociatedTypes(typeof(AnalyticalModel)), Description("AnalyticalModel System Parameter")]
     public enum AnalyticalModelParameter
