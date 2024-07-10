@@ -7,7 +7,7 @@ namespace SAM.Analytical.Systems
 {
     public static partial class Modify
     {
-        private static AirSystem UpdateAirSystem(this AnalyticalModel analyticalModel, IEnumerable<Space> spaces, SystemPlantRoom systemPlantRoom, AirSystem airSystem)
+        public static AirSystem UpdateAirSystem(this AnalyticalModel analyticalModel, IEnumerable<Space> spaces, SystemPlantRoom systemPlantRoom, AirSystem airSystem)
         {
             if (analyticalModel == null || spaces == null || systemPlantRoom == null || airSystem == null)
             {
