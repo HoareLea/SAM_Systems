@@ -130,6 +130,7 @@
     <Compile Include="Enums\DirectEvaporativeCoolerDataType.cs" />
     <Compile Include="Enums\DesiccantWheelDataType.cs" />
     <Compile Include="Enums\AnalyticalSystemType.cs" />
+    <Compile Include="Enums\Parameters\SystemEnergyCentreParameter.cs" />
     <Compile Include="Enums\Parameters\AnalyticalModelParameter.cs" />
     <Compile Include="Enums\Parameters\AnalyticalSystemSettingParameter.cs" />
     <Compile Include="Enums\SprayHumidifierDataType.cs" />
