@@ -78,6 +78,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\GooSystemObject.cs" />
+    <Compile Include="Component\SAMAnalyticalSystemModifyAirSystem.cs" />
     <Compile Include="Component\SAMAnalyticalSystemUpdateAirSystem.cs" />
     <Compile Include="Component\SAMAnalyticalSystemConnector.cs" />
     <Compile Include="Component\SAMAnalyticalSystemAddSystemEnergyCentre.cs" />

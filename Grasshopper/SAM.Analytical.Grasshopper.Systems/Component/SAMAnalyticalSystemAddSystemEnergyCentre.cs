@@ -91,11 +91,20 @@ namespace SAM.Analytical.Grasshopper.Systems
                 dataAccess.GetData(index, ref systemEnergyCentre);
             }
 
-            if(systemEnergyCentre != null)
+            if(systemEnergyCentre == null)
             {
                 analyticalModel = new AnalyticalModel(analyticalModel);
                 systemEnergyCentre = new SystemEnergyCentre(systemEnergyCentre);
-                analyticalModel.SetValue(Analytical.Systems.AnalyticalModelParameter.SystemEnergyCentre, systemEnergyCentre);
+                if(systemEnergyCentre != null)
+                {
+                    analyticalModel.SetValue(Analytical.Systems.AnalyticalModelParameter.SystemEnergyCentre, systemEnergyCentre);
+                }
+            }
+
+            if(systemEnergyCentre == null)
+            {
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "Could not create SystemEnergCentre");
+                return;
             }
 
             index = Params.IndexOfOutputParam("analyticalModel");
