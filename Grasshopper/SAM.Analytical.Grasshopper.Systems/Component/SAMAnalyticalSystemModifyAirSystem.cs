@@ -75,7 +75,7 @@ namespace SAM.Analytical.Grasshopper.Systems
             {
                 List<GH_SAMParam> result = new List<GH_SAMParam>();
                 result.Add(new GH_SAMParam(new GooAnalyticalModelParam { Name = "analyticalModel", NickName = "analyticalModel", Description = "SAM AnalyticalModel", Access = GH_ParamAccess.item }, ParamVisibility.Binding));
-                result.Add(new GH_SAMParam(new GooAnalyticalModelParam { Name = "airSystem", NickName = "airSystem", Description = "SAM AirSystem", Access = GH_ParamAccess.item }, ParamVisibility.Binding));
+                result.Add(new GH_SAMParam(new GooSystemObjectParam { Name = "airSystem", NickName = "airSystem", Description = "SAM AirSystem", Access = GH_ParamAccess.item }, ParamVisibility.Binding));
                 return result.ToArray();
             }
         }

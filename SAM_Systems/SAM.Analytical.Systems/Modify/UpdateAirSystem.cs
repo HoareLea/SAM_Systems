@@ -175,6 +175,8 @@ namespace SAM.Analytical.Systems
                             TryConnect(systemPlantRoom_Destination, systemConnection, systemJSAMObject_Temp);
                         }
                     }
+
+                    systemPlantRoom_Destination.TryConnect(systemJSAMObject, systemConnection);
                 }
             }
 
