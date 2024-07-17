@@ -11,7 +11,12 @@ namespace SAM.Analytical.Systems
                 return false;
             }
 
-            if(systemJSAMObject_1 is ISystemSpaceComponent && systemJSAMObject_2 is ISystemSpace)
+            if (systemJSAMObject_1 is ISystemComponent && systemJSAMObject_2 is ISystemComponent)
+            {
+                return systemPlantRoom.Connect((ISystemComponent)systemJSAMObject_2, (ISystemComponent)systemJSAMObject_1);
+            }
+
+            if (systemJSAMObject_1 is ISystemSpaceComponent && systemJSAMObject_2 is ISystemSpace)
             {
                 return systemPlantRoom.Connect((ISystemSpaceComponent)systemJSAMObject_1, (ISystemSpace)systemJSAMObject_2);
             }

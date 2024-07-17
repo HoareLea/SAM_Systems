@@ -349,6 +349,26 @@ namespace SAM.Core.Systems
             return systemRelationCluster.AddRelation(systemComponent, systemConnection);
         }
 
+        public bool Connect(ISystemComponent systemComponent_1, ISystemComponent systemComponent_2)
+        {
+            if (systemComponent_1 == null || systemComponent_2 == null)
+            {
+                return false;
+            }
+
+            if (!systemRelationCluster.Contains(systemComponent_1))
+            {
+                Add(systemComponent_1);
+            }
+
+            if (!systemRelationCluster.Contains(systemComponent_2))
+            {
+                Add(systemComponent_2);
+            }
+
+            return systemRelationCluster.AddRelation(systemComponent_1, systemComponent_2);
+        }
+
         public bool Connect(ISystemGroup systemGroup, ISystemComponent systemComponent)
         {
             if(systemGroup == null || systemComponent == null)
