@@ -22,7 +22,7 @@ namespace SAM.Analytical.Grasshopper.Systems
         /// <summary>
         /// The latest version of this component
         /// </summary>
-        public override string LatestComponentVersion => "1.0.0";
+        public override string LatestComponentVersion => "1.0.1";
 
         /// <summary>
         /// Provides an Icon for the component.
@@ -49,7 +49,6 @@ namespace SAM.Analytical.Grasshopper.Systems
                 List<GH_SAMParam> result = new List<GH_SAMParam>();
                 result.Add(new GH_SAMParam(new GooAnalyticalModelParam() { Name = "_analyticalModel", NickName = "_analyticalModel", Description = "SAM AnalyticalModel", Access = GH_ParamAccess.item }, ParamVisibility.Binding));
                 result.Add(new GH_SAMParam(new GooSpaceParam() { Name = "_spaces", NickName = "_spaces", Description = "SAM Analytical Spaces", Access = GH_ParamAccess.list }, ParamVisibility.Binding));
-                result.Add(new GH_SAMParam(new GooSystemPlantRoomParam() { Name = "_systemPlantRoom", NickName = "_systemPlantRoom", Description = "SAM SystemPlantRoom", Access = GH_ParamAccess.item, Optional = true }, ParamVisibility.Voluntary));
                 result.Add(new GH_SAMParam(new GooSystemObjectParam() { Name = "_airSystem", NickName = "_airSystem", Description = "SAM AirSystem", Access = GH_ParamAccess.item, Optional = false }, ParamVisibility.Binding));
 
                 return result.ToArray();
@@ -79,8 +78,6 @@ namespace SAM.Analytical.Grasshopper.Systems
         {
             int index;
 
-
-
             index = Params.IndexOfInputParam("_analyticalModel");
             AnalyticalModel analyticalModel = null;
             if (!dataAccess.GetData(index, ref analyticalModel) || analyticalModel == null)
@@ -88,8 +85,6 @@ namespace SAM.Analytical.Grasshopper.Systems
                 AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "Invalid data");
                 return;
             }
-
-            analyticalModel = new AnalyticalModel(analyticalModel);
 
             if(!analyticalModel.TryGetValue(Analytical.Systems.AnalyticalModelParameter.SystemEnergyCentre, out SystemEnergyCentre systemEnergyCentre) || systemEnergyCentre == null)
             {
@@ -109,24 +104,6 @@ namespace SAM.Analytical.Grasshopper.Systems
                 spaces = null;
             }
 
-            index = Params.IndexOfInputParam("_systemPlantRoom");
-            SystemPlantRoom systemPlantRoom = null;
-            if(index != -1)
-            {
-                dataAccess.GetData(index, ref systemPlantRoom);
-            }
-
-            if(systemPlantRoom == null)
-            {
-                systemPlantRoom = systemEnergyCentre.GetSystemPlantRooms()?.FirstOrDefault();
-            }
-
-            if (systemPlantRoom == null)
-            {
-                AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "Invalid data");
-                return;
-            }
-
             index = Params.IndexOfInputParam("_airSystem");
             ISystemObject systemObject = null;
             if (!dataAccess.GetData(index, ref systemObject) || systemObject == null)
@@ -142,14 +119,14 @@ namespace SAM.Analytical.Grasshopper.Systems
                 return;
             }
 
-            airSystem = systemPlantRoom.GetSystems<AirSystem>().Find(x => x.Name == airSystem.Name);
-            if (airSystem != null)
-            {
-                AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "Invalid data");
-                return;
-            }
+            systemEnergyCentre = new SystemEnergyCentre(systemEnergyCentre);
 
-            Analytical.Systems.Modify.UpdateAirSystem(analyticalModel, spaces, systemPlantRoom, airSystem);
+            airSystem = Analytical.Systems.Modify.UpdateAirSystem(systemEnergyCentre, airSystem, spaces);
+            if(airSystem != null)
+            {
+                analyticalModel = new AnalyticalModel(analyticalModel);
+                analyticalModel.SetValue(Analytical.Systems.AnalyticalModelParameter.SystemEnergyCentre, systemEnergyCentre);
+            }
 
             index = Params.IndexOfOutputParam("analyticalModel");
             if (index != -1)

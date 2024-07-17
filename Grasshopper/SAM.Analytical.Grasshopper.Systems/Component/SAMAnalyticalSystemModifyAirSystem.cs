@@ -52,6 +52,16 @@ namespace SAM.Analytical.Grasshopper.Systems
                 result.Add(new GH_SAMParam(new GooSystemEnergyCentreParam() { Name = "systemEnergyCentre_", NickName = "systemEnergyCentre_", Description = "SAM SystemEnergyCentre", Access = GH_ParamAccess.item, Optional = true }, ParamVisibility.Voluntary));
                 result.Add(new GH_SAMParam(new GooSystemObjectParam() { Name = "_airSystem", NickName = "_airSystem", Description = "SAM AirSystem", Access = GH_ParamAccess.item, Optional = false }, ParamVisibility.Binding));
 
+                global::Grasshopper.Kernel.Parameters.Param_Boolean param_Boolean;
+
+                param_Boolean = new global::Grasshopper.Kernel.Parameters.Param_Boolean() { Name = "_cleanUnusedSystems_", NickName = "_cleanUnusedSystems_", Description = "Clean Unused Systems", Access = GH_ParamAccess.item, Optional = true };
+                param_Boolean.SetPersistentData(false);
+                result.Add(new GH_SAMParam(param_Boolean, ParamVisibility.Binding));
+
+                param_Boolean = new global::Grasshopper.Kernel.Parameters.Param_Boolean() { Name = "_removeSpacesFormExistingAirSystem_", NickName = "_removeSpacesFormExistingAirSystem_", Description = "Remove Spaces Form Existing AirSystem", Access = GH_ParamAccess.item, Optional = true };
+                param_Boolean.SetPersistentData(false);
+                result.Add(new GH_SAMParam(param_Boolean, ParamVisibility.Binding));
+
                 return result.ToArray();
             }
         }
@@ -79,8 +89,6 @@ namespace SAM.Analytical.Grasshopper.Systems
         protected override void SolveInstance(IGH_DataAccess dataAccess)
         {
             int index;
-
-
 
             index = Params.IndexOfInputParam("_analyticalModel");
             AnalyticalModel analyticalModel = null;
@@ -112,7 +120,7 @@ namespace SAM.Analytical.Grasshopper.Systems
             }
 
             AirSystem airSystem = systemObject as AirSystem;
-            if (airSystem != null)
+            if (airSystem == null)
             {
                 AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "Invalid data");
                 return;
@@ -137,30 +145,54 @@ namespace SAM.Analytical.Grasshopper.Systems
                 dataAccess.GetData(index, ref systemEnergyCentre_Source);
             }
 
-            //if(systemPlantRoom == null)
-            //{
-            //    systemPlantRoom = systemEnergyCentre.GetSystemPlantRooms()?.FirstOrDefault();
-            //}
+            SystemPlantRoom systemPlantRoom = null;
 
-            //if (systemPlantRoom == null)
-            //{
-            //    AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "Invalid data");
-            //    return;
-            //}
+            if (systemEnergyCentre_Source == null)
+            {
+                airSystem = Analytical.Systems.Modify.UpdateAirSystem(systemEnergyCentre, airSystem, spaces);
+            }
+            else if (systemEnergyCentre_Source.TryGetSystem(airSystem.Guid, out systemPlantRoom, out airSystem) && systemPlantRoom != null && airSystem != null)
+            {
+                SystemPlantRoom systemPlantRoom_Destionation = systemEnergyCentre.GetSystemPlantRooms()?.FirstOrDefault();
+                if(systemPlantRoom_Destionation == null)
+                {
+                    systemPlantRoom_Destionation = new SystemPlantRoom(systemPlantRoom.Name);
+                    systemEnergyCentre.Add(systemPlantRoom_Destionation);
+                }
 
-            //airSystem = systemPlantRoom.GetSystems<AirSystem>().Find(x => x.Name == airSystem.Name);
-            //if (airSystem != null)
-            //{
-            //    AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "Invalid data");
-            //    return;
-            //}
+                airSystem = Analytical.Systems.Modify.UpdateAirSystem(systemPlantRoom_Destionation, systemPlantRoom, airSystem, spaces);
+                if(airSystem != null)
+                {
+                    systemEnergyCentre.Add(systemPlantRoom_Destionation);
+                }
+            }
 
-            //Analytical.Systems.Modify.UpdateAirSystem(analyticalModel, spaces, systemPlantRoom, airSystem);
+            if(airSystem != null)
+            {
+                systemEnergyCentre.TryGetSystem(airSystem.Guid, out systemPlantRoom, out airSystem);
+            }
+
+            if(systemPlantRoom != null)
+            {
+                index = Params.IndexOfInputParam("_cleanUnusedSystems_");
+                bool cleanUnusedSystems = false;
+                if (index != -1 && dataAccess.GetData(index, ref cleanUnusedSystems) && cleanUnusedSystems)
+                {
+                    systemPlantRoom.CleanSystems<AirSystem>();
+                    systemEnergyCentre.Add(systemPlantRoom);
+                }
+            }
 
             index = Params.IndexOfOutputParam("analyticalModel");
             if (index != -1)
             {
                 dataAccess.SetData(index, analyticalModel);
+            }
+
+            index = Params.IndexOfOutputParam("airSystem");
+            if (index != -1)
+            {
+                dataAccess.SetData(index, airSystem);
             }
         }
     }

@@ -4,6 +4,8 @@ namespace SAM.Core.Systems
 {
     public interface ISystemConnection : ISystemComponent
     {
+        System.Guid Guid { get; }
+
         SystemType SystemType { get; }
 
         bool TryGetIndex(ISystemComponent systemComponent, out int index);

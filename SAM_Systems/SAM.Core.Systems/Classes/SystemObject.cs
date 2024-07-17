@@ -3,7 +3,7 @@ using System;
 
 namespace SAM.Core.Systems
 {
-    public abstract class SystemObject : SAMObject, ISystemObject
+    public abstract class SystemObject : SAMObject, ISystemObject, ISystemJSAMObject
     {
         public new string Name
         {
@@ -22,6 +22,12 @@ namespace SAM.Core.Systems
 
         public SystemObject(SystemObject systemObject)
             : base(systemObject)
+        {
+            Description = systemObject?.Description;
+        }
+
+        public SystemObject(Guid guid, SystemObject systemObject)
+            : base(guid, systemObject)
         {
             Description = systemObject?.Description;
         }

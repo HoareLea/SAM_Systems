@@ -2,5 +2,6 @@
 {
     public interface ISystem : ISystemJSAMObject
     {
+        System.Guid Guid { get; }
     }
 }

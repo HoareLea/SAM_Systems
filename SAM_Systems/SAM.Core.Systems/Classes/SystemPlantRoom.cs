@@ -324,6 +324,31 @@ namespace SAM.Core.Systems
             return true;
         }
 
+        public bool Connect(ISystemConnection systemConnection, ISystemComponent systemComponent)
+        {
+            if (systemConnection == null || systemComponent == null)
+            {
+                return false;
+            }
+
+            if(!systemConnection.TryGetIndex(systemComponent, out int index) || index == -1)
+            {
+                return false;
+            }
+
+            if (!systemRelationCluster.Contains(systemComponent))
+            {
+                Add(systemComponent);
+            }
+
+            if (!systemRelationCluster.Contains(systemConnection))
+            {
+                Add(systemConnection);
+            }
+
+            return systemRelationCluster.AddRelation(systemComponent, systemConnection);
+        }
+
         public bool Connect(ISystemGroup systemGroup, ISystemComponent systemComponent)
         {
             if(systemGroup == null || systemComponent == null)
@@ -584,6 +609,11 @@ namespace SAM.Core.Systems
         public List<T> GetSystems<T>() where T: ISystem
         {
             return systemRelationCluster?.GetObjects<T>()?.ConvertAll(x => x.Clone());
+        }
+
+        public List<T> GetSystems<T>(ISystemComponent systemComponent) where T : ISystem
+        {
+            return GetRelatedObjects<T>(systemComponent)?.ConvertAll(x => x.Clone());
         }
 
         public List<T> GetSystemComponents<T>() where T : ISystemComponent
@@ -1228,6 +1258,22 @@ namespace SAM.Core.Systems
             }
 
             return systemRelationCluster.GetGuid(systemJSAMObject);
+        }
+
+        public T GetSystemObject<T>(ObjectReference objectReference) where T: ISystemJSAMObject
+        {
+            if(objectReference == null || systemRelationCluster == null)
+            {
+                return default;
+            }
+
+            List<T> systemObjects = systemRelationCluster.GetObjects<T>(objectReference);
+            if(systemObjects == null || systemObjects.Count == 0)
+            {
+                return default;
+            }
+
+            return systemObjects.FirstOrDefault();
         }
 
     }

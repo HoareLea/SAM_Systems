@@ -9,6 +9,11 @@ namespace SAM.Analytical.Systems
         {
         }
 
+        public AirSystem(System.Guid guid, AirSystem airSystem)
+            : base(guid, airSystem)
+        {
+        }
+
         public AirSystem(JObject jObject)
             : base(jObject)
         {

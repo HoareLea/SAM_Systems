@@ -64,6 +64,30 @@ namespace SAM.Core.Systems
             return systemPlantRooms == null ? null : systemPlantRooms.ConvertAll(x => x.Clone());
         }
 
+        public bool TryGetSystem<T>(System.Guid guid, out SystemPlantRoom systemPlantRoom, out T system) where T : ISystem
+        {
+            systemPlantRoom = null;
+            system = default;
+
+            if(systemPlantRooms == null)
+            {
+                return false;
+            }
+
+            foreach(SystemPlantRoom systemPlantRoom_Temp in systemPlantRooms)
+            {
+                system = systemPlantRoom_Temp.GetSystem<T>(x => x.Guid == guid);
+                if(system != null)
+                {
+                    systemPlantRoom = new SystemPlantRoom(systemPlantRoom_Temp);
+                    system = system.Clone();
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
         public bool Add(T systemPlantRoom)
         {
             if (systemPlantRoom == null)

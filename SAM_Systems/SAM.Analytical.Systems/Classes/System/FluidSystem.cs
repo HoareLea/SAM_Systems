@@ -10,6 +10,11 @@ namespace SAM.Analytical.Systems
         {
         }
 
+        public FluidSystem(System.Guid guid, FluidSystem fluidSystem)
+            : base(guid, fluidSystem)
+        {
+        }
+
         public FluidSystem(JObject jObject)
             : base(jObject)
         {

@@ -1,4 +1,5 @@
-﻿using SAM.Core.Systems;
+﻿using SAM.Core;
+using SAM.Core.Systems;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,34 +8,41 @@ namespace SAM.Analytical.Systems
 {
     public static partial class Modify
     {
-        public static AirSystem UpdateAirSystem(this AnalyticalModel analyticalModel, IEnumerable<Space> spaces, SystemPlantRoom systemPlantRoom, AirSystem airSystem)
+        public static AirSystem UpdateAirSystem(this SystemEnergyCentre systemEnergyCentre, AirSystem airSystem, IEnumerable<Space> spaces)
         {
-            if (analyticalModel == null || spaces == null || systemPlantRoom == null || airSystem == null)
+            if (systemEnergyCentre == null || airSystem == null || spaces == null)
             {
                 return null;
             }
 
-            SystemEnergyCentre systemEnergyCentre = analyticalModel.GetValue<SystemEnergyCentre>(AnalyticalModelParameter.SystemEnergyCentre);
-            if(systemEnergyCentre == null)
+            if(!systemEnergyCentre.TryGetSystem(airSystem.Guid, out SystemPlantRoom systemPlantRoom, out AirSystem result))
             {
                 return null;
             }
 
-            SystemPlantRoom systemPlantRoom_Destination = systemEnergyCentre.GetSystemPlantRooms()?.FirstOrDefault();
+            return UpdateAirSystem(systemPlantRoom, airSystem, spaces);
 
-            AirSystem airSystem_Source = systemPlantRoom.GetSystems<AirSystem>().Find(x => x.Name == airSystem.Name);
-            if (airSystem_Source == null)
+        }
+
+        public static AirSystem UpdateAirSystem(this SystemPlantRoom systemPlantRoom, AirSystem airSystem, IEnumerable<Space> spaces)
+        {
+            if (systemPlantRoom == null || airSystem == null || spaces == null)
             {
                 return null;
             }
 
-            AirSystem result = systemPlantRoom_Destination.GetSystems<AirSystem>().Find(x => x.Name == airSystem.Name);
-            if (result == null)
+            AirSystem result = systemPlantRoom.GetSystem<AirSystem>(x => x.Guid == airSystem.Guid);
+            if(result == null)
             {
-                result = Copy(systemPlantRoom, systemPlantRoom_Destination, airSystem_Source);
+                return result;
             }
 
-            List<SystemSpace> systemSpaces = systemPlantRoom_Destination.GetRelatedObjects<SystemSpace>(result);
+            List<SystemSpace> systemSpaces = systemPlantRoom.GetRelatedObjects<SystemSpace>(result);
+            if(systemSpaces == null || systemSpaces.Count == 0)
+            {
+                return result;
+            }
+
 
             List<Tuple<string, SystemSpace>> tuples = new List<Tuple<string, SystemSpace>>();
             foreach (SystemSpace systemSpace in systemSpaces)
@@ -68,6 +76,109 @@ namespace SAM.Analytical.Systems
 
             return result;
 
+        }
+
+        public static AirSystem UpdateAirSystem(this SystemPlantRoom systemPlantRoom_Destination, SystemPlantRoom systemPlantRoom_Source, AirSystem airSystem_Source, IEnumerable<Space> spaces)
+        {
+            if(systemPlantRoom_Destination == null || systemPlantRoom_Source == null || airSystem_Source == null)
+            {
+                return null;
+            }
+
+            AirSystem airSystem = systemPlantRoom_Source.GetSystem<AirSystem>(x => x.Guid == airSystem_Source.Guid);
+            if (airSystem == null)
+            {
+                return null;
+            }
+
+            HashSet<Guid> guids = Copy(systemPlantRoom_Destination, systemPlantRoom_Source, (ISystemJSAMObject)airSystem);
+            if(guids == null || guids.Count == 0)
+            {
+                return null;
+            }
+
+            airSystem = UpdateAirSystem(systemPlantRoom_Destination, airSystem, spaces);
+
+            return guids == null || guids.Count == 0 ? null : airSystem;
+        }
+
+        private static HashSet<Guid> Copy(this SystemPlantRoom systemPlantRoom_Destination, SystemPlantRoom systemPlantRoom_Source, ISystemJSAMObject systemJSAMObject)
+        {
+            return Copy(systemPlantRoom_Destination, systemPlantRoom_Source, systemJSAMObject, null);
+        }
+
+        private static HashSet<Guid> Copy(this SystemPlantRoom systemPlantRoom_Destination, SystemPlantRoom systemPlantRoom_Source, ISystemJSAMObject systemJSAMObject, IEnumerable<Guid> excludedGuids)
+        {
+            if (systemPlantRoom_Destination == null || systemPlantRoom_Source == null || systemJSAMObject == null)
+            {
+                return null;
+            }
+
+            Guid guid = (systemJSAMObject as dynamic).Guid;
+
+            if (excludedGuids != null && excludedGuids.Contains(guid))
+            {
+                return null;
+            }
+
+            systemPlantRoom_Destination.Add(systemJSAMObject as dynamic);
+
+            HashSet<Guid> guids = excludedGuids == null ? new HashSet<Guid>() : new HashSet<Guid>(excludedGuids);
+            guids.Add(guid);
+
+            List<ISystemJSAMObject> systemJSAMObjects = systemPlantRoom_Source.GetRelatedObjects<ISystemJSAMObject>(systemJSAMObject);
+            if(systemJSAMObjects != null && systemJSAMObjects.Count != 0)
+            {
+                List<ISystemConnection> systemConnetions = new List<ISystemConnection>();
+
+                foreach(ISystemJSAMObject systemJSAMObject_Related in systemJSAMObjects)
+                {
+                    if(systemJSAMObject_Related == null)
+                    {
+                        continue;
+                    }
+
+                    if(systemJSAMObject_Related is ISystemConnection)
+                    {
+                        systemConnetions.Add((ISystemConnection)systemJSAMObject_Related);
+                        continue;
+                    }
+
+                    HashSet<Guid> guids_Temp = Copy(systemPlantRoom_Destination, systemPlantRoom_Source, systemJSAMObject_Related, guids);
+                    
+                    systemPlantRoom_Destination.TryConnect(systemJSAMObject, systemJSAMObject_Related);
+                    
+                    if (guids_Temp == null)
+                    {
+                        continue;
+                    }
+
+                    foreach (Guid guid_Temp in guids_Temp)
+                    {
+                        guids.Add(guid_Temp);
+                    }
+                }
+
+                foreach (ISystemConnection systemConnection in systemConnetions)
+                {
+                    List<ObjectReference> objectReferences = systemConnection?.ObjectReferences;
+                    if (objectReferences == null || objectReferences.Count == 0)
+                    {
+                        continue;
+                    }
+
+                    foreach (ObjectReference objectReference in objectReferences)
+                    {
+                        ISystemJSAMObject systemJSAMObject_Temp = systemPlantRoom_Destination.GetSystemObject<ISystemJSAMObject>(objectReference);
+                        if (systemJSAMObject_Temp != null)
+                        {
+                            TryConnect(systemPlantRoom_Destination, systemConnection, systemJSAMObject_Temp);
+                        }
+                    }
+                }
+            }
+
+            return guids;
         }
     }
 }

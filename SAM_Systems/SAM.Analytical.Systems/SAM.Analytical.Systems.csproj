@@ -147,6 +147,8 @@
     <Compile Include="Enums\SpaceDataType.cs" />
     <Compile Include="Interfaces\ISizableValue.cs" />
     <Compile Include="Manager\ActiveSetting.cs" />
+    <Compile Include="Modify\CleanSystems.cs" />
+    <Compile Include="Modify\Connect.cs" />
     <Compile Include="Modify\Copy.cs" />
     <Compile Include="Modify\UpdateAirSystem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
