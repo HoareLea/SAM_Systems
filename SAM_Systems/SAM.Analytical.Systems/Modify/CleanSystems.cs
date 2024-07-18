@@ -33,7 +33,7 @@ namespace SAM.Analytical.Systems
                 }
 
                 List<ISystemSpace> systemSpaces = systemPlantRoom.GetSystemComponents<ISystemSpace>(airSystem_Temp);
-                if(systemSpaces != null && systemSpaces.Count == 0)
+                if(systemSpaces != null && systemSpaces.Count != 0)
                 {
                     continue;
                 }

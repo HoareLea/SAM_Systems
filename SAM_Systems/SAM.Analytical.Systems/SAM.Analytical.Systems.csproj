@@ -148,6 +148,7 @@
     <Compile Include="Interfaces\ISizableValue.cs" />
     <Compile Include="Manager\ActiveSetting.cs" />
     <Compile Include="Modify\CleanSystems.cs" />
+    <Compile Include="Modify\RemoveSpaces.cs" />
     <Compile Include="Modify\TryConnect.cs" />
     <Compile Include="Modify\Copy.cs" />
     <Compile Include="Modify\UpdateAirSystem.cs" />

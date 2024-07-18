@@ -174,6 +174,27 @@ namespace SAM.Analytical.Grasshopper.Systems
 
             if(systemPlantRoom != null)
             {
+                index = Params.IndexOfInputParam("_removeSpacesFormExistingAirSystem_");
+                bool removeSpacesFormExistingAirSystem = false;
+                if (index != -1 && dataAccess.GetData(index, ref removeSpacesFormExistingAirSystem) && removeSpacesFormExistingAirSystem)
+                {
+                    List<AirSystem> airSystems = systemPlantRoom.GetSystems<AirSystem>();
+                    if (airSystems != null)
+                    {
+                        List<SystemSpace> systemSpaces = systemPlantRoom.GetSystemComponents<SystemSpace>(airSystem);
+                        if (systemSpaces != null && systemSpaces.Count != 0)
+                        {
+                            airSystems.RemoveAll(x => x.Guid == airSystem.Guid);
+                            foreach (AirSystem airSystem_Temp in airSystems)
+                            {
+                                Analytical.Systems.Modify.RemoveSpaces(systemPlantRoom, airSystem_Temp, systemSpaces.ConvertAll(x => x.Name));
+                            }
+
+                            systemEnergyCentre.Add(systemPlantRoom);
+                        }
+                    }
+                }
+
                 index = Params.IndexOfInputParam("_cleanUnusedSystems_");
                 bool cleanUnusedSystems = false;
                 if (index != -1 && dataAccess.GetData(index, ref cleanUnusedSystems) && cleanUnusedSystems)
