@@ -1,106 +1,30 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{1C86B9AC-81B3-41D8-BA48-321F28AB94F4}</ProjectGuid>
+    <TargetFramework>netstandard2.0</TargetFramework>
     <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SAM.Core.Systems</RootNamespace>
-    <AssemblyName>SAM.Core.Systems</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
     <Deterministic>false</Deterministic>
-    <TargetFrameworkProfile />
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <AssemblyTitle>SAM</AssemblyTitle>
+    <Product>SAM</Product>
+    <Copyright>Copyright ©  2020</Copyright>
+    <AssemblyVersion>1.0.%2a</AssemblyVersion>
+    <FileVersion>1.0.%2a</FileVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
     <OutputPath>..\..\build\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
     <DocumentationFile>..\..\build\SAM.Core.Systems.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
     <OutputPath>..\..\build\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="SAM.Core">
       <HintPath>..\..\..\SAM\build\SAM.Core.dll</HintPath>
     </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Classes\SystemConnectorManager.cs" />
-    <Compile Include="Classes\SystemSpaceComponent.cs" />
-    <Compile Include="Classes\SystemType.cs" />
-    <Compile Include="Classes\SystemConnector.cs" />
-    <Compile Include="Classes\SystemJunction.cs" />
-    <Compile Include="Classes\SystemIndexedDoublesResult.cs" />
-    <Compile Include="Classes\SystemGroup.cs" />
-    <Compile Include="Classes\SystemComponent.cs" />
-    <Compile Include="Classes\SystemConnection.cs" />
-    <Compile Include="Classes\SystemObject.cs" />
-    <Compile Include="Classes\SystemPlantRoom.cs" />
-    <Compile Include="Classes\SystemEnergyCentre.cs" />
-    <Compile Include="Classes\SystemRelationCluster.cs" />
-    <Compile Include="Create\SystemConnectorManager.cs" />
-    <Compile Include="Create\PathReference.cs" />
-    <Compile Include="Create\SystemType.cs" />
-    <Compile Include="Create\SystemConnector.cs" />
-    <Compile Include="Enums\ConnectorStatus.cs" />
-    <Compile Include="Interfaces\ISystemJunction.cs" />
-    <Compile Include="Interfaces\ISystemSpace.cs" />
-    <Compile Include="Interfaces\ISystemGroup.cs" />
-    <Compile Include="Interfaces\ISystemConnection.cs" />
-    <Compile Include="Interfaces\ISystemControl.cs" />
-    <Compile Include="Interfaces\ISystemJSAMObject.cs" />
-    <Compile Include="Interfaces\ISystemResult.cs" />
-    <Compile Include="Interfaces\ISystemSpaceResult.cs" />
-    <Compile Include="Interfaces\ISystemComponentResult.cs" />
-    <Compile Include="Interfaces\ISystemComponent.cs" />
-    <Compile Include="Interfaces\System\IMechanicalSystem.cs" />
-    <Compile Include="Interfaces\System\IElectricalSystem.cs" />
-    <Compile Include="Interfaces\System\IControlSystem.cs" />
-    <Compile Include="Interfaces\System\ISystem.cs" />
-    <Compile Include="Interfaces\ISystemSpaceComponent.cs" />
-    <Compile Include="Interfaces\ISystemSpatialObject.cs" />
-    <Compile Include="Interfaces\ISystemObject.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Query\FindIndexes.cs" />
-    <Compile Include="Query\FindIndex.cs" />
-    <Compile Include="Query\Indexes.cs" />
-    <Compile Include="Query\SystemComponents.cs" />
-    <Compile Include="Query\TryGetIndex.cs" />
-    <Compile Include="Query\TryGetIndexes.cs" />
-    <Compile Include="Query\SystemConnection.cs" />
-    <Compile Include="Query\ConnectorStatus.cs" />
-    <Compile Include="Query\Dictionary.cs" />
+    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+    <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
-  <ItemGroup />
-  <ItemGroup>
-    <PackageReference Include="NETStandard.Library">
-      <Version>2.0.3</Version>
-    </PackageReference>
-    <PackageReference Include="Newtonsoft.Json">
-      <Version>13.0.2</Version>
-    </PackageReference>
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

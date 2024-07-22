@@ -1,37 +1,36 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{E5550801-4863-4036-904D-7563C9722760}</ProjectGuid>
+    <TargetFramework>netstandard2.0</TargetFramework>
     <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SAM.Geometry.Systems</RootNamespace>
-    <AssemblyName>SAM.Geometry.Systems</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
     <Deterministic>false</Deterministic>
-    <TargetFrameworkProfile />
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <AssemblyTitle>SAM</AssemblyTitle>
+    <Product>SAM</Product>
+    <Copyright>Copyright ©  2020</Copyright>
+    <AssemblyVersion>1.0.%2a</AssemblyVersion>
+    <FileVersion>1.0.%2a</FileVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
     <OutputPath>..\..\build\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
     <DocumentationFile>..\..\build\SAM.Geometry.Systems.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
     <OutputPath>..\..\build\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <ItemGroup>
+    <Compile Remove="Convert\**" />
+    <Compile Remove="Create\**" />
+    <Compile Remove="Enums\**" />
+    <Compile Remove="Modify\**" />
+    <EmbeddedResource Remove="Convert\**" />
+    <EmbeddedResource Remove="Create\**" />
+    <EmbeddedResource Remove="Enums\**" />
+    <EmbeddedResource Remove="Modify\**" />
+    <None Remove="Convert\**" />
+    <None Remove="Create\**" />
+    <None Remove="Enums\**" />
+    <None Remove="Modify\**" />
+  </ItemGroup>
   <ItemGroup>
     <Reference Include="SAM.Core, Version=1.0.8749.23890, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -40,52 +39,16 @@
     <Reference Include="SAM.Geometry">
       <HintPath>..\..\..\SAM\build\SAM.Geometry.dll</HintPath>
     </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Classes\DisplaySystemConnection.cs" />
-    <Compile Include="Classes\DisplaySystemConnectorManager.cs" />
-    <Compile Include="Classes\DisplaySystemEnergyCentre.cs" />
-    <Compile Include="Classes\DisplaySystemJunction.cs" />
-    <Compile Include="Classes\DisplaySystemConnector.cs" />
-    <Compile Include="Classes\DisplaySystemPlantRoom.cs" />
-    <Compile Include="Classes\SystemGeometrySymbolManager.cs" />
-    <Compile Include="Classes\DisplaySystemManager.cs" />
-    <Compile Include="Classes\SystemPolygon.cs" />
-    <Compile Include="Classes\SystemPolyline.cs" />
-    <Compile Include="Classes\SystemGeometryInstance.cs" />
-    <Compile Include="Classes\SystemGeometrySymbol.cs" />
-    <Compile Include="Interfaces\IDisplaySystemObject.cs" />
-    <Compile Include="Interfaces\ISystemGeometry.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Query\TopSystemComponents.cs" />
-    <Compile Include="Query\BoundingBox2D.cs" />
-    <Compile Include="Query\TryGetIndexes.cs" />
+    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+    <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Convert\" />
-    <Folder Include="Create\" />
-    <Folder Include="Enums\" />
-    <Folder Include="Modify\" />
+    <ProjectReference Include="..\SAM.Core.Systems\SAM.Core.Systems.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json">
-      <Version>13.0.2</Version>
-    </PackageReference>
+    <Compile Remove="Query\FindIndex.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\SAM.Core.Systems\SAM.Core.Systems.csproj">
-      <Project>{1c86b9ac-81b3-41d8-ba48-321f28ab94f4}</Project>
-      <Name>SAM.Core.Systems</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
