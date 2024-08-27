@@ -26,6 +26,20 @@
     <OutputPath>..\..\build\</OutputPath>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="Component\**" />
+    <Compile Remove="Convert\**" />
+    <Compile Remove="Interfaces\**" />
+    <Compile Remove="Query\**" />
+    <EmbeddedResource Remove="Component\**" />
+    <EmbeddedResource Remove="Convert\**" />
+    <EmbeddedResource Remove="Interfaces\**" />
+    <EmbeddedResource Remove="Query\**" />
+    <None Remove="Component\**" />
+    <None Remove="Convert\**" />
+    <None Remove="Interfaces\**" />
+    <None Remove="Query\**" />
+  </ItemGroup>
+  <ItemGroup>
     <Reference Include="SAM.Core, Version=1.0.8748.20608, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\SAM\build\SAM.Core.dll</HintPath>
@@ -33,12 +47,6 @@
     <Reference Include="SAM.Core.Grasshopper">
       <HintPath>..\..\..\SAM\build\SAM.Core.Grasshopper.dll</HintPath>
     </Reference>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Component\" />
-    <Folder Include="Convert\" />
-    <Folder Include="Interfaces\" />
-    <Folder Include="Query\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Grasshopper">
