@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace SAM.Core.Systems
 {
-    public abstract class SystemGroup<T> : SystemComponent, ISystemGroup where T : ISystem
+    public abstract class SystemGroup<T> : SystemObject, ISystemGroup where T : ISystem
     {
         public SystemGroup()
             : base(string.Empty)
@@ -53,19 +53,6 @@ namespace SAM.Core.Systems
             List<int> indexes = systemConnectorManager.GetIndexes(SystemType);
             
             return indexes != null && indexes.Count != 0;
-        }
-
-        public override SystemConnectorManager SystemConnectorManager
-        {
-            get
-            {
-                return Create.SystemConnectorManager
-                (
-                    Create.SystemConnector<T>(Direction.In, 1),
-                    Create.SystemConnector<T>(Direction.Out, 1),
-                    Create.SystemConnector<IControlSystem>()
-                );
-            }
         }
 
         public override bool FromJObject(JObject jObject)
