@@ -652,6 +652,11 @@ namespace SAM.Core.Systems
             return GetRelatedObjects<T>(systemComponent)?.ConvertAll(x => x.Clone());
         }
 
+        public List<T> GetSystems<T>(ISystemGroup systemGroup) where T : ISystem
+        {
+            return GetRelatedObjects<T>(systemGroup)?.ConvertAll(x => x.Clone());
+        }
+
         public List<ISystemGroup> GetSystemGroups()
         {
             return GetSystemGroups<ISystemGroup>();
