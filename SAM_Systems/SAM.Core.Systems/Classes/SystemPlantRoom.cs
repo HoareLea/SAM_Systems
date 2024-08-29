@@ -82,6 +82,22 @@ namespace SAM.Core.Systems
             return systemRelationCluster.AddObject(systemComponent_Temp);
         }
 
+        public bool Add(ISystemGroup systemGroup)
+        {
+            ISystemGroup systemGroup_Temp = systemGroup?.Clone();
+            if (systemGroup_Temp == null)
+            {
+                return false;
+            }
+
+            if (systemRelationCluster == null)
+            {
+                systemRelationCluster = new SystemRelationCluster();
+            }
+
+            return systemRelationCluster.AddObject(systemGroup_Temp);
+        }
+
         public bool Add(ISystem system)
         {
             ISystem system_Temp = system?.Clone();
@@ -214,6 +230,26 @@ namespace SAM.Core.Systems
             }
 
             return systemRelationCluster.AddRelation(system, systemComponent);
+        }
+
+        public bool Connect(ISystem system, ISystemGroup systemGroup)
+        {
+            if (systemGroup == null || system == null)
+            {
+                return false;
+            }
+
+            if (!systemRelationCluster.Contains(system))
+            {
+                Add(system);
+            }
+
+            if (!systemRelationCluster.Contains(systemGroup))
+            {
+                Add(systemGroup);
+            }
+
+            return systemRelationCluster.AddRelation(system, systemGroup);
         }
 
         public bool Connect(ISystemComponent systemComponent_1, ISystemComponent systemComponent_2, out ISystemConnection systemConnection, ISystem system = null, int index_1 = -1, int index_2 = -1)
@@ -636,9 +672,40 @@ namespace SAM.Core.Systems
             return GetRelatedObjects<T>(systemComponent)?.ConvertAll(x => x.Clone());
         }
 
+        public List<T> GetSystems<T>(ISystemGroup systemGroup) where T : ISystem
+        {
+            return GetRelatedObjects<T>(systemGroup)?.ConvertAll(x => x.Clone());
+        }
+
+        public List<ISystemGroup> GetSystemGroups()
+        {
+            return GetSystemGroups<ISystemGroup>();
+        }
+
+        public List<T> GetSystemGroups<T>() where T : ISystemGroup
+        {
+            return systemRelationCluster?.GetObjects<T>()?.ConvertAll(x => Core.Query.Clone(x)).ConvertAll(x => (T)(object)x);
+        }
+
         public List<T> GetSystemComponents<T>() where T : ISystemComponent
         {
             return systemRelationCluster?.GetObjects<T>()?.ConvertAll(x => Core.Query.Clone(x)).ConvertAll(x => (T)(object)x);
+        }
+
+        public List<T> GetSystemComponents<T>(ISystemGroup systemGroup) where T : ISystemComponent
+        {
+            if (systemGroup == null)
+            {
+                return default;
+            }
+
+            List<T> ts = systemRelationCluster.GetRelatedObjects<T>(systemGroup);
+            if (ts == null || ts.Count == 0)
+            {
+                return default;
+            }
+
+            return ts.ConvertAll(x => Core.Query.Clone(x));
         }
 
         public List<T> GetSystemComponents<T>(ISystem system) where T : ISystemComponent
@@ -1008,6 +1075,16 @@ namespace SAM.Core.Systems
             }
 
             return default;
+        }
+
+        public List<T> GetSystemObjects<T>() where T : ISystemJSAMObject
+        {
+            return systemRelationCluster?.GetObjects<T>()?.ConvertAll(x => Core.Query.Clone(x)).ConvertAll(x => (T)(object)x);
+        }
+
+        public List<ISystemObject> GetSystemObjects()
+        {
+            return GetSystemObjects<ISystemJSAMObject>()?.ConvertAll(x => x as ISystemObject);
         }
 
         public List<ISystemComponent> GetSystemComponents()

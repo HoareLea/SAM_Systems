@@ -5,7 +5,7 @@ namespace SAM.Core.Systems
     public static partial class Query
     {
 
-        public static List<SystemComponent> ConnectedSystemComponents<T>(SystemPlantRoom systemPlantRoom, ISystem system, SystemGroup<T> systemGroup, ISystemComponent systemComponent) where T : ISystem
+        public static List<ISystemComponent> ConnectedSystemComponents<T>(SystemPlantRoom systemPlantRoom, ISystem system, SystemGroup<T> systemGroup, ISystemComponent systemComponent) where T : ISystem
         {
             if (systemPlantRoom == null || systemGroup == null || systemComponent == null)
             {
@@ -24,7 +24,7 @@ namespace SAM.Core.Systems
                 return null;
             }
 
-            List<SystemComponent> result = new List<SystemComponent>(); 
+            List<ISystemComponent> result = new List<ISystemComponent>(); 
 
             List<ISystemComponent> systemComponents_In = systemPlantRoom.GetOrderedSystemComponents(systemComponent, system, Direction.In);
             if(systemComponents_In != null)
@@ -53,19 +53,13 @@ namespace SAM.Core.Systems
             {
                 foreach (ISystemComponent systemComponent_Temp in systemComponents_Out)
                 {
-                    SystemComponent systemComponent_Temp_Temp = systemComponent_Temp as SystemComponent;
-                    if (systemComponent_Temp_Temp == null)
-                    {
-                        continue;
-                    }
-
-                    systemGroups = systemPlantRoom.GetRelatedObjects<SystemGroup<T>>(systemComponent_Temp_Temp);
+                    systemGroups = systemPlantRoom.GetRelatedObjects<SystemGroup<T>>(systemComponent_Temp);
                     if (systemGroups == null || systemGroups.Find(x => x.Guid == systemGroup.Guid) == null)
                     {
                         continue;
                     }
 
-                    result.Add(systemComponent_Temp_Temp);
+                    result.Add(systemComponent_Temp);
                 }
             }
 

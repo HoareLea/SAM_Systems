@@ -1,6 +1,6 @@
 ﻿namespace SAM.Core.Systems
 {
-    public interface ISystemGroup : ISystemComponent
+    public interface ISystemGroup : ISystemJSAMObject
     {
         bool IsValid(ISystemComponent systemComponent);
 
