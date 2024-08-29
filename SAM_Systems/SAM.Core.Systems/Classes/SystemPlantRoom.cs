@@ -1077,14 +1077,14 @@ namespace SAM.Core.Systems
             return default;
         }
 
-        public List<T> GetSystemJSAMObjects<T>() where T : ISystemJSAMObject
+        public List<T> GetSystemObjects<T>() where T : ISystemJSAMObject
         {
             return systemRelationCluster?.GetObjects<T>()?.ConvertAll(x => Core.Query.Clone(x)).ConvertAll(x => (T)(object)x);
         }
 
-        public List<ISystemJSAMObject> GetSystemJSAMObjects()
+        public List<ISystemObject> GetSystemObjects()
         {
-            return GetSystemJSAMObjects<ISystemJSAMObject>();
+            return GetSystemObjects<ISystemJSAMObject>()?.ConvertAll(x => x as ISystemObject);
         }
 
         public List<ISystemComponent> GetSystemComponents()
