@@ -66,6 +66,16 @@ namespace SAM.Analytical.Systems
                 return systemPlantRoom.Connect((ISystem)systemJSAMObject_2, (ISystemComponent)systemJSAMObject_1);
             }
 
+            if (systemJSAMObject_1 is ISystem && systemJSAMObject_2 is ISystemGroup)
+            {
+                return systemPlantRoom.Connect((ISystem)systemJSAMObject_1, (ISystemGroup)systemJSAMObject_2);
+            }
+
+            if (systemJSAMObject_1 is ISystemGroup && systemJSAMObject_2 is ISystem)
+            {
+                return systemPlantRoom.Connect((ISystem)systemJSAMObject_2, (ISystemGroup)systemJSAMObject_1);
+            }
+
             if (systemJSAMObject_1 is ISystemGroup && systemJSAMObject_2 is ISystemComponent)
             {
                 return systemPlantRoom.Connect((ISystemGroup)systemJSAMObject_1, (ISystemComponent)systemJSAMObject_2);
