@@ -132,6 +132,7 @@ namespace SAM.Analytical.Grasshopper.Systems
             {
                 systemComponents = new List<ISystemComponent>();
                 systemPlantRoom.GetOrderedSystemComponents(systemComponent, system, Direction.In).ForEach(x => systemComponents.Add(x));
+                systemComponents.Reverse();
                 systemComponents.Add(systemComponent);
                 systemPlantRoom.GetOrderedSystemComponents(systemComponent, system, Direction.Out).ForEach(x => systemComponents.Add(x));
             }
