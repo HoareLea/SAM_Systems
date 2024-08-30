@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json.Linq;
 using SAM.Core;
+using SAM.Geometry.Planar;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -70,6 +71,25 @@ namespace SAM.Analytical.Systems
 
             values[input] = output;
             return true;
+        }
+
+        public List<Point2D> Point2Ds
+        {
+            get
+            {
+                if(values == null)
+                {
+                    return null;
+                }
+
+                List<Point2D> result = new List<Point2D>();
+                foreach(KeyValuePair<double, double> keyValuePair in values)
+                {
+                    result.Add(new Point2D(keyValuePair.Key, keyValuePair.Value));
+                }
+
+                return result;
+            }
         }
 
         public override bool FromJObject(JObject jObject)
