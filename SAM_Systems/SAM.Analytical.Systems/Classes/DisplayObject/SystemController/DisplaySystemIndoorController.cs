@@ -4,7 +4,7 @@ using SAM.Geometry.Systems;
 
 namespace SAM.Analytical.Systems
 {
-    public class DisplaySystemSensorController : SystemSensorController, IDisplaySystemObject<SystemGeometryInstance>
+    public class DisplaySystemIndoorController : SystemIndoorController, IDisplaySystemObject<SystemGeometryInstance>
     {
         private SystemGeometryInstance systemGeometryInstance;
 
@@ -24,19 +24,19 @@ namespace SAM.Analytical.Systems
             }
         }
 
-        public DisplaySystemSensorController(SystemSensorController systemSensorController, SystemGeometrySymbol systemGeometrySymbol, Point2D location)
-            : base(systemSensorController)
+        public DisplaySystemIndoorController(SystemIndoorController systemIndoorController, SystemGeometrySymbol systemGeometrySymbol, Point2D location)
+            : base(systemIndoorController)
         {
             systemGeometryInstance = new SystemGeometryInstance(systemGeometrySymbol, location);
         }
 
-        public DisplaySystemSensorController(DisplaySystemSensorController displaySystemSensorController)
-            : base(displaySystemSensorController)
+        public DisplaySystemIndoorController(DisplaySystemIndoorController displaySystemIndoorController)
+            : base(displaySystemIndoorController)
         {
-            systemGeometryInstance = displaySystemSensorController?.systemGeometryInstance == null ? null : new SystemGeometryInstance(displaySystemSensorController?.systemGeometryInstance);
+            systemGeometryInstance = displaySystemIndoorController?.systemGeometryInstance == null ? null : new SystemGeometryInstance(displaySystemIndoorController?.systemGeometryInstance);
         }
 
-        public DisplaySystemSensorController(JObject jObject)
+        public DisplaySystemIndoorController(JObject jObject)
             : base(jObject)
         {
 
