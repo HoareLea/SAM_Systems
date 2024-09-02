@@ -5,11 +5,20 @@ namespace SAM.Analytical.Systems
     public class SystemIndoorController : SystemSetpointController
     {
         private IndoorControllerDataType indoorControllerDataType;
+        private IndoorControllerLimit indoorControllerLimit;
 
-        public SystemIndoorController(string name, IndoorControllerDataType indoorControllerDataType, ISetpoint setpoint)
+        public SystemIndoorController(string name, IndoorControllerDataType indoorControllerDataType, ISetpoint setpoint, IndoorControllerLimit indoorControllerLimit)
             : base(name, setpoint)
         {
             this.indoorControllerDataType = indoorControllerDataType;
+            this.indoorControllerLimit = indoorControllerLimit; 
+        }
+
+        public SystemIndoorController(string name, string sensorReference, IndoorControllerDataType indoorControllerDataType, ISetpoint setpoint, IndoorControllerLimit indoorControllerLimit)
+            : base(name, sensorReference, setpoint)
+        {
+            this.indoorControllerDataType = indoorControllerDataType;
+            this.indoorControllerLimit = indoorControllerLimit;
         }
 
         public SystemIndoorController(string name)
@@ -24,6 +33,7 @@ namespace SAM.Analytical.Systems
             if(systemIndoorController != null)
             {
                 indoorControllerDataType = systemIndoorController.indoorControllerDataType;
+                indoorControllerLimit = systemIndoorController.indoorControllerLimit;
             }
         }
 
@@ -41,6 +51,14 @@ namespace SAM.Analytical.Systems
             }
         }
 
+        public IndoorControllerLimit IndoorControllerLimit
+        {
+            get
+            {
+                return indoorControllerLimit;
+            }
+        }
+
         public override bool FromJObject(JObject jObject)
         {
             bool result = base.FromJObject(jObject);
@@ -52,6 +70,11 @@ namespace SAM.Analytical.Systems
             if(jObject.ContainsKey("IndoorControllerDataType"))
             {
                 Core.Query.TryGetEnum(jObject.Value<string>("IndoorControllerDataType"), out indoorControllerDataType);
+            }
+
+            if (jObject.ContainsKey("IndoorControllerLimit"))
+            {
+                Core.Query.TryGetEnum(jObject.Value<string>("IndoorControllerLimit"), out indoorControllerLimit);
             }
 
             return true;
@@ -66,6 +89,8 @@ namespace SAM.Analytical.Systems
             }
 
             result.Add("IndoorControllerDataType", indoorControllerDataType.ToString());
+
+            result.Add("IndoorControllerLimit", indoorControllerDataType.ToString());
 
             return result;
         }

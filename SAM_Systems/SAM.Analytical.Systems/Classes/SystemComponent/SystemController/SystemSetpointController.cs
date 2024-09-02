@@ -12,8 +12,20 @@ namespace SAM.Analytical.Systems
 
         }
 
+        public SystemSetpointController(string name, string sensorReference)
+            : base(name, sensorReference)
+        {
+
+        }
+
         public SystemSetpointController(string name, ISetpoint setpoint)
             : base(name)
+        {
+            this.setpoint = setpoint == null ? null : Core.Query.Clone(setpoint);
+        }
+
+        public SystemSetpointController(string name, string sensorReference, ISetpoint setpoint)
+            : base(name, sensorReference)
         {
             this.setpoint = setpoint == null ? null : Core.Query.Clone(setpoint);
         }

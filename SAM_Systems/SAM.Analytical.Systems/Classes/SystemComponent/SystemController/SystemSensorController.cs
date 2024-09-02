@@ -5,10 +5,18 @@ namespace SAM.Analytical.Systems
 {
     public abstract class SystemSensorController : SystemController
     {
+        private string sensorReference;
+
         public SystemSensorController(string name)
             :base(name)
         {
 
+        }
+
+        public SystemSensorController(string name, string sensorReference)
+            : base(name)
+        {
+            this.sensorReference = sensorReference;
         }
 
         public SystemSensorController(SystemSensorController systemSensorController)
@@ -16,7 +24,7 @@ namespace SAM.Analytical.Systems
         {
             if(systemSensorController != null)
             {
-
+                sensorReference = systemSensorController.sensorReference;
             }
         }
 
@@ -37,12 +45,25 @@ namespace SAM.Analytical.Systems
             }
         }
 
+        public string SensorReference
+        {
+            get
+            {
+                return sensorReference;
+            }
+        }
+
         public override bool FromJObject(JObject jObject)
         {
             bool result = base.FromJObject(jObject);
             if (!result)
             {
                 return result;
+            }
+
+            if(jObject.ContainsKey("SensorReference"))
+            {
+                sensorReference = jObject.Value<string>("SensorReference");
             }
 
             return true;
@@ -54,6 +75,11 @@ namespace SAM.Analytical.Systems
             if (result == null)
             {
                 return null;
+            }
+
+            if(sensorReference != null)
+            {
+                result.Add("SensorReference", sensorReference);
             }
 
             return result;

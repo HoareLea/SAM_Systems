@@ -13,6 +13,12 @@ namespace SAM.Analytical.Systems
             this.outdoorControllerDataType = outdoorControllerDataType;
         }
 
+        public SystemOutdoorController(string name, string sensorReference, OutdoorControllerDataType outdoorControllerDataType, ISetpoint setpoint)
+            : base(name, sensorReference, setpoint)
+        {
+            this.outdoorControllerDataType = outdoorControllerDataType;
+        }
+
         public SystemOutdoorController(string name)
             :base(name)
         {
