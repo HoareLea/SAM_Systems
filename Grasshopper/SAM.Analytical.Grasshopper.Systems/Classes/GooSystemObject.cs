@@ -151,11 +151,17 @@ namespace SAM.Analytical.Grasshopper.Systems
 
                 ISAMGeometry2DObject sAMGeometry2DObject = Analytical.Systems.Query.SAMGeometry2Dobject(displaySystemObject);
 
-                List<ISAMGeometry> sAMGeometries = Geometry.Object.Convert.ToSAM_ISAMGeometry(sAMGeometry2DObject);
+                List<BoundingBox2D> boundingBox2Ds = Geometry.Object.Convert.ToSAM_ISAMGeometry(sAMGeometry2DObject)?.FindAll(x => x is IBoundable2D).ConvertAll(x => ((IBoundable2D)x).GetBoundingBox());
+                if(boundingBox2Ds == null || boundingBox2Ds.Count == 0)
+                {
+                    return BoundingBox.Empty;
+                }
 
-                BoundingBox2D boundingBox2D = new BoundingBox2D(sAMGeometries.FindAll(x => x is IBoundable2D).ConvertAll(x => ((IBoundable2D)x).GetBoundingBox()));
+                BoundingBox2D boundingBox2D = new BoundingBox2D(boundingBox2Ds);
 
-                return Geometry.Rhino.Convert.ToRhino(new Geometry.Spatial.BoundingBox3D(Geometry.Spatial.Query.Convert(Geometry.Spatial.Plane.WorldXY, boundingBox2D.Min), Geometry.Spatial.Query.Convert(Geometry.Spatial.Plane.WorldXY, boundingBox2D.Max)));
+                Geometry.Spatial.Plane plane = Geometry.Spatial.Plane.WorldXY;
+
+                return Geometry.Rhino.Convert.ToRhino(new Geometry.Spatial.BoundingBox3D(Geometry.Spatial.Query.Convert(plane, boundingBox2D.Min), Geometry.Spatial.Query.Convert(plane, boundingBox2D.Max)));
             }
         }
     }
