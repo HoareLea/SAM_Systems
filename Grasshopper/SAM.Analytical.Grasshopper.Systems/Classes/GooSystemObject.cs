@@ -6,12 +6,16 @@ using Rhino.Geometry;
 using SAM.Analytical.Grasshopper.Systems.Properties;
 using SAM.Core.Grasshopper;
 using SAM.Core.Systems;
+using SAM.Geometry.Object;
+using SAM.Geometry;
 using SAM.Geometry.Object.Planar;
 using SAM.Geometry.Systems;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using SAM.Geometry.Object.Spatial;
+using SAM.Geometry.Planar;
 
 namespace SAM.Analytical.Grasshopper.Systems
 {
@@ -130,7 +134,30 @@ namespace SAM.Analytical.Grasshopper.Systems
             }
         }
 
-        public BoundingBox ClippingBox => BoundingBox.Unset;
+        public BoundingBox ClippingBox
+        {
+            get
+            {
+                if (Value == null)
+                {
+                    return BoundingBox.Empty;
+                }
+
+                IDisplaySystemObject displaySystemObject = Value as IDisplaySystemObject;
+                if(displaySystemObject == null)
+                {
+                    return BoundingBox.Empty;
+                }
+
+                ISAMGeometry2DObject sAMGeometry2DObject = Analytical.Systems.Query.SAMGeometry2Dobject(displaySystemObject);
+
+                List<ISAMGeometry> sAMGeometries = Geometry.Object.Convert.ToSAM_ISAMGeometry(sAMGeometry2DObject);
+
+                BoundingBox2D boundingBox2D = new BoundingBox2D(sAMGeometries.FindAll(x => x is IBoundable2D).ConvertAll(x => ((IBoundable2D)x).GetBoundingBox()));
+
+                return Geometry.Rhino.Convert.ToRhino(new Geometry.Spatial.BoundingBox3D(Geometry.Spatial.Query.Convert(Geometry.Spatial.Plane.WorldXY, boundingBox2D.Min), Geometry.Spatial.Query.Convert(Geometry.Spatial.Plane.WorldXY, boundingBox2D.Max)));
+            }
+        }
     }
 
     public class GooSystemObjectParam : GH_PersistentParam<GooSystemObject>, IGH_PreviewObject, IGH_BakeAwareObject
