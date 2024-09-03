@@ -1,8 +1,6 @@
 ﻿using SAM.Core;
 using SAM.Core.Systems;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace SAM.Analytical.Systems
 {

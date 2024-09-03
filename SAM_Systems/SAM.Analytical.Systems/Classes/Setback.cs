@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json.Linq;
-using SAM.Core.Systems;
 
 namespace SAM.Analytical.Systems
 {

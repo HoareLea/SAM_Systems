@@ -6,15 +6,12 @@ using Rhino.Geometry;
 using SAM.Analytical.Grasshopper.Systems.Properties;
 using SAM.Core.Grasshopper;
 using SAM.Core.Systems;
-using SAM.Geometry.Object;
-using SAM.Geometry;
 using SAM.Geometry.Object.Planar;
 using SAM.Geometry.Systems;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
-using SAM.Geometry.Object.Spatial;
 using SAM.Geometry.Planar;
 
 namespace SAM.Analytical.Grasshopper.Systems
