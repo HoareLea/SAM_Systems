@@ -86,9 +86,9 @@ namespace SAM.Analytical.Systems
             {
                 displayObject = new DisplaySystemDirectEvaporativeCooler((SystemDirectEvaporativeCooler)systemComponent, systemGeometrySymbol, location);
             }
-            else if (systemComponent is SystemIndoorController)
+            else if (systemComponent is SystemNormalController)
             {
-                displayObject = new DisplaySystemIndoorController((SystemIndoorController)systemComponent, systemGeometrySymbol, location);
+                displayObject = new DisplaySystemNormalController((SystemNormalController)systemComponent, systemGeometrySymbol, location);
             }
             else if (systemComponent is SystemOutdoorController)
             {

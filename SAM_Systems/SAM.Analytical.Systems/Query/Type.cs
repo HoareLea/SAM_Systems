@@ -68,8 +68,8 @@
                 case AnalyticalSystemComponentType.SystemIfLogicalController:
                     return typeof(SystemIfLogicalController);
 
-                case AnalyticalSystemComponentType.SystemIndoorController:
-                    return typeof(SystemIndoorController);
+                case AnalyticalSystemComponentType.SystemNormalController:
+                    return typeof(SystemNormalController);
 
                 case AnalyticalSystemComponentType.SystemMaxLogicalController:
                     return typeof(SystemMaxLogicalController);

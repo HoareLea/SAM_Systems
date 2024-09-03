@@ -2,8 +2,8 @@
 
 namespace SAM.Analytical.Systems
 {
-    [Description("Indoor Controller Data Type")]
-    public enum IndoorControllerDataType
+    [Description("Normal Controller Data Type")]
+    public enum NormalControllerDataType
     {
         [Description("Dry Bulb Temperature")] DryBulbTemperature = 1,
         [Description("Humidity Ratio")] HumidityRatio = 2,

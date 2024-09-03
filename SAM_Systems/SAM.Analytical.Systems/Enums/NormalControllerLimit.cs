@@ -2,8 +2,8 @@
 
 namespace SAM.Analytical.Systems
 {
-    [Description("Indoor Controller Limit")]
-    public enum IndoorControllerLimit
+    [Description("Normal Controller Limit")]
+    public enum NormalControllerLimit
     {
         [Description("Lower Limit")] Lower = 1,
         [Description("Upper Limit")] Upper = 2,

@@ -4,7 +4,7 @@ namespace SAM.Analytical.Systems
 {
     public class SystemPassthroughController : SystemSensorController
     {
-        private IndoorControllerDataType indoorControllerDataType;
+        private NormalControllerDataType normalControllerDataType;
 
         public SystemPassthroughController(string name)
             :base(name)
@@ -12,10 +12,10 @@ namespace SAM.Analytical.Systems
 
         }
 
-        public SystemPassthroughController(string name, IndoorControllerDataType indoorControllerDataType)
+        public SystemPassthroughController(string name, NormalControllerDataType normalControllerDataType)
             : base(name)
         {
-            this.indoorControllerDataType = indoorControllerDataType;
+            this.normalControllerDataType = normalControllerDataType;
         }
 
         public SystemPassthroughController(SystemPassthroughController systemPassthroughController)
@@ -23,7 +23,7 @@ namespace SAM.Analytical.Systems
         {
             if(systemPassthroughController != null)
             {
-                indoorControllerDataType = systemPassthroughController.indoorControllerDataType;
+                normalControllerDataType = systemPassthroughController.normalControllerDataType;
             }
         }
 
@@ -33,11 +33,11 @@ namespace SAM.Analytical.Systems
 
         }
 
-        public IndoorControllerDataType IndoorControllerDataType
+        public NormalControllerDataType NormalControllerDataType
         {
             get
             {
-                return indoorControllerDataType;
+                return normalControllerDataType;
             }
         }
 
@@ -49,9 +49,9 @@ namespace SAM.Analytical.Systems
                 return result;
             }
 
-            if (jObject.ContainsKey("IndoorControllerDataType"))
+            if (jObject.ContainsKey("NormalControllerDataType"))
             {
-                Core.Query.TryGetEnum(jObject.Value<string>("IndoorControllerDataType"), out indoorControllerDataType);
+                Core.Query.TryGetEnum(jObject.Value<string>("NormalControllerDataType"), out normalControllerDataType);
             }
 
             return true;
@@ -65,7 +65,7 @@ namespace SAM.Analytical.Systems
                 return null;
             }
 
-            result.Add("IndoorControllerDataType", indoorControllerDataType.ToString());
+            result.Add("NormalControllerDataType", normalControllerDataType.ToString());
 
             return result;
         }
