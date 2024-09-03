@@ -23,5 +23,14 @@ namespace SAM.Analytical.Systems
         [Description("System Spray Humidifier")] SystemSprayHumidifier,
         [Description("System Steam Humidifier")] SystemSteamHumidifier,
         [Description("System Space")] SystemSpace,
+        [Description("System Difference Controller")] SystemDifferenceController,
+        [Description("System Indoor Controller")] SystemIndoorController,
+        [Description("System Outdoor Controller")] SystemOutdoorController,
+        [Description("System Passthrough Controller")] SystemPassthroughController,
+        [Description("System Maximal Logical Controller")] SystemMaxLogicalController,
+        [Description("System Minimal Logical Controller")] SystemMinLogicalController,
+        [Description("System Not Logical Controller")] SystemNotLogicalController,
+        [Description("System If Logical Controller")] SystemIfLogicalController,
+        [Description("System Signal Logical Controller")] SystemSigLogicalController,
     }
 }

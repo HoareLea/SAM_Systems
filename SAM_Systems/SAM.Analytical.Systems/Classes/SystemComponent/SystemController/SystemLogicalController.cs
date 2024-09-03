@@ -3,9 +3,9 @@ using SAM.Core.Systems;
 
 namespace SAM.Analytical.Systems
 {
-    public class SystemLogicalController : SystemController
+    public abstract class SystemLogicalController : SystemController
     {
-        private LogicalControllerType logicalControllerType;
+        public abstract LogicalControllerType LogicalControllerType { get; }
 
         public SystemLogicalController(string name)
             :base(name)
@@ -13,18 +13,12 @@ namespace SAM.Analytical.Systems
 
         }
 
-        public SystemLogicalController(string name, LogicalControllerType logicalControllerType)
-            : base(name)
-        {
-            this.logicalControllerType = logicalControllerType;
-        }
-
         public SystemLogicalController(SystemLogicalController systemLogicalController)
             : base(systemLogicalController)
         {
             if(systemLogicalController != null)
             {
-                logicalControllerType = systemLogicalController.logicalControllerType;
+
             }
         }
 
@@ -32,14 +26,6 @@ namespace SAM.Analytical.Systems
             : base(jObject)
         {
 
-        }
-
-        public LogicalControllerType LogicalControllerType
-        {
-            get
-            {
-                return logicalControllerType;
-            }
         }
 
         public override SystemConnectorManager SystemConnectorManager
