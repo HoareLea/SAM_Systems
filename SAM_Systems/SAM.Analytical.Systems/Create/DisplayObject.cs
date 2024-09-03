@@ -98,6 +98,10 @@ namespace SAM.Analytical.Systems
             {
                 displayObject = new DisplaySystemDifferenceController((SystemDifferenceController)systemComponent, systemGeometrySymbol, location);
             }
+            else if (systemComponent is SystemPassthroughController)
+            {
+                displayObject = new DisplaySystemPassthroughController((SystemPassthroughController)systemComponent, systemGeometrySymbol, location);
+            }
             else if (systemComponent is SystemMinLogicalController)
             {
                 displayObject = new DisplaySystemMinLogicalController((SystemMinLogicalController)systemComponent, systemGeometrySymbol, location);
