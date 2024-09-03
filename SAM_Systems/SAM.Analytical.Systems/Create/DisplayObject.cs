@@ -86,6 +86,38 @@ namespace SAM.Analytical.Systems
             {
                 displayObject = new DisplaySystemDirectEvaporativeCooler((SystemDirectEvaporativeCooler)systemComponent, systemGeometrySymbol, location);
             }
+            else if (systemComponent is SystemIndoorController)
+            {
+                displayObject = new DisplaySystemIndoorController((SystemIndoorController)systemComponent, systemGeometrySymbol, location);
+            }
+            else if (systemComponent is SystemOutdoorController)
+            {
+                displayObject = new DisplaySystemOutdoorController((SystemOutdoorController)systemComponent, systemGeometrySymbol, location);
+            }
+            else if (systemComponent is SystemDifferenceController)
+            {
+                displayObject = new DisplaySystemDifferenceController((SystemDifferenceController)systemComponent, systemGeometrySymbol, location);
+            }
+            else if (systemComponent is SystemMinLogicalController)
+            {
+                displayObject = new DisplaySystemMinLogicalController((SystemMinLogicalController)systemComponent, systemGeometrySymbol, location);
+            }
+            else if (systemComponent is SystemMaxLogicalController)
+            {
+                displayObject = new DisplaySystemMaxLogicalController((SystemMaxLogicalController)systemComponent, systemGeometrySymbol, location);
+            }
+            else if (systemComponent is SystemNotLogicalController)
+            {
+                displayObject = new DisplaySystemNotLogicalController((SystemNotLogicalController)systemComponent, systemGeometrySymbol, location);
+            }
+            else if (systemComponent is SystemIfLogicalController)
+            {
+                displayObject = new DisplaySystemIfLogicalController((SystemIfLogicalController)systemComponent, systemGeometrySymbol, location);
+            }
+            else if (systemComponent is SystemSigLogicalController)
+            {
+                displayObject = new DisplaySystemSigLogicalController((SystemSigLogicalController)systemComponent, systemGeometrySymbol, location);
+            }
 
             if (!(displayObject is T))
             {

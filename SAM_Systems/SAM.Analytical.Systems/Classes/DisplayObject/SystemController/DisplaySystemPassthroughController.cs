@@ -4,7 +4,7 @@ using SAM.Geometry.Systems;
 
 namespace SAM.Analytical.Systems
 {
-    public class DisplaySystemPassthroughController : SystemPassthroughController, IDisplaySystemObject<SystemGeometryInstance>
+    public class DisplaySystemPassthroughController : SystemPassthroughController, IDisplaySystemController
     {
         private SystemGeometryInstance systemGeometryInstance;
 

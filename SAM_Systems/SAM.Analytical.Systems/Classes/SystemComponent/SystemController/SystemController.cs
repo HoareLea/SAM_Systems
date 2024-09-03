@@ -3,7 +3,7 @@ using SAM.Core.Systems;
 
 namespace SAM.Analytical.Systems
 {
-    public abstract class SystemController : SystemComponent
+    public abstract class SystemController : SystemComponent, ISystemController
     {
         public SystemController(string name)
             : base(name)

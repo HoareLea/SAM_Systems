@@ -4,7 +4,7 @@ using SAM.Geometry.Systems;
 
 namespace SAM.Analytical.Systems
 {
-    public class DisplaySystemSigLogicalController : SystemSigLogicalController, IDisplaySystemObject<SystemGeometryInstance>
+    public class DisplaySystemSigLogicalController : SystemSigLogicalController, IDisplaySystemController
     {
         private SystemGeometryInstance systemGeometryInstance;
 
