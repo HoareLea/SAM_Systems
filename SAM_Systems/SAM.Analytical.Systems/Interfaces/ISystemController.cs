@@ -2,7 +2,7 @@
 
 namespace SAM.Analytical.Systems
 {
-    public interface ISystemController : ISystemJSAMObject
+    public interface ISystemController : ISystemComponent, ISystemControl
     {
 
     }

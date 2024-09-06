@@ -412,9 +412,12 @@ namespace SAM.Core.Systems
                 return false;
             }
 
-            if(!systemGroup.IsValid(systemComponent))
+            if(!(systemComponent is ISystemControl))
             {
-                return false;
+                if (!systemGroup.IsValid(systemComponent))
+                {
+                    return false;
+                }
             }
 
             if (!systemRelationCluster.Contains(systemGroup))
