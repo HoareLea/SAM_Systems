@@ -130,6 +130,22 @@ namespace SAM.Core.Systems
             return systemRelationCluster.AddObject(systemResult_Temp);
         }
 
+        public bool Add(ISystemSensor systemSensor)
+        {
+            ISystemSensor systemSensor_Temp = systemSensor?.Clone();
+            if (systemSensor_Temp == null)
+            {
+                return false;
+            }
+
+            if (systemRelationCluster == null)
+            {
+                systemRelationCluster = new SystemRelationCluster();
+            }
+
+            return systemRelationCluster.AddObject(systemSensor_Temp);
+        }
+
         private bool Add(ISystemConnection systemConnection)
         {
             ISystemConnection systemConnection_Temp = systemConnection?.Clone();
@@ -403,6 +419,66 @@ namespace SAM.Core.Systems
             }
 
             return systemRelationCluster.AddRelation(systemComponent_1, systemComponent_2);
+        }
+
+        public bool Connect(ISystemSensor systemSensor, ISystemComponent systemComponent)
+        {
+            if (systemSensor == null || systemComponent == null)
+            {
+                return false;
+            }
+
+            if (!systemRelationCluster.Contains(systemSensor))
+            {
+                Add(systemSensor);
+            }
+
+            if (!systemRelationCluster.Contains(systemComponent))
+            {
+                Add(systemComponent);
+            }
+
+            return systemRelationCluster.AddRelation(systemSensor, systemComponent);
+        }
+
+        public bool Connect(ISystemSensor systemSensor, ISystemConnection systemConnection)
+        {
+            if (systemSensor == null || systemConnection == null)
+            {
+                return false;
+            }
+
+            if (!systemRelationCluster.Contains(systemConnection))
+            {
+                Add(systemConnection);
+            }
+
+            if (!systemRelationCluster.Contains(systemSensor))
+            {
+                Add(systemSensor);
+            }
+
+            return systemRelationCluster.AddRelation(systemConnection, systemSensor);
+        }
+
+        public bool Connect(ISystemSensor systemSensor, ISystem system)
+        {
+            if (systemSensor == null || system == null)
+            {
+                return false;
+            }
+
+            if (!systemRelationCluster.Contains(system))
+            {
+                Add(system);
+            }
+
+            if (!systemRelationCluster.Contains(systemSensor))
+            {
+                Add(systemSensor);
+            }
+
+            return systemRelationCluster.AddRelation(system, systemSensor);
         }
 
         public bool Connect(ISystemGroup systemGroup, ISystemComponent systemComponent)

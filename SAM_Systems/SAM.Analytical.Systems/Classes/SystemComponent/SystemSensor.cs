@@ -3,8 +3,8 @@ using SAM.Core.Systems;
 
 namespace SAM.Analytical.Systems
 {
-    public class SystemSensor : SystemObject
-    {
+    public class SystemSensor : SystemObject, ISystemSensor
+    {       
         public SystemSensor()
             : base(string.Empty)
         {

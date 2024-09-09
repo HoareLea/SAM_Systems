@@ -52,8 +52,8 @@ namespace SAM.Analytical.Systems
                 (
                     Core.Systems.Create.SystemConnector<AirSystem>(Direction.In, 1),
                     Core.Systems.Create.SystemConnector<AirSystem>(Direction.Out, 1),
-                    Core.Systems.Create.SystemConnector<RefrigerantSystem>(Direction.In, 2),
-                    Core.Systems.Create.SystemConnector<RefrigerantSystem>(Direction.Out, 2),
+                    //Core.Systems.Create.SystemConnector<RefrigerantSystem>(Direction.In, 2),
+                    //Core.Systems.Create.SystemConnector<RefrigerantSystem>(Direction.Out, 2),
                     Core.Systems.Create.SystemConnector<IControlSystem>(),
                     Core.Systems.Create.SystemConnector<IControlSystem>()
                 );
