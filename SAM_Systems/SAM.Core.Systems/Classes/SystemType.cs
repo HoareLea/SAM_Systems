@@ -78,7 +78,7 @@ namespace SAM.Core.Systems
                 return false;
             }
 
-            return type.IsAssignableFrom(type_SystemType);
+            return type.IsAssignableFrom(type_SystemType) || type_SystemType.IsAssignableFrom(type);
         }
 
         public static bool IsValid(Type type)
