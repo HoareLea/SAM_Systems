@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json.Linq;
+using SAM.Core.Systems;
 
 namespace SAM.Analytical.Systems
 {
@@ -41,6 +42,18 @@ namespace SAM.Analytical.Systems
             : base(jObject)
         {
 
+        }
+
+        public override SystemConnectorManager SystemConnectorManager
+        {
+            get
+            {
+                return Core.Systems.Create.SystemConnectorManager
+                (
+                    Core.Systems.Create.SystemConnector<IControlSystem>(Core.Direction.In),
+                    Core.Systems.Create.SystemConnector<IControlSystem>(Core.Direction.Out)
+                );
+            }
         }
 
         public NormalControllerDataType NormalControllerDataType
