@@ -19,9 +19,12 @@ namespace SAM.Analytical.Systems
         public ProfileSetpoint(ProfileSetpoint profileSetpoint)
             :base(profileSetpoint)
         {
-            if(profileSetpoint != null)
+            if(profileSetpoint != null && profileSetpoint.values != null)
             {
-
+                foreach(KeyValuePair<double, double> keyValuePair in profileSetpoint.values)
+                {
+                    values[keyValuePair.Key] = keyValuePair.Value;
+                }
             }
         }
 

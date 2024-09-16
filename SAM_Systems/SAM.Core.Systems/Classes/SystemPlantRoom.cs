@@ -1161,6 +1161,32 @@ namespace SAM.Core.Systems
             return systemRelationCluster?.GetObjects<T>()?.ConvertAll(x => Core.Query.Clone(x)).ConvertAll(x => (T)(object)x);
         }
 
+        public T GetSystemObject<T>(Func<T, bool> func) where T : ISystemJSAMObject
+        {
+            List<T> objects = systemRelationCluster?.GetObjects<T>();
+            if (objects == null || objects.Count == 0)
+            {
+                return default;
+            }
+
+            if (func == null)
+            {
+                return Core.Query.Clone(objects[0]);
+            }
+
+            for (int i = 0; i < objects.Count; i++)
+            {
+                if (func.Invoke(objects[i]))
+                {
+                    return Core.Query.Clone(objects[i]);
+                }
+            }
+
+            return default;
+        }
+
+
+
         public List<ISystemObject> GetSystemObjects()
         {
             return GetSystemObjects<ISystemJSAMObject>()?.ConvertAll(x => x as ISystemObject);

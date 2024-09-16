@@ -2,7 +2,7 @@
 
 namespace SAM.Analytical.Systems
 {
-    public abstract class SetpointSetback : Setback
+    public class SetpointSetback : Setback
     {
         private ISetpoint setpoint;
 
