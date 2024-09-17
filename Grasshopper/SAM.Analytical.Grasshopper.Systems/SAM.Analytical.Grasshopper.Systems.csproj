@@ -27,12 +27,15 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Remove="Convert\**" />
+    <Compile Remove="Enums\**" />
     <Compile Remove="Modify\**" />
     <Compile Remove="Query\**" />
     <EmbeddedResource Remove="Convert\**" />
+    <EmbeddedResource Remove="Enums\**" />
     <EmbeddedResource Remove="Modify\**" />
     <EmbeddedResource Remove="Query\**" />
     <None Remove="Convert\**" />
+    <None Remove="Enums\**" />
     <None Remove="Modify\**" />
     <None Remove="Query\**" />
   </ItemGroup>
@@ -60,9 +63,6 @@
     <Reference Include="SAM.Geometry.Rhino">
       <HintPath>..\..\..\SAM\build\SAM.Geometry.Rhino.dll</HintPath>
     </Reference>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Enums\Parameter\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Grasshopper">

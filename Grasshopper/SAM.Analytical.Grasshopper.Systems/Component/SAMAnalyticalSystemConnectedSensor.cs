@@ -1,19 +1,25 @@
 ﻿using Grasshopper.Kernel;
 using SAM.Analytical.Grasshopper.Systems.Properties;
+using SAM.Analytical.Systems;
+using SAM.Core;
 using SAM.Core.Grasshopper;
 using SAM.Core.Grasshopper.Systems;
 using SAM.Core.Systems;
+using SAM.Geometry.Planar;
+using SAM.Geometry.Rhino;
+using SAM.Geometry.Spatial;
+using SAM.Geometry.Systems;
 using System;
 using System.Collections.Generic;
 
 namespace SAM.Analytical.Grasshopper.Systems
 {
-    public class SAMAnalyticalSystemConnectedSystemObjects : GH_SAMVariableOutputParameterComponent
+    public class SAMAnalyticalSystemConnectedSensor : GH_SAMVariableOutputParameterComponent
     {
         /// <summary>
         /// Gets the unique ID for this component. Do not change this ID after release.
         /// </summary>
-        public override Guid ComponentGuid => new Guid("162c87ab-0bd8-493f-bebb-4b04b93ee498");
+        public override Guid ComponentGuid => new Guid("8341425d-783f-49ad-a8db-d5269d128800");
 
         /// <summary>
         /// The latest version of this component
@@ -30,9 +36,9 @@ namespace SAM.Analytical.Grasshopper.Systems
         /// <summary>
         /// Initializes a new instance of the SAM_point3D class.
         /// </summary>
-        public SAMAnalyticalSystemConnectedSystemObjects()
-          : base("SAMAnalytical.ConnectedSystemObjects", "SAMAnalytical.ConnectedSystemObjects",
-              "Gets Connected System Components",
+        public SAMAnalyticalSystemConnectedSensor()
+          : base("SAMAnalytical.ConnectedSensor", "SAMAnalytical.ConnectedSensor",
+              "Gets Connected SystemSensor",
               "SAM WIP", "Systems")
         {
         }
@@ -46,7 +52,7 @@ namespace SAM.Analytical.Grasshopper.Systems
             {
                 List<GH_SAMParam> result = new List<GH_SAMParam>();
                 result.Add(new GH_SAMParam(new GooSystemPlantRoomParam() { Name = "_systemPlantRoom", NickName = "_systemPlantRoom", Description = "SystemPlantRoom", Access = GH_ParamAccess.item }, ParamVisibility.Binding));
-                result.Add(new GH_SAMParam(new GooSystemObjectParam() { Name = "_systemObject", NickName = "_systemObject", Description = "System Object", Access = GH_ParamAccess.item }, ParamVisibility.Binding));
+                result.Add(new GH_SAMParam(new GooSystemObjectParam() { Name = "_systemController", NickName = "_systemController", Description = "System Controller", Access = GH_ParamAccess.item}, ParamVisibility.Binding));
 
                 return result.ToArray();
             }
@@ -60,7 +66,7 @@ namespace SAM.Analytical.Grasshopper.Systems
             get
             {
                 List<GH_SAMParam> result = new List<GH_SAMParam>();
-                result.Add(new GH_SAMParam(new GooSystemObjectParam() { Name = "systemObjects", NickName = "systemObjects", Description = "System Objects", Access = GH_ParamAccess.list }, ParamVisibility.Binding));
+                result.Add(new GH_SAMParam(new GooSystemObjectParam() { Name = "systemSensor", NickName = "systemSensor", Description = "System Sensor", Access = GH_ParamAccess.item }, ParamVisibility.Binding));
                 return result.ToArray();
             }
         }
@@ -77,28 +83,28 @@ namespace SAM.Analytical.Grasshopper.Systems
 
             string text = null;
 
-            index = Params.IndexOfInputParam("_systemPlantRoom");
             SystemPlantRoom systemPlantRoom = null;
+            index = Params.IndexOfInputParam("_systemPlantRoom");
             if (index == -1 || !dataAccess.GetData(index, ref systemPlantRoom) || systemPlantRoom == null)
             {
                 AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "Invalid data");
                 return;
             }
 
-            index = Params.IndexOfInputParam("_systemObject");
-            ISystemJSAMObject systemObject = null;
-            if (index == -1 || !dataAccess.GetData(index, ref systemObject) || systemObject == null)
+            SystemSensorController systemSensorController = null;
+            index = Params.IndexOfInputParam("_systemController");
+            if (index == -1 || !dataAccess.GetData(index, ref systemSensorController) || systemSensorController == null)
             {
                 AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "Invalid data");
                 return;
             }
 
-            List<ISystemJSAMObject> systemObjects = systemPlantRoom.GetRelatedObjects<ISystemJSAMObject>(systemObject);
+            ISystemSensor systemSensor = systemPlantRoom.GetSystemObject<ISystemSensor>(x => x.Guid.ToString() == systemSensorController.SensorReference);
 
-            index = Params.IndexOfOutputParam("systemObjects");
+            index = Params.IndexOfOutputParam("systemSensor");
             if (index != -1)
             {
-                dataAccess.SetDataList(index, systemObjects);
+                dataAccess.SetData(index, systemSensor);
             }
 
         }

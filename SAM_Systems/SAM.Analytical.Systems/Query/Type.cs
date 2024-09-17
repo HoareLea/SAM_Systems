@@ -61,6 +61,33 @@
 
                 case AnalyticalSystemComponentType.SystemSpace:
                     return typeof(SystemSpace);
+
+                case AnalyticalSystemComponentType.SystemDifferenceController:
+                    return typeof(SystemDifferenceController);
+
+                case AnalyticalSystemComponentType.SystemIfLogicalController:
+                    return typeof(SystemIfLogicalController);
+
+                case AnalyticalSystemComponentType.SystemNormalController:
+                    return typeof(SystemNormalController);
+
+                case AnalyticalSystemComponentType.SystemMaxLogicalController:
+                    return typeof(SystemMaxLogicalController);
+
+                case AnalyticalSystemComponentType.SystemMinLogicalController:
+                    return typeof(SystemMinLogicalController);
+
+                case AnalyticalSystemComponentType.SystemNotLogicalController:
+                    return typeof(SystemNotLogicalController);
+
+                case AnalyticalSystemComponentType.SystemOutdoorController:
+                    return typeof(SystemOutdoorController);
+
+                case AnalyticalSystemComponentType.SystemPassthroughController:
+                    return typeof(SystemPassthroughController);
+
+                case AnalyticalSystemComponentType.SystemSigLogicalController:
+                    return typeof(SystemSigLogicalController);
             }
 
             return null;

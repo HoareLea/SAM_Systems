@@ -55,6 +55,14 @@ namespace SAM.Geometry.Systems
             }
         }
 
+        public DisplaySystemConnectorManager DisplaySystemConnectorManager
+        {
+            get
+            {
+                return displaySystemConnectorManager == null ? null : new DisplaySystemConnectorManager(displaySystemConnectorManager);
+            }
+        }
+
         public Point2D GetPoint2D(int index)
         {
             if(displaySystemConnectorManager == null)

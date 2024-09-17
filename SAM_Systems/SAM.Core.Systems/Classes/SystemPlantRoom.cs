@@ -130,6 +130,22 @@ namespace SAM.Core.Systems
             return systemRelationCluster.AddObject(systemResult_Temp);
         }
 
+        public bool Add(ISystemSensor systemSensor)
+        {
+            ISystemSensor systemSensor_Temp = systemSensor?.Clone();
+            if (systemSensor_Temp == null)
+            {
+                return false;
+            }
+
+            if (systemRelationCluster == null)
+            {
+                systemRelationCluster = new SystemRelationCluster();
+            }
+
+            return systemRelationCluster.AddObject(systemSensor_Temp);
+        }
+
         private bool Add(ISystemConnection systemConnection)
         {
             ISystemConnection systemConnection_Temp = systemConnection?.Clone();
@@ -405,6 +421,66 @@ namespace SAM.Core.Systems
             return systemRelationCluster.AddRelation(systemComponent_1, systemComponent_2);
         }
 
+        public bool Connect(ISystemSensor systemSensor, ISystemComponent systemComponent)
+        {
+            if (systemSensor == null || systemComponent == null)
+            {
+                return false;
+            }
+
+            if (!systemRelationCluster.Contains(systemSensor))
+            {
+                Add(systemSensor);
+            }
+
+            if (!systemRelationCluster.Contains(systemComponent))
+            {
+                Add(systemComponent);
+            }
+
+            return systemRelationCluster.AddRelation(systemSensor, systemComponent);
+        }
+
+        public bool Connect(ISystemSensor systemSensor, ISystemConnection systemConnection)
+        {
+            if (systemSensor == null || systemConnection == null)
+            {
+                return false;
+            }
+
+            if (!systemRelationCluster.Contains(systemConnection))
+            {
+                Add(systemConnection);
+            }
+
+            if (!systemRelationCluster.Contains(systemSensor))
+            {
+                Add(systemSensor);
+            }
+
+            return systemRelationCluster.AddRelation(systemConnection, systemSensor);
+        }
+
+        public bool Connect(ISystemSensor systemSensor, ISystem system)
+        {
+            if (systemSensor == null || system == null)
+            {
+                return false;
+            }
+
+            if (!systemRelationCluster.Contains(system))
+            {
+                Add(system);
+            }
+
+            if (!systemRelationCluster.Contains(systemSensor))
+            {
+                Add(systemSensor);
+            }
+
+            return systemRelationCluster.AddRelation(system, systemSensor);
+        }
+
         public bool Connect(ISystemGroup systemGroup, ISystemComponent systemComponent)
         {
             if(systemGroup == null || systemComponent == null)
@@ -412,9 +488,12 @@ namespace SAM.Core.Systems
                 return false;
             }
 
-            if(!systemGroup.IsValid(systemComponent))
+            if(!(systemComponent is ISystemControl))
             {
-                return false;
+                if (!systemGroup.IsValid(systemComponent))
+                {
+                    return false;
+                }
             }
 
             if (!systemRelationCluster.Contains(systemGroup))
@@ -1081,6 +1160,32 @@ namespace SAM.Core.Systems
         {
             return systemRelationCluster?.GetObjects<T>()?.ConvertAll(x => Core.Query.Clone(x)).ConvertAll(x => (T)(object)x);
         }
+
+        public T GetSystemObject<T>(Func<T, bool> func) where T : ISystemJSAMObject
+        {
+            List<T> objects = systemRelationCluster?.GetObjects<T>();
+            if (objects == null || objects.Count == 0)
+            {
+                return default;
+            }
+
+            if (func == null)
+            {
+                return Core.Query.Clone(objects[0]);
+            }
+
+            for (int i = 0; i < objects.Count; i++)
+            {
+                if (func.Invoke(objects[i]))
+                {
+                    return Core.Query.Clone(objects[i]);
+                }
+            }
+
+            return default;
+        }
+
+
 
         public List<ISystemObject> GetSystemObjects()
         {
