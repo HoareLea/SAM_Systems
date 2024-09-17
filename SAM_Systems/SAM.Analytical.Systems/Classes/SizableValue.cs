@@ -29,16 +29,6 @@ namespace SAM.Analytical.Systems
             FromJObject(jObject);
         }
 
-        public virtual double GetValue(int index)
-        {
-            if(ModifiableValue == null)
-            {
-                return double.NaN;
-            }
-
-            return ModifiableValue.GetCalculatedValue(index);
-        }
-
         public virtual bool FromJObject(JObject jObject)
         {
             if (jObject == null)
