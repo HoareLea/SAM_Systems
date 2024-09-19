@@ -3,28 +3,28 @@ using SAM.Core;
 
 namespace SAM.Analytical.Systems
 {
-    public class SystemEnergyCentreGroup : IndexedDoubles
+    public class SystemEnergyCentreValues : IndexedDoubles
     {
         private string category;
         private string name;
 
-        public SystemEnergyCentreGroup(JObject jObject)
+        public SystemEnergyCentreValues(JObject jObject)
             : base(jObject)
         {
             FromJObject(jObject);
         }
 
-        public SystemEnergyCentreGroup(SystemEnergyCentreGroup systemEnergyCentreGroup)
-            : base(systemEnergyCentreGroup)
+        public SystemEnergyCentreValues(SystemEnergyCentreValues systemEnergyCentreValues)
+            : base(systemEnergyCentreValues)
         {
-            if (systemEnergyCentreGroup != null)
+            if (systemEnergyCentreValues != null)
             {
-                category = systemEnergyCentreGroup.category; 
-                name = systemEnergyCentreGroup.name;
+                category = systemEnergyCentreValues.category; 
+                name = systemEnergyCentreValues.name;
             }
         }
 
-        public SystemEnergyCentreGroup(string name, string category, IndexedDoubles indexedDoubles)
+        public SystemEnergyCentreValues(string name, string category, IndexedDoubles indexedDoubles)
             : base(indexedDoubles)
         {
             this.category = category;

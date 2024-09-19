@@ -8,7 +8,7 @@ namespace SAM.Analytical.Systems
 {
     public class SystemEnergyCentreResult : Result, ISystemResult
     {
-        private List<SystemEnergyCentreGroup> systemEnergyCentreGroups = new List<SystemEnergyCentreGroup>();
+        private List<SystemEnergyCentreValues> systemEnergyCentreValues = new List<SystemEnergyCentreValues>();
         
         public SystemEnergyCentreDataType SystemEnergyCentreDataType { private set; get; }
 
@@ -24,22 +24,22 @@ namespace SAM.Analytical.Systems
             if (systemEnergyCentreResult != null)
             {
                 SystemEnergyCentreDataType = systemEnergyCentreResult.SystemEnergyCentreDataType;
-                systemEnergyCentreGroups = systemEnergyCentreResult.systemEnergyCentreGroups?.ConvertAll(x => new SystemEnergyCentreGroup(x));
+                systemEnergyCentreValues = systemEnergyCentreResult.systemEnergyCentreValues?.ConvertAll(x => new SystemEnergyCentreValues(x));
             }
         }
 
-        public SystemEnergyCentreResult(string uniqueId, string name, string source, SystemEnergyCentreDataType systemEnergyCentreDataType, IEnumerable<SystemEnergyCentreGroup> systemEnergyCentreGroups)
+        public SystemEnergyCentreResult(string uniqueId, string name, string source, SystemEnergyCentreDataType systemEnergyCentreDataType, IEnumerable<SystemEnergyCentreValues> systemEnergyCentreValues)
             : base(name, source, uniqueId)
         {
             SystemEnergyCentreDataType = systemEnergyCentreDataType;
-            this.systemEnergyCentreGroups = systemEnergyCentreGroups.ToList().ConvertAll(x => new SystemEnergyCentreGroup(x));
+            this.systemEnergyCentreValues = systemEnergyCentreValues.ToList().ConvertAll(x => new SystemEnergyCentreValues(x));
         }
 
-        public List<SystemEnergyCentreGroup> SystemEnergyCentreGroups
+        public List<SystemEnergyCentreValues> SystemEnergyCentreValues
         {
             get
             {
-                return systemEnergyCentreGroups?.ConvertAll(x => new SystemEnergyCentreGroup(x));
+                return systemEnergyCentreValues?.ConvertAll(x => new SystemEnergyCentreValues(x));
             }
         }
 
@@ -56,15 +56,15 @@ namespace SAM.Analytical.Systems
                 SystemEnergyCentreDataType = Core.Query.Enum<SystemEnergyCentreDataType>(jObject.Value<string>("SystemEnergyCentreDataType"));
             }
 
-            if (jObject.ContainsKey("SystemEnergyCentreGroups"))
+            if (jObject.ContainsKey("SystemEnergyCentreValues"))
             {
-                JArray jArray = jObject.Value<JArray>("SystemEnergyCentreGroups");
+                JArray jArray = jObject.Value<JArray>("SystemEnergyCentreValues");
                 if(jArray != null)
                 {
-                    systemEnergyCentreGroups = new List<SystemEnergyCentreGroup>();
-                    foreach(JObject jObject_SystemEnergyCentreGroupResult in jArray)
+                    systemEnergyCentreValues = new List<SystemEnergyCentreValues>();
+                    foreach(JObject jObject_SystemEnergyCentreValues in jArray)
                     {
-                        systemEnergyCentreGroups.Add(new SystemEnergyCentreGroup(jObject_SystemEnergyCentreGroupResult));
+                        systemEnergyCentreValues.Add(new SystemEnergyCentreValues(jObject_SystemEnergyCentreValues));
                     }
 
                 }
@@ -83,15 +83,15 @@ namespace SAM.Analytical.Systems
 
             jObject.Add("SystemEnergyCentreDataType", SystemEnergyCentreDataType.ToString());
 
-            if(systemEnergyCentreGroups != null)
+            if(systemEnergyCentreValues != null)
             {
                 JArray jArray = new JArray();
-                foreach(SystemEnergyCentreGroup systemEnergyCentreGroup in systemEnergyCentreGroups)
+                foreach(SystemEnergyCentreValues systemEnergyCentreGroup in systemEnergyCentreValues)
                 {
                     jArray.Add(systemEnergyCentreGroup.ToJObject());
                 }
 
-                jObject.Add("SystemEnergyCentreGroups", jArray);
+                jObject.Add("SystemEnergyCentreValues", jArray);
             }
 
             return jObject;
