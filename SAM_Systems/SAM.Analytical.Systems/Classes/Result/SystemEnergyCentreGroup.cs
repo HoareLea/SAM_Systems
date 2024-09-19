@@ -19,7 +19,8 @@ namespace SAM.Analytical.Systems
         {
             if (systemEnergyCentreGroup != null)
             {
-                category = systemEnergyCentreGroup.category;
+                category = systemEnergyCentreGroup.category; 
+                name = systemEnergyCentreGroup.name;
             }
         }
 
