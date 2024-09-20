@@ -1,8 +1,10 @@
 ﻿using Newtonsoft.Json.Linq;
 using SAM.Core;
 using SAM.Core.Systems;
+using SAM.Geometry.Planar;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 
 namespace SAM.Analytical.Systems
 {
@@ -95,6 +97,39 @@ namespace SAM.Analytical.Systems
             }
 
             return jObject;
+        }
+
+        
+        public static implicit operator SystemIndexedDoublesResult(SystemEnergyCentreResult systemEnergyCentreResult)
+        {
+            if(systemEnergyCentreResult?.systemEnergyCentreValues == null)
+            {
+                return null;
+            }
+
+            Dictionary<string, IndexedDoubles> dictionary = new Dictionary<string, IndexedDoubles>();
+            foreach(SystemEnergyCentreValues systemEnergyCentreValues in systemEnergyCentreResult.systemEnergyCentreValues)
+            {
+                if(systemEnergyCentreValues == null)
+                {
+                    continue;
+                }
+
+                string key = systemEnergyCentreValues.Name;
+                if(string.IsNullOrEmpty(key))
+                {
+                    key = systemEnergyCentreValues?.Category;
+                }
+
+                if(string.IsNullOrEmpty(key))
+                {
+                    continue;
+                }
+
+                dictionary[key] = systemEnergyCentreValues;
+            }
+
+            return new SystemIndexedDoublesResult(systemEnergyCentreResult.Reference, systemEnergyCentreResult.Name, systemEnergyCentreResult.Source, dictionary);
         }
     }
 }
