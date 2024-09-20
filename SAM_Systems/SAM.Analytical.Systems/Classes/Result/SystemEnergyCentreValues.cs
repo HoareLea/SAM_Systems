@@ -7,6 +7,7 @@ namespace SAM.Analytical.Systems
     {
         private string category;
         private string name;
+        private string unitName;
 
         public SystemEnergyCentreValues(JObject jObject)
             : base(jObject)
@@ -21,14 +22,16 @@ namespace SAM.Analytical.Systems
             {
                 category = systemEnergyCentreValues.category; 
                 name = systemEnergyCentreValues.name;
+                unitName = systemEnergyCentreValues.unitName;
             }
         }
 
-        public SystemEnergyCentreValues(string name, string category, IndexedDoubles indexedDoubles)
+        public SystemEnergyCentreValues(string name, string category, string unitName, IndexedDoubles indexedDoubles)
             : base(indexedDoubles)
         {
             this.category = category;
             this.name = name;
+            this.unitName = unitName;
         }
 
         public string Category
@@ -44,6 +47,14 @@ namespace SAM.Analytical.Systems
             get
             {
                 return name;
+            }
+        }
+
+        public string UnitName
+        {
+            get
+            {
+                return unitName;
             }
         }
 
@@ -65,6 +76,11 @@ namespace SAM.Analytical.Systems
                 name = jObject.Value<string>("Name");
             }
 
+            if (jObject.ContainsKey("UnitName"))
+            {
+                unitName = jObject.Value<string>("UnitName");
+            }
+
             return result;
         }
 
@@ -84,6 +100,11 @@ namespace SAM.Analytical.Systems
             if (name != null)
             {
                 jObject.Add("Name", name);
+            }
+
+            if(unitName != null)
+            {
+                jObject.Add("UnitName", unitName);
             }
 
             return jObject;
