@@ -46,7 +46,7 @@ namespace SAM.Analytical.Grasshopper
         /// </summary>
         public SAMAnalyticalSystemResults()
           : base("SAMAnalytical.SystemResults", "SAMAnalytical.SystemResults",
-              "SAMAnalytical SystemResults",
+              "SAMAnalytical SystemResults \n* can be connected to all kinds of SystemResult ie. SystemSpaceResult, SystemCoolingCoilResult etc.",
               "SAM", "Systems")
         {
             SetValue("SAM_SAMVersion", Core.Query.CurrentVersion());

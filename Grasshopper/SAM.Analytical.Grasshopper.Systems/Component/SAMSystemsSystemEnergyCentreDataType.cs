@@ -15,7 +15,7 @@ namespace SAM.Analytical.Grasshopper.Systems
         /// <summary>
         /// The latest version of this component
         /// </summary>
-        public override string LatestComponentVersion => "1.0.3";
+        public override string LatestComponentVersion => "1.0.4";
 
         /// <summary>
         /// Provides an Icon for the component.
@@ -27,8 +27,8 @@ namespace SAM.Analytical.Grasshopper.Systems
         /// </summary>
         public SAMSystemsSystemEnergyCentreDataType()
           : base("SAMSystems.SystemEnergyCentreDataType", "SAMSystems.SystemEnergyCentreDataType",
-              "Select SystemEnergyCentreDataType",
-              "SAM", "Analytical")
+              "Select SystemEnergyCentreDataType \n* to be used with Tas.SystemResults",
+              "SAM", "Systems")
         {
         }
     }
