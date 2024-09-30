@@ -32,10 +32,5 @@ namespace SAM.Analytical.Systems
         {
 
         }
-
-        public override double GetValue(int index)
-        {
-            return double.NaN;
-        }
     }
 }

@@ -39,7 +39,7 @@ namespace SAM.Analytical.Grasshopper.Systems
         public SAMAnalyticalSystemConnectedSensor()
           : base("SAMAnalytical.ConnectedSensor", "SAMAnalytical.ConnectedSensor",
               "Gets Connected SystemSensor",
-              "SAM WIP", "Systems")
+              "SAM", "Systems")
         {
         }
 

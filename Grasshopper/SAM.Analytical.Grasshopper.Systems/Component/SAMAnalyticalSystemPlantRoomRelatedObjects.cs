@@ -33,7 +33,7 @@ namespace SAM.Analytical.Grasshopper.Systems
         public SAMAnalyticalSystemPlantRoomRelatedObjects()
           : base("SystemPlantRoom.RelatedObjects", "SystemPlantRoom.RelatedObjects",
               "Related Objects in SystemPlantRoom",
-              "SAM WIP", "Systems")
+              "SAM", "Systems")
         {
         }
 

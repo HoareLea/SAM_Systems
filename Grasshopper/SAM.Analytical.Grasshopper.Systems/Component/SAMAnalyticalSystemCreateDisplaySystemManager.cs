@@ -34,7 +34,7 @@ namespace SAM.Analytical.Grasshopper.Systems
         public SAMAnalyticalSystemCreateDisplaySystemManager()
           : base("SAMAnalytical.CreateDisplaySystemManager", "SAMAnalytical.CreateDisplaySystemManager",
               "Create DisplaySystemManager",
-              "SAM WIP", "Systems")
+              "SAM", "Systems")
         {
         }
 

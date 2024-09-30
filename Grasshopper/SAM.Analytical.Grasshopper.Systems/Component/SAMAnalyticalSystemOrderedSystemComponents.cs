@@ -35,7 +35,7 @@ namespace SAM.Analytical.Grasshopper.Systems
         public SAMAnalyticalSystemOrderedSystemComponents()
           : base("SAMAnalytical.OrderedSystemComponents", "SAMAnalytical.OrderedSystemComponents",
               "Gets Ordered System Components",
-              "SAM WIP", "Systems")
+              "SAM", "Systems")
         {
         }
 

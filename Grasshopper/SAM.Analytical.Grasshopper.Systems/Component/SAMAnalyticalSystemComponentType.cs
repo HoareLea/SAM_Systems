@@ -28,7 +28,7 @@ namespace SAM.Analytical.Grasshopper.Systems
         public SAMAnalyticalSystemComponentType()
           : base("SAM.AnalyticalSystemComponentType", "SAM.AnalyticalSystemComponentType",
               "AnalyticalSystemComponentType",
-              "SAM WIP", "Systems")
+              "SAM", "Systems")
         {
         }
     }

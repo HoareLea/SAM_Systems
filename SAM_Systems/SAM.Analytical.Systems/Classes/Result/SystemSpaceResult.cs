@@ -27,7 +27,7 @@ namespace SAM.Analytical.Systems
         }
 
         public SystemSpaceResult(string uniqueId, string name, string source, double area, double volume, Dictionary<SpaceDataType, IndexedDoubles> dictionary)
-            : base(name, source, uniqueId, Core.Systems.Query.Dictionary(dictionary))
+            : base(uniqueId, name, source, Core.Systems.Query.Dictionary(dictionary))
         {
             this.area = area;
             this.volume = volume;

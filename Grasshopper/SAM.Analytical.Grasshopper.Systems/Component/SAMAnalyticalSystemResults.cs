@@ -10,6 +10,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Windows.Forms;
 using SAM.Core.Grasshopper;
+using SAM.Analytical.Systems;
 
 namespace SAM.Analytical.Grasshopper
 {
@@ -45,7 +46,7 @@ namespace SAM.Analytical.Grasshopper
         /// </summary>
         public SAMAnalyticalSystemResults()
           : base("SAMAnalytical.SystemResults", "SAMAnalytical.SystemResults",
-              "SAMAnalytical SystemResults",
+              "SAMAnalytical SystemResults \n* can be connected to all kinds of SystemResult ie. SystemSpaceResult, SystemCoolingCoilResult etc.",
               "SAM", "Systems")
         {
             SetValue("SAM_SAMVersion", Core.Query.CurrentVersion());
@@ -145,7 +146,13 @@ namespace SAM.Analytical.Grasshopper
                     value = (@object as dynamic).Value;
                 }
 
-                List<string> keys = (value as SystemIndexedDoublesResult)?.Keys;
+                SystemIndexedDoublesResult systemIndexedDoublesResult = value as SystemIndexedDoublesResult;
+                if(value is SystemEnergyCentreResult)
+                {
+                    systemIndexedDoublesResult = (SystemIndexedDoublesResult)((SystemEnergyCentreResult)value);
+                }
+
+                List<string> keys = systemIndexedDoublesResult?.Keys;
                 if(keys == null)
                 {
                     continue;
@@ -232,7 +239,18 @@ namespace SAM.Analytical.Grasshopper
 
             for (int i = 0; i < systemResults.Count; i++)
             {
-                SystemIndexedDoublesResult systemIndexedDoublesResult = systemResults[i] as SystemIndexedDoublesResult;
+                ISystemResult systemResult = systemResults[i];
+                if(systemResult == null)
+                {
+                    continue;
+                }
+
+                if(systemResult is SystemEnergyCentreResult)
+                {
+                    systemResult = (SystemIndexedDoublesResult)((SystemEnergyCentreResult)systemResult);
+                }
+
+                SystemIndexedDoublesResult systemIndexedDoublesResult = systemResult as SystemIndexedDoublesResult;
                 if(systemIndexedDoublesResult == null)
                 {
                     continue;
@@ -336,7 +354,7 @@ namespace SAM.Analytical.Grasshopper
 //        public SAMAnalyticalSystemResultValues()
 //          : base("SAMAnalytical.SystemResultValues", "SAMAnalytical.SystemResultValues",
 //              "Related Objects in SystemPlantRoom",
-//              "SAM WIP", "Tas")
+//              "SAM", "Tas")
 //        {
 //        }
 

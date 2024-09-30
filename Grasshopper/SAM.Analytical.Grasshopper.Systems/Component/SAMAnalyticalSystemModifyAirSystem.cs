@@ -33,7 +33,7 @@ namespace SAM.Analytical.Grasshopper.Systems
         public SAMAnalyticalSystemModifyAirSystem()
           : base("SAMAnalytical.ModifyAirSystem", "SAMAnalytical.ModifyAirSystem",
               "Modify VentilationSystem",
-              "SAM", "Analytical")
+              "SAM", "Systems")
         {
         }
 
