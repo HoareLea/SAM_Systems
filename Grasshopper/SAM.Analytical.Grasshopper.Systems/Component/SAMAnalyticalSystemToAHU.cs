@@ -34,7 +34,7 @@ namespace SAM.Analytical.Grasshopper.Systems
         public SAMAnalyticalSystemToAHU()
           : base("SAMAnalytical.SystemToAHU", "SAMAnalytical.SystemToAHU",
               "Converts given System to Air Handling Unit",
-              "SAM WIP", "Systems")
+              "SAM", "Systems")
         {
         }
 

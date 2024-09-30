@@ -354,7 +354,7 @@ namespace SAM.Analytical.Grasshopper
 //        public SAMAnalyticalSystemResultValues()
 //          : base("SAMAnalytical.SystemResultValues", "SAMAnalytical.SystemResultValues",
 //              "Related Objects in SystemPlantRoom",
-//              "SAM WIP", "Tas")
+//              "SAM", "Tas")
 //        {
 //        }
 

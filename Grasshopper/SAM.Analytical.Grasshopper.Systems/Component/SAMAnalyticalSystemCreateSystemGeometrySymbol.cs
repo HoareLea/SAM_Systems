@@ -38,7 +38,7 @@ namespace SAM.Analytical.Grasshopper.Systems
         public SAMAnalyticalSystemCreateSystemGeometrySymbol()
           : base("SAMAnalytical.CreateSystemGeometrySymbol", "SAMAnalytical.CreateSystemGeometrySymbol",
               "Create SystemGeometrySymbol",
-              "SAM WIP", "Systems")
+              "SAM", "Systems")
         {
         }
 

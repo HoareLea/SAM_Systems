@@ -38,7 +38,7 @@ namespace SAM.Analytical.Grasshopper.Systems
         public SAMAnalyticalSystemConnector()
           : base("SAMAnalytical.SystemConnector", "SAMAnalytical.SystemConnector",
               "Create System Connector",
-              "SAM WIP", "Systems")
+              "SAM", "Systems")
         {
         }
 

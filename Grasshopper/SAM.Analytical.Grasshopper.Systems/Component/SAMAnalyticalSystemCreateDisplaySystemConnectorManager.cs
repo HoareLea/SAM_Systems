@@ -33,7 +33,7 @@ namespace SAM.Analytical.Grasshopper.Systems
         public SAMAnalyticalSystemCreateDisplaySystemConnectorManager()
           : base("SAMAnalytical.CreateDisplaySystemConnectorManager", "SAMAnalytical.CreateDisplaySystemConnectorManager",
               "Creates DisplaySystemConnectorManager",
-              "SAM WIP", "Systems")
+              "SAM", "Systems")
         {
         }
 

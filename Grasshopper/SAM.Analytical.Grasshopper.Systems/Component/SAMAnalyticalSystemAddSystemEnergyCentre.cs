@@ -33,7 +33,7 @@ namespace SAM.Analytical.Grasshopper.Systems
         public SAMAnalyticalSystemAddSystemEnergyCentre()
           : base("SAMAnalytical.AddSystemEnergyCentre", "SAMAnalytical.AddSystemEnergyCentre",
               "Adds SystemEnergyCentre",
-              "SAM WIP", "Systems")
+              "SAM", "Systems")
         {
         }
 

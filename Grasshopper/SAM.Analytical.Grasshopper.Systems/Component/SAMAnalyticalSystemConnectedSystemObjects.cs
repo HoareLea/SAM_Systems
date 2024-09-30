@@ -33,7 +33,7 @@ namespace SAM.Analytical.Grasshopper.Systems
         public SAMAnalyticalSystemConnectedSystemObjects()
           : base("SAMAnalytical.ConnectedSystemObjects", "SAMAnalytical.ConnectedSystemObjects",
               "Gets Connected System Components",
-              "SAM WIP", "Systems")
+              "SAM", "Systems")
         {
         }
 
