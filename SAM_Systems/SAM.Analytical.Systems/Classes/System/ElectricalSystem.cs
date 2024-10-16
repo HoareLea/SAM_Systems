@@ -5,8 +5,13 @@ namespace SAM.Analytical.Systems
 {
     public class ElectricalSystem : SystemObject, IElectricalSystem
     {
-        public ElectricalSystem(AirSystem airSystem)
-            : base(airSystem)
+        public ElectricalSystem(string name)
+            : base(name)
+        {
+        }
+
+        public ElectricalSystem(ElectricalSystem electricalSystem)
+            : base(electricalSystem)
         {
         }
 
