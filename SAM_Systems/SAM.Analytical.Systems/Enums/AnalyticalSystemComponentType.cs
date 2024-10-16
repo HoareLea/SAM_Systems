@@ -32,5 +32,6 @@ namespace SAM.Analytical.Systems
         [Description("System Not Logical Controller")] SystemNotLogicalController,
         [Description("System If Logical Controller")] SystemIfLogicalController,
         [Description("System Signal Logical Controller")] SystemSigLogicalController,
+        [Description("Pump")] Pump,
     }
 }

@@ -2,20 +2,20 @@
 
 namespace SAM.Analytical.Systems
 {
-    public abstract class LiquidSystem : FluidSystem
+    public class DomesticHotWaterSystem : LiquidSystem
     {
-        public LiquidSystem(LiquidSystem liquidSystem) 
-            : base(liquidSystem)
+        public DomesticHotWaterSystem(DomesticHotWaterSystem domesticHotWaterSystem) 
+            : base(domesticHotWaterSystem)
         {
         }
 
-        public LiquidSystem(JObject jObject)
-            : base(jObject)
-        {
-        }
-
-        public LiquidSystem(string name)
+        public DomesticHotWaterSystem(string name)
             : base(name)
+        {
+        }
+
+        public DomesticHotWaterSystem(JObject jObject)
+            : base(jObject)
         {
         }
 
