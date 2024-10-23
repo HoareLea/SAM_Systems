@@ -3,21 +3,21 @@ using SAM.Core.Systems;
 
 namespace SAM.Analytical.Systems
 {
-    public class SystemPump : SystemComponent
+    public class SystemChiller : SystemComponent
     {
-        public SystemPump(string name)
+        public SystemChiller(string name)
             : base(name)
         {
 
         }
 
-        public SystemPump(SystemPump systemPump)
-            : base(systemPump)
+        public SystemChiller(SystemChiller systemChiller)
+            : base(systemChiller)
         {
 
         }
 
-        public SystemPump(JObject jObject)
+        public SystemChiller(JObject jObject)
             : base(jObject)
         {
 
@@ -47,3 +47,4 @@ namespace SAM.Analytical.Systems
         }
     }
 }
+

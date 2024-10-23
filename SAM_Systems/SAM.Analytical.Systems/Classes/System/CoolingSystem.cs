@@ -8,6 +8,10 @@ namespace SAM.Analytical.Systems
             : base(coolingSystem)
         {
         }
+        public CoolingSystem(string name)
+            : base(name)
+        {
+        }
 
         public CoolingSystem(JObject jObject)
             : base(jObject)

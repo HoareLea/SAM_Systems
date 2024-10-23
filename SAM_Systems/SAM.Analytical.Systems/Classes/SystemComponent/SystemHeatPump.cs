@@ -3,21 +3,21 @@ using SAM.Core.Systems;
 
 namespace SAM.Analytical.Systems
 {
-    public class SystemPump : SystemComponent
+    public class SystemHeatPump : SystemComponent
     {
-        public SystemPump(string name)
+        public SystemHeatPump(string name)
             : base(name)
         {
 
         }
 
-        public SystemPump(SystemPump systemPump)
-            : base(systemPump)
+        public SystemHeatPump(SystemHeatPump systemHeatPump)
+            : base(systemHeatPump)
         {
 
         }
 
-        public SystemPump(JObject jObject)
+        public SystemHeatPump(JObject jObject)
             : base(jObject)
         {
 
