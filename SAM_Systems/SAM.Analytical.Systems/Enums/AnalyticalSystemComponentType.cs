@@ -36,5 +36,6 @@ namespace SAM.Analytical.Systems
         [Description("System Chiller")] SystemChiller,
         [Description("System Heat Pump")] SystemHeatPump,
         [Description("System Liquid Junction")] SystemLiquidJunction,
+        [Description("System Air Source Heat Pump")] SystemAirSourceHeatPump,
     }
 }

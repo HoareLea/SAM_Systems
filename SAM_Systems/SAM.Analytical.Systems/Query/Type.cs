@@ -20,6 +20,9 @@
                 case AnalyticalSystemComponentType.SystemHeatPump:
                     return typeof(SystemHeatPump);
 
+                case AnalyticalSystemComponentType.SystemAirSourceHeatPump:
+                    return typeof(SystemAirSourceHeatPump);
+
                 case AnalyticalSystemComponentType.SystemCoolingCoil:
                     return typeof(SystemCoolingCoil);
 
