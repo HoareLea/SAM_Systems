@@ -14,8 +14,17 @@
                 case AnalyticalSystemComponentType.SystemFan:
                     return typeof(SystemFan);
 
+                case AnalyticalSystemComponentType.SystemPump:
+                    return typeof(SystemPump);
+
+                case AnalyticalSystemComponentType.SystemHeatPump:
+                    return typeof(SystemHeatPump);
+
                 case AnalyticalSystemComponentType.SystemCoolingCoil:
                     return typeof(SystemCoolingCoil);
+
+                case AnalyticalSystemComponentType.SystemChiller:
+                    return typeof(SystemChiller);
 
                 case AnalyticalSystemComponentType.SystemHeatingCoil:
                     return typeof(SystemHeatingCoil);

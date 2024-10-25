@@ -86,6 +86,22 @@ namespace SAM.Analytical.Systems
             {
                 displayObject = new DisplaySystemDirectEvaporativeCooler((SystemDirectEvaporativeCooler)systemComponent, systemGeometrySymbol, location);
             }
+            else if (systemComponent is SystemPump)
+            {
+                displayObject = new DisplaySystemPump((SystemPump)systemComponent, systemGeometrySymbol, location);
+            }
+            else if (systemComponent is SystemHeatPump)
+            {
+                displayObject = new DisplaySystemHeatPump((SystemHeatPump)systemComponent, systemGeometrySymbol, location);
+            }
+            else if (systemComponent is SystemBoiler)
+            {
+                displayObject = new DisplaySystemBoiler((SystemBoiler)systemComponent, systemGeometrySymbol, location);
+            }
+            else if (systemComponent is SystemChiller)
+            {
+                displayObject = new DisplaySystemChiller((SystemChiller)systemComponent, systemGeometrySymbol, location);
+            }
             else if (systemComponent is SystemNormalController)
             {
                 displayObject = new DisplaySystemNormalController((SystemNormalController)systemComponent, systemGeometrySymbol, location);
