@@ -102,6 +102,10 @@ namespace SAM.Analytical.Systems
             {
                 displayObject = new DisplaySystemChiller((SystemChiller)systemComponent, systemGeometrySymbol, location);
             }
+            else if (systemComponent is SystemLiquidJunction)
+            {
+                displayObject = new DisplaySystemLiquidJunction((SystemLiquidJunction)systemComponent, systemGeometrySymbol, location);
+            }
             else if (systemComponent is SystemNormalController)
             {
                 displayObject = new DisplaySystemNormalController((SystemNormalController)systemComponent, systemGeometrySymbol, location);
