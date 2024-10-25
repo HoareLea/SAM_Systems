@@ -12,5 +12,6 @@ namespace SAM.Analytical.Systems
         [Description("Electrical System")] ElectricalSystem,
         [Description("Heating System")] HeatingSystem,
         [Description("Refrigerant System")] RefrigerantSystem,
+        [Description("Liquid System")] LiquidSystem,
     }
 }
