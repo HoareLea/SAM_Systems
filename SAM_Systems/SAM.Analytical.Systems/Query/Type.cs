@@ -26,8 +26,32 @@
                 case AnalyticalSystemComponentType.SystemCoolingCoil:
                     return typeof(SystemCoolingCoil);
 
-                case AnalyticalSystemComponentType.SystemChiller:
-                    return typeof(SystemChiller);
+                case AnalyticalSystemComponentType.SystemAirSourceChiller:
+                    return typeof(SystemAirSourceChiller);
+
+                case AnalyticalSystemComponentType.SystemWaterSourceChiller:
+                    return typeof(SystemWaterSourceChiller);
+
+                case AnalyticalSystemComponentType.SystemMultiChiller:
+                    return typeof(SystemMultiChiller);
+
+                case AnalyticalSystemComponentType.SystemAbsorptionChiller:
+                    return typeof(SystemAbsorptionChiller);
+
+                case AnalyticalSystemComponentType.SystemAirSourceDirectAbsorptionChiller:
+                    return typeof(SystemAirSourceDirectAbsorptionChiller);
+
+                case AnalyticalSystemComponentType.SystemWaterSourceAbsorptionChiller:
+                    return typeof(SystemWaterSourceAbsorptionChiller);
+
+                case AnalyticalSystemComponentType.SystemWaterSourceDirectAbsorptionChiller:
+                    return typeof(SystemWaterSourceDirectAbsorptionChiller);
+
+                case AnalyticalSystemComponentType.SystemIceStorageChiller:
+                    return typeof(SystemIceStorageChiller);
+
+                case AnalyticalSystemComponentType.SystemWaterSourceIceStorageChiller:
+                    return typeof(SystemWaterSourceIceStorageChiller);
 
                 case AnalyticalSystemComponentType.SystemHeatingCoil:
                     return typeof(SystemHeatingCoil);

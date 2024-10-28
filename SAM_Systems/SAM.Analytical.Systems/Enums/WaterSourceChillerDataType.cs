@@ -2,8 +2,8 @@
 
 namespace SAM.Analytical.Systems
 {
-    [Description("Chiller Data Type")]
-    public enum ChillerDataType
+    [Description("Water Source Chiller Data Type")]
+    public enum WaterSourceChillerDataType
     {
         [Description("Flow Rate")] FlowRate = 1,
         [Description("Temperature")] Temperature = 2,

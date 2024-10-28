@@ -4,7 +4,7 @@ using SAM.Geometry.Systems;
 
 namespace SAM.Analytical.Systems
 {
-    public class DisplaySystemChiller : SystemChiller, IDisplaySystemObject<SystemGeometryInstance>
+    public class DisplaySystemWaterSourceIceStorageChiller : SystemWaterSourceIceStorageChiller, IDisplaySystemObject<SystemGeometryInstance>
     {
         private SystemGeometryInstance systemGeometryInstance;
 
@@ -24,19 +24,19 @@ namespace SAM.Analytical.Systems
             }
         }
 
-        public DisplaySystemChiller(SystemChiller systemChiller, SystemGeometrySymbol systemGeometrySymbol, Point2D location)
-            :base(systemChiller)
+        public DisplaySystemWaterSourceIceStorageChiller(SystemWaterSourceIceStorageChiller systemWaterSourceIceStorageChiller, SystemGeometrySymbol systemGeometrySymbol, Point2D location)
+            : base(systemWaterSourceIceStorageChiller)
         {
             systemGeometryInstance = new SystemGeometryInstance(systemGeometrySymbol, location);
         }
 
-        public DisplaySystemChiller(DisplaySystemChiller displaySystemChiller)
-            : base(displaySystemChiller)
+        public DisplaySystemWaterSourceIceStorageChiller(DisplaySystemWaterSourceIceStorageChiller displaySystemWaterSourceIceStorageChiller)
+            : base(displaySystemWaterSourceIceStorageChiller)
         {
-            systemGeometryInstance = displaySystemChiller?.systemGeometryInstance == null ? null : new SystemGeometryInstance(displaySystemChiller?.systemGeometryInstance);
+            systemGeometryInstance = displaySystemWaterSourceIceStorageChiller?.systemGeometryInstance == null ? null : new SystemGeometryInstance(displaySystemWaterSourceIceStorageChiller?.systemGeometryInstance);
         }
 
-        public DisplaySystemChiller(JObject jObject)
+        public DisplaySystemWaterSourceIceStorageChiller(JObject jObject)
             : base(jObject)
         {
 
@@ -44,7 +44,7 @@ namespace SAM.Analytical.Systems
 
         public bool Move(Vector2D vector2D)
         {
-            if(systemGeometryInstance == null || vector2D == null)
+            if (systemGeometryInstance == null || vector2D == null)
             {
                 return false;
             }
@@ -65,12 +65,12 @@ namespace SAM.Analytical.Systems
         public override bool FromJObject(JObject jObject)
         {
             bool result = base.FromJObject(jObject);
-            if(!result)
+            if (!result)
             {
                 return result;
             }
 
-            if(jObject.ContainsKey("SystemGeometryInstance"))
+            if (jObject.ContainsKey("SystemGeometryInstance"))
             {
                 systemGeometryInstance = new SystemGeometryInstance(jObject.Value<JObject>("SystemGeometryInstance"));
             }
@@ -81,7 +81,7 @@ namespace SAM.Analytical.Systems
         public override JObject ToJObject()
         {
             JObject result = base.ToJObject();
-            if(result == null)
+            if (result == null)
             {
                 return result;
             }

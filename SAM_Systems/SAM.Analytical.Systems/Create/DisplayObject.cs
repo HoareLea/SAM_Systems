@@ -102,9 +102,41 @@ namespace SAM.Analytical.Systems
             {
                 displayObject = new DisplaySystemBoiler((SystemBoiler)systemComponent, systemGeometrySymbol, location);
             }
-            else if (systemComponent is SystemChiller)
+            else if (systemComponent is SystemAirSourceChiller)
             {
-                displayObject = new DisplaySystemChiller((SystemChiller)systemComponent, systemGeometrySymbol, location);
+                displayObject = new DisplaySystemAirSourceChiller((SystemAirSourceChiller)systemComponent, systemGeometrySymbol, location);
+            }
+            else if (systemComponent is SystemWaterSourceChiller)
+            {
+                displayObject = new DisplaySystemWaterSourceChiller((SystemWaterSourceChiller)systemComponent, systemGeometrySymbol, location);
+            }
+            else if (systemComponent is SystemMultiChiller)
+            {
+                displayObject = new DisplaySystemMultiChiller((SystemMultiChiller)systemComponent, systemGeometrySymbol, location);
+            }
+            else if (systemComponent is SystemAbsorptionChiller)
+            {
+                displayObject = new DisplaySystemAbsorptionChiller((SystemAbsorptionChiller)systemComponent, systemGeometrySymbol, location);
+            }
+            else if (systemComponent is SystemAirSourceDirectAbsorptionChiller)
+            {
+                displayObject = new DisplaySystemAirSourceDirectAbsorptionChiller((SystemAirSourceDirectAbsorptionChiller)systemComponent, systemGeometrySymbol, location);
+            }
+            else if (systemComponent is SystemWaterSourceAbsorptionChiller)
+            {
+                displayObject = new DisplaySystemWaterSourceAbsorptionChiller((SystemWaterSourceAbsorptionChiller)systemComponent, systemGeometrySymbol, location);
+            }
+            else if (systemComponent is SystemWaterSourceDirectAbsorptionChiller)
+            {
+                displayObject = new DisplaySystemWaterSourceDirectAbsorptionChiller((SystemWaterSourceDirectAbsorptionChiller)systemComponent, systemGeometrySymbol, location);
+            }
+            else if (systemComponent is SystemIceStorageChiller)
+            {
+                displayObject = new DisplaySystemIceStorageChiller((SystemIceStorageChiller)systemComponent, systemGeometrySymbol, location);
+            }
+            else if (systemComponent is SystemWaterSourceIceStorageChiller)
+            {
+                displayObject = new DisplaySystemWaterSourceIceStorageChiller((SystemWaterSourceIceStorageChiller)systemComponent, systemGeometrySymbol, location);
             }
             else if (systemComponent is SystemLiquidJunction)
             {
