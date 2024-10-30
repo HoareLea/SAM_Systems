@@ -62,6 +62,9 @@
                 case AnalyticalSystemComponentType.SystemBoiler:
                     return typeof(SystemBoiler);
 
+                case AnalyticalSystemComponentType.SystemTank:
+                    return typeof(SystemTank);
+
                 case AnalyticalSystemComponentType.SystemAirJunction:
                     return typeof(SystemAirJunction);
 

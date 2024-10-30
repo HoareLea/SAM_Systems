@@ -142,6 +142,10 @@ namespace SAM.Analytical.Systems
             {
                 displayObject = new DisplaySystemWaterSourceIceStorageChiller((SystemWaterSourceIceStorageChiller)systemComponent, systemGeometrySymbol, location);
             }
+            else if (systemComponent is SystemTank)
+            {
+                displayObject = new DisplaySystemTank((SystemTank)systemComponent, systemGeometrySymbol, location);
+            }
             else if (systemComponent is SystemLiquidJunction)
             {
                 displayObject = new DisplaySystemLiquidJunction((SystemLiquidJunction)systemComponent, systemGeometrySymbol, location);
