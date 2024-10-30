@@ -42,8 +42,9 @@ namespace SAM.Analytical.Systems
         [Description("System Water Source Direct Absorption Chiller")] SystemWaterSourceDirectAbsorptionChiller,
         [Description("System Ice Storage Chiller")] SystemIceStorageChiller,
         [Description("System Water Source Ice Storage Chiller")] SystemWaterSourceIceStorageChiller,
-        [Description("System Heat Pump")] SystemHeatPump,
         [Description("System Liquid Junction")] SystemLiquidJunction,
         [Description("System Air Source Heat Pump")] SystemAirSourceHeatPump,
+        [Description("System Water Source Heat Pump")] SystemWaterSourceHeatPump,
+        [Description("System Water To Water Heat Pump")] SystemWaterToWaterHeatPump,
     }
 }

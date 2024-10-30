@@ -4,7 +4,7 @@ using SAM.Geometry.Systems;
 
 namespace SAM.Analytical.Systems
 {
-    public class DisplaySystemHeatPump : SystemHeatPump, IDisplaySystemObject<SystemGeometryInstance>
+    public class DisplaySystemWaterSourceHeatPump : SystemWaterSourceHeatPump, IDisplaySystemObject<SystemGeometryInstance>
     {
         private SystemGeometryInstance systemGeometryInstance;
 
@@ -24,19 +24,19 @@ namespace SAM.Analytical.Systems
             }
         }
 
-        public DisplaySystemHeatPump(SystemHeatPump systemHeatPump, SystemGeometrySymbol systemGeometrySymbol, Point2D location)
-            :base(systemHeatPump)
+        public DisplaySystemWaterSourceHeatPump(SystemWaterSourceHeatPump systemWaterSourceHeatPump, SystemGeometrySymbol systemGeometrySymbol, Point2D location)
+            :base(systemWaterSourceHeatPump)
         {
             systemGeometryInstance = new SystemGeometryInstance(systemGeometrySymbol, location);
         }
 
-        public DisplaySystemHeatPump(DisplaySystemHeatPump displaySystemHeatPump)
+        public DisplaySystemWaterSourceHeatPump(DisplaySystemWaterSourceHeatPump displaySystemHeatPump)
             : base(displaySystemHeatPump)
         {
             systemGeometryInstance = displaySystemHeatPump?.systemGeometryInstance == null ? null : new SystemGeometryInstance(displaySystemHeatPump?.systemGeometryInstance);
         }
 
-        public DisplaySystemHeatPump(JObject jObject)
+        public DisplaySystemWaterSourceHeatPump(JObject jObject)
             : base(jObject)
         {
 

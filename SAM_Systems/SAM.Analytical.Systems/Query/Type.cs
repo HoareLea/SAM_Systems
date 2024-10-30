@@ -17,11 +17,14 @@
                 case AnalyticalSystemComponentType.SystemPump:
                     return typeof(SystemPump);
 
-                case AnalyticalSystemComponentType.SystemHeatPump:
-                    return typeof(SystemHeatPump);
+                case AnalyticalSystemComponentType.SystemWaterSourceHeatPump:
+                    return typeof(SystemWaterSourceHeatPump);
 
                 case AnalyticalSystemComponentType.SystemAirSourceHeatPump:
                     return typeof(SystemAirSourceHeatPump);
+
+                case AnalyticalSystemComponentType.SystemWaterToWaterHeatPump:
+                    return typeof(SystemWaterToWaterHeatPump);
 
                 case AnalyticalSystemComponentType.SystemCoolingCoil:
                     return typeof(SystemCoolingCoil);

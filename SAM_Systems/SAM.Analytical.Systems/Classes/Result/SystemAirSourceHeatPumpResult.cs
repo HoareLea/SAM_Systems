@@ -5,21 +5,21 @@ using System.Collections.Generic;
 
 namespace SAM.Analytical.Systems
 {
-    public class SystemHeatPumpResult : SystemIndexedDoublesResult, ISystemComponentResult
-    { 
-        public SystemHeatPumpResult(string uniqueId, string name, string source, Dictionary<HeatPumpDataType, IndexedDoubles> dictionary)
+    public class SystemAirSourceHeatPumpResult : SystemIndexedDoublesResult, ISystemComponentResult
+    {
+        public SystemAirSourceHeatPumpResult(string uniqueId, string name, string source, Dictionary<AirSourceHeatPumpDataType, IndexedDoubles> dictionary)
             : base(uniqueId, name, source, Core.Systems.Query.Dictionary(dictionary))
         {
         }
 
-        public SystemHeatPumpResult(JObject jObject)
+        public SystemAirSourceHeatPumpResult(JObject jObject)
             : base(jObject)
         {
             FromJObject(jObject);
         }
 
-        public SystemHeatPumpResult(SystemHeatPumpResult systemHeatPumpResult)
-            : base(systemHeatPumpResult)
+        public SystemAirSourceHeatPumpResult(SystemAirSourceHeatPumpResult systemAirSourceHeatPumpResult)
+            : base(systemAirSourceHeatPumpResult)
         {
 
         }

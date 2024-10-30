@@ -4,7 +4,7 @@ using SAM.Geometry.Systems;
 
 namespace SAM.Analytical.Systems
 {
-    public class DisplaySystemAirSourceHeatPump : SystemAirSourceHeatPump, IDisplaySystemObject<SystemGeometryInstance>
+    public class DisplaySystemWaterToWaterHeatPump : SystemWaterToWaterHeatPump, IDisplaySystemObject<SystemGeometryInstance>
     {
         private SystemGeometryInstance systemGeometryInstance;
 
@@ -24,19 +24,19 @@ namespace SAM.Analytical.Systems
             }
         }
 
-        public DisplaySystemAirSourceHeatPump(SystemAirSourceHeatPump systemAirSourceHeatPump, SystemGeometrySymbol systemGeometrySymbol, Point2D location)
-            : base(systemAirSourceHeatPump)
+        public DisplaySystemWaterToWaterHeatPump(SystemWaterToWaterHeatPump systemWaterToWaterHeatPump, SystemGeometrySymbol systemGeometrySymbol, Point2D location)
+            : base(systemWaterToWaterHeatPump)
         {
             systemGeometryInstance = new SystemGeometryInstance(systemGeometrySymbol, location);
         }
 
-        public DisplaySystemAirSourceHeatPump(DisplaySystemAirSourceHeatPump displaySystemAirSourceHeatPump)
-            : base(displaySystemAirSourceHeatPump)
+        public DisplaySystemWaterToWaterHeatPump(DisplaySystemWaterToWaterHeatPump displaySystemWaterToWaterHeatPump)
+            : base(displaySystemWaterToWaterHeatPump)
         {
-            systemGeometryInstance = displaySystemAirSourceHeatPump?.systemGeometryInstance == null ? null : new SystemGeometryInstance(displaySystemAirSourceHeatPump?.systemGeometryInstance);
+            systemGeometryInstance = displaySystemWaterToWaterHeatPump?.systemGeometryInstance == null ? null : new SystemGeometryInstance(displaySystemWaterToWaterHeatPump?.systemGeometryInstance);
         }
 
-        public DisplaySystemAirSourceHeatPump(JObject jObject)
+        public DisplaySystemWaterToWaterHeatPump(JObject jObject)
             : base(jObject)
         {
 

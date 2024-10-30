@@ -2,8 +2,8 @@
 
 namespace SAM.Analytical.Systems
 {
-    [Description("HeatPump Data Type")]
-    public enum HeatPumpDataType
+    [Description("Water To Water HeatPump Data Type")]
+    public enum WaterToWaterHeatPumpDataType
     {
         [Description("Heating Demand")] HeatingDemand = 1,
         [Description("Cooling Demand")] CoolingDemand = 2,
