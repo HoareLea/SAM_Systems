@@ -2,7 +2,7 @@
 
 namespace SAM.Analytical.Systems
 {
-    public abstract class LiquidSystem : FluidSystem
+    public class LiquidSystem : FluidSystem
     {
         public LiquidSystem(LiquidSystem liquidSystem) 
             : base(liquidSystem)
