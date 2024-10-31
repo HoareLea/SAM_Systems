@@ -186,6 +186,30 @@ namespace SAM.Analytical.Systems
             {
                 displayObject = new DisplaySystemSigLogicalController((SystemSigLogicalController)systemComponent, systemGeometrySymbol, location);
             }
+            else if (systemComponent is CoolingSystemCollection)
+            {
+                displayObject = new DisplayCoolingSystemCollection((CoolingSystemCollection)systemComponent, systemGeometrySymbol, location);
+            }
+            else if (systemComponent is DomesticHotWaterSystemCollection)
+            {
+                displayObject = new DisplayDomesticHotWaterSystemCollection((DomesticHotWaterSystemCollection)systemComponent, systemGeometrySymbol, location);
+            }
+            else if (systemComponent is ElectricalSystemCollection)
+            {
+                displayObject = new DisplayElectricalSystemCollection((ElectricalSystemCollection)systemComponent, systemGeometrySymbol, location);
+            }
+            else if (systemComponent is FuelSystemCollection)
+            {
+                displayObject = new DisplayFuelSystemCollection((FuelSystemCollection)systemComponent, systemGeometrySymbol, location);
+            }
+            else if (systemComponent is HeatingSystemCollection)
+            {
+                displayObject = new DisplayHeatingSystemCollection((HeatingSystemCollection)systemComponent, systemGeometrySymbol, location);
+            }
+            else if (systemComponent is RefrigerantSystemCollection)
+            {
+                displayObject = new DisplayRefrigerantSystemCollection((RefrigerantSystemCollection)systemComponent, systemGeometrySymbol, location);
+            }
 
             if (!(displayObject is T))
             {

@@ -3,26 +3,26 @@ using SAM.Core.Systems;
 
 namespace SAM.Analytical.Systems
 {
-    public class DomesticHotWaterSystemGroup : SystemGroup<DomesticHotWaterSystem>
+    public class DomesticHotWaterSystemCollection : SystemCollection<DomesticHotWaterSystem>
     {
-        public DomesticHotWaterSystemGroup()
+        public DomesticHotWaterSystemCollection()
             : base()
         {
         }
 
-        public DomesticHotWaterSystemGroup(string name)
+        public DomesticHotWaterSystemCollection(string name)
             : base(name)
         {
         }
 
-        public DomesticHotWaterSystemGroup(JObject jObject)
+        public DomesticHotWaterSystemCollection(JObject jObject)
             : base(jObject)
         {
-            FromJObject(jObject);
+
         }
 
-        public DomesticHotWaterSystemGroup(DomesticHotWaterSystemGroup domesticHotWaterSystemGroup)
-            : base(domesticHotWaterSystemGroup)
+        public DomesticHotWaterSystemCollection(DomesticHotWaterSystemCollection domesticHotWaterSystemCollection)
+            : base(domesticHotWaterSystemCollection)
         {
 
         }

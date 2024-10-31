@@ -3,26 +3,26 @@ using SAM.Core.Systems;
 
 namespace SAM.Analytical.Systems
 {
-    public class AirSystemGroup : SystemGroup<AirSystem>
+    public class ElectricalSystemCollection : SystemCollection<ElectricalSystem>
     {
-        public AirSystemGroup()
+        public ElectricalSystemCollection()
             : base()
         {
         }
 
-        public AirSystemGroup(string name)
+        public ElectricalSystemCollection(string name)
             : base(name)
         {
         }
 
-        public AirSystemGroup(JObject jObject)
+        public ElectricalSystemCollection(JObject jObject)
             : base(jObject)
         {
 
         }
 
-        public AirSystemGroup(AirSystemGroup airSystemGroup)
-            : base(airSystemGroup)
+        public ElectricalSystemCollection(ElectricalSystemCollection electricalSystemCollection)
+            : base(electricalSystemCollection)
         {
 
         }

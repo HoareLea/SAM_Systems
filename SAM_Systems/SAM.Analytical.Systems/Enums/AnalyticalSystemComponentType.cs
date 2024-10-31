@@ -47,5 +47,11 @@ namespace SAM.Analytical.Systems
         [Description("System Water Source Heat Pump")] SystemWaterSourceHeatPump,
         [Description("System Water To Water Heat Pump")] SystemWaterToWaterHeatPump,
         [Description("System Tank")] SystemTank,
+        [Description("System Cooling Collection")] CoolingSystemCollection,
+        [Description("System Heating Collection")] HeatingSystemCollection,
+        [Description("System Domestic Hot Water Collection")] DomesticHotWaterSystemCollection,
+        [Description("System Electrical Collection")] ElectricalSystemCollection,
+        [Description("System Fuel Collection")] FuelSystemCollection,
+        [Description("System Refrigerant Collection")] RefrigerantSystemCollection
     }
 }

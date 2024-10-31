@@ -3,26 +3,26 @@ using SAM.Core.Systems;
 
 namespace SAM.Analytical.Systems
 {
-    public class HeatingSystemGroup : SystemGroup<HeatingSystem>
+    public class RefrigerantSystemCollection : SystemCollection<RefrigerantSystem>
     {
-        public HeatingSystemGroup()
+        public RefrigerantSystemCollection()
             : base()
         {
         }
 
-        public HeatingSystemGroup(string name)
+        public RefrigerantSystemCollection(string name)
             : base(name)
         {
         }
 
-        public HeatingSystemGroup(JObject jObject)
+        public RefrigerantSystemCollection(JObject jObject)
             : base(jObject)
         {
-            FromJObject(jObject);
+
         }
 
-        public HeatingSystemGroup(HeatingSystemGroup heatingSystemGroup)
-            : base(heatingSystemGroup)
+        public RefrigerantSystemCollection(RefrigerantSystemCollection refrigerantSystemCollection)
+            : base(refrigerantSystemCollection)
         {
 
         }

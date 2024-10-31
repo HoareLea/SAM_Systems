@@ -133,6 +133,24 @@
 
                 case AnalyticalSystemComponentType.SystemSigLogicalController:
                     return typeof(SystemSigLogicalController);
+
+                case AnalyticalSystemComponentType.CoolingSystemCollection:
+                    return typeof(CoolingSystemCollection);
+
+                case AnalyticalSystemComponentType.HeatingSystemCollection:
+                    return typeof(HeatingSystemCollection);
+
+                case AnalyticalSystemComponentType.RefrigerantSystemCollection:
+                    return typeof(RefrigerantSystemCollection);
+
+                case AnalyticalSystemComponentType.FuelSystemCollection:
+                    return typeof(FuelSystemCollection);
+
+                case AnalyticalSystemComponentType.DomesticHotWaterSystemCollection:
+                    return typeof(DomesticHotWaterSystemCollection);
+
+                case AnalyticalSystemComponentType.ElectricalSystemCollection:
+                    return typeof(ElectricalSystemCollection);
             }
 
             return null;
