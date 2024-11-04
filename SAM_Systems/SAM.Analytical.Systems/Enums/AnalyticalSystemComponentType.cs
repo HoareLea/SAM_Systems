@@ -52,6 +52,7 @@ namespace SAM.Analytical.Systems
         [Description("System Domestic Hot Water Collection")] DomesticHotWaterSystemCollection,
         [Description("System Electrical Collection")] ElectricalSystemCollection,
         [Description("System Fuel Collection")] FuelSystemCollection,
-        [Description("System Refrigerant Collection")] RefrigerantSystemCollection
+        [Description("System Refrigerant Collection")] RefrigerantSystemCollection,
+        [Description("System Pipe Loss Component")] SystemPipeLossComponent
     }
 }
