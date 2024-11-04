@@ -210,6 +210,14 @@ namespace SAM.Analytical.Systems
             {
                 displayObject = new DisplayRefrigerantSystemCollection((RefrigerantSystemCollection)systemComponent, systemGeometrySymbol, location);
             }
+            else if (systemComponent is SystemLiquidExchanger)
+            {
+                displayObject = new DisplaySystemLiquidExchanger((SystemLiquidExchanger)systemComponent, systemGeometrySymbol, location);
+            }
+            else if (systemComponent is SystemPipeLossComponent)
+            {
+                displayObject = new DisplaySystemPipeLossComponent((SystemPipeLossComponent)systemComponent, systemGeometrySymbol, location);
+            }
 
             if (!(displayObject is T))
             {

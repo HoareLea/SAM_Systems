@@ -154,6 +154,9 @@
 
                 case AnalyticalSystemComponentType.SystemPipeLossComponent:
                     return typeof(SystemPipeLossComponent);
+
+                case AnalyticalSystemComponentType.SystemLiquidExchanger:
+                    return typeof(SystemLiquidExchanger);
             }
 
             return null;
