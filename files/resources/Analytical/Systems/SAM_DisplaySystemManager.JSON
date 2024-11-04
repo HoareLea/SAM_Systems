@@ -8,7 +8,7 @@
           "SAM.Analytical.Systems.SystemCoolingCoil,SAM.Analytical.Systems",
           {
             "_type": "SAM.Geometry.Systems.SystemGeometrySymbol,SAM.Geometry.Systems",
-            "Guid": "08925c13-af15-4b42-844b-5234ca65dd0b",
+            "Guid": "20b2822a-3b0c-4dac-a6e3-764de5256fb9",
             "Geometry": {
               "_type": "SAM.Geometry.Object.Planar.SAMGeometry2DObjectCollection,SAM.Geometry",
               "Geometry2DObjects": [
@@ -649,7 +649,7 @@
           "SAM.Analytical.Systems.SystemHeatingCoil,SAM.Analytical.Systems",
           {
             "_type": "SAM.Geometry.Systems.SystemGeometrySymbol,SAM.Geometry.Systems",
-            "Guid": "05e5f752-f985-42a9-882c-47ed0dbea20d",
+            "Guid": "c69d2b7d-dae0-4258-b674-1ca433a12ffb",
             "Geometry": {
               "_type": "SAM.Geometry.Object.Planar.SAMGeometry2DObjectCollection,SAM.Geometry",
               "Geometry2DObjects": [
@@ -1342,7 +1342,7 @@
           "SAM.Analytical.Systems.SystemFan,SAM.Analytical.Systems",
           {
             "_type": "SAM.Geometry.Systems.SystemGeometrySymbol,SAM.Geometry.Systems",
-            "Guid": "09386f8f-f9c5-452b-95ec-ffae53a7e128",
+            "Guid": "348d9a75-5435-4fb1-8894-73f309fa5f45",
             "Geometry": {
               "_type": "SAM.Geometry.Object.Planar.SAMGeometry2DObjectCollection,SAM.Geometry",
               "Geometry2DObjects": [
@@ -1709,7 +1709,7 @@
           "SAM.Analytical.Systems.SystemExchanger,SAM.Analytical.Systems",
           {
             "_type": "SAM.Geometry.Systems.SystemGeometrySymbol,SAM.Geometry.Systems",
-            "Guid": "70875088-8c19-4a38-871e-eb69faf171a7",
+            "Guid": "cb2137dc-b28a-40a9-a605-ed9e96fca163",
             "Geometry": {
               "_type": "SAM.Geometry.Object.Planar.SAMGeometry2DObjectCollection,SAM.Geometry",
               "Geometry2DObjects": [
@@ -2377,7 +2377,7 @@
           "SAM.Analytical.Systems.SystemAirJunction,SAM.Analytical.Systems",
           {
             "_type": "SAM.Geometry.Systems.SystemGeometrySymbol,SAM.Geometry.Systems",
-            "Guid": "e91f1fe3-d4cd-4236-a768-94fad2b160b1",
+            "Guid": "d54c3434-b1c7-4e47-a854-92046f4ec4bd",
             "Geometry": {
               "_type": "SAM.Geometry.Object.Planar.SAMGeometry2DObjectCollection,SAM.Geometry",
               "Geometry2DObjects": [
@@ -2620,7 +2620,7 @@
           "SAM.Analytical.Systems.SystemDamper,SAM.Analytical.Systems",
           {
             "_type": "SAM.Geometry.Systems.SystemGeometrySymbol,SAM.Geometry.Systems",
-            "Guid": "5e3c24e0-b9f1-45f0-88de-55232c484d7d",
+            "Guid": "119c7235-3b85-4e5a-bd2e-91fe02dfaaa2",
             "Geometry": {
               "_type": "SAM.Geometry.Object.Planar.SAMGeometry2DObjectCollection,SAM.Geometry",
               "Geometry2DObjects": [
@@ -3235,7 +3235,7 @@
           "SAM.Analytical.Systems.SystemSpace,SAM.Analytical.Systems",
           {
             "_type": "SAM.Geometry.Systems.SystemGeometrySymbol,SAM.Geometry.Systems",
-            "Guid": "78229ca3-38ca-402d-b746-ff2c1dbbca9d",
+            "Guid": "5b69a835-ac77-4f0b-9da7-e4fd4945227f",
             "Geometry": {
               "_type": "SAM.Geometry.Object.Planar.SAMGeometry2DObjectCollection,SAM.Geometry",
               "Geometry2DObjects": [
@@ -3777,7 +3777,7 @@
           "SAM.Analytical.Systems.SystemEconomiser,SAM.Analytical.Systems",
           {
             "_type": "SAM.Geometry.Systems.SystemGeometrySymbol,SAM.Geometry.Systems",
-            "Guid": "acfc21be-4511-482e-8dc5-1271cb9fb9ad",
+            "Guid": "4d14c09c-a8f6-46f6-9004-9be7e8f70825",
             "Geometry": {
               "_type": "SAM.Geometry.Object.Planar.SAMGeometry2DObjectCollection,SAM.Geometry",
               "Geometry2DObjects": [
@@ -4369,7 +4369,7 @@
           "SAM.Analytical.Systems.SystemSprayHumidifier,SAM.Analytical.Systems",
           {
             "_type": "SAM.Geometry.Systems.SystemGeometrySymbol,SAM.Geometry.Systems",
-            "Guid": "7139a589-5744-4c11-8b40-9a36f426baa5",
+            "Guid": "b6c08fd7-bf34-4df1-8919-01539c394197",
             "Geometry": {
               "_type": "SAM.Geometry.Object.Planar.SAMGeometry2DObjectCollection,SAM.Geometry",
               "Geometry2DObjects": [
@@ -5379,7 +5379,7 @@
           "SAM.Analytical.Systems.SystemSteamHumidifier,SAM.Analytical.Systems",
           {
             "_type": "SAM.Geometry.Systems.SystemGeometrySymbol,SAM.Geometry.Systems",
-            "Guid": "18c85dab-18eb-47aa-80d3-1767dd998cff",
+            "Guid": "b69b99fe-fb51-4c0a-8108-b3be18f32206",
             "Geometry": {
               "_type": "SAM.Geometry.Object.Planar.SAMGeometry2DObjectCollection,SAM.Geometry",
               "Geometry2DObjects": [
@@ -5973,7 +5973,7 @@
           "SAM.Analytical.Systems.SystemDirectEvaporativeCooler,SAM.Analytical.Systems",
           {
             "_type": "SAM.Geometry.Systems.SystemGeometrySymbol,SAM.Geometry.Systems",
-            "Guid": "787d4795-70a0-4d5b-b602-a7b64bdff60c",
+            "Guid": "4d7ffe7d-5a1c-486a-9f4e-fc26ff737fe6",
             "Geometry": {
               "_type": "SAM.Geometry.Object.Planar.SAMGeometry2DObjectCollection,SAM.Geometry",
               "Geometry2DObjects": [
@@ -6931,7 +6931,7 @@
           "SAM.Analytical.Systems.SystemDXCoil,SAM.Analytical.Systems",
           {
             "_type": "SAM.Geometry.Systems.SystemGeometrySymbol,SAM.Geometry.Systems",
-            "Guid": "d92313d5-9507-4d52-b320-e898615b1306",
+            "Guid": "e9627b95-5d4d-4b46-a501-fd042074681b",
             "Geometry": {
               "_type": "SAM.Geometry.Object.Planar.SAMGeometry2DObjectCollection,SAM.Geometry",
               "Geometry2DObjects": [
@@ -7816,7 +7816,7 @@
           "SAM.Analytical.Systems.SystemNormalController,SAM.Analytical.Systems",
           {
             "_type": "SAM.Geometry.Systems.SystemGeometrySymbol,SAM.Geometry.Systems",
-            "Guid": "c4252b5b-2af1-497b-8780-54d0143de4f0",
+            "Guid": "06bbfaf3-4938-442d-a739-1d600cea04f4",
             "Geometry": {
               "_type": "SAM.Geometry.Object.Planar.SAMGeometry2DObjectCollection,SAM.Geometry",
               "Geometry2DObjects": [
@@ -8079,7 +8079,7 @@
           "SAM.Analytical.Systems.SystemDifferenceController,SAM.Analytical.Systems",
           {
             "_type": "SAM.Geometry.Systems.SystemGeometrySymbol,SAM.Geometry.Systems",
-            "Guid": "a85ba1ef-b494-4d8c-a5f7-4b2fbb9b8738",
+            "Guid": "5c1e678e-c466-45e4-bb81-4ce7d8fdf95f",
             "Geometry": {
               "_type": "SAM.Geometry.Object.Planar.SAMGeometry2DObjectCollection,SAM.Geometry",
               "Geometry2DObjects": [
@@ -8394,7 +8394,7 @@
           "SAM.Analytical.Systems.SystemPassthroughController,SAM.Analytical.Systems",
           {
             "_type": "SAM.Geometry.Systems.SystemGeometrySymbol,SAM.Geometry.Systems",
-            "Guid": "08d055f6-5b94-42ec-8129-ed9286e4469c",
+            "Guid": "c81dccd6-9924-461d-a4f1-b1450502ff9b",
             "Geometry": {
               "_type": "SAM.Geometry.Object.Planar.SAMGeometry2DObjectCollection,SAM.Geometry",
               "Geometry2DObjects": [
@@ -8761,7 +8761,7 @@
           "SAM.Analytical.Systems.SystemMaxLogicalController,SAM.Analytical.Systems",
           {
             "_type": "SAM.Geometry.Systems.SystemGeometrySymbol,SAM.Geometry.Systems",
-            "Guid": "530892aa-4f60-43d5-837f-b6fa2255472a",
+            "Guid": "07e9214a-c113-4432-8d7e-c7d09ef224f9",
             "Geometry": {
               "_type": "SAM.Geometry.Object.Planar.SAMGeometry2DObjectCollection,SAM.Geometry",
               "Geometry2DObjects": [
@@ -9076,7 +9076,7 @@
           "SAM.Analytical.Systems.SystemMinLogicalController,SAM.Analytical.Systems",
           {
             "_type": "SAM.Geometry.Systems.SystemGeometrySymbol,SAM.Geometry.Systems",
-            "Guid": "73bc20b4-cb12-43a6-97dc-5e540905826d",
+            "Guid": "9ba4518b-239f-45b0-86ab-08ab836e7a6c",
             "Geometry": {
               "_type": "SAM.Geometry.Object.Planar.SAMGeometry2DObjectCollection,SAM.Geometry",
               "Geometry2DObjects": [
@@ -9391,7 +9391,7 @@
           "SAM.Analytical.Systems.SystemNotLogicalController,SAM.Analytical.Systems",
           {
             "_type": "SAM.Geometry.Systems.SystemGeometrySymbol,SAM.Geometry.Systems",
-            "Guid": "a2a6e983-3430-4f1d-acae-19c1b3f6cb56",
+            "Guid": "97201107-d1b8-4194-bd52-1643247f59e3",
             "Geometry": {
               "_type": "SAM.Geometry.Object.Planar.SAMGeometry2DObjectCollection,SAM.Geometry",
               "Geometry2DObjects": [
@@ -9687,7 +9687,7 @@
           "SAM.Analytical.Systems.SystemIfLogicalController,SAM.Analytical.Systems",
           {
             "_type": "SAM.Geometry.Systems.SystemGeometrySymbol,SAM.Geometry.Systems",
-            "Guid": "e630a796-17b3-4256-b16f-52d99a48a0f8",
+            "Guid": "e39a5943-b939-4656-a3bb-fb1000004aa9",
             "Geometry": {
               "_type": "SAM.Geometry.Object.Planar.SAMGeometry2DObjectCollection,SAM.Geometry",
               "Geometry2DObjects": [
@@ -10229,7 +10229,7 @@
           "SAM.Analytical.Systems.SystemSigLogicalController,SAM.Analytical.Systems",
           {
             "_type": "SAM.Geometry.Systems.SystemGeometrySymbol,SAM.Geometry.Systems",
-            "Guid": "28d7669f-7c7f-4ce7-ae6f-2d114ccacaf1",
+            "Guid": "4db9431c-90fa-42fd-beed-53ed5a517d25",
             "Geometry": {
               "_type": "SAM.Geometry.Object.Planar.SAMGeometry2DObjectCollection,SAM.Geometry",
               "Geometry2DObjects": [
@@ -10530,7 +10530,7 @@
           "SAM.Analytical.Systems.SystemOutdoorController,SAM.Analytical.Systems",
           {
             "_type": "SAM.Geometry.Systems.SystemGeometrySymbol,SAM.Geometry.Systems",
-            "Guid": "a73b26b0-d90a-4c8d-97a4-8eaf1020ac4b",
+            "Guid": "8b26a74d-cf84-4bae-a09e-b45c7e4222cc",
             "Geometry": {
               "_type": "SAM.Geometry.Object.Planar.SAMGeometry2DObjectCollection,SAM.Geometry",
               "Geometry2DObjects": [
@@ -10775,7 +10775,7 @@
           "SAM.Analytical.Systems.SystemDesiccantWheel,SAM.Analytical.Systems",
           {
             "_type": "SAM.Geometry.Systems.SystemGeometrySymbol,SAM.Geometry.Systems",
-            "Guid": "2e2abc45-9e5e-4f85-9792-3a27582c1978",
+            "Guid": "bbb8a709-49d1-49fa-a3c4-d1d942f408cb",
             "Geometry": {
               "_type": "SAM.Geometry.Object.Planar.SAMGeometry2DObjectCollection,SAM.Geometry",
               "Geometry2DObjects": [
@@ -11190,7 +11190,7 @@
           "SAM.Analytical.Systems.SystemPump,SAM.Analytical.Systems",
           {
             "_type": "SAM.Geometry.Systems.SystemGeometrySymbol,SAM.Geometry.Systems",
-            "Guid": "e9a89d7b-92b6-47c0-9881-8c79c828a8b4",
+            "Guid": "02cef511-d676-45da-9ecb-90232af725b7",
             "Geometry": {
               "_type": "SAM.Geometry.Object.Planar.SAMGeometry2DObjectCollection,SAM.Geometry",
               "Geometry2DObjects": [
@@ -11590,7 +11590,7 @@
           "SAM.Analytical.Systems.SystemAirSourceChiller,SAM.Analytical.Systems",
           {
             "_type": "SAM.Geometry.Systems.SystemGeometrySymbol,SAM.Geometry.Systems",
-            "Guid": "399a82e0-e77a-4979-9f00-ff1b4245917b",
+            "Guid": "b23c0645-1066-405d-9f93-1457896a9155",
             "Geometry": {
               "_type": "SAM.Geometry.Object.Planar.SAMGeometry2DObjectCollection,SAM.Geometry",
               "Geometry2DObjects": [
@@ -12496,7 +12496,7 @@
           "SAM.Analytical.Systems.SystemAirSourceHeatPump,SAM.Analytical.Systems",
           {
             "_type": "SAM.Geometry.Systems.SystemGeometrySymbol,SAM.Geometry.Systems",
-            "Guid": "18d3b1bb-f189-43e6-94c0-8d446112378c",
+            "Guid": "b55b9aa9-3657-4407-8455-8bcdf30f9bd0",
             "Geometry": {
               "_type": "SAM.Geometry.Object.Planar.SAMGeometry2DObjectCollection,SAM.Geometry",
               "Geometry2DObjects": [
@@ -13017,7 +13017,7 @@
           "SAM.Analytical.Systems.CoolingSystemCollection,SAM.Analytical.Systems",
           {
             "_type": "SAM.Geometry.Systems.SystemGeometrySymbol,SAM.Geometry.Systems",
-            "Guid": "2d593e1c-6c26-4ccd-8a77-8a3d4375be4a",
+            "Guid": "8d7e431e-5a88-418d-9277-3cf8fe5a874d",
             "Geometry": {
               "_type": "SAM.Geometry.Object.Planar.SAMGeometry2DObjectCollection,SAM.Geometry",
               "Geometry2DObjects": [
@@ -13913,7 +13913,7 @@
           "SAM.Analytical.Systems.HeatingSystemCollection,SAM.Analytical.Systems",
           {
             "_type": "SAM.Geometry.Systems.SystemGeometrySymbol,SAM.Geometry.Systems",
-            "Guid": "8581efbc-1bd4-4b8a-8ab0-0a939041d29e",
+            "Guid": "196bf9cb-1fa5-42c6-9397-fbaec2da6f5d",
             "Geometry": {
               "_type": "SAM.Geometry.Object.Planar.SAMGeometry2DObjectCollection,SAM.Geometry",
               "Geometry2DObjects": [
@@ -14659,7 +14659,7 @@
           "SAM.Analytical.Systems.DomesticHotWaterSystemCollection,SAM.Analytical.Systems",
           {
             "_type": "SAM.Geometry.Systems.SystemGeometrySymbol,SAM.Geometry.Systems",
-            "Guid": "0ff770dc-6cbc-4473-a2e7-a4139c9029f9",
+            "Guid": "ec79adf5-c004-4933-896f-2d5073c8f27b",
             "Geometry": {
               "_type": "SAM.Geometry.Object.Planar.SAMGeometry2DObjectCollection,SAM.Geometry",
               "Geometry2DObjects": [
@@ -15558,7 +15558,7 @@
           "SAM.Analytical.Systems.FuelSystemCollection,SAM.Analytical.Systems",
           {
             "_type": "SAM.Geometry.Systems.SystemGeometrySymbol,SAM.Geometry.Systems",
-            "Guid": "eae48b86-d98c-49e8-8701-74af7825bdc3",
+            "Guid": "e74965ed-0ad6-4da3-baaf-7af79e207702",
             "Geometry": {
               "_type": "SAM.Geometry.Object.Planar.SAMGeometry2DObjectCollection,SAM.Geometry",
               "Geometry2DObjects": [
@@ -16142,7 +16142,7 @@
           "SAM.Analytical.Systems.RefrigerantSystemCollection,SAM.Analytical.Systems",
           {
             "_type": "SAM.Geometry.Systems.SystemGeometrySymbol,SAM.Geometry.Systems",
-            "Guid": "baca646b-5be0-4d00-ba38-b06232ddad01",
+            "Guid": "b866e3ed-a792-4004-bf3c-8037ca7319d4",
             "Geometry": {
               "_type": "SAM.Geometry.Object.Planar.SAMGeometry2DObjectCollection,SAM.Geometry",
               "Geometry2DObjects": [
@@ -17041,7 +17041,7 @@
           "SAM.Analytical.Systems.ElectricalSystemCollection,SAM.Analytical.Systems",
           {
             "_type": "SAM.Geometry.Systems.SystemGeometrySymbol,SAM.Geometry.Systems",
-            "Guid": "8f71948f-7169-4c5c-99d8-42903eb0a725",
+            "Guid": "a8f25456-e8e5-47b7-a590-5a841fa59140",
             "Geometry": {
               "_type": "SAM.Geometry.Object.Planar.SAMGeometry2DObjectCollection,SAM.Geometry",
               "Geometry2DObjects": [
@@ -17635,7 +17635,7 @@
           "SAM.Analytical.Systems.SystemWaterSourceChiller,SAM.Analytical.Systems",
           {
             "_type": "SAM.Geometry.Systems.SystemGeometrySymbol,SAM.Geometry.Systems",
-            "Guid": "d909cb6e-ee72-43b9-a8f0-64052b9d8e8d",
+            "Guid": "f51032f3-9a50-4418-949b-af019785bd8a",
             "Geometry": {
               "_type": "SAM.Geometry.Object.Planar.SAMGeometry2DObjectCollection,SAM.Geometry",
               "Geometry2DObjects": [
@@ -18821,10 +18821,253 @@
           }
         ],
         [
+          "SAM.Analytical.Systems.SystemLiquidJunction,SAM.Analytical.Systems",
+          {
+            "_type": "SAM.Geometry.Systems.SystemGeometrySymbol,SAM.Geometry.Systems",
+            "Guid": "a967b8b3-01df-4660-90a5-ed990861c2bb",
+            "Geometry": {
+              "_type": "SAM.Geometry.Object.Planar.SAMGeometry2DObjectCollection,SAM.Geometry",
+              "Geometry2DObjects": [
+                {
+                  "_type": "SAM.Geometry.Object.Planar.Polygon2DObject,SAM.Geometry",
+                  "Points": [
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": -0.023780931383951293,
+                      "Y": -0.071321855081091956
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.024790497187477275,
+                      "Y": -0.0998932836525205
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": -0.023780931383951293,
+                      "Y": -0.12846471222394906
+                    }
+                  ],
+                  "CurveAppearance": {
+                    "_type": "SAM.Geometry.Object.CurveAppearance,SAM.Geometry",
+                    "Color": {
+                      "_type": "SAM.Core.SAMColor,SAM.Core",
+                      "Alpha": 255,
+                      "Red": 0,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    "Opacity": 1.0,
+                    "Visible": true,
+                    "Thickness": 1.0
+                  }
+                },
+                {
+                  "_type": "SAM.Geometry.Object.Planar.Polygon2DObject,SAM.Geometry",
+                  "Points": [
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.17643736475524763,
+                      "Y": -0.071320756675208
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.2250087933266762,
+                      "Y": -0.099892185246636553
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.17643736475524763,
+                      "Y": -0.12846361381806515
+                    }
+                  ],
+                  "CurveAppearance": {
+                    "_type": "SAM.Geometry.Object.CurveAppearance,SAM.Geometry",
+                    "Color": {
+                      "_type": "SAM.Core.SAMColor,SAM.Core",
+                      "Alpha": 255,
+                      "Red": 0,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    "Opacity": 1.0,
+                    "Visible": true,
+                    "Thickness": 1.0
+                  }
+                },
+                {
+                  "_type": "SAM.Geometry.Object.Planar.Polyline2DObject,SAM.Geometry",
+                  "Points": [
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.19878629286364149,
+                      "Y": -0.0844671849860092
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.18720220993299641,
+                      "Y": -0.05105334962633673
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.16471196137820854,
+                      "Y": -0.023761151277152295
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.13412834719431385,
+                      "Y": -0.0060039579674528113
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.099276384682258259,
+                      "Y": -2.6181299133454242E-06
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.064514922955785092,
+                      "Y": -0.006507704557187511
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.034191492418281122,
+                      "Y": -0.024705642111331774
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.012098569842850083,
+                      "Y": -0.05232045956253667
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.00099926264287231062,
+                      "Y": -0.085898439705301144
+                    }
+                  ],
+                  "CurveAppearance": {
+                    "_type": "SAM.Geometry.Object.CurveAppearance,SAM.Geometry",
+                    "Color": {
+                      "_type": "SAM.Core.SAMColor,SAM.Core",
+                      "Alpha": 255,
+                      "Red": 0,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    "Opacity": 1.0,
+                    "Visible": true,
+                    "Thickness": 1.0
+                  }
+                },
+                {
+                  "_type": "SAM.Geometry.Object.Planar.Polyline2DObject,SAM.Geometry",
+                  "Points": [
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.00097139637051180745,
+                      "Y": -0.11390451952401533
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.012029959540510083,
+                      "Y": -0.14755283358072066
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.03412437183612306,
+                      "Y": -0.17523564058353347
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.064482887338627545,
+                      "Y": -0.193480130018092
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.099297027672734392,
+                      "Y": -0.19999752911900925
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.13419935594562885,
+                      "Y": -0.19397022960972365
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.16481137208000646,
+                      "Y": -0.1761543567309643
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.18729279602455343,
+                      "Y": -0.14878491326440704
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.19882333121597251,
+                      "Y": -0.11529539824189634
+                    }
+                  ],
+                  "CurveAppearance": {
+                    "_type": "SAM.Geometry.Object.CurveAppearance,SAM.Geometry",
+                    "Color": {
+                      "_type": "SAM.Core.SAMColor,SAM.Core",
+                      "Alpha": 255,
+                      "Red": 0,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    "Opacity": 1.0,
+                    "Visible": true,
+                    "Thickness": 1.0
+                  }
+                }
+              ]
+            },
+            "DisplaySystemConnectorManager": {
+              "_type": "SAM.Geometry.Systems.DisplaySystemConnectorManager,SAM.Geometry.Systems",
+              "SystemConnectors": [
+                [
+                  0,
+                  {
+                    "_type": "SAM.Geometry.Systems.DisplaySystemConnector,SAM.Geometry.Systems",
+                    "SystemType": {
+                      "_type": "SAM.Core.Systems.SystemType,SAM.Core.Systems",
+                      "TypeName": "SAM.Analytical.Systems.LiquidSystem,SAM.Analytical.Systems"
+                    },
+                    "Direction": "In",
+                    "ConnectionIndex": 1,
+                    "Location": {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.0,
+                      "Y": -0.0998932836525205
+                    }
+                  }
+                ],
+                [
+                  1,
+                  {
+                    "_type": "SAM.Geometry.Systems.DisplaySystemConnector,SAM.Geometry.Systems",
+                    "SystemType": {
+                      "_type": "SAM.Core.Systems.SystemType,SAM.Core.Systems",
+                      "TypeName": "SAM.Analytical.Systems.LiquidSystem,SAM.Analytical.Systems"
+                    },
+                    "Direction": "Out",
+                    "ConnectionIndex": 1,
+                    "Location": {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.2,
+                      "Y": -0.099892185246636511
+                    }
+                  }
+                ]
+              ]
+            }
+          }
+        ],
+        [
           "SAM.Analytical.Systems.SystemBoiler,SAM.Analytical.Systems",
           {
             "_type": "SAM.Geometry.Systems.SystemGeometrySymbol,SAM.Geometry.Systems",
-            "Guid": "041fedd8-d50a-4422-9bff-81f0b697566e",
+            "Guid": "73cc5edb-0de0-4c88-8acb-85580976d7a9",
             "Geometry": {
               "_type": "SAM.Geometry.Object.Planar.SAMGeometry2DObjectCollection,SAM.Geometry",
               "Geometry2DObjects": [
@@ -19473,7 +19716,7 @@
           "SAM.Analytical.Systems.SystemMultiChiller,SAM.Analytical.Systems",
           {
             "_type": "SAM.Geometry.Systems.SystemGeometrySymbol,SAM.Geometry.Systems",
-            "Guid": "fa352336-bb59-46d7-b09d-e33775c7b217",
+            "Guid": "5c844b3b-dc5d-4bb8-bd7f-c9801def39ae",
             "Geometry": {
               "_type": "SAM.Geometry.Object.Planar.SAMGeometry2DObjectCollection,SAM.Geometry",
               "Geometry2DObjects": [
@@ -21159,7 +21402,7 @@
           "SAM.Analytical.Systems.SystemAbsorptionChiller,SAM.Analytical.Systems",
           {
             "_type": "SAM.Geometry.Systems.SystemGeometrySymbol,SAM.Geometry.Systems",
-            "Guid": "0a1c32cd-12e2-4631-a9c9-593194c2b858",
+            "Guid": "2eb68b73-55fa-4bc0-86fe-2d4e829f4298",
             "Geometry": {
               "_type": "SAM.Geometry.Object.Planar.SAMGeometry2DObjectCollection,SAM.Geometry",
               "Geometry2DObjects": [
@@ -22478,7 +22721,7 @@
           "SAM.Analytical.Systems.SystemAirSourceDirectAbsorptionChiller,SAM.Analytical.Systems",
           {
             "_type": "SAM.Geometry.Systems.SystemGeometrySymbol,SAM.Geometry.Systems",
-            "Guid": "629cc2bb-5a8f-46c6-bcb3-60ef0a64042d",
+            "Guid": "366a0728-5acf-435c-b51c-50296a3b758b",
             "Geometry": {
               "_type": "SAM.Geometry.Object.Planar.SAMGeometry2DObjectCollection,SAM.Geometry",
               "Geometry2DObjects": [
@@ -23567,7 +23810,7 @@
           "SAM.Analytical.Systems.SystemWaterSourceAbsorptionChiller,SAM.Analytical.Systems",
           {
             "_type": "SAM.Geometry.Systems.SystemGeometrySymbol,SAM.Geometry.Systems",
-            "Guid": "14b13f1e-abb1-472f-8b10-5d8243b0f415",
+            "Guid": "31b85867-40d6-43fc-b769-4b3fba6c690d",
             "Geometry": {
               "_type": "SAM.Geometry.Object.Planar.SAMGeometry2DObjectCollection,SAM.Geometry",
               "Geometry2DObjects": [
@@ -25169,7 +25412,7 @@
           "SAM.Analytical.Systems.SystemWaterSourceDirectAbsorptionChiller,SAM.Analytical.Systems",
           {
             "_type": "SAM.Geometry.Systems.SystemGeometrySymbol,SAM.Geometry.Systems",
-            "Guid": "ba5a393c-bb56-42d7-aa1a-a8d6c240a2b9",
+            "Guid": "22913b92-60cd-4cbb-8c28-c5c6bc633507",
             "Geometry": {
               "_type": "SAM.Geometry.Object.Planar.SAMGeometry2DObjectCollection,SAM.Geometry",
               "Geometry2DObjects": [
@@ -26543,7 +26786,7 @@
           "SAM.Analytical.Systems.SystemIceStorageChiller,SAM.Analytical.Systems",
           {
             "_type": "SAM.Geometry.Systems.SystemGeometrySymbol,SAM.Geometry.Systems",
-            "Guid": "818716cf-d189-481d-b34d-fadbb27a513d",
+            "Guid": "80207f3b-3df9-468c-b479-b5a077921df0",
             "Geometry": {
               "_type": "SAM.Geometry.Object.Planar.SAMGeometry2DObjectCollection,SAM.Geometry",
               "Geometry2DObjects": [
@@ -27707,7 +27950,7 @@
           "SAM.Analytical.Systems.SystemWaterSourceIceStorageChiller,SAM.Analytical.Systems",
           {
             "_type": "SAM.Geometry.Systems.SystemGeometrySymbol,SAM.Geometry.Systems",
-            "Guid": "afd87fde-5fab-42b0-ae31-7d5cade5424d",
+            "Guid": "93198d28-7970-45c3-9df2-9e53e4bbdb1b",
             "Geometry": {
               "_type": "SAM.Geometry.Object.Planar.SAMGeometry2DObjectCollection,SAM.Geometry",
               "Geometry2DObjects": [
@@ -29156,7 +29399,7 @@
           "SAM.Analytical.Systems.SystemWaterSourceHeatPump,SAM.Analytical.Systems",
           {
             "_type": "SAM.Geometry.Systems.SystemGeometrySymbol,SAM.Geometry.Systems",
-            "Guid": "20ccfb67-b119-4901-a621-578e734f128a",
+            "Guid": "697e5b35-a5a3-4e93-a4a1-7ad3031c4ffd",
             "Geometry": {
               "_type": "SAM.Geometry.Object.Planar.SAMGeometry2DObjectCollection,SAM.Geometry",
               "Geometry2DObjects": [
@@ -29877,7 +30120,7 @@
           "SAM.Analytical.Systems.SystemWaterToWaterHeatPump,SAM.Analytical.Systems",
           {
             "_type": "SAM.Geometry.Systems.SystemGeometrySymbol,SAM.Geometry.Systems",
-            "Guid": "8053a948-510d-4416-86b0-3b9cdbf92ed5",
+            "Guid": "1349c1e0-7bd6-4a7e-8447-cf10bb9569eb",
             "Geometry": {
               "_type": "SAM.Geometry.Object.Planar.SAMGeometry2DObjectCollection,SAM.Geometry",
               "Geometry2DObjects": [
@@ -31039,7 +31282,7 @@
           "SAM.Analytical.Systems.SystemTank,SAM.Analytical.Systems",
           {
             "_type": "SAM.Geometry.Systems.SystemGeometrySymbol,SAM.Geometry.Systems",
-            "Guid": "8cf2ef94-3ba0-46e6-af04-db7499f5a1e9",
+            "Guid": "fc369c88-c7d7-494b-bcb6-bb0f53adaab3",
             "Geometry": {
               "_type": "SAM.Geometry.Object.Planar.SAMGeometry2DObjectCollection,SAM.Geometry",
               "Geometry2DObjects": [
