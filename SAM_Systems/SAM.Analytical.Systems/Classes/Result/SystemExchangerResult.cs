@@ -5,21 +5,21 @@ using System.Collections.Generic;
 
 namespace SAM.Analytical.Systems
 {
-    public class SystemExchangerResult : SystemIndexedDoublesResult, ISystemComponentResult
+    public class SystemLiquidExchangerResult : SystemIndexedDoublesResult, ISystemComponentResult
     {
-        public SystemExchangerResult(string uniqueId, string name, string source, Dictionary<ExchangerDataType, IndexedDoubles> dictionary)
+        public SystemLiquidExchangerResult(string uniqueId, string name, string source, Dictionary<LiquidExchangerDataType, IndexedDoubles> dictionary)
             : base(uniqueId, name, source, Core.Systems.Query.Dictionary(dictionary))
         {
         }
 
-        public SystemExchangerResult(JObject jObject)
+        public SystemLiquidExchangerResult(JObject jObject)
             : base(jObject)
         {
             FromJObject(jObject);
         }
 
-        public SystemExchangerResult(SystemExchangerResult systemExchangerResult)
-            : base(systemExchangerResult)
+        public SystemLiquidExchangerResult(SystemLiquidExchangerResult systemLiquidExchangerResult)
+            : base(systemLiquidExchangerResult)
         {
 
         }
