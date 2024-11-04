@@ -151,6 +151,9 @@
 
                 case AnalyticalSystemComponentType.ElectricalSystemCollection:
                     return typeof(ElectricalSystemCollection);
+
+                case AnalyticalSystemComponentType.SystemPipeLossComponent:
+                    return typeof(SystemPipeLossComponent);
             }
 
             return null;
