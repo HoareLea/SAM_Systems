@@ -157,6 +157,9 @@
 
                 case AnalyticalSystemComponentType.SystemLiquidExchanger:
                     return typeof(SystemLiquidExchanger);
+
+                case AnalyticalSystemComponentType.SystemCoolingTower:
+                    return typeof(SystemCoolingTower);
             }
 
             return null;

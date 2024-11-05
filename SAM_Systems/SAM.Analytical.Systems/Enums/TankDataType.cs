@@ -2,11 +2,13 @@
 
 namespace SAM.Analytical.Systems
 {
-    [Description("Pipe Loss Component Data Type")]
-    public enum PipeLossComponentDataType
+    [Description("Tank Data Type")]
+    public enum TankDataType
     {
         [Description("Flow Rate")] FlowRate = 1,
         [Description("Temperature")] Temperature = 2,
-        [Description("Heat Loss from Pipe")] HeatLoss = 3,
+        [Description("Tank Temperature")] TankTemperature = 3,
+        [Description("Storage Loss")] StorageLoss = 4,
     }
 }
+

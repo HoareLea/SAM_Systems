@@ -54,6 +54,7 @@ namespace SAM.Analytical.Systems
         [Description("System Fuel Collection")] FuelSystemCollection,
         [Description("System Refrigerant Collection")] RefrigerantSystemCollection,
         [Description("System Pipe Loss Component")] SystemPipeLossComponent,
-        [Description("System Liquid Exchanger")] SystemLiquidExchanger
+        [Description("System Liquid Exchanger")] SystemLiquidExchanger,
+        [Description("System Cooling Tower")] SystemCoolingTower
     }
 }

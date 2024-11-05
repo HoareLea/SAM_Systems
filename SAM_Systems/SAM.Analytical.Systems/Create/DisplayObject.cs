@@ -219,6 +219,11 @@ namespace SAM.Analytical.Systems
                 displayObject = new DisplaySystemPipeLossComponent((SystemPipeLossComponent)systemComponent, systemGeometrySymbol, location);
             }
 
+            else if (systemComponent is SystemCoolingTower)
+            {
+                displayObject = new DisplaySystemCoolingTower((SystemCoolingTower)systemComponent, systemGeometrySymbol, location);
+            }
+
             if (!(displayObject is T))
             {
                 return default(T);
