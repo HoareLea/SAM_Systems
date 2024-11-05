@@ -238,7 +238,14 @@ namespace SAM.Analytical.Systems
             {
                 displayObject = new DisplaySystemCHP((SystemCHP)systemComponent, systemGeometrySymbol, location);
             }
-
+            else if (systemComponent is SystemSurfaceWaterExchanger)
+            {
+                displayObject = new DisplaySystemSurfaceWaterExchanger((SystemSurfaceWaterExchanger)systemComponent, systemGeometrySymbol, location);
+            }
+            else if (systemComponent is SystemHorizontalExchanger)
+            {
+                displayObject = new DisplaySystemHorizontalExchanger((SystemHorizontalExchanger)systemComponent, systemGeometrySymbol, location);
+            }
 
             if (!(displayObject is T))
             {

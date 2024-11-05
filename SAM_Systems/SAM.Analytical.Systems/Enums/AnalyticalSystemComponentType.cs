@@ -59,6 +59,8 @@ namespace SAM.Analytical.Systems
         [Description("System Dry Cooler")] SystemDryCooler,
         [Description("System Vertical Borehole")] SystemVerticalBorehole,
         [Description("System Slinky Coil")] SystemSlinkyCoil,
-        [Description("System CHP")] SystemCHP
+        [Description("System CHP")] SystemCHP,
+        [Description("System Surface Water Exchanger")] SystemSurfaceWaterExchanger,
+        [Description("System Horizontal Exchanger")] SystemHorizontalExchanger
     }
 }

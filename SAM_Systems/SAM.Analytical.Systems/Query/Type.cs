@@ -172,6 +172,12 @@
 
                 case AnalyticalSystemComponentType.SystemCHP:
                     return typeof(SystemCHP);
+
+                case AnalyticalSystemComponentType.SystemSurfaceWaterExchanger:
+                    return typeof(SystemSurfaceWaterExchanger);
+
+                case AnalyticalSystemComponentType.SystemHorizontalExchanger:
+                    return typeof(SystemHorizontalExchanger);
             }
 
             return null;
