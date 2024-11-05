@@ -230,6 +230,11 @@ namespace SAM.Analytical.Systems
             {
                 displayObject = new DisplaySystemVerticalBorehole((SystemVerticalBorehole)systemComponent, systemGeometrySymbol, location);
             }
+            else if (systemComponent is SystemSlinkyCoil)
+            {
+                displayObject = new DisplaySystemSlinkyCoil((SystemSlinkyCoil)systemComponent, systemGeometrySymbol, location);
+            }
+
 
             if (!(displayObject is T))
             {

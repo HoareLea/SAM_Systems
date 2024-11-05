@@ -166,6 +166,9 @@
 
                 case AnalyticalSystemComponentType.SystemVerticalBorehole:
                     return typeof(SystemVerticalBorehole);
+
+                case AnalyticalSystemComponentType.SystemSlinkyCoil:
+                    return typeof(SystemSlinkyCoil);
             }
 
             return null;
