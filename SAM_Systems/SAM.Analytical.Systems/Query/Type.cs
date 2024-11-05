@@ -169,6 +169,9 @@
 
                 case AnalyticalSystemComponentType.SystemSlinkyCoil:
                     return typeof(SystemSlinkyCoil);
+
+                case AnalyticalSystemComponentType.SystemCHP:
+                    return typeof(SystemCHP);
             }
 
             return null;

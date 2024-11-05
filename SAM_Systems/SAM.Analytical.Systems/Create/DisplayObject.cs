@@ -234,6 +234,10 @@ namespace SAM.Analytical.Systems
             {
                 displayObject = new DisplaySystemSlinkyCoil((SystemSlinkyCoil)systemComponent, systemGeometrySymbol, location);
             }
+            else if (systemComponent is SystemCHP)
+            {
+                displayObject = new DisplaySystemCHP((SystemCHP)systemComponent, systemGeometrySymbol, location);
+            }
 
 
             if (!(displayObject is T))
