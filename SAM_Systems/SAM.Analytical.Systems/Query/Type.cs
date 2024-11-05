@@ -160,6 +160,9 @@
 
                 case AnalyticalSystemComponentType.SystemCoolingTower:
                     return typeof(SystemCoolingTower);
+
+                case AnalyticalSystemComponentType.SystemDryCooler:
+                    return typeof(SystemDryCooler);
             }
 
             return null;

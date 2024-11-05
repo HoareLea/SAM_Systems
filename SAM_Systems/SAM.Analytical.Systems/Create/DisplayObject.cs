@@ -218,10 +218,13 @@ namespace SAM.Analytical.Systems
             {
                 displayObject = new DisplaySystemPipeLossComponent((SystemPipeLossComponent)systemComponent, systemGeometrySymbol, location);
             }
-
             else if (systemComponent is SystemCoolingTower)
             {
                 displayObject = new DisplaySystemCoolingTower((SystemCoolingTower)systemComponent, systemGeometrySymbol, location);
+            }
+            else if (systemComponent is SystemDryCooler)
+            {
+                displayObject = new DisplaySystemDryCooler((SystemDryCooler)systemComponent, systemGeometrySymbol, location);
             }
 
             if (!(displayObject is T))
