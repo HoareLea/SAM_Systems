@@ -178,6 +178,9 @@
 
                 case AnalyticalSystemComponentType.SystemHorizontalExchanger:
                     return typeof(SystemHorizontalExchanger);
+
+                case AnalyticalSystemComponentType.SystemSolarPanel:
+                    return typeof(SystemSolarPanel);
             }
 
             return null;

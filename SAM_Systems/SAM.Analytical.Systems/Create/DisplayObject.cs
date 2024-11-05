@@ -246,6 +246,10 @@ namespace SAM.Analytical.Systems
             {
                 displayObject = new DisplaySystemHorizontalExchanger((SystemHorizontalExchanger)systemComponent, systemGeometrySymbol, location);
             }
+            else if (systemComponent is SystemSolarPanel)
+            {
+                displayObject = new DisplaySystemSolarPanel((SystemSolarPanel)systemComponent, systemGeometrySymbol, location);
+            }
 
             if (!(displayObject is T))
             {

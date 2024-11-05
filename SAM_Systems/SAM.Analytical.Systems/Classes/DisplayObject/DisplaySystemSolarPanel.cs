@@ -4,7 +4,7 @@ using SAM.Geometry.Systems;
 
 namespace SAM.Analytical.Systems
 {
-    public class DisplaySystemSolarPanel : SystemSolarPanel, IDisplaySystemObject<SystemGeometryInstance>
+    public class DisplaySystemPump : SystemPump, IDisplaySystemObject<SystemGeometryInstance>
     {
         private SystemGeometryInstance systemGeometryInstance;
 
@@ -24,19 +24,19 @@ namespace SAM.Analytical.Systems
             }
         }
 
-        public DisplaySystemSolarPanel(SystemSolarPanel systemSolarPanel, SystemGeometrySymbol systemGeometrySymbol, Point2D location)
-            :base(systemSolarPanel)
+        public DisplaySystemPump(SystemPump systemPump, SystemGeometrySymbol systemGeometrySymbol, Point2D location)
+            :base(systemPump)
         {
             systemGeometryInstance = new SystemGeometryInstance(systemGeometrySymbol, location);
         }
 
-        public DisplaySystemSolarPanel(DisplaySystemSolarPanel displaySystemSolarPanel)
-            : base(displaySystemSolarPanel)
+        public DisplaySystemPump(DisplaySystemPump displaySystemPump)
+            : base(displaySystemPump)
         {
-            systemGeometryInstance = displaySystemSolarPanel?.systemGeometryInstance == null ? null : new SystemGeometryInstance(displaySystemSolarPanel?.systemGeometryInstance);
+            systemGeometryInstance = displaySystemPump?.systemGeometryInstance == null ? null : new SystemGeometryInstance(displaySystemPump?.systemGeometryInstance);
         }
 
-        public DisplaySystemSolarPanel(JObject jObject)
+        public DisplaySystemPump(JObject jObject)
             : base(jObject)
         {
 

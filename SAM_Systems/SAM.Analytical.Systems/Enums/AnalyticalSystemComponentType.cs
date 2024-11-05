@@ -61,6 +61,7 @@ namespace SAM.Analytical.Systems
         [Description("System Slinky Coil")] SystemSlinkyCoil,
         [Description("System CHP")] SystemCHP,
         [Description("System Surface Water Exchanger")] SystemSurfaceWaterExchanger,
-        [Description("System Horizontal Exchanger")] SystemHorizontalExchanger
+        [Description("System Horizontal Exchanger")] SystemHorizontalExchanger,
+        [Description("System Solar Panel")] SystemSolarPanel
     }
 }
