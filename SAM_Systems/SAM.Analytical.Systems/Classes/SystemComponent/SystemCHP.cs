@@ -12,7 +12,7 @@ namespace SAM.Analytical.Systems
         }
 
         public SystemCHP(SystemCHP systemCHP)
-            : base(systemPump)
+            : base(systemCHP)
         {
 
         }
