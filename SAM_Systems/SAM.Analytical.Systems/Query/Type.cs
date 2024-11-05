@@ -181,6 +181,9 @@
 
                 case AnalyticalSystemComponentType.SystemSolarPanel:
                     return typeof(SystemSolarPanel);
+
+                case AnalyticalSystemComponentType.SystemPhotovoltaicPanel:
+                    return typeof(SystemPhotovoltaicPanel);
             }
 
             return null;

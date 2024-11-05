@@ -250,6 +250,10 @@ namespace SAM.Analytical.Systems
             {
                 displayObject = new DisplaySystemSolarPanel((SystemSolarPanel)systemComponent, systemGeometrySymbol, location);
             }
+            else if (systemComponent is SystemPhotovoltaicPanel)
+            {
+                displayObject = new DisplaySystemPhotovoltaicPanel((SystemPhotovoltaicPanel)systemComponent, systemGeometrySymbol, location);
+            }
 
             if (!(displayObject is T))
             {

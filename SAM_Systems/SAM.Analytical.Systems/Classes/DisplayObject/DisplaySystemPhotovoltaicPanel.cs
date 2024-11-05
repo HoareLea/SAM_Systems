@@ -4,7 +4,7 @@ using SAM.Geometry.Systems;
 
 namespace SAM.Analytical.Systems
 {
-    public class DisplaySystemSolarPanel : SystemSolarPanel, IDisplaySystemObject<SystemGeometryInstance>
+    public class DisplaySystemPhotovoltaicPanel : SystemPhotovoltaicPanel, IDisplaySystemObject<SystemGeometryInstance>
     {
         private SystemGeometryInstance systemGeometryInstance;
 
@@ -24,19 +24,19 @@ namespace SAM.Analytical.Systems
             }
         }
 
-        public DisplaySystemSolarPanel(SystemSolarPanel systemSolarPanel, SystemGeometrySymbol systemGeometrySymbol, Point2D location)
-            : base(systemSolarPanel)
+        public DisplaySystemPhotovoltaicPanel(SystemPhotovoltaicPanel systemPhotovoltaicPanel, SystemGeometrySymbol systemGeometrySymbol, Point2D location)
+            :base(systemPhotovoltaicPanel)
         {
             systemGeometryInstance = new SystemGeometryInstance(systemGeometrySymbol, location);
         }
 
-        public DisplaySystemSolarPanel(DisplaySystemSolarPanel displaySystemSolarPanel)
-            : base(displaySystemSolarPanel)
+        public DisplaySystemPhotovoltaicPanel(DisplaySystemPhotovoltaicPanel displaySystemPhotovoltaicPanel)
+            : base(displaySystemPhotovoltaicPanel)
         {
-            systemGeometryInstance = displaySystemSolarPanel?.systemGeometryInstance == null ? null : new SystemGeometryInstance(displaySystemSolarPanel?.systemGeometryInstance);
+            systemGeometryInstance = displaySystemPhotovoltaicPanel?.systemGeometryInstance == null ? null : new SystemGeometryInstance(displaySystemPhotovoltaicPanel?.systemGeometryInstance);
         }
 
-        public DisplaySystemSolarPanel(JObject jObject)
+        public DisplaySystemPhotovoltaicPanel(JObject jObject)
             : base(jObject)
         {
 
@@ -44,7 +44,7 @@ namespace SAM.Analytical.Systems
 
         public bool Move(Vector2D vector2D)
         {
-            if (systemGeometryInstance == null || vector2D == null)
+            if(systemGeometryInstance == null || vector2D == null)
             {
                 return false;
             }
@@ -65,12 +65,12 @@ namespace SAM.Analytical.Systems
         public override bool FromJObject(JObject jObject)
         {
             bool result = base.FromJObject(jObject);
-            if (!result)
+            if(!result)
             {
                 return result;
             }
 
-            if (jObject.ContainsKey("SystemGeometryInstance"))
+            if(jObject.ContainsKey("SystemGeometryInstance"))
             {
                 systemGeometryInstance = new SystemGeometryInstance(jObject.Value<JObject>("SystemGeometryInstance"));
             }
@@ -81,7 +81,7 @@ namespace SAM.Analytical.Systems
         public override JObject ToJObject()
         {
             JObject result = base.ToJObject();
-            if (result == null)
+            if(result == null)
             {
                 return result;
             }
@@ -95,4 +95,3 @@ namespace SAM.Analytical.Systems
         }
     }
 }
-
