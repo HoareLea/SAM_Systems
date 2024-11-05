@@ -163,6 +163,9 @@
 
                 case AnalyticalSystemComponentType.SystemDryCooler:
                     return typeof(SystemDryCooler);
+
+                case AnalyticalSystemComponentType.SystemVerticalBorehole:
+                    return typeof(SystemVerticalBorehole);
             }
 
             return null;

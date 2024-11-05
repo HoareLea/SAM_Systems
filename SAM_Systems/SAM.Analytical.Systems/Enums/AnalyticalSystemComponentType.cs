@@ -56,6 +56,7 @@ namespace SAM.Analytical.Systems
         [Description("System Pipe Loss Component")] SystemPipeLossComponent,
         [Description("System Liquid Exchanger")] SystemLiquidExchanger,
         [Description("System Cooling Tower")] SystemCoolingTower,
-        [Description("System Dry Cooler")] SystemDryCooler
+        [Description("System Dry Cooler")] SystemDryCooler,
+        [Description("System Vertical Borehole")] SystemVerticalBorehole
     }
 }

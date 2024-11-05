@@ -226,6 +226,10 @@ namespace SAM.Analytical.Systems
             {
                 displayObject = new DisplaySystemDryCooler((SystemDryCooler)systemComponent, systemGeometrySymbol, location);
             }
+            else if (systemComponent is SystemVerticalBorehole)
+            {
+                displayObject = new DisplaySystemVerticalBorehole((SystemVerticalBorehole)systemComponent, systemGeometrySymbol, location);
+            }
 
             if (!(displayObject is T))
             {
