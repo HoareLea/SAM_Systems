@@ -18,8 +18,8 @@ namespace SAM.Analytical.Systems
             FromJObject(jObject);
         }
 
-        public SystemVerticalBoreholeResult(SystemPumpResult systemPumpResult)
-            : base(systemPumpResult)
+        public SystemVerticalBoreholeResult(SystemVerticalBoreholeResult systemVerticalBoreholeResult)
+            : base(systemVerticalBoreholeResult)
         {
 
         }
