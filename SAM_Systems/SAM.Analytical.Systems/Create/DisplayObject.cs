@@ -254,6 +254,10 @@ namespace SAM.Analytical.Systems
             {
                 displayObject = new DisplaySystemPhotovoltaicPanel((SystemPhotovoltaicPanel)systemComponent, systemGeometrySymbol, location);
             }
+            else if (systemComponent is SystemValve)
+            {
+                displayObject = new DisplaySystemValve((SystemValve)systemComponent, systemGeometrySymbol, location);
+            }
 
             if (!(displayObject is T))
             {
