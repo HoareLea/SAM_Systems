@@ -3,7 +3,7 @@ using SAM.Core.Systems;
 
 namespace SAM.Analytical.Systems
 {
-    public class RefrigerantSystemCollection : SystemCollection<RefrigerantSystem>
+    public class RefrigerantSystemCollection : SystemCollection<LiquidSystem>
     {
         public RefrigerantSystemCollection()
             : base()
