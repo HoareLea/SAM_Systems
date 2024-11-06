@@ -64,6 +64,7 @@ namespace SAM.Analytical.Systems
         [Description("System Horizontal Exchanger")] SystemHorizontalExchanger,
         [Description("System Solar Panel")] SystemSolarPanel,
         [Description("System Photovoltaic Panel")] SystemPhotovoltaicPanel,
-        [Description("System Valve")] SystemValve
+        [Description("System Valve")] SystemValve,
+        [Description("System Wind Turbine")] SystemWindTurbine
     }
 }

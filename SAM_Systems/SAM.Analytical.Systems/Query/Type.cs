@@ -187,6 +187,9 @@
 
                 case AnalyticalSystemComponentType.SystemValve:
                     return typeof(SystemValve);
+
+                case AnalyticalSystemComponentType.SystemWindTurbine:
+                    return typeof(SystemWindTurbine);
             }
 
             return null;

@@ -258,6 +258,10 @@ namespace SAM.Analytical.Systems
             {
                 displayObject = new DisplaySystemValve((SystemValve)systemComponent, systemGeometrySymbol, location);
             }
+            else if (systemComponent is SystemWindTurbine)
+            {
+                displayObject = new DisplaySystemWindTurbine((SystemWindTurbine)systemComponent, systemGeometrySymbol, location);
+            }
 
             if (!(displayObject is T))
             {
