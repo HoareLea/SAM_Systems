@@ -31,7 +31,7 @@ namespace SAM.Analytical.Systems
                 (
                     //Core.Systems.Create.SystemConnector<LiquidSystem>(Core.Direction.In, 1),
                     //Core.Systems.Create.SystemConnector<LiquidSystem>(Core.Direction.Out, 1),
-                    Core.Systems.Create.SystemConnector<IControlSystem>()
+                    //Core.Systems.Create.SystemConnector<IControlSystem>()
                 );
             }
         }
