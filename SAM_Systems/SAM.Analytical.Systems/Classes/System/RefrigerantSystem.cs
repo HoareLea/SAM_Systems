@@ -9,6 +9,11 @@ namespace SAM.Analytical.Systems
         {
         }
 
+        public RefrigerantSystem(string name)
+            : base(name)
+        {
+        }
+
         public RefrigerantSystem(JObject jObject)
             : base(jObject)
         {

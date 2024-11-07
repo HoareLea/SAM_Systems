@@ -23,7 +23,7 @@ namespace SAM.Analytical.Grasshopper.Systems
         /// <summary>
         /// The latest version of this component
         /// </summary>
-        public override string LatestComponentVersion => "1.0.0";
+        public override string LatestComponentVersion => "1.0.1";
 
         /// <summary>
         /// Provides an Icon for the component.
@@ -51,7 +51,7 @@ namespace SAM.Analytical.Grasshopper.Systems
             {
                 List<GH_SAMParam> result = new List<GH_SAMParam>();
                 result.Add(new GH_SAMParam(new GooSAMGeometryParam() { Name = "_geometries", NickName = "_geometries", Description = "SAM Geometries", Access = GH_ParamAccess.list }, ParamVisibility.Binding));
-                result.Add(new GH_SAMParam(new GooSystemObjectParam() { Name = "_displaySystemConnectors", NickName = "_displaySystemConnectors", Description = "SAM Systems DisplaySystemConnectors", Access = GH_ParamAccess.list }, ParamVisibility.Binding));
+                result.Add(new GH_SAMParam(new GooSystemObjectParam() { Name = "displaySystemConnectors_", NickName = "displaySystemConnectors_", Description = "SAM Systems DisplaySystemConnectors", Access = GH_ParamAccess.list, Optional = true }, ParamVisibility.Binding));
 
                 return result.ToArray();
             }
@@ -80,21 +80,18 @@ namespace SAM.Analytical.Grasshopper.Systems
         {
             int index = -1;
 
+            List<DisplaySystemConnector> displaySystemConnectors = new List<DisplaySystemConnector>();
 
             List<ISystemObject> systemObjects = new List<ISystemObject>();
-            index = Params.IndexOfInputParam("_displaySystemConnectors");
-            if (index == -1 || !dataAccess.GetDataList(index, systemObjects) || systemObjects == null)
+            index = Params.IndexOfInputParam("displaySystemConnectors_");
+            if (index != -1 && dataAccess.GetDataList(index, systemObjects) && systemObjects != null)
             {
-                AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "Invalid data");
-                return;
-            }
-
-            List<DisplaySystemConnector> displaySystemConnectors = new List<DisplaySystemConnector>();
-            foreach (ISystemObject systemObject in systemObjects)
-            {
-                if (systemObject is DisplaySystemConnector)
+                foreach (ISystemObject systemObject in systemObjects)
                 {
-                    displaySystemConnectors.Add((DisplaySystemConnector)systemObject);
+                    if (systemObject is DisplaySystemConnector)
+                    {
+                        displaySystemConnectors.Add((DisplaySystemConnector)systemObject);
+                    }
                 }
             }
 

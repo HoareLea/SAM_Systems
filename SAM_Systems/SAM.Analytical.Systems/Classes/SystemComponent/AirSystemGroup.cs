@@ -18,7 +18,7 @@ namespace SAM.Analytical.Systems
         public AirSystemGroup(JObject jObject)
             : base(jObject)
         {
-            FromJObject(jObject);
+
         }
 
         public AirSystemGroup(AirSystemGroup airSystemGroup)

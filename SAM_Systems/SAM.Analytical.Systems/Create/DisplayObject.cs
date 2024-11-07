@@ -86,6 +86,70 @@ namespace SAM.Analytical.Systems
             {
                 displayObject = new DisplaySystemDirectEvaporativeCooler((SystemDirectEvaporativeCooler)systemComponent, systemGeometrySymbol, location);
             }
+            else if (systemComponent is SystemPump)
+            {
+                displayObject = new DisplaySystemPump((SystemPump)systemComponent, systemGeometrySymbol, location);
+            }
+            else if (systemComponent is SystemWaterSourceHeatPump)
+            {
+                displayObject = new DisplaySystemWaterSourceHeatPump((SystemWaterSourceHeatPump)systemComponent, systemGeometrySymbol, location);
+            }
+            else if (systemComponent is SystemAirSourceHeatPump)
+            {
+                displayObject = new DisplaySystemAirSourceHeatPump((SystemAirSourceHeatPump)systemComponent, systemGeometrySymbol, location);
+            }
+            else if (systemComponent is SystemWaterToWaterHeatPump)
+            {
+                displayObject = new DisplaySystemWaterToWaterHeatPump((SystemWaterToWaterHeatPump)systemComponent, systemGeometrySymbol, location);
+            }
+            else if (systemComponent is SystemBoiler)
+            {
+                displayObject = new DisplaySystemBoiler((SystemBoiler)systemComponent, systemGeometrySymbol, location);
+            }
+            else if (systemComponent is SystemAirSourceChiller)
+            {
+                displayObject = new DisplaySystemAirSourceChiller((SystemAirSourceChiller)systemComponent, systemGeometrySymbol, location);
+            }
+            else if (systemComponent is SystemWaterSourceChiller)
+            {
+                displayObject = new DisplaySystemWaterSourceChiller((SystemWaterSourceChiller)systemComponent, systemGeometrySymbol, location);
+            }
+            else if (systemComponent is SystemMultiChiller)
+            {
+                displayObject = new DisplaySystemMultiChiller((SystemMultiChiller)systemComponent, systemGeometrySymbol, location);
+            }
+            else if (systemComponent is SystemAbsorptionChiller)
+            {
+                displayObject = new DisplaySystemAbsorptionChiller((SystemAbsorptionChiller)systemComponent, systemGeometrySymbol, location);
+            }
+            else if (systemComponent is SystemAirSourceDirectAbsorptionChiller)
+            {
+                displayObject = new DisplaySystemAirSourceDirectAbsorptionChiller((SystemAirSourceDirectAbsorptionChiller)systemComponent, systemGeometrySymbol, location);
+            }
+            else if (systemComponent is SystemWaterSourceAbsorptionChiller)
+            {
+                displayObject = new DisplaySystemWaterSourceAbsorptionChiller((SystemWaterSourceAbsorptionChiller)systemComponent, systemGeometrySymbol, location);
+            }
+            else if (systemComponent is SystemWaterSourceDirectAbsorptionChiller)
+            {
+                displayObject = new DisplaySystemWaterSourceDirectAbsorptionChiller((SystemWaterSourceDirectAbsorptionChiller)systemComponent, systemGeometrySymbol, location);
+            }
+            else if (systemComponent is SystemIceStorageChiller)
+            {
+                displayObject = new DisplaySystemIceStorageChiller((SystemIceStorageChiller)systemComponent, systemGeometrySymbol, location);
+            }
+            else if (systemComponent is SystemWaterSourceIceStorageChiller)
+            {
+                displayObject = new DisplaySystemWaterSourceIceStorageChiller((SystemWaterSourceIceStorageChiller)systemComponent, systemGeometrySymbol, location);
+            }
+            else if (systemComponent is SystemTank)
+            {
+                displayObject = new DisplaySystemTank((SystemTank)systemComponent, systemGeometrySymbol, location);
+            }
+            else if (systemComponent is SystemLiquidJunction)
+            {
+                displayObject = new DisplaySystemLiquidJunction((SystemLiquidJunction)systemComponent, systemGeometrySymbol, location);
+            }
             else if (systemComponent is SystemNormalController)
             {
                 displayObject = new DisplaySystemNormalController((SystemNormalController)systemComponent, systemGeometrySymbol, location);
@@ -121,6 +185,82 @@ namespace SAM.Analytical.Systems
             else if (systemComponent is SystemSigLogicalController)
             {
                 displayObject = new DisplaySystemSigLogicalController((SystemSigLogicalController)systemComponent, systemGeometrySymbol, location);
+            }
+            else if (systemComponent is CoolingSystemCollection)
+            {
+                displayObject = new DisplayCoolingSystemCollection((CoolingSystemCollection)systemComponent, systemGeometrySymbol, location);
+            }
+            else if (systemComponent is DomesticHotWaterSystemCollection)
+            {
+                displayObject = new DisplayDomesticHotWaterSystemCollection((DomesticHotWaterSystemCollection)systemComponent, systemGeometrySymbol, location);
+            }
+            else if (systemComponent is ElectricalSystemCollection)
+            {
+                displayObject = new DisplayElectricalSystemCollection((ElectricalSystemCollection)systemComponent, systemGeometrySymbol, location);
+            }
+            else if (systemComponent is FuelSystemCollection)
+            {
+                displayObject = new DisplayFuelSystemCollection((FuelSystemCollection)systemComponent, systemGeometrySymbol, location);
+            }
+            else if (systemComponent is HeatingSystemCollection)
+            {
+                displayObject = new DisplayHeatingSystemCollection((HeatingSystemCollection)systemComponent, systemGeometrySymbol, location);
+            }
+            else if (systemComponent is RefrigerantSystemCollection)
+            {
+                displayObject = new DisplayRefrigerantSystemCollection((RefrigerantSystemCollection)systemComponent, systemGeometrySymbol, location);
+            }
+            else if (systemComponent is SystemLiquidExchanger)
+            {
+                displayObject = new DisplaySystemLiquidExchanger((SystemLiquidExchanger)systemComponent, systemGeometrySymbol, location);
+            }
+            else if (systemComponent is SystemPipeLossComponent)
+            {
+                displayObject = new DisplaySystemPipeLossComponent((SystemPipeLossComponent)systemComponent, systemGeometrySymbol, location);
+            }
+            else if (systemComponent is SystemCoolingTower)
+            {
+                displayObject = new DisplaySystemCoolingTower((SystemCoolingTower)systemComponent, systemGeometrySymbol, location);
+            }
+            else if (systemComponent is SystemDryCooler)
+            {
+                displayObject = new DisplaySystemDryCooler((SystemDryCooler)systemComponent, systemGeometrySymbol, location);
+            }
+            else if (systemComponent is SystemVerticalBorehole)
+            {
+                displayObject = new DisplaySystemVerticalBorehole((SystemVerticalBorehole)systemComponent, systemGeometrySymbol, location);
+            }
+            else if (systemComponent is SystemSlinkyCoil)
+            {
+                displayObject = new DisplaySystemSlinkyCoil((SystemSlinkyCoil)systemComponent, systemGeometrySymbol, location);
+            }
+            else if (systemComponent is SystemCHP)
+            {
+                displayObject = new DisplaySystemCHP((SystemCHP)systemComponent, systemGeometrySymbol, location);
+            }
+            else if (systemComponent is SystemSurfaceWaterExchanger)
+            {
+                displayObject = new DisplaySystemSurfaceWaterExchanger((SystemSurfaceWaterExchanger)systemComponent, systemGeometrySymbol, location);
+            }
+            else if (systemComponent is SystemHorizontalExchanger)
+            {
+                displayObject = new DisplaySystemHorizontalExchanger((SystemHorizontalExchanger)systemComponent, systemGeometrySymbol, location);
+            }
+            else if (systemComponent is SystemSolarPanel)
+            {
+                displayObject = new DisplaySystemSolarPanel((SystemSolarPanel)systemComponent, systemGeometrySymbol, location);
+            }
+            else if (systemComponent is SystemPhotovoltaicPanel)
+            {
+                displayObject = new DisplaySystemPhotovoltaicPanel((SystemPhotovoltaicPanel)systemComponent, systemGeometrySymbol, location);
+            }
+            else if (systemComponent is SystemValve)
+            {
+                displayObject = new DisplaySystemValve((SystemValve)systemComponent, systemGeometrySymbol, location);
+            }
+            else if (systemComponent is SystemWindTurbine)
+            {
+                displayObject = new DisplaySystemWindTurbine((SystemWindTurbine)systemComponent, systemGeometrySymbol, location);
             }
 
             if (!(displayObject is T))

@@ -30,6 +30,9 @@ namespace SAM.Analytical.Systems
 
                 case AnalyticalSystemType.RefrigerantSystem:
                     return new SystemType(typeof(RefrigerantSystem));
+
+                case AnalyticalSystemType.LiquidSystem:
+                    return new SystemType(typeof(LiquidSystem));
             }
 
             return null;

@@ -16,3 +16,4 @@ namespace SAM.Analytical.Systems
         [Description("Load")] Load = 9,
     }
 }
+

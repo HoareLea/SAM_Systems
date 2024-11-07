@@ -11,6 +11,12 @@ namespace SAM.Analytical.Systems
 
         }
 
+        public SystemBoiler(string name)
+            : base(name)
+        {
+
+        }
+
         public SystemBoiler(JObject jObject)
             : base(jObject)
         {
