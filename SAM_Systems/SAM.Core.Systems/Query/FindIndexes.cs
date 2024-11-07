@@ -36,5 +36,37 @@ namespace SAM.Core.Systems
 
             return result;
         }
+
+        public static HashSet<int> FindIndexes(this SystemPlantRoom systemPlantRoom, ISystemComponent systemComponent, int connectionIndex, SystemType systemType, ConnectorStatus connectorStatus = Systems.ConnectorStatus.Undefined, Direction? direction = null)
+        {
+            if (systemPlantRoom == null || systemComponent == null)
+            {
+                return null;
+            }
+
+            List<int> indexes = direction == null || !direction.HasValue ? systemComponent.SystemConnectorManager?.GetIndexes(systemType, connectionIndex) : systemComponent.SystemConnectorManager?.GetIndexes(systemType, direction.Value, connectionIndex);
+            if (indexes == null || indexes.Count == 0)
+            {
+                return null;
+            }
+
+            if (connectorStatus == Systems.ConnectorStatus.Undefined)
+            {
+                return new HashSet<int>(indexes);
+            }
+
+            HashSet<int> result = new HashSet<int>();
+            foreach (int index in indexes)
+            {
+                ISystemConnection systemConnection = SystemConnection(systemPlantRoom, systemComponent, index);
+
+                if ((systemConnection == null && connectorStatus == Systems.ConnectorStatus.Unconnected) || (systemConnection != null && connectorStatus == Systems.ConnectorStatus.Connected))
+                {
+                    result.Add(index);
+                }
+            }
+
+            return result;
+        }
     }
 }
