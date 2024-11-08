@@ -10,6 +10,7 @@ namespace SAM.Analytical.Systems
         [Description("System Cooling Coil")] SystemCoolingCoil,
         [Description("System Fan")] SystemFan,
         [Description("System Boiler")] SystemBoiler,
+        [Description("System Multi Boiler")] SystemMultiBoiler,
         [Description("System Air Junction")] SystemAirJunction,
         [Description("System Chilled Beam")] SystemChilledBeam,
         [Description("System Damper")] SystemDamper,
