@@ -2,15 +2,13 @@
 
 namespace SAM.Analytical.Systems
 {
-    [Description("Electrical Group Type")]
-    public enum ElectricalGroupType
+    [Description("Electrical System Collection Type")]
+    public enum ElectricalSystemCollectionType
     {
-        [Description("Undefined")] Undefined,
+        [Description("None")] None,
         [Description("Fans")] Fans,
         [Description("Lighting")] Lighting,
         [Description("Equipment")] Equipment,
         [Description("Heating")] Heating,
-        [Description("None")] None,
     }
 }
-
