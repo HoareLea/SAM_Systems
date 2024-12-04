@@ -38,6 +38,9 @@
                 case AnalyticalSystemComponentType.SystemMultiChiller:
                     return typeof(SystemMultiChiller);
 
+                case AnalyticalSystemComponentType.SystemMultiBoiler:
+                    return typeof(SystemMultiBoiler);
+
                 case AnalyticalSystemComponentType.SystemAbsorptionChiller:
                     return typeof(SystemAbsorptionChiller);
 

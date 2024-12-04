@@ -114,6 +114,10 @@ namespace SAM.Analytical.Systems
             {
                 displayObject = new DisplaySystemWaterSourceChiller((SystemWaterSourceChiller)systemComponent, systemGeometrySymbol, location);
             }
+            else if (systemComponent is SystemMultiBoiler)
+            {
+                displayObject = new DisplaySystemMultiBoiler((SystemMultiBoiler)systemComponent, systemGeometrySymbol, location);
+            }
             else if (systemComponent is SystemMultiChiller)
             {
                 displayObject = new DisplaySystemMultiChiller((SystemMultiChiller)systemComponent, systemGeometrySymbol, location);
