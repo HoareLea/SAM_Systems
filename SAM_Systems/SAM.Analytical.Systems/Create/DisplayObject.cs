@@ -102,6 +102,10 @@ namespace SAM.Analytical.Systems
             {
                 displayObject = new DisplaySystemWaterToWaterHeatPump((SystemWaterToWaterHeatPump)systemComponent, systemGeometrySymbol, location);
             }
+            else if (systemComponent is SystemMultiBoiler)
+            {
+                displayObject = new DisplaySystemMultiBoiler((SystemMultiBoiler)systemComponent, systemGeometrySymbol, location);
+            }
             else if (systemComponent is SystemBoiler)
             {
                 displayObject = new DisplaySystemBoiler((SystemBoiler)systemComponent, systemGeometrySymbol, location);
@@ -113,10 +117,6 @@ namespace SAM.Analytical.Systems
             else if (systemComponent is SystemWaterSourceChiller)
             {
                 displayObject = new DisplaySystemWaterSourceChiller((SystemWaterSourceChiller)systemComponent, systemGeometrySymbol, location);
-            }
-            else if (systemComponent is SystemMultiBoiler)
-            {
-                displayObject = new DisplaySystemMultiBoiler((SystemMultiBoiler)systemComponent, systemGeometrySymbol, location);
             }
             else if (systemComponent is SystemMultiChiller)
             {
