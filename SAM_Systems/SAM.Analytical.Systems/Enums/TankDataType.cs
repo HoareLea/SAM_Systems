@@ -6,9 +6,10 @@ namespace SAM.Analytical.Systems
     public enum TankDataType
     {
         [Description("Flow Rate")] FlowRate = 1,
-        [Description("Temperature")] Temperature = 2,
-        [Description("Tank Temperature")] TankTemperature = 3,
-        [Description("Storage Loss")] StorageLoss = 4,
+        [Description("Pressure")] Pressure = 2,
+        [Description("Temperature")] Temperature = 3,
+        [Description("Tank Temperature")] TankTemperature = 4,
+        [Description("Storage Loss")] StorageLoss = 5,
     }
 }
 

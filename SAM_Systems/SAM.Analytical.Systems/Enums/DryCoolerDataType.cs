@@ -6,11 +6,12 @@ namespace SAM.Analytical.Systems
     public enum DryCoolerDataType
     {
         [Description("Flow Rate")] FlowRate = 1,
-        [Description("Temperature")] Temperature = 2,
-        [Description("Air Flow Rate")] AirFlowRate = 2,
-        [Description("Heat Rejected")] HeatRejected = 3,
-        [Description("Total Consumption")] TotalConsumption = 3,
-        [Description("Fan Load")] FanLoad = 3,
-        [Description("Ancillary Load")] AncillaryLoad = 3,
+        [Description("Pressure")] Pressure = 2,
+        [Description("Temperature")] Temperature = 3,
+        [Description("Air Flow Rate")] AirFlowRate = 4,
+        [Description("Heat Rejected")] HeatRejected = 5,
+        [Description("Total Consumption")] TotalConsumption = 6,
+        [Description("Fan Load")] FanLoad = 7,
+        [Description("Ancillary Load")] AncillaryLoad = 8,
     }
 }

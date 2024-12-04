@@ -6,7 +6,7 @@ namespace SAM.Analytical.Systems
     public enum PhotovoltaicPanelDataType
     {
         [Description("Generated")] Generated = 1,
-        [Description("PanelTemperature")] PanelTemperature = 2,
+        [Description("Panel Temperature")] PanelTemperature = 2,
         [Description("Incident Solar Radiation")] IncidentSolarRadiation = 3,
     }
 }

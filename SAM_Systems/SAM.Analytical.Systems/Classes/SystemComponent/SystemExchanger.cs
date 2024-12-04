@@ -3,6 +3,9 @@ using SAM.Core.Systems;
 
 namespace SAM.Analytical.Systems
 {
+    /// <summary>
+    /// Heat Recovery (Air Side)
+    /// </summary>
     public class SystemExchanger : SystemComponent
     {
         public double SensibleEfficiency { get; set; }

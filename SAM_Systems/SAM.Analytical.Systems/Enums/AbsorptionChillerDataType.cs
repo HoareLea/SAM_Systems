@@ -10,7 +10,9 @@ namespace SAM.Analytical.Systems
         [Description("Temperature")] Temperature = 3,
         [Description("Demand")] Demand = 4,
         [Description("Consumption")] Consumption = 5,
-        [Description("Compressor")] Compressor = 6,
-        [Description("Fan Load")] FanLoad = 7,
+        [Description("Ancilliary Load")] AncilliaryLoad = 6,
+
+        //[Description("Compressor")] Compressor = 6,
+        //[Description("Fan Load")] FanLoad = 7,
     }
 }

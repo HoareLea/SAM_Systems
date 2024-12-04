@@ -3,6 +3,9 @@ using SAM.Core.Systems;
 
 namespace SAM.Analytical.Systems
 {
+    /// <summary>
+    /// Surface Water Exchanger, Heat Rejection (Liquid side)
+    /// </summary>
     public class SystemSurfaceWaterExchanger : SystemComponent
     {
         public SystemSurfaceWaterExchanger(string name)
