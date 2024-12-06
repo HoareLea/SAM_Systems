@@ -113,11 +113,17 @@
                 case AnalyticalSystemComponentType.SystemDifferenceController:
                     return typeof(SystemDifferenceController);
 
+                case AnalyticalSystemComponentType.SystemLiquidDifferenceController:
+                    return typeof(SystemLiquidDifferenceController);
+
                 case AnalyticalSystemComponentType.SystemIfLogicalController:
                     return typeof(SystemIfLogicalController);
 
                 case AnalyticalSystemComponentType.SystemNormalController:
                     return typeof(SystemNormalController);
+
+                case AnalyticalSystemComponentType.SystemLiquidNormalController:
+                    return typeof(SystemLiquidNormalController);
 
                 case AnalyticalSystemComponentType.SystemMaxLogicalController:
                     return typeof(SystemMaxLogicalController);
@@ -133,6 +139,9 @@
 
                 case AnalyticalSystemComponentType.SystemPassthroughController:
                     return typeof(SystemPassthroughController);
+
+                case AnalyticalSystemComponentType.SystemLiquidPassthroughController:
+                    return typeof(SystemLiquidPassthroughController);
 
                 case AnalyticalSystemComponentType.SystemSigLogicalController:
                     return typeof(SystemSigLogicalController);
