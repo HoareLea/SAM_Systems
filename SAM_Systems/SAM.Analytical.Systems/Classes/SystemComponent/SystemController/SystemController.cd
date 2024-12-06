@@ -8,21 +8,22 @@
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="SAM.Analytical.Systems.SystemDifferenceController" Collapsed="true">
-    <Position X="6.5" Y="5" Width="2.25" />
+  <Class Name="SAM.Analytical.Systems.SystemLiquidDifferenceController" Collapsed="true">
+    <Position X="4.75" Y="6.5" Width="3" />
     <TypeIdentifier>
       <HashCode>AAAAAABAAAAAAAAAAAAAAAAAAAAACCBAAAAAAAAAAAA=</HashCode>
-      <FileName>Classes\SystemComponent\SystemController\SystemDifferenceController.cs</FileName>
+      <FileName>Classes\SystemComponent\SystemController\SystemLiquidDifferenceController.cs</FileName>
+      <NewMemberFileName>Classes\SystemComponent\SystemController\SystemDifferenceController.cs</NewMemberFileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SAM.Analytical.Systems.SystemIfLogicalController" Collapsed="true">
-    <Position X="1.25" Y="6.5" Width="2.25" />
+    <Position X="1.25" Y="7.75" Width="2.25" />
     <InheritanceLine Type="SAM.Analytical.Systems.SystemLogicalController" ManuallyRouted="true" FixedToPoint="true">
       <Path>
         <Point X="2.5" Y="2.441" />
-        <Point X="2.5" Y="6.125" />
-        <Point X="2.375" Y="6.125" />
-        <Point X="2.375" Y="6.5" />
+        <Point X="2.5" Y="7.296" />
+        <Point X="2.375" Y="7.296" />
+        <Point X="2.375" Y="7.75" />
       </Path>
     </InheritanceLine>
     <TypeIdentifier>
@@ -38,42 +39,42 @@
     </TypeIdentifier>
   </Class>
   <Class Name="SAM.Analytical.Systems.SystemMaxLogicalController" Collapsed="true">
-    <Position X="11.25" Y="6.5" Width="2.25" />
+    <Position X="11.25" Y="7.75" Width="2.25" />
     <TypeIdentifier>
       <HashCode>AAAAAABAAIAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAA=</HashCode>
       <FileName>Classes\SystemComponent\SystemController\SystemMaxLogicalController.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SAM.Analytical.Systems.SystemMinLogicalController" Collapsed="true">
-    <Position X="3.75" Y="6.5" Width="2.25" />
+    <Position X="3.75" Y="7.75" Width="2.25" />
     <TypeIdentifier>
       <HashCode>AAAAAABAAIAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAA=</HashCode>
       <FileName>Classes\SystemComponent\SystemController\SystemMinLogicalController.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SAM.Analytical.Systems.SystemNormalController" Collapsed="true">
-    <Position X="6.5" Y="3.5" Width="2.25" />
+    <Position X="8" Y="5" Width="2.25" />
     <TypeIdentifier>
       <HashCode>AAAAAAhAAAAAAAACAAAAAAgAAAAAAABAACAIAAAAAAA=</HashCode>
       <FileName>Classes\SystemComponent\SystemController\SystemNormalController.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SAM.Analytical.Systems.SystemNotLogicalController" Collapsed="true">
-    <Position X="8.75" Y="6.5" Width="2.25" />
+    <Position X="8.75" Y="7.75" Width="2.25" />
     <TypeIdentifier>
       <HashCode>AAAAAABAAIAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAA=</HashCode>
       <FileName>Classes\SystemComponent\SystemController\SystemNotLogicalController.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SAM.Analytical.Systems.SystemOutdoorController" Collapsed="true">
-    <Position X="3.75" Y="5" Width="2" />
+    <Position X="2.75" Y="5" Width="2" />
     <TypeIdentifier>
       <HashCode>AIAAAABAAAAAAAAAAAAAAAAAAAAAAABAAAAAAACAAAA=</HashCode>
       <FileName>Classes\SystemComponent\SystemController\SystemOutdoorController.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SAM.Analytical.Systems.SystemPassthroughController" Collapsed="true">
-    <Position X="9.25" Y="3.5" Width="2.25" />
+    <Position X="6.75" Y="3.5" Width="2.25" />
     <TypeIdentifier>
       <HashCode>AAAAAABAAAAAAAACAAAAAAAAAAAAAABAACAIAAAAAAA=</HashCode>
       <FileName>Classes\SystemComponent\SystemController\SystemPassthroughController.cs</FileName>
@@ -94,10 +95,31 @@
     </TypeIdentifier>
   </Class>
   <Class Name="SAM.Analytical.Systems.SystemSigLogicalController" Collapsed="true">
-    <Position X="6.25" Y="6.5" Width="2.25" />
+    <Position X="6.25" Y="7.75" Width="2.25" />
     <TypeIdentifier>
       <HashCode>AAAAAABAAIAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAA=</HashCode>
       <FileName>Classes\SystemComponent\SystemController\SystemSigLogicalController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SAM.Analytical.Systems.SystemLiquidNormalController" Collapsed="true">
+    <Position X="5" Y="5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAABAAAAAAAACAAAAAEAAAAAAAABAAAAAAEAAAAA=</HashCode>
+      <FileName>Classes\SystemComponent\SystemController\SystemLiquidNormalController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SAM.Analytical.Systems.SystemLiquidPassthroughController" Collapsed="true">
+    <Position X="9.25" Y="3.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAABAAAAAAAACAAAAAEAAAAAAAABAAAAAAEAAAAA=</HashCode>
+      <FileName>Classes\SystemComponent\SystemController\SystemLiquidPassthroughController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SAM.Analytical.Systems.SystemDifferenceController" Collapsed="true">
+    <Position X="8" Y="6.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAABAAAAAAAAAAAAAAAAAAAAACCBAAAAAAAAAAAA=</HashCode>
+      <FileName>Classes\SystemComponent\SystemController\SystemDifferenceController.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />

@@ -103,7 +103,7 @@ namespace SAM.Analytical.Systems
 
             result.Add("NormalControllerDataType", normalControllerDataType.ToString());
 
-            result.Add("NormalControllerLimit", normalControllerDataType.ToString());
+            result.Add("NormalControllerLimit", normalControllerLimit.ToString());
 
             return result;
         }
