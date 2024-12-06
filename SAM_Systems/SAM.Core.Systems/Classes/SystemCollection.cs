@@ -41,12 +41,12 @@ namespace SAM.Core.Systems
         {
             get
             {
-                return Core.Systems.Create.SystemConnectorManager
+                return Create.SystemConnectorManager
                 (
-                    Core.Systems.Create.SystemConnector<T>(Direction.In, 1),
-                    Core.Systems.Create.SystemConnector<T>(Direction.Out, 1),
+                    Create.SystemConnector<T>(Direction.In, 1),
+                    Create.SystemConnector<T>(Direction.Out, 1),
                     //Core.Systems.Create.SystemConnector<ElectricalSystem>(),
-                    Core.Systems.Create.SystemConnector<IControlSystem>()
+                    Create.SystemConnector<IControlSystem>(Direction.Out)
                 );
             }
         }
