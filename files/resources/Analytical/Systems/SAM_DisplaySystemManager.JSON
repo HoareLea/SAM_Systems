@@ -8,7 +8,7 @@
           "SAM.Analytical.Systems.SystemCoolingCoil,SAM.Analytical.Systems",
           {
             "_type": "SAM.Geometry.Systems.SystemGeometrySymbol,SAM.Geometry.Systems",
-            "Guid": "88cb4467-06a3-4b14-99b2-328b5942ff8f",
+            "Guid": "693060f7-c9eb-4633-91e6-356e6236584e",
             "Geometry": {
               "_type": "SAM.Geometry.Object.Planar.SAMGeometry2DObjectCollection,SAM.Geometry",
               "Geometry2DObjects": [
@@ -649,7 +649,7 @@
           "SAM.Analytical.Systems.SystemHeatingCoil,SAM.Analytical.Systems",
           {
             "_type": "SAM.Geometry.Systems.SystemGeometrySymbol,SAM.Geometry.Systems",
-            "Guid": "6364af1f-e342-49ef-a1ed-90bd451c1c47",
+            "Guid": "ff90a688-37ff-4f81-8c84-19c024bfbc87",
             "Geometry": {
               "_type": "SAM.Geometry.Object.Planar.SAMGeometry2DObjectCollection,SAM.Geometry",
               "Geometry2DObjects": [
@@ -1342,7 +1342,7 @@
           "SAM.Analytical.Systems.SystemFan,SAM.Analytical.Systems",
           {
             "_type": "SAM.Geometry.Systems.SystemGeometrySymbol,SAM.Geometry.Systems",
-            "Guid": "e30aa2a5-41e4-47c0-a68b-41942e7bfb06",
+            "Guid": "f8ecf390-1958-46fa-a362-ac4fa71ce2f9",
             "Geometry": {
               "_type": "SAM.Geometry.Object.Planar.SAMGeometry2DObjectCollection,SAM.Geometry",
               "Geometry2DObjects": [
@@ -1709,7 +1709,7 @@
           "SAM.Analytical.Systems.SystemExchanger,SAM.Analytical.Systems",
           {
             "_type": "SAM.Geometry.Systems.SystemGeometrySymbol,SAM.Geometry.Systems",
-            "Guid": "e8f4ab1c-d309-4e85-abf8-0c1d1f172660",
+            "Guid": "77da7259-482a-41b1-a510-52b46f75ad7e",
             "Geometry": {
               "_type": "SAM.Geometry.Object.Planar.SAMGeometry2DObjectCollection,SAM.Geometry",
               "Geometry2DObjects": [
@@ -2377,7 +2377,7 @@
           "SAM.Analytical.Systems.SystemAirJunction,SAM.Analytical.Systems",
           {
             "_type": "SAM.Geometry.Systems.SystemGeometrySymbol,SAM.Geometry.Systems",
-            "Guid": "710c8d9f-4c18-4a11-ae43-0c4be18b7a19",
+            "Guid": "71647ee0-971e-4e0d-99a2-8aeeb1164c3c",
             "Geometry": {
               "_type": "SAM.Geometry.Object.Planar.SAMGeometry2DObjectCollection,SAM.Geometry",
               "Geometry2DObjects": [
@@ -2620,7 +2620,7 @@
           "SAM.Analytical.Systems.SystemDamper,SAM.Analytical.Systems",
           {
             "_type": "SAM.Geometry.Systems.SystemGeometrySymbol,SAM.Geometry.Systems",
-            "Guid": "f91a2cab-ab14-429d-bc9c-77920ebe7353",
+            "Guid": "2e267b70-4a59-4da9-b233-cd074b46b00b",
             "Geometry": {
               "_type": "SAM.Geometry.Object.Planar.SAMGeometry2DObjectCollection,SAM.Geometry",
               "Geometry2DObjects": [
@@ -3235,7 +3235,7 @@
           "SAM.Analytical.Systems.SystemSpace,SAM.Analytical.Systems",
           {
             "_type": "SAM.Geometry.Systems.SystemGeometrySymbol,SAM.Geometry.Systems",
-            "Guid": "d3c1e70d-eeac-4f91-85e3-1258275035c2",
+            "Guid": "20f5e6a0-3d07-4852-bd83-e1e0b0dee2d3",
             "Geometry": {
               "_type": "SAM.Geometry.Object.Planar.SAMGeometry2DObjectCollection,SAM.Geometry",
               "Geometry2DObjects": [
@@ -3777,7 +3777,7 @@
           "SAM.Analytical.Systems.SystemEconomiser,SAM.Analytical.Systems",
           {
             "_type": "SAM.Geometry.Systems.SystemGeometrySymbol,SAM.Geometry.Systems",
-            "Guid": "2c4922a2-1802-49ca-8a1a-a5c8fcc4b93c",
+            "Guid": "15d495bf-2b34-4f0f-83f4-2717d79be901",
             "Geometry": {
               "_type": "SAM.Geometry.Object.Planar.SAMGeometry2DObjectCollection,SAM.Geometry",
               "Geometry2DObjects": [
@@ -4369,7 +4369,7 @@
           "SAM.Analytical.Systems.SystemSprayHumidifier,SAM.Analytical.Systems",
           {
             "_type": "SAM.Geometry.Systems.SystemGeometrySymbol,SAM.Geometry.Systems",
-            "Guid": "f20b266c-3552-478c-b6eb-89998ca6e517",
+            "Guid": "d8ab9fc1-0e0c-43d0-a3d7-af69a1a549ce",
             "Geometry": {
               "_type": "SAM.Geometry.Object.Planar.SAMGeometry2DObjectCollection,SAM.Geometry",
               "Geometry2DObjects": [
@@ -5379,7 +5379,7 @@
           "SAM.Analytical.Systems.SystemSteamHumidifier,SAM.Analytical.Systems",
           {
             "_type": "SAM.Geometry.Systems.SystemGeometrySymbol,SAM.Geometry.Systems",
-            "Guid": "c59400ba-98e2-4c8e-b506-2f06ca1fba4b",
+            "Guid": "9fccfa8d-5466-4911-829d-04107a19a094",
             "Geometry": {
               "_type": "SAM.Geometry.Object.Planar.SAMGeometry2DObjectCollection,SAM.Geometry",
               "Geometry2DObjects": [
@@ -5973,7 +5973,7 @@
           "SAM.Analytical.Systems.SystemDirectEvaporativeCooler,SAM.Analytical.Systems",
           {
             "_type": "SAM.Geometry.Systems.SystemGeometrySymbol,SAM.Geometry.Systems",
-            "Guid": "9c1169a5-616f-432d-9683-b103d33a181d",
+            "Guid": "c6a63cc1-55a6-46e1-adea-57b45c2dfded",
             "Geometry": {
               "_type": "SAM.Geometry.Object.Planar.SAMGeometry2DObjectCollection,SAM.Geometry",
               "Geometry2DObjects": [
@@ -6931,7 +6931,7 @@
           "SAM.Analytical.Systems.SystemDXCoil,SAM.Analytical.Systems",
           {
             "_type": "SAM.Geometry.Systems.SystemGeometrySymbol,SAM.Geometry.Systems",
-            "Guid": "7f103d89-3120-4fb1-a44e-2ce13d8df22b",
+            "Guid": "2acfa71b-86ed-45fe-8d46-5e3029b74d2c",
             "Geometry": {
               "_type": "SAM.Geometry.Object.Planar.SAMGeometry2DObjectCollection,SAM.Geometry",
               "Geometry2DObjects": [
@@ -7816,7 +7816,7 @@
           "SAM.Analytical.Systems.SystemNormalController,SAM.Analytical.Systems",
           {
             "_type": "SAM.Geometry.Systems.SystemGeometrySymbol,SAM.Geometry.Systems",
-            "Guid": "5e6b748d-7dfa-4190-905d-32648349e80c",
+            "Guid": "091063a7-0afa-4a22-8e8a-1168a36b5a2e",
             "Geometry": {
               "_type": "SAM.Geometry.Object.Planar.SAMGeometry2DObjectCollection,SAM.Geometry",
               "Geometry2DObjects": [
@@ -8079,7 +8079,7 @@
           "SAM.Analytical.Systems.SystemDifferenceController,SAM.Analytical.Systems",
           {
             "_type": "SAM.Geometry.Systems.SystemGeometrySymbol,SAM.Geometry.Systems",
-            "Guid": "a766b7b5-8860-40e7-a6f7-f4c10b1c2a9c",
+            "Guid": "44a44e20-7fac-4e4e-a14a-055c885e2139",
             "Geometry": {
               "_type": "SAM.Geometry.Object.Planar.SAMGeometry2DObjectCollection,SAM.Geometry",
               "Geometry2DObjects": [
@@ -8394,7 +8394,7 @@
           "SAM.Analytical.Systems.SystemPassthroughController,SAM.Analytical.Systems",
           {
             "_type": "SAM.Geometry.Systems.SystemGeometrySymbol,SAM.Geometry.Systems",
-            "Guid": "6477f843-3e42-470d-b45c-941ccd49d27f",
+            "Guid": "ee7a80ea-5464-4092-af9b-7e7f2922055f",
             "Geometry": {
               "_type": "SAM.Geometry.Object.Planar.SAMGeometry2DObjectCollection,SAM.Geometry",
               "Geometry2DObjects": [
@@ -8761,7 +8761,7 @@
           "SAM.Analytical.Systems.SystemMaxLogicalController,SAM.Analytical.Systems",
           {
             "_type": "SAM.Geometry.Systems.SystemGeometrySymbol,SAM.Geometry.Systems",
-            "Guid": "07400dde-0225-41c0-b879-b78b27925bc3",
+            "Guid": "8fc80b6f-4630-4726-9ef2-033e31335547",
             "Geometry": {
               "_type": "SAM.Geometry.Object.Planar.SAMGeometry2DObjectCollection,SAM.Geometry",
               "Geometry2DObjects": [
@@ -9076,7 +9076,7 @@
           "SAM.Analytical.Systems.SystemMinLogicalController,SAM.Analytical.Systems",
           {
             "_type": "SAM.Geometry.Systems.SystemGeometrySymbol,SAM.Geometry.Systems",
-            "Guid": "b82d385a-5e59-45b0-9d5d-b1a76e15930d",
+            "Guid": "0ece6273-0b7c-4c4e-9082-93a37d35cb6b",
             "Geometry": {
               "_type": "SAM.Geometry.Object.Planar.SAMGeometry2DObjectCollection,SAM.Geometry",
               "Geometry2DObjects": [
@@ -9391,7 +9391,7 @@
           "SAM.Analytical.Systems.SystemNotLogicalController,SAM.Analytical.Systems",
           {
             "_type": "SAM.Geometry.Systems.SystemGeometrySymbol,SAM.Geometry.Systems",
-            "Guid": "a9c0561a-cfe9-406a-bbad-89fa668c3b6b",
+            "Guid": "819a0e5e-0639-46e5-a3fc-a150e284e848",
             "Geometry": {
               "_type": "SAM.Geometry.Object.Planar.SAMGeometry2DObjectCollection,SAM.Geometry",
               "Geometry2DObjects": [
@@ -9687,7 +9687,7 @@
           "SAM.Analytical.Systems.SystemIfLogicalController,SAM.Analytical.Systems",
           {
             "_type": "SAM.Geometry.Systems.SystemGeometrySymbol,SAM.Geometry.Systems",
-            "Guid": "0baa6ed3-0cfd-48c9-b3fc-04283c0dc70d",
+            "Guid": "422ac12d-990c-40f4-bec2-afa35560a652",
             "Geometry": {
               "_type": "SAM.Geometry.Object.Planar.SAMGeometry2DObjectCollection,SAM.Geometry",
               "Geometry2DObjects": [
@@ -10229,7 +10229,7 @@
           "SAM.Analytical.Systems.SystemSigLogicalController,SAM.Analytical.Systems",
           {
             "_type": "SAM.Geometry.Systems.SystemGeometrySymbol,SAM.Geometry.Systems",
-            "Guid": "3eb06349-d3fc-4977-83e5-b44479ca0e37",
+            "Guid": "e8ef34da-623c-4e23-88e9-de47f26bda66",
             "Geometry": {
               "_type": "SAM.Geometry.Object.Planar.SAMGeometry2DObjectCollection,SAM.Geometry",
               "Geometry2DObjects": [
@@ -10530,7 +10530,7 @@
           "SAM.Analytical.Systems.SystemOutdoorController,SAM.Analytical.Systems",
           {
             "_type": "SAM.Geometry.Systems.SystemGeometrySymbol,SAM.Geometry.Systems",
-            "Guid": "5c31d0d8-ea19-4e52-ba17-a53dba454619",
+            "Guid": "9ad7fcc0-5471-42e7-9df1-2ab8c4b64f04",
             "Geometry": {
               "_type": "SAM.Geometry.Object.Planar.SAMGeometry2DObjectCollection,SAM.Geometry",
               "Geometry2DObjects": [
@@ -10775,7 +10775,7 @@
           "SAM.Analytical.Systems.SystemDesiccantWheel,SAM.Analytical.Systems",
           {
             "_type": "SAM.Geometry.Systems.SystemGeometrySymbol,SAM.Geometry.Systems",
-            "Guid": "4e05307f-b055-4b7e-92bf-6fbd2b03fdb9",
+            "Guid": "1aa1a798-228c-4923-9e0a-1f24e0510ec8",
             "Geometry": {
               "_type": "SAM.Geometry.Object.Planar.SAMGeometry2DObjectCollection,SAM.Geometry",
               "Geometry2DObjects": [
@@ -11190,7 +11190,7 @@
           "SAM.Analytical.Systems.SystemPump,SAM.Analytical.Systems",
           {
             "_type": "SAM.Geometry.Systems.SystemGeometrySymbol,SAM.Geometry.Systems",
-            "Guid": "97bdc0e9-d8a6-48ea-8f30-ce4dc155ff64",
+            "Guid": "8fcc1d91-1194-4f35-b54b-771b89581765",
             "Geometry": {
               "_type": "SAM.Geometry.Object.Planar.SAMGeometry2DObjectCollection,SAM.Geometry",
               "Geometry2DObjects": [
@@ -11199,17 +11199,17 @@
                   "Points": [
                     {
                       "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
-                      "X": 0.2273801420728998,
+                      "X": 0.32738014207289989,
                       "Y": -0.39811695490307697
                     },
                     {
                       "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
-                      "X": 0.35079129353941485,
+                      "X": 0.45079129353941494,
                       "Y": -0.33138487657531224
                     },
                     {
                       "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
-                      "X": 0.4,
+                      "X": 0.50000000000000011,
                       "Y": -0.2
                     }
                   ],
@@ -11232,52 +11232,52 @@
                   "Points": [
                     {
                       "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
-                      "X": 0.22744481788287227,
+                      "X": 0.32744481788287233,
                       "Y": -0.39999999999999997
                     },
                     {
                       "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
-                      "X": 0.22220332407619925,
+                      "X": 0.32220332407619934,
                       "Y": -0.38386834080099635
                     },
                     {
                       "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
-                      "X": 0.20848091513850722,
+                      "X": 0.30848091513850728,
                       "Y": -0.37389842712108223
                     },
                     {
                       "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
-                      "X": 0.19151908487646921,
+                      "X": 0.29151908487646927,
                       "Y": -0.37389842712108223
                     },
                     {
                       "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
-                      "X": 0.17779667593877718,
+                      "X": 0.27779667593877727,
                       "Y": -0.38386834080099635
                     },
                     {
                       "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
-                      "X": 0.17255518213210416,
+                      "X": 0.27255518213210422,
                       "Y": -0.39999999999999997
                     },
                     {
                       "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
-                      "X": 0.17779667593877718,
+                      "X": 0.27779667593877722,
                       "Y": -0.41613165919900352
                     },
                     {
                       "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
-                      "X": 0.19151908487646921,
+                      "X": 0.29151908487646927,
                       "Y": -0.4261015728789177
                     },
                     {
                       "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
-                      "X": 0.20848091513850722,
+                      "X": 0.30848091513850728,
                       "Y": -0.4261015728789177
                     },
                     {
                       "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
-                      "X": 0.22220332407619925,
+                      "X": 0.32220332407619928,
                       "Y": -0.41613165919900358
                     }
                   ],
@@ -11300,17 +11300,17 @@
                   "Points": [
                     {
                       "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
-                      "X": 0.2,
+                      "X": 0.3000000000000001,
                       "Y": 0.0
                     },
                     {
                       "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
-                      "X": 0.058578643762688259,
+                      "X": 0.15857864376268835,
                       "Y": -0.058578643762692756
                     },
                     {
                       "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
-                      "X": 5.5511151231257827E-17,
+                      "X": 0.10000000000000014,
                       "Y": -0.20000000000000639
                     }
                   ],
@@ -11333,17 +11333,17 @@
                   "Points": [
                     {
                       "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
-                      "X": 0.47667190480592359,
+                      "X": 0.57667190480592367,
                       "Y": -0.1308022530715815
                     },
                     {
                       "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
-                      "X": 0.47667190480592359,
+                      "X": 0.57667190480592367,
                       "Y": -0.075912617320813391
                     },
                     {
                       "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
-                      "X": 0.52332809519407641,
+                      "X": 0.6233280951940765,
                       "Y": -0.10335743519619746
                     }
                   ],
@@ -11366,17 +11366,17 @@
                   "Points": [
                     {
                       "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
-                      "X": -0.12332809519407639,
+                      "X": -0.023328095194076304,
                       "Y": -0.26919774692841852
                     },
                     {
                       "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
-                      "X": -0.12332809519407639,
+                      "X": -0.023328095194076304,
                       "Y": -0.32408738267918663
                     },
                     {
                       "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
-                      "X": -0.076671904805923563,
+                      "X": 0.023328095194076526,
                       "Y": -0.29664256480380258
                     }
                   ],
@@ -11399,17 +11399,17 @@
                   "Points": [
                     {
                       "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
-                      "X": 0.17255518213210413,
+                      "X": 0.27255518213210422,
                       "Y": -0.39999999999917907
                     },
                     {
                       "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
-                      "X": -0.10000000000000009,
+                      "X": 0.0,
                       "Y": -0.39999999999742331
                     },
                     {
                       "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
-                      "X": -0.10000000000000009,
+                      "X": 0.0,
                       "Y": -0.31036497374149458
                     }
                   ],
@@ -11432,17 +11432,17 @@
                   "Points": [
                     {
                       "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
-                      "X": -0.10000000000000009,
+                      "X": 0.0,
                       "Y": -0.28292015586611058
                     },
                     {
                       "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
-                      "X": -0.10000000000000009,
+                      "X": 0.0,
                       "Y": -0.2
                     },
                     {
                       "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
-                      "X": -1.3877787807814457E-17,
+                      "X": 0.10000000000000007,
                       "Y": -0.2
                     }
                   ],
@@ -11465,17 +11465,17 @@
                   "Points": [
                     {
                       "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
-                      "X": 0.5,
+                      "X": 0.60000000000000009,
                       "Y": -0.11707984413388944
                     },
                     {
                       "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
-                      "X": 0.5,
+                      "X": 0.60000000000000009,
                       "Y": -0.2
                     },
                     {
                       "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
-                      "X": 0.4,
+                      "X": 0.50000000000000011,
                       "Y": -0.2
                     }
                   ],
@@ -11498,17 +11498,17 @@
                   "Points": [
                     {
                       "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
-                      "X": 0.19999949205508888,
+                      "X": 0.29999949205508897,
                       "Y": -6.4417645449971527E-13
                     },
                     {
                       "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
-                      "X": 0.5,
+                      "X": 0.60000000000000009,
                       "Y": -2.5767189063238678E-12
                     },
                     {
                       "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
-                      "X": 0.5,
+                      "X": 0.60000000000000009,
                       "Y": -0.089635026258505432
                     }
                   ],
@@ -11543,8 +11543,8 @@
                     "ConnectionIndex": 1,
                     "Location": {
                       "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
-                      "X": -0.12332809519407639,
-                      "Y": -0.29664256480380258
+                      "X": 0.0,
+                      "Y": -0.30000000000000004
                     }
                   }
                 ],
@@ -11560,8 +11560,8 @@
                     "ConnectionIndex": 1,
                     "Location": {
                       "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
-                      "X": 0.52332809519407641,
-                      "Y": -0.10335743519619746
+                      "X": 0.60000000000000009,
+                      "Y": -0.10000000000000003
                     }
                   }
                 ],
@@ -11577,8 +11577,8 @@
                     "ConnectionIndex": -1,
                     "Location": {
                       "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
-                      "X": 0.200000000007577,
-                      "Y": -0.427444817875384
+                      "X": 0.30000000000659943,
+                      "Y": -0.42744481787538391
                     }
                   }
                 ]
@@ -11590,7 +11590,7 @@
           "SAM.Analytical.Systems.SystemAirSourceChiller,SAM.Analytical.Systems",
           {
             "_type": "SAM.Geometry.Systems.SystemGeometrySymbol,SAM.Geometry.Systems",
-            "Guid": "88399de2-c191-4daf-ad35-a7c9bef0b483",
+            "Guid": "721d8ce2-3998-4d90-910f-80365269130f",
             "Geometry": {
               "_type": "SAM.Geometry.Object.Planar.SAMGeometry2DObjectCollection,SAM.Geometry",
               "Geometry2DObjects": [
@@ -12483,8 +12483,8 @@
                     "ConnectionIndex": -1,
                     "Location": {
                       "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
-                      "X": 0.6,
-                      "Y": -0.19999999999999996
+                      "X": 0.30000000000000004,
+                      "Y": -1.0266666666666668
                     }
                   }
                 ]
@@ -12496,7 +12496,7 @@
           "SAM.Analytical.Systems.SystemAirSourceHeatPump,SAM.Analytical.Systems",
           {
             "_type": "SAM.Geometry.Systems.SystemGeometrySymbol,SAM.Geometry.Systems",
-            "Guid": "a23cb2e7-423d-407f-b3b6-536cf2439105",
+            "Guid": "c60a7e23-cc1c-442b-b876-de70da97c9d1",
             "Geometry": {
               "_type": "SAM.Geometry.Object.Planar.SAMGeometry2DObjectCollection,SAM.Geometry",
               "Geometry2DObjects": [
@@ -13017,7 +13017,7 @@
           "SAM.Analytical.Systems.CoolingSystemCollection,SAM.Analytical.Systems",
           {
             "_type": "SAM.Geometry.Systems.SystemGeometrySymbol,SAM.Geometry.Systems",
-            "Guid": "90c12426-5d0b-4b82-a042-5d14a99c992e",
+            "Guid": "c01ed311-2cd7-4dfd-b516-b7273e45e39b",
             "Geometry": {
               "_type": "SAM.Geometry.Object.Planar.SAMGeometry2DObjectCollection,SAM.Geometry",
               "Geometry2DObjects": [
@@ -13913,7 +13913,7 @@
           "SAM.Analytical.Systems.HeatingSystemCollection,SAM.Analytical.Systems",
           {
             "_type": "SAM.Geometry.Systems.SystemGeometrySymbol,SAM.Geometry.Systems",
-            "Guid": "3904a8b4-9c36-449c-9726-6f3415e718ae",
+            "Guid": "770f2afd-3bc7-4728-84bd-f28ec3cee639",
             "Geometry": {
               "_type": "SAM.Geometry.Object.Planar.SAMGeometry2DObjectCollection,SAM.Geometry",
               "Geometry2DObjects": [
@@ -14659,7 +14659,7 @@
           "SAM.Analytical.Systems.DomesticHotWaterSystemCollection,SAM.Analytical.Systems",
           {
             "_type": "SAM.Geometry.Systems.SystemGeometrySymbol,SAM.Geometry.Systems",
-            "Guid": "f036e3a0-0904-4ad6-879a-24b93e700099",
+            "Guid": "266acf35-70c5-4207-abaa-f93216a6acaf",
             "Geometry": {
               "_type": "SAM.Geometry.Object.Planar.SAMGeometry2DObjectCollection,SAM.Geometry",
               "Geometry2DObjects": [
@@ -15558,7 +15558,7 @@
           "SAM.Analytical.Systems.FuelSystemCollection,SAM.Analytical.Systems",
           {
             "_type": "SAM.Geometry.Systems.SystemGeometrySymbol,SAM.Geometry.Systems",
-            "Guid": "e535e42d-9dd2-41e4-94e8-4f748cbe464f",
+            "Guid": "f9e383ac-ff68-4d65-9dc6-bf4473331a86",
             "Geometry": {
               "_type": "SAM.Geometry.Object.Planar.SAMGeometry2DObjectCollection,SAM.Geometry",
               "Geometry2DObjects": [
@@ -16142,7 +16142,7 @@
           "SAM.Analytical.Systems.RefrigerantSystemCollection,SAM.Analytical.Systems",
           {
             "_type": "SAM.Geometry.Systems.SystemGeometrySymbol,SAM.Geometry.Systems",
-            "Guid": "c51dbe50-8a12-4330-9aee-8e8ce7a910f5",
+            "Guid": "68b1f5bf-e975-4b46-aa95-7eaf4df65714",
             "Geometry": {
               "_type": "SAM.Geometry.Object.Planar.SAMGeometry2DObjectCollection,SAM.Geometry",
               "Geometry2DObjects": [
@@ -17041,7 +17041,7 @@
           "SAM.Analytical.Systems.ElectricalSystemCollection,SAM.Analytical.Systems",
           {
             "_type": "SAM.Geometry.Systems.SystemGeometrySymbol,SAM.Geometry.Systems",
-            "Guid": "0693d622-fbf1-407c-960f-5659dbfb4f97",
+            "Guid": "083c64dc-80a8-40de-8b1a-5242b813d401",
             "Geometry": {
               "_type": "SAM.Geometry.Object.Planar.SAMGeometry2DObjectCollection,SAM.Geometry",
               "Geometry2DObjects": [
@@ -17635,7 +17635,7 @@
           "SAM.Analytical.Systems.SystemWaterSourceChiller,SAM.Analytical.Systems",
           {
             "_type": "SAM.Geometry.Systems.SystemGeometrySymbol,SAM.Geometry.Systems",
-            "Guid": "54474fa8-ef75-4207-9108-f559f9271712",
+            "Guid": "ca8745b6-c082-4a5d-a193-ba1bd2eefdfc",
             "Geometry": {
               "_type": "SAM.Geometry.Object.Planar.SAMGeometry2DObjectCollection,SAM.Geometry",
               "Geometry2DObjects": [
@@ -18824,7 +18824,7 @@
           "SAM.Analytical.Systems.SystemLiquidJunction,SAM.Analytical.Systems",
           {
             "_type": "SAM.Geometry.Systems.SystemGeometrySymbol,SAM.Geometry.Systems",
-            "Guid": "c6ae1510-044d-429a-a693-c03e84052610",
+            "Guid": "55ba1929-dad6-4f13-ab49-0175d5b3487a",
             "Geometry": {
               "_type": "SAM.Geometry.Object.Planar.SAMGeometry2DObjectCollection,SAM.Geometry",
               "Geometry2DObjects": [
@@ -19067,7 +19067,7 @@
           "SAM.Analytical.Systems.SystemBoiler,SAM.Analytical.Systems",
           {
             "_type": "SAM.Geometry.Systems.SystemGeometrySymbol,SAM.Geometry.Systems",
-            "Guid": "2feec10c-5868-4ab1-b3c8-1a4c7d18ff2c",
+            "Guid": "240f04ef-7506-4bf5-99df-039ce7787d32",
             "Geometry": {
               "_type": "SAM.Geometry.Object.Planar.SAMGeometry2DObjectCollection,SAM.Geometry",
               "Geometry2DObjects": [
@@ -19713,10 +19713,921 @@
           }
         ],
         [
+          "SAM.Analytical.Systems.SystemMultiBoiler,SAM.Analytical.Systems",
+          {
+            "_type": "SAM.Geometry.Systems.SystemGeometrySymbol,SAM.Geometry.Systems",
+            "Guid": "b3b3905a-1880-4544-9993-3100cabd6a8f",
+            "Geometry": {
+              "_type": "SAM.Geometry.Object.Planar.SAMGeometry2DObjectCollection,SAM.Geometry",
+              "Geometry2DObjects": [
+                {
+                  "_type": "SAM.Geometry.Object.Planar.Polygon2DObject,SAM.Geometry",
+                  "Points": [
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.26694776312793511,
+                      "Y": -0.80618877988817084
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.22373824272383966,
+                      "Y": -0.7359733092315156
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.194031697446024,
+                      "Y": -0.64415307837281255
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.2318400277996075,
+                      "Y": -0.56313522761513357
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.2966543084057508,
+                      "Y": -0.4794167818321986
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.33716323378459023,
+                      "Y": -0.38759655097349571
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.36957037408766191,
+                      "Y": -0.47131499675643074
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.42628286961803719,
+                      "Y": -0.56043463258987769
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.4640911999716209,
+                      "Y": -0.66845843360011648
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.4397858447443172,
+                      "Y": -0.73327271420625961
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.38577394423919781,
+                      "Y": -0.80078758983765874
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.4898456549685743,
+                      "Y": -0.77332056238566538
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.528905480577764,
+                      "Y": -0.66845843360011648
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.51000131540097249,
+                      "Y": -0.55503344253936571
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.47489358007264482,
+                      "Y": -0.46051261665540683
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.42898346464329329,
+                      "Y": -0.3632911957461919
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.36416918403715,
+                      "Y": -0.28497394001376886
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.26154657307742318,
+                      "Y": -0.22015965940762561
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.2723489531784471,
+                      "Y": -0.33088405544312038
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.2318400277996075,
+                      "Y": -0.42810547635233515
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.17512753226923206,
+                      "Y": -0.50372213705950231
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.14272039196616049,
+                      "Y": -0.64145248334755678
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.16432515216820831,
+                      "Y": -0.74407509430728358
+                    }
+                  ],
+                  "CurveAppearance": {
+                    "_type": "SAM.Geometry.Object.CurveAppearance,SAM.Geometry",
+                    "Color": {
+                      "_type": "SAM.Core.SAMColor,SAM.Core",
+                      "Alpha": 255,
+                      "Red": 0,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    "Opacity": 1.0,
+                    "Visible": true,
+                    "Thickness": 1.0
+                  }
+                },
+                {
+                  "_type": "SAM.Geometry.Object.Planar.Polyline2DObject,SAM.Geometry",
+                  "Points": [
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.0,
+                      "Y": -0.020000000000000018
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.0058578643762690558,
+                      "Y": -0.0058578643762690636
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.020000000000000014,
+                      "Y": -2.0816681711721685E-17
+                    }
+                  ],
+                  "CurveAppearance": {
+                    "_type": "SAM.Geometry.Object.CurveAppearance,SAM.Geometry",
+                    "Color": {
+                      "_type": "SAM.Core.SAMColor,SAM.Core",
+                      "Alpha": 255,
+                      "Red": 0,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    "Opacity": 1.0,
+                    "Visible": true,
+                    "Thickness": 1.0
+                  }
+                },
+                {
+                  "_type": "SAM.Geometry.Object.Planar.Polyline2DObject,SAM.Geometry",
+                  "Points": [
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.6,
+                      "Y": -0.020000000000000021
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.59414213562373086,
+                      "Y": -0.0058578643762690567
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.58,
+                      "Y": 0.0
+                    }
+                  ],
+                  "CurveAppearance": {
+                    "_type": "SAM.Geometry.Object.CurveAppearance,SAM.Geometry",
+                    "Color": {
+                      "_type": "SAM.Core.SAMColor,SAM.Core",
+                      "Alpha": 255,
+                      "Red": 0,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    "Opacity": 1.0,
+                    "Visible": true,
+                    "Thickness": 1.0
+                  }
+                },
+                {
+                  "_type": "SAM.Geometry.Object.Planar.Polygon2DObject,SAM.Geometry",
+                  "Points": [
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.57897584724857742,
+                      "Y": -0.17142857142857137
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.64204830550284486,
+                      "Y": -0.19999999999999996
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.57897584724857742,
+                      "Y": -0.22857142857142843
+                    }
+                  ],
+                  "CurveAppearance": {
+                    "_type": "SAM.Geometry.Object.CurveAppearance,SAM.Geometry",
+                    "Color": {
+                      "_type": "SAM.Core.SAMColor,SAM.Core",
+                      "Alpha": 255,
+                      "Red": 0,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    "Opacity": 1.0,
+                    "Visible": true,
+                    "Thickness": 1.0
+                  }
+                },
+                {
+                  "_type": "SAM.Geometry.Object.Planar.Segment2DObject,SAM.Geometry",
+                  "Origin": {
+                    "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                    "X": 0.6,
+                    "Y": -0.18095238095238095
+                  },
+                  "Vector": {
+                    "_type": "SAM.Geometry.Planar.Vector2D,SAM.Geometry",
+                    "X": 0.0,
+                    "Y": 0.16095238095238093
+                  },
+                  "CurveAppearance": {
+                    "_type": "SAM.Geometry.Object.CurveAppearance,SAM.Geometry",
+                    "Color": {
+                      "_type": "SAM.Core.SAMColor,SAM.Core",
+                      "Alpha": 255,
+                      "Red": 0,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    "Opacity": 1.0,
+                    "Visible": true,
+                    "Thickness": 1.0
+                  }
+                },
+                {
+                  "_type": "SAM.Geometry.Object.Planar.Polygon2DObject,SAM.Geometry",
+                  "Points": [
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.62102415275142253,
+                      "Y": -0.77142857142857146
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.55795169449715509,
+                      "Y": -0.8
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.62102415275142253,
+                      "Y": -0.82857142857142851
+                    }
+                  ],
+                  "CurveAppearance": {
+                    "_type": "SAM.Geometry.Object.CurveAppearance,SAM.Geometry",
+                    "Color": {
+                      "_type": "SAM.Core.SAMColor,SAM.Core",
+                      "Alpha": 255,
+                      "Red": 0,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    "Opacity": 1.0,
+                    "Visible": true,
+                    "Thickness": 1.0
+                  }
+                },
+                {
+                  "_type": "SAM.Geometry.Object.Planar.Polyline2DObject,SAM.Geometry",
+                  "Points": [
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.6,
+                      "Y": -0.98000000000000043
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.59414213562373086,
+                      "Y": -0.99414213562373122
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.58,
+                      "Y": -1.0000000000000002
+                    }
+                  ],
+                  "CurveAppearance": {
+                    "_type": "SAM.Geometry.Object.CurveAppearance,SAM.Geometry",
+                    "Color": {
+                      "_type": "SAM.Core.SAMColor,SAM.Core",
+                      "Alpha": 255,
+                      "Red": 0,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    "Opacity": 1.0,
+                    "Visible": true,
+                    "Thickness": 1.0
+                  }
+                },
+                {
+                  "_type": "SAM.Geometry.Object.Planar.Polyline2DObject,SAM.Geometry",
+                  "Points": [
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.020000000000000018,
+                      "Y": -1.0000000000000002
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.0058578643762690653,
+                      "Y": -0.9941421356237311
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 1.7347234759768071E-17,
+                      "Y": -0.9800000000000002
+                    }
+                  ],
+                  "CurveAppearance": {
+                    "_type": "SAM.Geometry.Object.CurveAppearance,SAM.Geometry",
+                    "Color": {
+                      "_type": "SAM.Core.SAMColor,SAM.Core",
+                      "Alpha": 255,
+                      "Red": 0,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    "Opacity": 1.0,
+                    "Visible": true,
+                    "Thickness": 1.0
+                  }
+                },
+                {
+                  "_type": "SAM.Geometry.Object.Planar.Segment2DObject,SAM.Geometry",
+                  "Origin": {
+                    "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                    "X": 0.60000000000000009,
+                    "Y": -0.98095238095238113
+                  },
+                  "Vector": {
+                    "_type": "SAM.Geometry.Planar.Vector2D,SAM.Geometry",
+                    "X": 0.0,
+                    "Y": 0.16190476190476211
+                  },
+                  "CurveAppearance": {
+                    "_type": "SAM.Geometry.Object.CurveAppearance,SAM.Geometry",
+                    "Color": {
+                      "_type": "SAM.Core.SAMColor,SAM.Core",
+                      "Alpha": 255,
+                      "Red": 0,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    "Opacity": 1.0,
+                    "Visible": true,
+                    "Thickness": 1.0
+                  }
+                },
+                {
+                  "_type": "SAM.Geometry.Object.Planar.Segment2DObject,SAM.Geometry",
+                  "Origin": {
+                    "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                    "X": 0.60000000000000009,
+                    "Y": -0.78095238095238084
+                  },
+                  "Vector": {
+                    "_type": "SAM.Geometry.Planar.Vector2D,SAM.Geometry",
+                    "X": -1.1102230246251565E-16,
+                    "Y": 0.56190476190476191
+                  },
+                  "CurveAppearance": {
+                    "_type": "SAM.Geometry.Object.CurveAppearance,SAM.Geometry",
+                    "Color": {
+                      "_type": "SAM.Core.SAMColor,SAM.Core",
+                      "Alpha": 255,
+                      "Red": 0,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    "Opacity": 1.0,
+                    "Visible": true,
+                    "Thickness": 1.0
+                  }
+                },
+                {
+                  "_type": "SAM.Geometry.Object.Planar.Segment2DObject,SAM.Geometry",
+                  "Origin": {
+                    "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                    "X": 0.58000000000000007,
+                    "Y": 0.0
+                  },
+                  "Vector": {
+                    "_type": "SAM.Geometry.Planar.Vector2D,SAM.Geometry",
+                    "X": -0.56,
+                    "Y": 0.0
+                  },
+                  "CurveAppearance": {
+                    "_type": "SAM.Geometry.Object.CurveAppearance,SAM.Geometry",
+                    "Color": {
+                      "_type": "SAM.Core.SAMColor,SAM.Core",
+                      "Alpha": 255,
+                      "Red": 0,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    "Opacity": 1.0,
+                    "Visible": true,
+                    "Thickness": 1.0
+                  }
+                },
+                {
+                  "_type": "SAM.Geometry.Object.Planar.Polygon2DObject,SAM.Geometry",
+                  "Points": [
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.32666666666666672,
+                      "Y": -1.0000000000000002
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.32157378651666529,
+                      "Y": -0.9843257266055343
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.308240453183332,
+                      "Y": -0.97463849289879612
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.2917595468166681,
+                      "Y": -0.97463849289879612
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.27842621348333479,
+                      "Y": -0.9843257266055343
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.27333333333333337,
+                      "Y": -1.0000000000000002
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.27842621348333479,
+                      "Y": -1.0156742733944661
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.2917595468166681,
+                      "Y": -1.0253615071012043
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.308240453183332,
+                      "Y": -1.0253615071012043
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.32157378651666529,
+                      "Y": -1.0156742733944661
+                    }
+                  ],
+                  "CurveAppearance": {
+                    "_type": "SAM.Geometry.Object.CurveAppearance,SAM.Geometry",
+                    "Color": {
+                      "_type": "SAM.Core.SAMColor,SAM.Core",
+                      "Alpha": 255,
+                      "Red": 0,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    "Opacity": 1.0,
+                    "Visible": true,
+                    "Thickness": 1.0
+                  }
+                },
+                {
+                  "_type": "SAM.Geometry.Object.Planar.Segment2DObject,SAM.Geometry",
+                  "Origin": {
+                    "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                    "X": 0.32666666666666672,
+                    "Y": -1.0000000000000002
+                  },
+                  "Vector": {
+                    "_type": "SAM.Geometry.Planar.Vector2D,SAM.Geometry",
+                    "X": 0.25333333333333313,
+                    "Y": 0.0
+                  },
+                  "CurveAppearance": {
+                    "_type": "SAM.Geometry.Object.CurveAppearance,SAM.Geometry",
+                    "Color": {
+                      "_type": "SAM.Core.SAMColor,SAM.Core",
+                      "Alpha": 255,
+                      "Red": 0,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    "Opacity": 1.0,
+                    "Visible": true,
+                    "Thickness": 1.0
+                  }
+                },
+                {
+                  "_type": "SAM.Geometry.Object.Planar.Segment2DObject,SAM.Geometry",
+                  "Origin": {
+                    "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                    "X": 0.020000000000000018,
+                    "Y": -1.0000000000000002
+                  },
+                  "Vector": {
+                    "_type": "SAM.Geometry.Planar.Vector2D,SAM.Geometry",
+                    "X": 0.25333333333333341,
+                    "Y": 0.0
+                  },
+                  "CurveAppearance": {
+                    "_type": "SAM.Geometry.Object.CurveAppearance,SAM.Geometry",
+                    "Color": {
+                      "_type": "SAM.Core.SAMColor,SAM.Core",
+                      "Alpha": 255,
+                      "Red": 0,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    "Opacity": 1.0,
+                    "Visible": true,
+                    "Thickness": 1.0
+                  }
+                },
+                {
+                  "_type": "SAM.Geometry.Object.Planar.Segment2DObject,SAM.Geometry",
+                  "Origin": {
+                    "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                    "X": 0.0,
+                    "Y": -0.019999999999999907
+                  },
+                  "Vector": {
+                    "_type": "SAM.Geometry.Planar.Vector2D,SAM.Geometry",
+                    "X": 0.0,
+                    "Y": -0.9600000000000003
+                  },
+                  "CurveAppearance": {
+                    "_type": "SAM.Geometry.Object.CurveAppearance,SAM.Geometry",
+                    "Color": {
+                      "_type": "SAM.Core.SAMColor,SAM.Core",
+                      "Alpha": 255,
+                      "Red": 0,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    "Opacity": 1.0,
+                    "Visible": true,
+                    "Thickness": 1.0
+                  }
+                },
+                {
+                  "_type": "SAM.Geometry.Object.Planar.Polyline2DObject,SAM.Geometry",
+                  "Points": [
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.42208242960802494,
+                      "Y": -0.354952445078576
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.44536606736242251,
+                      "Y": -0.30217619950194141
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.4667459229007328,
+                      "Y": -0.35740749297590962
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.50416067009277576,
+                      "Y": -0.41620209570626282
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.529103834887471,
+                      "Y": -0.4874682808339636
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.51306894323373842,
+                      "Y": -0.53022799191058412
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.50468186357869493,
+                      "Y": -0.54071184147938833
+                    }
+                  ],
+                  "CurveAppearance": {
+                    "_type": "SAM.Geometry.Object.CurveAppearance,SAM.Geometry",
+                    "Color": {
+                      "_type": "SAM.Core.SAMColor,SAM.Core",
+                      "Alpha": 255,
+                      "Red": 0,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    "Opacity": 1.0,
+                    "Visible": true,
+                    "Thickness": 1.0
+                  }
+                },
+                {
+                  "_type": "SAM.Geometry.Object.Planar.Polyline2DObject,SAM.Geometry",
+                  "Points": [
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.51177992983234222,
+                      "Y": -0.56570512912758475
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.54609473634169747,
+                      "Y": -0.55664862639695123
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.5718635459640915,
+                      "Y": -0.4874682808339636
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.559391963566744,
+                      "Y": -0.41263878644987767
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.53623045340024111,
+                      "Y": -0.35028087446313944
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.50594232472096834,
+                      "Y": -0.28614130784820868
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.46318261364434776,
+                      "Y": -0.23447332363062562
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.39547973777303197,
+                      "Y": -0.19171361255400515
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.4026063562858021,
+                      "Y": -0.2647614523098985
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.38413317268183211,
+                      "Y": -0.30909709295942633
+                    }
+                  ],
+                  "CurveAppearance": {
+                    "_type": "SAM.Geometry.Object.CurveAppearance,SAM.Geometry",
+                    "Color": {
+                      "_type": "SAM.Core.SAMColor,SAM.Core",
+                      "Alpha": 255,
+                      "Red": 0,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    "Opacity": 1.0,
+                    "Visible": true,
+                    "Thickness": 1.0
+                  }
+                },
+                {
+                  "_type": "SAM.Geometry.Object.Planar.Polyline2DObject,SAM.Geometry",
+                  "Points": [
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.37568676027484577,
+                      "Y": -0.29889101130098461
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.38874437905743892,
+                      "Y": -0.26383581888633295
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.38078073843454213,
+                      "Y": -0.21605397514895136
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.36599112013487628,
+                      "Y": -0.17623577203446666
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.346650850050698,
+                      "Y": -0.13527990597385392
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.31934693934362285,
+                      "Y": -0.10228768053613807
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.27611574739075379,
+                      "Y": -0.074983769829062907
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.28066639917526631,
+                      "Y": -0.12162795062031634
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.26360145498334436,
+                      "Y": -0.16258381668092908
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.23971053311465346,
+                      "Y": -0.19443837917251688
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.2260585777611159,
+                      "Y": -0.25245918942505169
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.23515988133014104,
+                      "Y": -0.29569038137792064
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.27103378002164891,
+                      "Y": -0.31740353058593851
+                    }
+                  ],
+                  "CurveAppearance": {
+                    "_type": "SAM.Geometry.Object.CurveAppearance,SAM.Geometry",
+                    "Color": {
+                      "_type": "SAM.Core.SAMColor,SAM.Core",
+                      "Alpha": 255,
+                      "Red": 0,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    "Opacity": 1.0,
+                    "Visible": true,
+                    "Thickness": 1.0
+                  }
+                },
+                {
+                  "_type": "SAM.Geometry.Object.Planar.Polyline2DObject,SAM.Geometry",
+                  "Points": [
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.26184598933848119,
+                      "Y": -0.22322867608347102
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.26360145498334436,
+                      "Y": -0.21946696398733573
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.29090536569041953,
+                      "Y": -0.18419941265736367
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.30797030988234148,
+                      "Y": -0.14551887248900713
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.32162226523587906,
+                      "Y": -0.18078642381897919
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.34551318710456985,
+                      "Y": -0.21832930104120757
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.36144046835036375,
+                      "Y": -0.26383581888633295
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.35555408994855769,
+                      "Y": -0.27953282795781575
+                    }
+                  ],
+                  "CurveAppearance": {
+                    "_type": "SAM.Geometry.Object.CurveAppearance,SAM.Geometry",
+                    "Color": {
+                      "_type": "SAM.Core.SAMColor,SAM.Core",
+                      "Alpha": 255,
+                      "Red": 0,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    "Opacity": 1.0,
+                    "Visible": true,
+                    "Thickness": 1.0
+                  }
+                }
+              ]
+            },
+            "DisplaySystemConnectorManager": {
+              "_type": "SAM.Geometry.Systems.DisplaySystemConnectorManager,SAM.Geometry.Systems",
+              "SystemConnectors": [
+                [
+                  0,
+                  {
+                    "_type": "SAM.Geometry.Systems.DisplaySystemConnector,SAM.Geometry.Systems",
+                    "SystemType": {
+                      "_type": "SAM.Core.Systems.SystemType,SAM.Core.Systems",
+                      "TypeName": "SAM.Analytical.Systems.LiquidSystem,SAM.Analytical.Systems"
+                    },
+                    "Direction": "In",
+                    "ConnectionIndex": 1,
+                    "Location": {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.6,
+                      "Y": -0.8
+                    }
+                  }
+                ],
+                [
+                  1,
+                  {
+                    "_type": "SAM.Geometry.Systems.DisplaySystemConnector,SAM.Geometry.Systems",
+                    "SystemType": {
+                      "_type": "SAM.Core.Systems.SystemType,SAM.Core.Systems",
+                      "TypeName": "SAM.Analytical.Systems.LiquidSystem,SAM.Analytical.Systems"
+                    },
+                    "Direction": "Out",
+                    "ConnectionIndex": 1,
+                    "Location": {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.6,
+                      "Y": -0.2
+                    }
+                  }
+                ],
+                [
+                  2,
+                  {
+                    "_type": "SAM.Geometry.Systems.DisplaySystemConnector,SAM.Geometry.Systems",
+                    "SystemType": {
+                      "_type": "SAM.Core.Systems.SystemType,SAM.Core.Systems",
+                      "TypeName": "SAM.Analytical.Systems.ControlSystem,SAM.Analytical.Systems"
+                    },
+                    "Direction": "Undefined",
+                    "ConnectionIndex": -1,
+                    "Location": {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.3,
+                      "Y": -1.02666666666667
+                    }
+                  }
+                ]
+              ]
+            }
+          }
+        ],
+        [
           "SAM.Analytical.Systems.SystemCHP,SAM.Analytical.Systems",
           {
             "_type": "SAM.Geometry.Systems.SystemGeometrySymbol,SAM.Geometry.Systems",
-            "Guid": "de3370d5-e85a-421f-ab54-e196555ca995",
+            "Guid": "0177dae3-5cd9-488a-a83e-355165a0bc42",
             "Geometry": {
               "_type": "SAM.Geometry.Object.Planar.SAMGeometry2DObjectCollection,SAM.Geometry",
               "Geometry2DObjects": [
@@ -20418,7 +21329,7 @@
           "SAM.Analytical.Systems.SystemMultiChiller,SAM.Analytical.Systems",
           {
             "_type": "SAM.Geometry.Systems.SystemGeometrySymbol,SAM.Geometry.Systems",
-            "Guid": "aff585cd-254e-4246-a518-bc8cb5f5ad5b",
+            "Guid": "c1815409-e75c-4c59-a478-199ceee9d7e0",
             "Geometry": {
               "_type": "SAM.Geometry.Object.Planar.SAMGeometry2DObjectCollection,SAM.Geometry",
               "Geometry2DObjects": [
@@ -22104,7 +23015,7 @@
           "SAM.Analytical.Systems.SystemAbsorptionChiller,SAM.Analytical.Systems",
           {
             "_type": "SAM.Geometry.Systems.SystemGeometrySymbol,SAM.Geometry.Systems",
-            "Guid": "2ddaaeec-d6e5-4398-9473-4b4836fe99e7",
+            "Guid": "56de21d5-8eda-4f74-9d90-f05229b3c2e1",
             "Geometry": {
               "_type": "SAM.Geometry.Object.Planar.SAMGeometry2DObjectCollection,SAM.Geometry",
               "Geometry2DObjects": [
@@ -23423,7 +24334,7 @@
           "SAM.Analytical.Systems.SystemAirSourceDirectAbsorptionChiller,SAM.Analytical.Systems",
           {
             "_type": "SAM.Geometry.Systems.SystemGeometrySymbol,SAM.Geometry.Systems",
-            "Guid": "eb9dc872-2a7b-435c-9846-1c5294d318f6",
+            "Guid": "626b6418-4219-42e0-a8b2-c339b8cf9b7b",
             "Geometry": {
               "_type": "SAM.Geometry.Object.Planar.SAMGeometry2DObjectCollection,SAM.Geometry",
               "Geometry2DObjects": [
@@ -24512,7 +25423,7 @@
           "SAM.Analytical.Systems.SystemWaterSourceAbsorptionChiller,SAM.Analytical.Systems",
           {
             "_type": "SAM.Geometry.Systems.SystemGeometrySymbol,SAM.Geometry.Systems",
-            "Guid": "b6b4744a-9cc5-48f7-969b-f6d1ccaf16a7",
+            "Guid": "6fdf4d5a-fd21-40ea-afff-f3824e0ac31a",
             "Geometry": {
               "_type": "SAM.Geometry.Object.Planar.SAMGeometry2DObjectCollection,SAM.Geometry",
               "Geometry2DObjects": [
@@ -26114,7 +27025,7 @@
           "SAM.Analytical.Systems.SystemWaterSourceDirectAbsorptionChiller,SAM.Analytical.Systems",
           {
             "_type": "SAM.Geometry.Systems.SystemGeometrySymbol,SAM.Geometry.Systems",
-            "Guid": "43bd4452-0802-4ce6-90cd-a5289066d54b",
+            "Guid": "bfab14bb-54c5-413c-bc09-40b6607ba000",
             "Geometry": {
               "_type": "SAM.Geometry.Object.Planar.SAMGeometry2DObjectCollection,SAM.Geometry",
               "Geometry2DObjects": [
@@ -27488,7 +28399,7 @@
           "SAM.Analytical.Systems.SystemIceStorageChiller,SAM.Analytical.Systems",
           {
             "_type": "SAM.Geometry.Systems.SystemGeometrySymbol,SAM.Geometry.Systems",
-            "Guid": "c8a2a5c1-a564-4293-84aa-e01eab565f5f",
+            "Guid": "9fa88a3c-a8ce-42ac-ba2c-2749d0767f00",
             "Geometry": {
               "_type": "SAM.Geometry.Object.Planar.SAMGeometry2DObjectCollection,SAM.Geometry",
               "Geometry2DObjects": [
@@ -28652,7 +29563,7 @@
           "SAM.Analytical.Systems.SystemWaterSourceIceStorageChiller,SAM.Analytical.Systems",
           {
             "_type": "SAM.Geometry.Systems.SystemGeometrySymbol,SAM.Geometry.Systems",
-            "Guid": "542e1eb3-f3bb-404b-bf2f-59c030908a89",
+            "Guid": "cff7af61-bfc9-4c97-8887-c73694dad489",
             "Geometry": {
               "_type": "SAM.Geometry.Object.Planar.SAMGeometry2DObjectCollection,SAM.Geometry",
               "Geometry2DObjects": [
@@ -30101,7 +31012,7 @@
           "SAM.Analytical.Systems.SystemWaterSourceHeatPump,SAM.Analytical.Systems",
           {
             "_type": "SAM.Geometry.Systems.SystemGeometrySymbol,SAM.Geometry.Systems",
-            "Guid": "260a6000-198d-4a83-bd76-d06c455194f4",
+            "Guid": "95cd4b90-e07d-4e54-9696-8af860826251",
             "Geometry": {
               "_type": "SAM.Geometry.Object.Planar.SAMGeometry2DObjectCollection,SAM.Geometry",
               "Geometry2DObjects": [
@@ -30755,7 +31666,7 @@
                       "TypeName": "SAM.Analytical.Systems.LiquidSystem,SAM.Analytical.Systems"
                     },
                     "Direction": "In",
-                    "ConnectionIndex": 1,
+                    "ConnectionIndex": 2,
                     "Location": {
                       "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
                       "X": 0.6,
@@ -30772,7 +31683,7 @@
                       "TypeName": "SAM.Analytical.Systems.LiquidSystem,SAM.Analytical.Systems"
                     },
                     "Direction": "Out",
-                    "ConnectionIndex": 1,
+                    "ConnectionIndex": 2,
                     "Location": {
                       "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
                       "X": 0.6,
@@ -30789,7 +31700,7 @@
                       "TypeName": "SAM.Analytical.Systems.LiquidSystem,SAM.Analytical.Systems"
                     },
                     "Direction": "In",
-                    "ConnectionIndex": 2,
+                    "ConnectionIndex": 1,
                     "Location": {
                       "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
                       "X": -1.11022302462516E-16,
@@ -30806,7 +31717,7 @@
                       "TypeName": "SAM.Analytical.Systems.LiquidSystem,SAM.Analytical.Systems"
                     },
                     "Direction": "Out",
-                    "ConnectionIndex": 2,
+                    "ConnectionIndex": 1,
                     "Location": {
                       "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
                       "X": -1.11022302462516E-16,
@@ -30822,7 +31733,7 @@
           "SAM.Analytical.Systems.SystemWaterToWaterHeatPump,SAM.Analytical.Systems",
           {
             "_type": "SAM.Geometry.Systems.SystemGeometrySymbol,SAM.Geometry.Systems",
-            "Guid": "d18f4e27-9d25-45a9-b2e5-ee2743919b19",
+            "Guid": "0c05f5e0-2a29-41c3-a301-055362a3a21a",
             "Geometry": {
               "_type": "SAM.Geometry.Object.Planar.SAMGeometry2DObjectCollection,SAM.Geometry",
               "Geometry2DObjects": [
@@ -31984,7 +32895,7 @@
           "SAM.Analytical.Systems.SystemTank,SAM.Analytical.Systems",
           {
             "_type": "SAM.Geometry.Systems.SystemGeometrySymbol,SAM.Geometry.Systems",
-            "Guid": "3e49ac43-5e10-4dc6-8f3b-de64561d5fe8",
+            "Guid": "caaa123f-801b-4844-9d24-4dac7d03bc74",
             "Geometry": {
               "_type": "SAM.Geometry.Object.Planar.SAMGeometry2DObjectCollection,SAM.Geometry",
               "Geometry2DObjects": [
@@ -32793,7 +33704,7 @@
           "SAM.Analytical.Systems.SystemPipeLossComponent,SAM.Analytical.Systems",
           {
             "_type": "SAM.Geometry.Systems.SystemGeometrySymbol,SAM.Geometry.Systems",
-            "Guid": "6fb3fc6f-8f1f-4ef1-bf9f-53d01fa8062f",
+            "Guid": "1c16a3c5-e18a-4a1a-a7ef-baf6028ee5a6",
             "Geometry": {
               "_type": "SAM.Geometry.Object.Planar.SAMGeometry2DObjectCollection,SAM.Geometry",
               "Geometry2DObjects": [
@@ -33250,88 +34161,10 @@
           "SAM.Analytical.Systems.SystemLiquidExchanger,SAM.Analytical.Systems",
           {
             "_type": "SAM.Geometry.Systems.SystemGeometrySymbol,SAM.Geometry.Systems",
-            "Guid": "dce0e7e1-c14d-4a59-aea1-cc1f9eaf4cc7",
+            "Guid": "23978cfb-4863-4fc3-b987-50ac6bf6d483",
             "Geometry": {
               "_type": "SAM.Geometry.Object.Planar.SAMGeometry2DObjectCollection,SAM.Geometry",
               "Geometry2DObjects": [
-                {
-                  "_type": "SAM.Geometry.Object.Planar.Segment2DObject,SAM.Geometry",
-                  "Origin": {
-                    "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
-                    "X": 0.065124471824145824,
-                    "Y": -0.60000000000000009
-                  },
-                  "Vector": {
-                    "_type": "SAM.Geometry.Planar.Vector2D,SAM.Geometry",
-                    "X": 0.0,
-                    "Y": 0.20000000000000007
-                  },
-                  "CurveAppearance": {
-                    "_type": "SAM.Geometry.Object.CurveAppearance,SAM.Geometry",
-                    "Color": {
-                      "_type": "SAM.Core.SAMColor,SAM.Core",
-                      "Alpha": 255,
-                      "Red": 0,
-                      "Green": 0,
-                      "Blue": 0
-                    },
-                    "Opacity": 1.0,
-                    "Visible": true,
-                    "Thickness": 1.0
-                  }
-                },
-                {
-                  "_type": "SAM.Geometry.Object.Planar.Segment2DObject,SAM.Geometry",
-                  "Origin": {
-                    "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
-                    "X": 0.55014531110034737,
-                    "Y": -0.60000000000000009
-                  },
-                  "Vector": {
-                    "_type": "SAM.Geometry.Planar.Vector2D,SAM.Geometry",
-                    "X": 0.0,
-                    "Y": 0.20000000000000007
-                  },
-                  "CurveAppearance": {
-                    "_type": "SAM.Geometry.Object.CurveAppearance,SAM.Geometry",
-                    "Color": {
-                      "_type": "SAM.Core.SAMColor,SAM.Core",
-                      "Alpha": 255,
-                      "Red": 0,
-                      "Green": 0,
-                      "Blue": 0
-                    },
-                    "Opacity": 1.0,
-                    "Visible": true,
-                    "Thickness": 1.0
-                  }
-                },
-                {
-                  "_type": "SAM.Geometry.Object.Planar.Segment2DObject,SAM.Geometry",
-                  "Origin": {
-                    "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
-                    "X": 0.51857075884237247,
-                    "Y": -0.60000000000000009
-                  },
-                  "Vector": {
-                    "_type": "SAM.Geometry.Planar.Vector2D,SAM.Geometry",
-                    "X": 0.0,
-                    "Y": 0.20000000000000007
-                  },
-                  "CurveAppearance": {
-                    "_type": "SAM.Geometry.Object.CurveAppearance,SAM.Geometry",
-                    "Color": {
-                      "_type": "SAM.Core.SAMColor,SAM.Core",
-                      "Alpha": 255,
-                      "Red": 0,
-                      "Green": 0,
-                      "Blue": 0
-                    },
-                    "Opacity": 1.0,
-                    "Visible": true,
-                    "Thickness": 1.0
-                  }
-                },
                 {
                   "_type": "SAM.Geometry.Object.Planar.Polyline2DObject,SAM.Geometry",
                   "Points": [
@@ -33370,164 +34203,6 @@
                   "Points": [
                     {
                       "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
-                      "X": 0.6,
-                      "Y": -0.020000000000000021
-                    },
-                    {
-                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
-                      "X": 0.59414213562373086,
-                      "Y": -0.0058578643762690567
-                    },
-                    {
-                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
-                      "X": 0.58,
-                      "Y": 0.0
-                    }
-                  ],
-                  "CurveAppearance": {
-                    "_type": "SAM.Geometry.Object.CurveAppearance,SAM.Geometry",
-                    "Color": {
-                      "_type": "SAM.Core.SAMColor,SAM.Core",
-                      "Alpha": 255,
-                      "Red": 0,
-                      "Green": 0,
-                      "Blue": 0
-                    },
-                    "Opacity": 1.0,
-                    "Visible": true,
-                    "Thickness": 1.0
-                  }
-                },
-                {
-                  "_type": "SAM.Geometry.Object.Planar.Polygon2DObject,SAM.Geometry",
-                  "Points": [
-                    {
-                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
-                      "X": 0.57897584724857742,
-                      "Y": -0.17142857142857137
-                    },
-                    {
-                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
-                      "X": 0.64204830550284486,
-                      "Y": -0.19999999999999996
-                    },
-                    {
-                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
-                      "X": 0.57897584724857742,
-                      "Y": -0.22857142857142843
-                    }
-                  ],
-                  "CurveAppearance": {
-                    "_type": "SAM.Geometry.Object.CurveAppearance,SAM.Geometry",
-                    "Color": {
-                      "_type": "SAM.Core.SAMColor,SAM.Core",
-                      "Alpha": 255,
-                      "Red": 0,
-                      "Green": 0,
-                      "Blue": 0
-                    },
-                    "Opacity": 1.0,
-                    "Visible": true,
-                    "Thickness": 1.0
-                  }
-                },
-                {
-                  "_type": "SAM.Geometry.Object.Planar.Segment2DObject,SAM.Geometry",
-                  "Origin": {
-                    "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
-                    "X": 0.6,
-                    "Y": -0.18095238095238095
-                  },
-                  "Vector": {
-                    "_type": "SAM.Geometry.Planar.Vector2D,SAM.Geometry",
-                    "X": 0.0,
-                    "Y": 0.16095238095238093
-                  },
-                  "CurveAppearance": {
-                    "_type": "SAM.Geometry.Object.CurveAppearance,SAM.Geometry",
-                    "Color": {
-                      "_type": "SAM.Core.SAMColor,SAM.Core",
-                      "Alpha": 255,
-                      "Red": 0,
-                      "Green": 0,
-                      "Blue": 0
-                    },
-                    "Opacity": 1.0,
-                    "Visible": true,
-                    "Thickness": 1.0
-                  }
-                },
-                {
-                  "_type": "SAM.Geometry.Object.Planar.Polygon2DObject,SAM.Geometry",
-                  "Points": [
-                    {
-                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
-                      "X": 0.62102415275142253,
-                      "Y": -0.77142857142857146
-                    },
-                    {
-                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
-                      "X": 0.55795169449715509,
-                      "Y": -0.8
-                    },
-                    {
-                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
-                      "X": 0.62102415275142253,
-                      "Y": -0.82857142857142851
-                    }
-                  ],
-                  "CurveAppearance": {
-                    "_type": "SAM.Geometry.Object.CurveAppearance,SAM.Geometry",
-                    "Color": {
-                      "_type": "SAM.Core.SAMColor,SAM.Core",
-                      "Alpha": 255,
-                      "Red": 0,
-                      "Green": 0,
-                      "Blue": 0
-                    },
-                    "Opacity": 1.0,
-                    "Visible": true,
-                    "Thickness": 1.0
-                  }
-                },
-                {
-                  "_type": "SAM.Geometry.Object.Planar.Polyline2DObject,SAM.Geometry",
-                  "Points": [
-                    {
-                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
-                      "X": 0.6,
-                      "Y": -0.98000000000000043
-                    },
-                    {
-                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
-                      "X": 0.59414213562373086,
-                      "Y": -0.99414213562373122
-                    },
-                    {
-                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
-                      "X": 0.58,
-                      "Y": -1.0000000000000002
-                    }
-                  ],
-                  "CurveAppearance": {
-                    "_type": "SAM.Geometry.Object.CurveAppearance,SAM.Geometry",
-                    "Color": {
-                      "_type": "SAM.Core.SAMColor,SAM.Core",
-                      "Alpha": 255,
-                      "Red": 0,
-                      "Green": 0,
-                      "Blue": 0
-                    },
-                    "Opacity": 1.0,
-                    "Visible": true,
-                    "Thickness": 1.0
-                  }
-                },
-                {
-                  "_type": "SAM.Geometry.Object.Planar.Polyline2DObject,SAM.Geometry",
-                  "Points": [
-                    {
-                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
                       "X": 0.020000000000000018,
                       "Y": -1.0000000000000002
                     },
@@ -33542,84 +34217,6 @@
                       "Y": -0.9800000000000002
                     }
                   ],
-                  "CurveAppearance": {
-                    "_type": "SAM.Geometry.Object.CurveAppearance,SAM.Geometry",
-                    "Color": {
-                      "_type": "SAM.Core.SAMColor,SAM.Core",
-                      "Alpha": 255,
-                      "Red": 0,
-                      "Green": 0,
-                      "Blue": 0
-                    },
-                    "Opacity": 1.0,
-                    "Visible": true,
-                    "Thickness": 1.0
-                  }
-                },
-                {
-                  "_type": "SAM.Geometry.Object.Planar.Segment2DObject,SAM.Geometry",
-                  "Origin": {
-                    "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
-                    "X": 0.60000000000000009,
-                    "Y": -0.98095238095238113
-                  },
-                  "Vector": {
-                    "_type": "SAM.Geometry.Planar.Vector2D,SAM.Geometry",
-                    "X": 0.0,
-                    "Y": 0.16190476190476211
-                  },
-                  "CurveAppearance": {
-                    "_type": "SAM.Geometry.Object.CurveAppearance,SAM.Geometry",
-                    "Color": {
-                      "_type": "SAM.Core.SAMColor,SAM.Core",
-                      "Alpha": 255,
-                      "Red": 0,
-                      "Green": 0,
-                      "Blue": 0
-                    },
-                    "Opacity": 1.0,
-                    "Visible": true,
-                    "Thickness": 1.0
-                  }
-                },
-                {
-                  "_type": "SAM.Geometry.Object.Planar.Segment2DObject,SAM.Geometry",
-                  "Origin": {
-                    "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
-                    "X": 0.60000000000000009,
-                    "Y": -0.78095238095238084
-                  },
-                  "Vector": {
-                    "_type": "SAM.Geometry.Planar.Vector2D,SAM.Geometry",
-                    "X": -1.1102230246251565E-16,
-                    "Y": 0.56190476190476191
-                  },
-                  "CurveAppearance": {
-                    "_type": "SAM.Geometry.Object.CurveAppearance,SAM.Geometry",
-                    "Color": {
-                      "_type": "SAM.Core.SAMColor,SAM.Core",
-                      "Alpha": 255,
-                      "Red": 0,
-                      "Green": 0,
-                      "Blue": 0
-                    },
-                    "Opacity": 1.0,
-                    "Visible": true,
-                    "Thickness": 1.0
-                  }
-                },
-                {
-                  "_type": "SAM.Geometry.Object.Planar.Segment2DObject,SAM.Geometry",
-                  "Origin": {
-                    "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
-                    "X": 0.58000000000000007,
-                    "Y": 0.0
-                  },
-                  "Vector": {
-                    "_type": "SAM.Geometry.Planar.Vector2D,SAM.Geometry",
-                    "X": -0.56,
-                    "Y": 0.0
-                  },
                   "CurveAppearance": {
                     "_type": "SAM.Geometry.Object.CurveAppearance,SAM.Geometry",
                     "Color": {
@@ -33684,54 +34281,6 @@
                       "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
                       "X": 0.021024152751422442,
                       "Y": -0.82857142857142863
-                    }
-                  ],
-                  "CurveAppearance": {
-                    "_type": "SAM.Geometry.Object.CurveAppearance,SAM.Geometry",
-                    "Color": {
-                      "_type": "SAM.Core.SAMColor,SAM.Core",
-                      "Alpha": 255,
-                      "Red": 0,
-                      "Green": 0,
-                      "Blue": 0
-                    },
-                    "Opacity": 1.0,
-                    "Visible": true,
-                    "Thickness": 1.0
-                  }
-                },
-                {
-                  "_type": "SAM.Geometry.Object.Planar.Polyline2DObject,SAM.Geometry",
-                  "Points": [
-                    {
-                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
-                      "X": 0.57897584724857742,
-                      "Y": -0.1999999999999999
-                    },
-                    {
-                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
-                      "X": 0.4228861404809256,
-                      "Y": -0.1999999999999999
-                    },
-                    {
-                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
-                      "X": 0.271758851718886,
-                      "Y": -0.401210341645458
-                    },
-                    {
-                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
-                      "X": 0.41901108179471935,
-                      "Y": -0.597546648413236
-                    },
-                    {
-                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
-                      "X": 0.27865998529592007,
-                      "Y": -0.8
-                    },
-                    {
-                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
-                      "X": 0.55795169449715509,
-                      "Y": -0.8
                     }
                   ],
                   "CurveAppearance": {
@@ -33875,59 +34424,447 @@
                   }
                 },
                 {
+                  "_type": "SAM.Geometry.Object.Planar.Polyline2DObject,SAM.Geometry",
+                  "Points": [
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.49999999999999989,
+                      "Y": -0.020000000000000021
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.49414213562373083,
+                      "Y": -0.0058578643762690567
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.47999999999999987,
+                      "Y": 0.0
+                    }
+                  ],
+                  "CurveAppearance": {
+                    "_type": "SAM.Geometry.Object.CurveAppearance,SAM.Geometry",
+                    "Color": {
+                      "_type": "SAM.Core.SAMColor,SAM.Core",
+                      "Alpha": 255,
+                      "Red": 0,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    "Opacity": 1.0,
+                    "Visible": true,
+                    "Thickness": 1.0
+                  }
+                },
+                {
                   "_type": "SAM.Geometry.Object.Planar.Polygon2DObject,SAM.Geometry",
                   "Points": [
                     {
                       "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
-                      "X": 0.32666666666666672,
+                      "X": 0.47897584724857734,
+                      "Y": -0.17142857142857137
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.54204830550284477,
+                      "Y": -0.19999999999999996
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.47897584724857734,
+                      "Y": -0.22857142857142843
+                    }
+                  ],
+                  "CurveAppearance": {
+                    "_type": "SAM.Geometry.Object.CurveAppearance,SAM.Geometry",
+                    "Color": {
+                      "_type": "SAM.Core.SAMColor,SAM.Core",
+                      "Alpha": 255,
+                      "Red": 0,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    "Opacity": 1.0,
+                    "Visible": true,
+                    "Thickness": 1.0
+                  }
+                },
+                {
+                  "_type": "SAM.Geometry.Object.Planar.Segment2DObject,SAM.Geometry",
+                  "Origin": {
+                    "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                    "X": 0.49999999999999989,
+                    "Y": -0.18095238095238095
+                  },
+                  "Vector": {
+                    "_type": "SAM.Geometry.Planar.Vector2D,SAM.Geometry",
+                    "X": 0.0,
+                    "Y": 0.16095238095238093
+                  },
+                  "CurveAppearance": {
+                    "_type": "SAM.Geometry.Object.CurveAppearance,SAM.Geometry",
+                    "Color": {
+                      "_type": "SAM.Core.SAMColor,SAM.Core",
+                      "Alpha": 255,
+                      "Red": 0,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    "Opacity": 1.0,
+                    "Visible": true,
+                    "Thickness": 1.0
+                  }
+                },
+                {
+                  "_type": "SAM.Geometry.Object.Planar.Polygon2DObject,SAM.Geometry",
+                  "Points": [
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.52102415275142244,
+                      "Y": -0.77142857142857146
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.457951694497155,
+                      "Y": -0.8
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.52102415275142244,
+                      "Y": -0.82857142857142851
+                    }
+                  ],
+                  "CurveAppearance": {
+                    "_type": "SAM.Geometry.Object.CurveAppearance,SAM.Geometry",
+                    "Color": {
+                      "_type": "SAM.Core.SAMColor,SAM.Core",
+                      "Alpha": 255,
+                      "Red": 0,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    "Opacity": 1.0,
+                    "Visible": true,
+                    "Thickness": 1.0
+                  }
+                },
+                {
+                  "_type": "SAM.Geometry.Object.Planar.Polyline2DObject,SAM.Geometry",
+                  "Points": [
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.49999999999999989,
+                      "Y": -0.98000000000000043
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.49414213562373072,
+                      "Y": -0.99414213562373122
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.47999999999999987,
+                      "Y": -1.0000000000000002
+                    }
+                  ],
+                  "CurveAppearance": {
+                    "_type": "SAM.Geometry.Object.CurveAppearance,SAM.Geometry",
+                    "Color": {
+                      "_type": "SAM.Core.SAMColor,SAM.Core",
+                      "Alpha": 255,
+                      "Red": 0,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    "Opacity": 1.0,
+                    "Visible": true,
+                    "Thickness": 1.0
+                  }
+                },
+                {
+                  "_type": "SAM.Geometry.Object.Planar.Segment2DObject,SAM.Geometry",
+                  "Origin": {
+                    "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                    "X": 0.5,
+                    "Y": -0.98095238095238113
+                  },
+                  "Vector": {
+                    "_type": "SAM.Geometry.Planar.Vector2D,SAM.Geometry",
+                    "X": 0.0,
+                    "Y": 0.16190476190476211
+                  },
+                  "CurveAppearance": {
+                    "_type": "SAM.Geometry.Object.CurveAppearance,SAM.Geometry",
+                    "Color": {
+                      "_type": "SAM.Core.SAMColor,SAM.Core",
+                      "Alpha": 255,
+                      "Red": 0,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    "Opacity": 1.0,
+                    "Visible": true,
+                    "Thickness": 1.0
+                  }
+                },
+                {
+                  "_type": "SAM.Geometry.Object.Planar.Segment2DObject,SAM.Geometry",
+                  "Origin": {
+                    "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                    "X": 0.5,
+                    "Y": -0.78095238095238084
+                  },
+                  "Vector": {
+                    "_type": "SAM.Geometry.Planar.Vector2D,SAM.Geometry",
+                    "X": -1.1102230246251565E-16,
+                    "Y": 0.56190476190476191
+                  },
+                  "CurveAppearance": {
+                    "_type": "SAM.Geometry.Object.CurveAppearance,SAM.Geometry",
+                    "Color": {
+                      "_type": "SAM.Core.SAMColor,SAM.Core",
+                      "Alpha": 255,
+                      "Red": 0,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    "Opacity": 1.0,
+                    "Visible": true,
+                    "Thickness": 1.0
+                  }
+                },
+                {
+                  "_type": "SAM.Geometry.Object.Planar.Segment2DObject,SAM.Geometry",
+                  "Origin": {
+                    "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                    "X": 0.47999999999999993,
+                    "Y": 0.0
+                  },
+                  "Vector": {
+                    "_type": "SAM.Geometry.Planar.Vector2D,SAM.Geometry",
+                    "X": -0.45999999999999991,
+                    "Y": 0.0
+                  },
+                  "CurveAppearance": {
+                    "_type": "SAM.Geometry.Object.CurveAppearance,SAM.Geometry",
+                    "Color": {
+                      "_type": "SAM.Core.SAMColor,SAM.Core",
+                      "Alpha": 255,
+                      "Red": 0,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    "Opacity": 1.0,
+                    "Visible": true,
+                    "Thickness": 1.0
+                  }
+                },
+                {
+                  "_type": "SAM.Geometry.Object.Planar.Polyline2DObject,SAM.Geometry",
+                  "Points": [
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.47897584724857734,
+                      "Y": -0.1999999999999999
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.4228861404809256,
+                      "Y": -0.1999999999999999
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.271758851718886,
+                      "Y": -0.401210341645458
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.41901108179471935,
+                      "Y": -0.597546648413236
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.27865998529592007,
+                      "Y": -0.8
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.457951694497155,
+                      "Y": -0.8
+                    }
+                  ],
+                  "CurveAppearance": {
+                    "_type": "SAM.Geometry.Object.CurveAppearance,SAM.Geometry",
+                    "Color": {
+                      "_type": "SAM.Core.SAMColor,SAM.Core",
+                      "Alpha": 255,
+                      "Red": 0,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    "Opacity": 1.0,
+                    "Visible": true,
+                    "Thickness": 1.0
+                  }
+                },
+                {
+                  "_type": "SAM.Geometry.Object.Planar.Segment2DObject,SAM.Geometry",
+                  "Origin": {
+                    "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                    "X": 0.44052942473087542,
+                    "Y": -0.60000000000000009
+                  },
+                  "Vector": {
+                    "_type": "SAM.Geometry.Planar.Vector2D,SAM.Geometry",
+                    "X": 0.0,
+                    "Y": 0.20000000000000007
+                  },
+                  "CurveAppearance": {
+                    "_type": "SAM.Geometry.Object.CurveAppearance,SAM.Geometry",
+                    "Color": {
+                      "_type": "SAM.Core.SAMColor,SAM.Core",
+                      "Alpha": 255,
+                      "Red": 0,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    "Opacity": 1.0,
+                    "Visible": true,
+                    "Thickness": 1.0
+                  }
+                },
+                {
+                  "_type": "SAM.Geometry.Object.Planar.Segment2DObject,SAM.Geometry",
+                  "Origin": {
+                    "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                    "X": 0.47210397698885032,
+                    "Y": -0.60000000000000009
+                  },
+                  "Vector": {
+                    "_type": "SAM.Geometry.Planar.Vector2D,SAM.Geometry",
+                    "X": 0.0,
+                    "Y": 0.20000000000000007
+                  },
+                  "CurveAppearance": {
+                    "_type": "SAM.Geometry.Object.CurveAppearance,SAM.Geometry",
+                    "Color": {
+                      "_type": "SAM.Core.SAMColor,SAM.Core",
+                      "Alpha": 255,
+                      "Red": 0,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    "Opacity": 1.0,
+                    "Visible": true,
+                    "Thickness": 1.0
+                  }
+                },
+                {
+                  "_type": "SAM.Geometry.Object.Planar.Segment2DObject,SAM.Geometry",
+                  "Origin": {
+                    "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                    "X": 0.048388341824035896,
+                    "Y": -0.60000000000000009
+                  },
+                  "Vector": {
+                    "_type": "SAM.Geometry.Planar.Vector2D,SAM.Geometry",
+                    "X": 0.0,
+                    "Y": 0.20000000000000007
+                  },
+                  "CurveAppearance": {
+                    "_type": "SAM.Geometry.Object.CurveAppearance,SAM.Geometry",
+                    "Color": {
+                      "_type": "SAM.Core.SAMColor,SAM.Core",
+                      "Alpha": 255,
+                      "Red": 0,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    "Opacity": 1.0,
+                    "Visible": true,
+                    "Thickness": 1.0
+                  }
+                },
+                {
+                  "_type": "SAM.Geometry.Object.Planar.Polygon2DObject,SAM.Geometry",
+                  "Points": [
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.27666666666661427,
                       "Y": -1.0
                     },
                     {
                       "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
-                      "X": 0.32157378651666529,
+                      "X": 0.27157378651661285,
                       "Y": -0.98432572660553408
                     },
                     {
                       "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
-                      "X": 0.308240453183332,
+                      "X": 0.25824045318327954,
                       "Y": -0.97463849289879589
                     },
                     {
                       "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
-                      "X": 0.2917595468166681,
+                      "X": 0.24175954681661566,
                       "Y": -0.97463849289879589
                     },
                     {
                       "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
-                      "X": 0.27842621348333479,
+                      "X": 0.22842621348328235,
                       "Y": -0.98432572660553408
                     },
                     {
                       "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
-                      "X": 0.27333333333333337,
+                      "X": 0.22333333333328093,
                       "Y": -1.0
                     },
                     {
                       "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
-                      "X": 0.27842621348333479,
+                      "X": 0.22842621348328232,
                       "Y": -1.0156742733944659
                     },
                     {
                       "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
-                      "X": 0.2917595468166681,
+                      "X": 0.24175954681661566,
                       "Y": -1.0253615071012041
                     },
                     {
                       "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
-                      "X": 0.308240453183332,
+                      "X": 0.25824045318327954,
                       "Y": -1.0253615071012041
                     },
                     {
                       "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
-                      "X": 0.32157378651666529,
+                      "X": 0.27157378651661285,
                       "Y": -1.0156742733944659
                     }
                   ],
+                  "CurveAppearance": {
+                    "_type": "SAM.Geometry.Object.CurveAppearance,SAM.Geometry",
+                    "Color": {
+                      "_type": "SAM.Core.SAMColor,SAM.Core",
+                      "Alpha": 255,
+                      "Red": 0,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    "Opacity": 1.0,
+                    "Visible": true,
+                    "Thickness": 1.0
+                  }
+                },
+                {
+                  "_type": "SAM.Geometry.Object.Planar.Segment2DObject,SAM.Geometry",
+                  "Origin": {
+                    "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                    "X": 0.27666666666661488,
+                    "Y": -1.0000000000000002
+                  },
+                  "Vector": {
+                    "_type": "SAM.Geometry.Planar.Vector2D,SAM.Geometry",
+                    "X": 0.20333333333338466,
+                    "Y": 0.0
+                  },
                   "CurveAppearance": {
                     "_type": "SAM.Geometry.Object.CurveAppearance,SAM.Geometry",
                     "Color": {
@@ -33951,33 +34888,7 @@
                   },
                   "Vector": {
                     "_type": "SAM.Geometry.Planar.Vector2D,SAM.Geometry",
-                    "X": 0.25333333333333341,
-                    "Y": 0.0
-                  },
-                  "CurveAppearance": {
-                    "_type": "SAM.Geometry.Object.CurveAppearance,SAM.Geometry",
-                    "Color": {
-                      "_type": "SAM.Core.SAMColor,SAM.Core",
-                      "Alpha": 255,
-                      "Red": 0,
-                      "Green": 0,
-                      "Blue": 0
-                    },
-                    "Opacity": 1.0,
-                    "Visible": true,
-                    "Thickness": 1.0
-                  }
-                },
-                {
-                  "_type": "SAM.Geometry.Object.Planar.Segment2DObject,SAM.Geometry",
-                  "Origin": {
-                    "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
-                    "X": 0.3266666666666671,
-                    "Y": -1.0000000000000002
-                  },
-                  "Vector": {
-                    "_type": "SAM.Geometry.Planar.Vector2D,SAM.Geometry",
-                    "X": 0.25333333333333297,
+                    "X": 0.20333333333328074,
                     "Y": 0.0
                   },
                   "CurveAppearance": {
@@ -34045,7 +34956,7 @@
                     "ConnectionIndex": 2,
                     "Location": {
                       "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
-                      "X": 0.6,
+                      "X": 0.49999999999999989,
                       "Y": -0.8
                     }
                   }
@@ -34062,8 +34973,8 @@
                     "ConnectionIndex": 2,
                     "Location": {
                       "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
-                      "X": 0.6,
-                      "Y": -0.2
+                      "X": 0.49999999999999989,
+                      "Y": -0.19999999999999996
                     }
                   }
                 ],
@@ -34079,7 +34990,7 @@
                     "ConnectionIndex": 1,
                     "Location": {
                       "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
-                      "X": 0.30000000000000215,
+                      "X": 0.24999999999994971,
                       "Y": -1.0266666666666668
                     }
                   }
@@ -34092,7 +35003,7 @@
           "SAM.Analytical.Systems.SystemValve,SAM.Analytical.Systems",
           {
             "_type": "SAM.Geometry.Systems.SystemGeometrySymbol,SAM.Geometry.Systems",
-            "Guid": "06824d30-acf4-4518-bf26-8df996eaa595",
+            "Guid": "eb4d33c7-310e-416e-8e26-bef5bdb8f341",
             "Geometry": {
               "_type": "SAM.Geometry.Object.Planar.SAMGeometry2DObjectCollection,SAM.Geometry",
               "Geometry2DObjects": [
@@ -34403,7 +35314,7 @@
           "SAM.Analytical.Systems.SystemCoolingTower,SAM.Analytical.Systems",
           {
             "_type": "SAM.Geometry.Systems.SystemGeometrySymbol,SAM.Geometry.Systems",
-            "Guid": "dfc7aa44-e32d-4948-9d1b-1924ea0f7797",
+            "Guid": "4f3d6082-ab2c-448b-8eaa-b6f7d13b76f8",
             "Geometry": {
               "_type": "SAM.Geometry.Object.Planar.SAMGeometry2DObjectCollection,SAM.Geometry",
               "Geometry2DObjects": [
@@ -34829,7 +35740,7 @@
           "SAM.Analytical.Systems.SystemDryCooler,SAM.Analytical.Systems",
           {
             "_type": "SAM.Geometry.Systems.SystemGeometrySymbol,SAM.Geometry.Systems",
-            "Guid": "4c7a94be-b330-4082-ba3b-c4f566d7aa1b",
+            "Guid": "8426dbb3-21af-44f6-b84e-fc0fcc6ff02c",
             "Geometry": {
               "_type": "SAM.Geometry.Object.Planar.SAMGeometry2DObjectCollection,SAM.Geometry",
               "Geometry2DObjects": [
@@ -37001,7 +37912,7 @@
           "SAM.Analytical.Systems.SystemVerticalBorehole,SAM.Analytical.Systems",
           {
             "_type": "SAM.Geometry.Systems.SystemGeometrySymbol,SAM.Geometry.Systems",
-            "Guid": "5a1e8fd8-f140-4fe9-a19d-76c8fa089664",
+            "Guid": "8fa0ae28-81d7-42b1-8935-8956ebf48436",
             "Geometry": {
               "_type": "SAM.Geometry.Object.Planar.SAMGeometry2DObjectCollection,SAM.Geometry",
               "Geometry2DObjects": [
@@ -37584,7 +38495,7 @@
           "SAM.Analytical.Systems.SystemSlinkyCoil,SAM.Analytical.Systems",
           {
             "_type": "SAM.Geometry.Systems.SystemGeometrySymbol,SAM.Geometry.Systems",
-            "Guid": "ec1e9d26-fb58-4178-94ac-4e4d00fed2f2",
+            "Guid": "085c9f40-8acb-4279-a66d-f2baca90580d",
             "Geometry": {
               "_type": "SAM.Geometry.Object.Planar.SAMGeometry2DObjectCollection,SAM.Geometry",
               "Geometry2DObjects": [
@@ -38287,7 +39198,7 @@
           "SAM.Analytical.Systems.SystemSurfaceWaterExchanger,SAM.Analytical.Systems",
           {
             "_type": "SAM.Geometry.Systems.SystemGeometrySymbol,SAM.Geometry.Systems",
-            "Guid": "c0e0fcc2-7d3c-4736-a872-fe85075b82ef",
+            "Guid": "c3fd35fa-303e-4c28-9164-61f8c612851b",
             "Geometry": {
               "_type": "SAM.Geometry.Object.Planar.SAMGeometry2DObjectCollection,SAM.Geometry",
               "Geometry2DObjects": [
@@ -39146,7 +40057,7 @@
           "SAM.Analytical.Systems.SystemHorizontalExchanger,SAM.Analytical.Systems",
           {
             "_type": "SAM.Geometry.Systems.SystemGeometrySymbol,SAM.Geometry.Systems",
-            "Guid": "8e45c36e-2d88-4ce1-9d26-668ec77d25f8",
+            "Guid": "73ec014b-b993-4474-9d55-7f8827143c12",
             "Geometry": {
               "_type": "SAM.Geometry.Object.Planar.SAMGeometry2DObjectCollection,SAM.Geometry",
               "Geometry2DObjects": [
@@ -39659,7 +40570,7 @@
           "SAM.Analytical.Systems.SystemSolarPanel,SAM.Analytical.Systems",
           {
             "_type": "SAM.Geometry.Systems.SystemGeometrySymbol,SAM.Geometry.Systems",
-            "Guid": "d3f52f39-c1d4-4832-a695-477818605a8a",
+            "Guid": "592e1596-b363-4255-91a1-c2f066ddb958",
             "Geometry": {
               "_type": "SAM.Geometry.Object.Planar.SAMGeometry2DObjectCollection,SAM.Geometry",
               "Geometry2DObjects": [
@@ -40336,7 +41247,7 @@
           "SAM.Analytical.Systems.SystemPhotovoltaicPanel,SAM.Analytical.Systems",
           {
             "_type": "SAM.Geometry.Systems.SystemGeometrySymbol,SAM.Geometry.Systems",
-            "Guid": "c2c031c8-35fb-4516-a966-1eb1b91acf2e",
+            "Guid": "cc4c5eb3-032b-4445-ac0b-0afa8378356a",
             "Geometry": {
               "_type": "SAM.Geometry.Object.Planar.SAMGeometry2DObjectCollection,SAM.Geometry",
               "Geometry2DObjects": [
@@ -40938,7 +41849,7 @@
           "SAM.Analytical.Systems.SystemWindTurbine,SAM.Analytical.Systems",
           {
             "_type": "SAM.Geometry.Systems.SystemGeometrySymbol,SAM.Geometry.Systems",
-            "Guid": "bc57024f-b35a-42ea-a710-48106ccc20d9",
+            "Guid": "5a609b31-cddc-4788-9e2e-bc7232ca2176",
             "Geometry": {
               "_type": "SAM.Geometry.Object.Planar.SAMGeometry2DObjectCollection,SAM.Geometry",
               "Geometry2DObjects": [
@@ -41426,6 +42337,951 @@
             "DisplaySystemConnectorManager": {
               "_type": "SAM.Geometry.Systems.DisplaySystemConnectorManager,SAM.Geometry.Systems",
               "SystemConnectors": []
+            }
+          }
+        ],
+        [
+          "SAM.Analytical.Systems.SystemLiquidNormalController,SAM.Analytical.Systems",
+          {
+            "_type": "SAM.Geometry.Systems.SystemGeometrySymbol,SAM.Geometry.Systems",
+            "Guid": "71081162-93a4-4f44-9d6a-2666bb9b79f2",
+            "Geometry": {
+              "_type": "SAM.Geometry.Object.Planar.SAMGeometry2DObjectCollection,SAM.Geometry",
+              "Geometry2DObjects": [
+                {
+                  "_type": "SAM.Geometry.Object.Planar.Polygon2DObject,SAM.Geometry",
+                  "Points": [
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.028165943815327221,
+                      "Y": -0.09999999999999995
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.02278672720920967,
+                      "Y": -0.083444473608452224
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.0087037553015460577,
+                      "Y": -0.073212595596829813
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": -0.0087037553015460543,
+                      "Y": -0.073212595596829813
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": -0.022786727209209667,
+                      "Y": -0.08344447360845221
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": -0.028165943815327221,
+                      "Y": -0.09999999999999995
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": -0.02278672720920967,
+                      "Y": -0.11655552639154768
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": -0.0087037553015460612,
+                      "Y": -0.12678740440317007
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.00870375530154605,
+                      "Y": -0.1267874044031701
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.022786727209209667,
+                      "Y": -0.11655552639154769
+                    }
+                  ],
+                  "CurveAppearance": {
+                    "_type": "SAM.Geometry.Object.CurveAppearance,SAM.Geometry",
+                    "Color": {
+                      "_type": "SAM.Core.SAMColor,SAM.Core",
+                      "Alpha": 255,
+                      "Red": 0,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    "Opacity": 1.0,
+                    "Visible": true,
+                    "Thickness": 1.0
+                  }
+                },
+                {
+                  "_type": "SAM.Geometry.Object.Planar.Polygon2DObject,SAM.Geometry",
+                  "Points": [
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.22733261048199394,
+                      "Y": -0.09999999999999995
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.22195339387587637,
+                      "Y": -0.083444473608452224
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.20787042196821276,
+                      "Y": -0.073212595596829813
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.19046291136512067,
+                      "Y": -0.073212595596829813
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.17637993945745706,
+                      "Y": -0.08344447360845221
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.17100072285133949,
+                      "Y": -0.09999999999999995
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.17637993945745706,
+                      "Y": -0.11655552639154768
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.19046291136512064,
+                      "Y": -0.12678740440317007
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.20787042196821276,
+                      "Y": -0.1267874044031701
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.22195339387587637,
+                      "Y": -0.11655552639154769
+                    }
+                  ],
+                  "CurveAppearance": {
+                    "_type": "SAM.Geometry.Object.CurveAppearance,SAM.Geometry",
+                    "Color": {
+                      "_type": "SAM.Core.SAMColor,SAM.Core",
+                      "Alpha": 255,
+                      "Red": 0,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    "Opacity": 1.0,
+                    "Visible": true,
+                    "Thickness": 1.0
+                  }
+                },
+                {
+                  "_type": "SAM.Geometry.Object.Planar.Polyline2DObject,SAM.Geometry",
+                  "Points": [
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.0,
+                      "Y": -0.1281659438153272
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.0,
+                      "Y": -0.2
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.19916666666666671,
+                      "Y": -0.2
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.19916666666666671,
+                      "Y": -0.1281659438153272
+                    }
+                  ],
+                  "CurveAppearance": {
+                    "_type": "SAM.Geometry.Object.CurveAppearance,SAM.Geometry",
+                    "Color": {
+                      "_type": "SAM.Core.SAMColor,SAM.Core",
+                      "Alpha": 255,
+                      "Red": 0,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    "Opacity": 1.0,
+                    "Visible": true,
+                    "Thickness": 1.0
+                  }
+                },
+                {
+                  "_type": "SAM.Geometry.Object.Planar.Polyline2DObject,SAM.Geometry",
+                  "Points": [
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.19916666666666671,
+                      "Y": -0.071834056184672729
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.19916666666666671,
+                      "Y": 0.0
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.0,
+                      "Y": 0.0
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.0,
+                      "Y": -0.071834056184672715
+                    }
+                  ],
+                  "CurveAppearance": {
+                    "_type": "SAM.Geometry.Object.CurveAppearance,SAM.Geometry",
+                    "Color": {
+                      "_type": "SAM.Core.SAMColor,SAM.Core",
+                      "Alpha": 255,
+                      "Red": 0,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    "Opacity": 1.0,
+                    "Visible": true,
+                    "Thickness": 1.0
+                  }
+                }
+              ]
+            },
+            "DisplaySystemConnectorManager": {
+              "_type": "SAM.Geometry.Systems.DisplaySystemConnectorManager,SAM.Geometry.Systems",
+              "SystemConnectors": [
+                [
+                  0,
+                  {
+                    "_type": "SAM.Geometry.Systems.DisplaySystemConnector,SAM.Geometry.Systems",
+                    "SystemType": {
+                      "_type": "SAM.Core.Systems.SystemType,SAM.Core.Systems",
+                      "TypeName": "SAM.Analytical.Systems.ControlSystem,SAM.Analytical.Systems"
+                    },
+                    "Direction": "In",
+                    "ConnectionIndex": 1,
+                    "Location": {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.227332610482043,
+                      "Y": -0.100000000000033
+                    }
+                  }
+                ],
+                [
+                  1,
+                  {
+                    "_type": "SAM.Geometry.Systems.DisplaySystemConnector,SAM.Geometry.Systems",
+                    "SystemType": {
+                      "_type": "SAM.Core.Systems.SystemType,SAM.Core.Systems",
+                      "TypeName": "SAM.Analytical.Systems.ControlSystem,SAM.Analytical.Systems"
+                    },
+                    "Direction": "Out",
+                    "ConnectionIndex": 1,
+                    "Location": {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": -0.0281659438152779,
+                      "Y": -0.100000000000033
+                    }
+                  }
+                ]
+              ]
+            }
+          }
+        ],
+        [
+          "SAM.Analytical.Systems.SystemLiquidDifferenceController,SAM.Analytical.Systems",
+          {
+            "_type": "SAM.Geometry.Systems.SystemGeometrySymbol,SAM.Geometry.Systems",
+            "Guid": "0906e5d6-dda7-4279-af20-b9e3bab85f7e",
+            "Geometry": {
+              "_type": "SAM.Geometry.Object.Planar.SAMGeometry2DObjectCollection,SAM.Geometry",
+              "Geometry2DObjects": [
+                {
+                  "_type": "SAM.Geometry.Object.Planar.Segment2DObject,SAM.Geometry",
+                  "Origin": {
+                    "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                    "X": 0.1,
+                    "Y": -0.10047619047619054
+                  },
+                  "Vector": {
+                    "_type": "SAM.Geometry.Planar.Vector2D,SAM.Geometry",
+                    "X": -0.040000000000000042,
+                    "Y": 0.0
+                  },
+                  "CurveAppearance": {
+                    "_type": "SAM.Geometry.Object.CurveAppearance,SAM.Geometry",
+                    "Color": {
+                      "_type": "SAM.Core.SAMColor,SAM.Core",
+                      "Alpha": 255,
+                      "Red": 0,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    "Opacity": 1.0,
+                    "Visible": true,
+                    "Thickness": 1.0
+                  }
+                },
+                {
+                  "_type": "SAM.Geometry.Object.Planar.Segment2DObject,SAM.Geometry",
+                  "Origin": {
+                    "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                    "X": 0.1,
+                    "Y": -0.10047619047619054
+                  },
+                  "Vector": {
+                    "_type": "SAM.Geometry.Planar.Vector2D,SAM.Geometry",
+                    "X": 0.03999999999999998,
+                    "Y": 0.0
+                  },
+                  "CurveAppearance": {
+                    "_type": "SAM.Geometry.Object.CurveAppearance,SAM.Geometry",
+                    "Color": {
+                      "_type": "SAM.Core.SAMColor,SAM.Core",
+                      "Alpha": 255,
+                      "Red": 0,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    "Opacity": 1.0,
+                    "Visible": true,
+                    "Thickness": 1.0
+                  }
+                },
+                {
+                  "_type": "SAM.Geometry.Object.Planar.Polyline2DObject,SAM.Geometry",
+                  "Points": [
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.19916666666666671,
+                      "Y": -0.071834056184672729
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.19916666666666671,
+                      "Y": 0.0
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.0,
+                      "Y": 0.0
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.0,
+                      "Y": -0.071834056184672715
+                    }
+                  ],
+                  "CurveAppearance": {
+                    "_type": "SAM.Geometry.Object.CurveAppearance,SAM.Geometry",
+                    "Color": {
+                      "_type": "SAM.Core.SAMColor,SAM.Core",
+                      "Alpha": 255,
+                      "Red": 0,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    "Opacity": 1.0,
+                    "Visible": true,
+                    "Thickness": 1.0
+                  }
+                },
+                {
+                  "_type": "SAM.Geometry.Object.Planar.Polyline2DObject,SAM.Geometry",
+                  "Points": [
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.0,
+                      "Y": -0.1281659438153272
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.0,
+                      "Y": -0.2
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.19916666666666671,
+                      "Y": -0.2
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.19916666666666671,
+                      "Y": -0.1281659438153272
+                    }
+                  ],
+                  "CurveAppearance": {
+                    "_type": "SAM.Geometry.Object.CurveAppearance,SAM.Geometry",
+                    "Color": {
+                      "_type": "SAM.Core.SAMColor,SAM.Core",
+                      "Alpha": 255,
+                      "Red": 0,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    "Opacity": 1.0,
+                    "Visible": true,
+                    "Thickness": 1.0
+                  }
+                },
+                {
+                  "_type": "SAM.Geometry.Object.Planar.Polygon2DObject,SAM.Geometry",
+                  "Points": [
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.22733261048199394,
+                      "Y": -0.09999999999999995
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.22195339387587637,
+                      "Y": -0.083444473608452224
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.20787042196821276,
+                      "Y": -0.073212595596829813
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.19046291136512067,
+                      "Y": -0.073212595596829813
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.17637993945745706,
+                      "Y": -0.08344447360845221
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.17100072285133949,
+                      "Y": -0.09999999999999995
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.17637993945745706,
+                      "Y": -0.11655552639154768
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.19046291136512064,
+                      "Y": -0.12678740440317007
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.20787042196821276,
+                      "Y": -0.1267874044031701
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.22195339387587637,
+                      "Y": -0.11655552639154769
+                    }
+                  ],
+                  "CurveAppearance": {
+                    "_type": "SAM.Geometry.Object.CurveAppearance,SAM.Geometry",
+                    "Color": {
+                      "_type": "SAM.Core.SAMColor,SAM.Core",
+                      "Alpha": 255,
+                      "Red": 0,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    "Opacity": 1.0,
+                    "Visible": true,
+                    "Thickness": 1.0
+                  }
+                },
+                {
+                  "_type": "SAM.Geometry.Object.Planar.Polygon2DObject,SAM.Geometry",
+                  "Points": [
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.028165943815327221,
+                      "Y": -0.09999999999999995
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.02278672720920967,
+                      "Y": -0.083444473608452224
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.0087037553015460577,
+                      "Y": -0.073212595596829813
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": -0.0087037553015460543,
+                      "Y": -0.073212595596829813
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": -0.022786727209209667,
+                      "Y": -0.08344447360845221
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": -0.028165943815327221,
+                      "Y": -0.09999999999999995
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": -0.02278672720920967,
+                      "Y": -0.11655552639154768
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": -0.0087037553015460612,
+                      "Y": -0.12678740440317007
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.00870375530154605,
+                      "Y": -0.1267874044031701
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.022786727209209667,
+                      "Y": -0.11655552639154769
+                    }
+                  ],
+                  "CurveAppearance": {
+                    "_type": "SAM.Geometry.Object.CurveAppearance,SAM.Geometry",
+                    "Color": {
+                      "_type": "SAM.Core.SAMColor,SAM.Core",
+                      "Alpha": 255,
+                      "Red": 0,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    "Opacity": 1.0,
+                    "Visible": true,
+                    "Thickness": 1.0
+                  }
+                }
+              ]
+            },
+            "DisplaySystemConnectorManager": {
+              "_type": "SAM.Geometry.Systems.DisplaySystemConnectorManager,SAM.Geometry.Systems",
+              "SystemConnectors": [
+                [
+                  0,
+                  {
+                    "_type": "SAM.Geometry.Systems.DisplaySystemConnector,SAM.Geometry.Systems",
+                    "SystemType": {
+                      "_type": "SAM.Core.Systems.SystemType,SAM.Core.Systems",
+                      "TypeName": "SAM.Analytical.Systems.ControlSystem,SAM.Analytical.Systems"
+                    },
+                    "Direction": "In",
+                    "ConnectionIndex": 1,
+                    "Location": {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.227332610482043,
+                      "Y": -0.100000000000033
+                    }
+                  }
+                ],
+                [
+                  1,
+                  {
+                    "_type": "SAM.Geometry.Systems.DisplaySystemConnector,SAM.Geometry.Systems",
+                    "SystemType": {
+                      "_type": "SAM.Core.Systems.SystemType,SAM.Core.Systems",
+                      "TypeName": "SAM.Analytical.Systems.ControlSystem,SAM.Analytical.Systems"
+                    },
+                    "Direction": "Out",
+                    "ConnectionIndex": 1,
+                    "Location": {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": -0.0281659438152779,
+                      "Y": -0.100000000000033
+                    }
+                  }
+                ]
+              ]
+            }
+          }
+        ],
+        [
+          "SAM.Analytical.Systems.SystemLiquidPassthroughController,SAM.Analytical.Systems",
+          {
+            "_type": "SAM.Geometry.Systems.SystemGeometrySymbol,SAM.Geometry.Systems",
+            "Guid": "621795ee-eec2-4a2a-99cb-bcaba1171a01",
+            "Geometry": {
+              "_type": "SAM.Geometry.Object.Planar.SAMGeometry2DObjectCollection,SAM.Geometry",
+              "Geometry2DObjects": [
+                {
+                  "_type": "SAM.Geometry.Object.Planar.Polygon2DObject,SAM.Geometry",
+                  "Points": [
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.028165943815327221,
+                      "Y": -0.09999999999999995
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.02278672720920967,
+                      "Y": -0.083444473608452224
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.0087037553015460577,
+                      "Y": -0.073212595596829813
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": -0.0087037553015460543,
+                      "Y": -0.073212595596829813
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": -0.022786727209209667,
+                      "Y": -0.08344447360845221
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": -0.028165943815327221,
+                      "Y": -0.09999999999999995
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": -0.02278672720920967,
+                      "Y": -0.11655552639154768
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": -0.0087037553015460612,
+                      "Y": -0.12678740440317007
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.00870375530154605,
+                      "Y": -0.1267874044031701
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.022786727209209667,
+                      "Y": -0.11655552639154769
+                    }
+                  ],
+                  "CurveAppearance": {
+                    "_type": "SAM.Geometry.Object.CurveAppearance,SAM.Geometry",
+                    "Color": {
+                      "_type": "SAM.Core.SAMColor,SAM.Core",
+                      "Alpha": 255,
+                      "Red": 0,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    "Opacity": 1.0,
+                    "Visible": true,
+                    "Thickness": 1.0
+                  }
+                },
+                {
+                  "_type": "SAM.Geometry.Object.Planar.Polygon2DObject,SAM.Geometry",
+                  "Points": [
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.22733261048199394,
+                      "Y": -0.09999999999999995
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.22195339387587637,
+                      "Y": -0.083444473608452224
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.20787042196821276,
+                      "Y": -0.073212595596829813
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.19046291136512067,
+                      "Y": -0.073212595596829813
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.17637993945745706,
+                      "Y": -0.08344447360845221
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.17100072285133949,
+                      "Y": -0.09999999999999995
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.17637993945745706,
+                      "Y": -0.11655552639154768
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.19046291136512064,
+                      "Y": -0.12678740440317007
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.20787042196821276,
+                      "Y": -0.1267874044031701
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.22195339387587637,
+                      "Y": -0.11655552639154769
+                    }
+                  ],
+                  "CurveAppearance": {
+                    "_type": "SAM.Geometry.Object.CurveAppearance,SAM.Geometry",
+                    "Color": {
+                      "_type": "SAM.Core.SAMColor,SAM.Core",
+                      "Alpha": 255,
+                      "Red": 0,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    "Opacity": 1.0,
+                    "Visible": true,
+                    "Thickness": 1.0
+                  }
+                },
+                {
+                  "_type": "SAM.Geometry.Object.Planar.Polyline2DObject,SAM.Geometry",
+                  "Points": [
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.0,
+                      "Y": -0.1281659438153272
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.0,
+                      "Y": -0.2
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.19916666666666671,
+                      "Y": -0.2
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.19916666666666671,
+                      "Y": -0.1281659438153272
+                    }
+                  ],
+                  "CurveAppearance": {
+                    "_type": "SAM.Geometry.Object.CurveAppearance,SAM.Geometry",
+                    "Color": {
+                      "_type": "SAM.Core.SAMColor,SAM.Core",
+                      "Alpha": 255,
+                      "Red": 0,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    "Opacity": 1.0,
+                    "Visible": true,
+                    "Thickness": 1.0
+                  }
+                },
+                {
+                  "_type": "SAM.Geometry.Object.Planar.Segment2DObject,SAM.Geometry",
+                  "Origin": {
+                    "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                    "X": 0.092191207902865724,
+                    "Y": -0.1242191080255246
+                  },
+                  "Vector": {
+                    "_type": "SAM.Geometry.Planar.Vector2D,SAM.Geometry",
+                    "X": -0.032191207902865761,
+                    "Y": 0.023742917549334067
+                  },
+                  "CurveAppearance": {
+                    "_type": "SAM.Geometry.Object.CurveAppearance,SAM.Geometry",
+                    "Color": {
+                      "_type": "SAM.Core.SAMColor,SAM.Core",
+                      "Alpha": 255,
+                      "Red": 0,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    "Opacity": 1.0,
+                    "Visible": true,
+                    "Thickness": 1.0
+                  }
+                },
+                {
+                  "_type": "SAM.Geometry.Object.Planar.Polyline2DObject,SAM.Geometry",
+                  "Points": [
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.19916666666666671,
+                      "Y": -0.071834056184672729
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.19916666666666671,
+                      "Y": 0.0
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.0,
+                      "Y": 0.0
+                    },
+                    {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.0,
+                      "Y": -0.071834056184672715
+                    }
+                  ],
+                  "CurveAppearance": {
+                    "_type": "SAM.Geometry.Object.CurveAppearance,SAM.Geometry",
+                    "Color": {
+                      "_type": "SAM.Core.SAMColor,SAM.Core",
+                      "Alpha": 255,
+                      "Red": 0,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    "Opacity": 1.0,
+                    "Visible": true,
+                    "Thickness": 1.0
+                  }
+                },
+                {
+                  "_type": "SAM.Geometry.Object.Planar.Segment2DObject,SAM.Geometry",
+                  "Origin": {
+                    "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                    "X": 0.1,
+                    "Y": -0.10047619047619054
+                  },
+                  "Vector": {
+                    "_type": "SAM.Geometry.Planar.Vector2D,SAM.Geometry",
+                    "X": 0.03999999999999998,
+                    "Y": 0.0
+                  },
+                  "CurveAppearance": {
+                    "_type": "SAM.Geometry.Object.CurveAppearance,SAM.Geometry",
+                    "Color": {
+                      "_type": "SAM.Core.SAMColor,SAM.Core",
+                      "Alpha": 255,
+                      "Red": 0,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    "Opacity": 1.0,
+                    "Visible": true,
+                    "Thickness": 1.0
+                  }
+                },
+                {
+                  "_type": "SAM.Geometry.Object.Planar.Segment2DObject,SAM.Geometry",
+                  "Origin": {
+                    "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                    "X": 0.1,
+                    "Y": -0.10047619047619054
+                  },
+                  "Vector": {
+                    "_type": "SAM.Geometry.Planar.Vector2D,SAM.Geometry",
+                    "X": -0.040000000000000042,
+                    "Y": 0.0
+                  },
+                  "CurveAppearance": {
+                    "_type": "SAM.Geometry.Object.CurveAppearance,SAM.Geometry",
+                    "Color": {
+                      "_type": "SAM.Core.SAMColor,SAM.Core",
+                      "Alpha": 255,
+                      "Red": 0,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    "Opacity": 1.0,
+                    "Visible": true,
+                    "Thickness": 1.0
+                  }
+                },
+                {
+                  "_type": "SAM.Geometry.Object.Planar.Segment2DObject,SAM.Geometry",
+                  "Origin": {
+                    "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                    "X": 0.092191207902865724,
+                    "Y": -0.076733272926856472
+                  },
+                  "Vector": {
+                    "_type": "SAM.Geometry.Planar.Vector2D,SAM.Geometry",
+                    "X": -0.032191207902865761,
+                    "Y": -0.023742917549334067
+                  },
+                  "CurveAppearance": {
+                    "_type": "SAM.Geometry.Object.CurveAppearance,SAM.Geometry",
+                    "Color": {
+                      "_type": "SAM.Core.SAMColor,SAM.Core",
+                      "Alpha": 255,
+                      "Red": 0,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    "Opacity": 1.0,
+                    "Visible": true,
+                    "Thickness": 1.0
+                  }
+                }
+              ]
+            },
+            "DisplaySystemConnectorManager": {
+              "_type": "SAM.Geometry.Systems.DisplaySystemConnectorManager,SAM.Geometry.Systems",
+              "SystemConnectors": [
+                [
+                  0,
+                  {
+                    "_type": "SAM.Geometry.Systems.DisplaySystemConnector,SAM.Geometry.Systems",
+                    "SystemType": {
+                      "_type": "SAM.Core.Systems.SystemType,SAM.Core.Systems",
+                      "TypeName": "SAM.Analytical.Systems.ControlSystem,SAM.Analytical.Systems"
+                    },
+                    "Direction": "In",
+                    "ConnectionIndex": 1,
+                    "Location": {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": 0.227332610482043,
+                      "Y": -0.100000000000033
+                    }
+                  }
+                ],
+                [
+                  1,
+                  {
+                    "_type": "SAM.Geometry.Systems.DisplaySystemConnector,SAM.Geometry.Systems",
+                    "SystemType": {
+                      "_type": "SAM.Core.Systems.SystemType,SAM.Core.Systems",
+                      "TypeName": "SAM.Analytical.Systems.ControlSystem,SAM.Analytical.Systems"
+                    },
+                    "Direction": "Out",
+                    "ConnectionIndex": 1,
+                    "Location": {
+                      "_type": "SAM.Geometry.Planar.Point2D,SAM.Geometry",
+                      "X": -0.0281659438152779,
+                      "Y": -0.100000000000033
+                    }
+                  }
+                ]
+              ]
             }
           }
         ]

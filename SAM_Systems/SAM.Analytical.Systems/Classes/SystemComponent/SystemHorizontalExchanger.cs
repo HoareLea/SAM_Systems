@@ -3,6 +3,9 @@ using SAM.Core.Systems;
 
 namespace SAM.Analytical.Systems
 {
+    /// <summary>
+    /// Horizontal GHE, Heat Rejection (Liquid Side)
+    /// </summary>
     public class SystemHorizontalExchanger : SystemComponent
     {
         public SystemHorizontalExchanger(string name)

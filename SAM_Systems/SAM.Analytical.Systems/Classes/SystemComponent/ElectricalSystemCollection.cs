@@ -3,28 +3,42 @@ using SAM.Core.Systems;
 
 namespace SAM.Analytical.Systems
 {
-    public class DomesticHotWaterSystemCollection : SystemCollection<DomesticHotWaterSystem>
+    public class ElectricalSystemCollection : SystemCollection<ElectricalSystem>
     {
-        public DomesticHotWaterSystemCollection()
+        private ElectricalSystemCollectionType electricalSystemCollectionType = ElectricalSystemCollectionType.None;
+
+        public ElectricalSystemCollection()
             : base()
         {
         }
 
-        public DomesticHotWaterSystemCollection(string name)
+        public ElectricalSystemCollection(string name, ElectricalSystemCollectionType electricalSystemCollectionType)
             : base(name)
         {
+            this.electricalSystemCollectionType = electricalSystemCollectionType;
         }
 
-        public DomesticHotWaterSystemCollection(JObject jObject)
+        public ElectricalSystemCollection(JObject jObject)
             : base(jObject)
         {
 
         }
 
-        public DomesticHotWaterSystemCollection(DomesticHotWaterSystemCollection domesticHotWaterSystemCollection)
-            : base(domesticHotWaterSystemCollection)
+        public ElectricalSystemCollection(ElectricalSystemCollection electricalSystemCollection)
+            : base(electricalSystemCollection)
         {
+            if(electricalSystemCollection != null)
+            {
+                electricalSystemCollectionType = electricalSystemCollection.electricalSystemCollectionType;
+            }
+        }
 
+        public ElectricalSystemCollectionType ElectricalSystemCollectionType
+        {
+            get
+            {
+                return electricalSystemCollectionType;
+            }
         }
 
         public override bool FromJObject(JObject jObject)
@@ -33,6 +47,11 @@ namespace SAM.Analytical.Systems
             if (!result)
             {
                 return result;
+            }
+
+            if(jObject.ContainsKey("ElectricalSystemCollectionType"))
+            {
+                electricalSystemCollectionType = Core.Query.Enum<ElectricalSystemCollectionType>(jObject.Value<string>("ElectricalSystemCollectionType"));
             }
 
             return true;
@@ -46,7 +65,10 @@ namespace SAM.Analytical.Systems
                 return null;
             }
 
+            result.Add("ElectricalSystemCollectionType", electricalSystemCollectionType.ToString());
+
             return result;
         }
     }
 }
+

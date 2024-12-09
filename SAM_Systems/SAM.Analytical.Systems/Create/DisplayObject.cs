@@ -102,6 +102,10 @@ namespace SAM.Analytical.Systems
             {
                 displayObject = new DisplaySystemWaterToWaterHeatPump((SystemWaterToWaterHeatPump)systemComponent, systemGeometrySymbol, location);
             }
+            else if (systemComponent is SystemMultiBoiler)
+            {
+                displayObject = new DisplaySystemMultiBoiler((SystemMultiBoiler)systemComponent, systemGeometrySymbol, location);
+            }
             else if (systemComponent is SystemBoiler)
             {
                 displayObject = new DisplaySystemBoiler((SystemBoiler)systemComponent, systemGeometrySymbol, location);
@@ -154,6 +158,10 @@ namespace SAM.Analytical.Systems
             {
                 displayObject = new DisplaySystemNormalController((SystemNormalController)systemComponent, systemGeometrySymbol, location);
             }
+            else if (systemComponent is SystemLiquidNormalController)
+            {
+                displayObject = new DisplaySystemLiquidNormalController((SystemLiquidNormalController)systemComponent, systemGeometrySymbol, location);
+            }
             else if (systemComponent is SystemOutdoorController)
             {
                 displayObject = new DisplaySystemOutdoorController((SystemOutdoorController)systemComponent, systemGeometrySymbol, location);
@@ -162,9 +170,17 @@ namespace SAM.Analytical.Systems
             {
                 displayObject = new DisplaySystemDifferenceController((SystemDifferenceController)systemComponent, systemGeometrySymbol, location);
             }
+            else if (systemComponent is SystemLiquidDifferenceController)
+            {
+                displayObject = new DisplaySystemLiquidDifferenceController((SystemLiquidDifferenceController)systemComponent, systemGeometrySymbol, location);
+            }
             else if (systemComponent is SystemPassthroughController)
             {
                 displayObject = new DisplaySystemPassthroughController((SystemPassthroughController)systemComponent, systemGeometrySymbol, location);
+            }
+            else if (systemComponent is SystemLiquidPassthroughController)
+            {
+                displayObject = new DisplaySystemLiquidPassthroughController((SystemLiquidPassthroughController)systemComponent, systemGeometrySymbol, location);
             }
             else if (systemComponent is SystemMinLogicalController)
             {

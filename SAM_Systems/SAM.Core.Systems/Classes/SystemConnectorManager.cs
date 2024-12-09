@@ -119,6 +119,33 @@ namespace SAM.Core.Systems
             return result;
         }
 
+        public List<int> GetIndexes(SystemType systemType, int connectionIndex)
+        {
+            if (sortedDictionary == null)
+            {
+                return null;
+            }
+
+            List<int> result = new List<int>();
+            foreach (KeyValuePair<int, T> keyValuePair in sortedDictionary)
+            {
+                SystemType systemType_Temp = keyValuePair.Value?.SystemType;
+
+                if (systemType == systemType_Temp || (systemType_Temp != null && systemType_Temp.IsValid(systemType)))
+                {
+                    if (keyValuePair.Value.ConnectionIndex != connectionIndex)
+                    {
+                        continue;
+                    }
+
+                    result.Add(keyValuePair.Key);
+                    continue;
+                }
+            }
+
+            return result;
+        }
+
         public List<int> GetIndexes(SystemType systemType, Direction direction)
         {
             if (sortedDictionary == null)
@@ -133,6 +160,33 @@ namespace SAM.Core.Systems
 
                 if ((systemType == systemType_Temp || (systemType_Temp != null && systemType_Temp.IsValid(systemType))) && keyValuePair.Value?.Direction == direction)
                 {
+                    result.Add(keyValuePair.Key);
+                    continue;
+                }
+            }
+
+            return result;
+        }
+
+        public List<int> GetIndexes(SystemType systemType, Direction direction, int connectionIndex)
+        {
+            if (sortedDictionary == null)
+            {
+                return null;
+            }
+
+            List<int> result = new List<int>();
+            foreach (KeyValuePair<int, T> keyValuePair in sortedDictionary)
+            {
+                SystemType systemType_Temp = keyValuePair.Value?.SystemType;
+
+                if ((systemType == systemType_Temp || (systemType_Temp != null && systemType_Temp.IsValid(systemType))) && keyValuePair.Value?.Direction == direction)
+                {
+                    if(keyValuePair.Value.ConnectionIndex != connectionIndex)
+                    {
+                        continue;
+                    }
+
                     result.Add(keyValuePair.Key);
                     continue;
                 }
@@ -189,6 +243,17 @@ namespace SAM.Core.Systems
             }
 
             return result;
+        }
+
+        public int GetConnectionIndex(int index)
+        {
+            T systemConnector = this[index];
+            if(systemConnector == null)
+            {
+                return -1;
+            }
+
+            return systemConnector.ConnectionIndex;
         }
 
         public SystemType GetSystemType(int index)

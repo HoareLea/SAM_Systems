@@ -6,6 +6,7 @@ namespace SAM.Analytical.Systems
     public enum ValveDataType
     {
         [Description("Flow Rate")] FlowRate = 1,
-        [Description("Temperature")] Temperature = 2,
+        [Description("Pressure")] Pressure = 2,
+        [Description("Temperature")] Temperature = 3,
     }
 }

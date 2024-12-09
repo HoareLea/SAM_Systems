@@ -3,6 +3,9 @@ using SAM.Core.Systems;
 
 namespace SAM.Analytical.Systems
 {
+    /// <summary>
+    /// Heat Exchanger (Liquid Side)
+    /// </summary>
     public class SystemLiquidExchanger : SystemComponent
     {
         public SystemLiquidExchanger(string name)

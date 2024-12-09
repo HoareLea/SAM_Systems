@@ -2,8 +2,8 @@
 
 namespace SAM.Analytical.Systems
 {
-    [Description("Liquid Juction Data Type")]
-    public enum LiquidJunctionDataType
+    [Description("Air Juction Data Type")]
+    public enum AirJunctionDataType
     {
         [Description("Flow Rate")] FlowRate = 1,
         [Description("Pressure")] Pressure = 2,
@@ -15,3 +15,4 @@ namespace SAM.Analytical.Systems
         [Description("Pollutant")] Pollutant = 8,
     }
 }
+

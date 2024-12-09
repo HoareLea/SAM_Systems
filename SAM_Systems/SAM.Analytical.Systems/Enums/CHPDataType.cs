@@ -6,9 +6,10 @@ namespace SAM.Analytical.Systems
     public enum CHPDataType
     {
         [Description("Flow Rate")] FlowRate = 1,
-        [Description("Temperature")] Temperature = 2,
-        [Description("Heating Demand")] HeatingDemand = 3,
-        [Description("Heating Consumption")] HeatingConsumption = 4,
-        [Description("Electricity Generated")] ElectricityGenerated = 5,
+        [Description("Pressure")] Pressure = 2,
+        [Description("Temperature")] Temperature = 3,
+        [Description("Heating Demand")] HeatingDemand = 4,
+        [Description("Heating Consumption")] HeatingConsumption = 5,
+        [Description("Electricity Generated")] ElectricityGenerated = 6,
     }
 }

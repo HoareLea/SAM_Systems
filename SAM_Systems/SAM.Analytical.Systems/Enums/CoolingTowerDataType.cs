@@ -6,13 +6,14 @@ namespace SAM.Analytical.Systems
     public enum CoolingTowerDataType
     {
         [Description("Flow Rate")] FlowRate = 1,
-        [Description("Temperature")] Temperature = 2,
-        [Description("Air Wetbulb")] AirWetbulb = 3,
-        [Description("Cooling Output")] CoolingOutput = 4,
-        [Description("Total Consumption")] TotalConsumption = 5,
-        [Description("Fan Load")] FanLoad = 6,
-        [Description("Ancillary Load")] AncillaryLoad = 7,
-        [Description("Make Up Water")] MakeUpWater = 8,
-        [Description("Air Flow Rate")] AirFlowRate = 9,
+        [Description("Pressure")] Pressure = 2,
+        [Description("Temperature")] Temperature = 3,
+        [Description("Air Wetbulb")] AirWetbulb = 4,
+        [Description("Cooling Output")] CoolingOutput = 5,
+        [Description("Total Consumption")] TotalConsumption = 6,
+        [Description("Fan Load")] FanLoad = 7,
+        [Description("Ancillary Load")] AncillaryLoad = 8,
+        [Description("Make Up Water")] MakeUpWater = 9,
+        [Description("Air Flow Rate")] AirFlowRate = 10,
     }
 }
