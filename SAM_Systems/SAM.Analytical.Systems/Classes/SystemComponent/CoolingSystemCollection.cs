@@ -1,10 +1,22 @@
 ﻿using Newtonsoft.Json.Linq;
+using SAM.Core;
 using SAM.Core.Systems;
 
 namespace SAM.Analytical.Systems
 {
     public class CoolingSystemCollection : SystemCollection<CoolingSystem>
     {
+        public double MaximumReturnTemperature { get; set; }
+
+        public bool VariableFlowCapacity { get; set; }
+
+        public double PeakDemand { get; set; }
+
+        public double SizeFraction { get; set; }
+
+        public ModifiableValue Distribution { get; set; }
+
+
         public CoolingSystemCollection()
             : base()
         {
@@ -24,7 +36,14 @@ namespace SAM.Analytical.Systems
         public CoolingSystemCollection(CoolingSystemCollection coolingSystemCollection)
             : base(coolingSystemCollection)
         {
-
+            if(coolingSystemCollection != null)
+            {
+                MaximumReturnTemperature = coolingSystemCollection.MaximumReturnTemperature;
+                VariableFlowCapacity = coolingSystemCollection.VariableFlowCapacity;
+                PeakDemand = coolingSystemCollection.PeakDemand;
+                SizeFraction = coolingSystemCollection.SizeFraction;
+                Distribution = coolingSystemCollection.Distribution?.Clone();
+            }
         }
 
         public override bool FromJObject(JObject jObject)
@@ -33,6 +52,31 @@ namespace SAM.Analytical.Systems
             if (!result)
             {
                 return result;
+            }
+
+            if (jObject.ContainsKey("MaximumReturnTemperature"))
+            {
+                MaximumReturnTemperature = jObject.Value<double>("MaximumReturnTemperature");
+            }
+
+            if (jObject.ContainsKey("VariableFlowCapacity"))
+            {
+                VariableFlowCapacity = jObject.Value<bool>("VariableFlowCapacity");
+            }
+
+            if (jObject.ContainsKey("PeakDemand"))
+            {
+                PeakDemand = jObject.Value<double>("PeakDemand");
+            }
+
+            if (jObject.ContainsKey("SizeFraction"))
+            {
+                SizeFraction = jObject.Value<double>("SizeFraction");
+            }
+
+            if (jObject.ContainsKey("Distribution"))
+            {
+                Distribution = Core.Query.IJSAMObject<ModifiableValue>(jObject.Value<JObject>("Distribution"));
             }
 
             return true;
@@ -44,6 +88,28 @@ namespace SAM.Analytical.Systems
             if (result == null)
             {
                 return null;
+            }
+
+            if (!double.IsNaN(MaximumReturnTemperature))
+            {
+                result.Add("MaximumReturnTemperature", MaximumReturnTemperature);
+            }
+
+            result.Add("VariableFlowCapacity", VariableFlowCapacity);
+
+            if (!double.IsNaN(PeakDemand))
+            {
+                result.Add("PeakDemand", PeakDemand);
+            }
+
+            if (!double.IsNaN(SizeFraction))
+            {
+                result.Add("SizeFraction", SizeFraction);
+            }
+
+            if (Distribution != null)
+            {
+                result.Add("Distribution", Distribution.ToJObject());
             }
 
             return result;

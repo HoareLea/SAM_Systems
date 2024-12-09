@@ -1,10 +1,13 @@
 ﻿using Newtonsoft.Json.Linq;
+using SAM.Core;
 using SAM.Core.Systems;
 
 namespace SAM.Analytical.Systems
 {
     public class RefrigerantSystemCollection : SystemCollection<LiquidSystem>
     {
+        public ModifiableValue PipeLength { get; set; }
+
         public RefrigerantSystemCollection()
             : base()
         {
@@ -24,7 +27,10 @@ namespace SAM.Analytical.Systems
         public RefrigerantSystemCollection(RefrigerantSystemCollection refrigerantSystemCollection)
             : base(refrigerantSystemCollection)
         {
-
+            if(refrigerantSystemCollection != null)
+            {
+                PipeLength = refrigerantSystemCollection.PipeLength?.Clone();
+            }
         }
 
         public override bool FromJObject(JObject jObject)
@@ -33,6 +39,11 @@ namespace SAM.Analytical.Systems
             if (!result)
             {
                 return result;
+            }
+
+            if(jObject.ContainsKey("PipeLength"))
+            {
+                PipeLength = Core.Query.IJSAMObject<ModifiableValue>(jObject.Value<JObject>("PipeLength"));
             }
 
             return true;
@@ -44,6 +55,11 @@ namespace SAM.Analytical.Systems
             if (result == null)
             {
                 return null;
+            }
+
+            if(PipeLength != null)
+            {
+                result.Add(PipeLength.ToJObject());
             }
 
             return result;
