@@ -27,7 +27,15 @@ namespace SAM.Analytical.Systems
         public SystemPump(SystemPump systemPump)
             : base(systemPump)
         {
-
+            if(systemPump != null)
+            {
+                OverallEfficiency = systemPump.OverallEfficiency?.Clone();
+                Pressure = systemPump.Pressure;
+                DesignFrowRate = systemPump.DesignFrowRate;
+                Capacity = systemPump.Capacity;
+                PartLoad = systemPump.PartLoad?.Clone();
+                FanControlType = systemPump.FanControlType;
+            }
         }
 
         public SystemPump(JObject jObject)
