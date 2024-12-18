@@ -8,6 +8,9 @@ namespace SAM.Analytical.Systems
     /// </summary>
     public class SystemLiquidExchanger : SystemComponent
     {
+        public double DesignPressureDrop1 { get; set; }
+        public double DesignPressureDrop2 { get; set; }
+
         public SystemLiquidExchanger(string name)
             : base(name)
         {
@@ -17,9 +20,10 @@ namespace SAM.Analytical.Systems
         public SystemLiquidExchanger(SystemLiquidExchanger systemLiquidExchanger)
             : base(systemLiquidExchanger)
         {
-            if(systemLiquidExchanger != null)
+            if (systemLiquidExchanger != null)
             {
-
+                DesignPressureDrop1 = systemLiquidExchanger.DesignPressureDrop1;
+                DesignPressureDrop2 = systemLiquidExchanger.DesignPressureDrop2;
             }
         }
 
@@ -52,7 +56,17 @@ namespace SAM.Analytical.Systems
                 return result;
             }
 
-            return true;
+            if (jObject.ContainsKey("DesignPressureDrop1"))
+            {
+                DesignPressureDrop1 = jObject.Value<double>("DesignPressureDrop1");
+            }
+
+            if (jObject.ContainsKey("DesignPressureDrop2"))
+            {
+                DesignPressureDrop2 = jObject.Value<double>("DesignPressureDrop2");
+            }
+
+            return result;
         }
 
         public override JObject ToJObject()
@@ -60,7 +74,17 @@ namespace SAM.Analytical.Systems
             JObject result = base.ToJObject();
             if (result == null)
             {
-                return null;
+                return result;
+            }
+
+            if (!double.IsNaN(DesignPressureDrop1))
+            {
+                result.Add("DesignPressureDrop1", DesignPressureDrop1);
+            }
+
+            if (!double.IsNaN(DesignPressureDrop2))
+            {
+                result.Add("DesignPressureDrop2", DesignPressureDrop2);
             }
 
             return result;

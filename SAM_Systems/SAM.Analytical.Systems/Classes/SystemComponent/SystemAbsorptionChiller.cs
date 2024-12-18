@@ -5,6 +5,11 @@ namespace SAM.Analytical.Systems
 {
     public class SystemAbsorptionChiller : SystemChiller
     {
+        public double DesignPressureDrop1 { get; set; }
+        public double DesignPressureDrop2 { get; set; }
+        public double DesignPressureDrop3 { get; set; }
+
+
         public SystemAbsorptionChiller(string name)
             : base(name)
         {
@@ -14,7 +19,12 @@ namespace SAM.Analytical.Systems
         public SystemAbsorptionChiller(SystemAbsorptionChiller absorptionSystemChiller)
             : base(absorptionSystemChiller)
         {
-
+            if (absorptionSystemChiller != null)
+            {
+                DesignPressureDrop1 = absorptionSystemChiller.DesignPressureDrop1;
+                DesignPressureDrop2 = absorptionSystemChiller.DesignPressureDrop2;
+                DesignPressureDrop3 = absorptionSystemChiller.DesignPressureDrop3;
+            }
         }
 
         public SystemAbsorptionChiller(JObject jObject)
@@ -40,12 +50,54 @@ namespace SAM.Analytical.Systems
 
         public override bool FromJObject(JObject jObject)
         {
-            return base.FromJObject(jObject);
+            bool result = base.FromJObject(jObject);
+            if (!result)
+            {
+                return result;
+            }
+
+            if (jObject.ContainsKey("DesignPressureDrop1"))
+            {
+                DesignPressureDrop1 = jObject.Value<double>("DesignPressureDrop1");
+            }
+
+            if (jObject.ContainsKey("DesignPressureDrop2"))
+            {
+                DesignPressureDrop2 = jObject.Value<double>("DesignPressureDrop2");
+            }
+
+            if (jObject.ContainsKey("DesignPressureDrop3"))
+            {
+                DesignPressureDrop3 = jObject.Value<double>("DesignPressureDrop3");
+            }
+
+            return result;
         }
 
         public override JObject ToJObject()
         {
-            return base.ToJObject();
+            JObject result = base.ToJObject();
+            if (result == null)
+            {
+                return result;
+            }
+
+            if (!double.IsNaN(DesignPressureDrop1))
+            {
+                result.Add("DesignPressureDrop1", DesignPressureDrop1);
+            }
+
+            if (!double.IsNaN(DesignPressureDrop2))
+            {
+                result.Add("DesignPressureDrop2", DesignPressureDrop2);
+            }
+
+            if (!double.IsNaN(DesignPressureDrop3))
+            {
+                result.Add("DesignPressureDrop3", DesignPressureDrop3);
+            }
+
+            return result;
         }
     }
 }

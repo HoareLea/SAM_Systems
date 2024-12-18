@@ -5,6 +5,9 @@ namespace SAM.Analytical.Systems
 {
     public class SystemMultiChiller : SystemChiller
     {
+        public double DesignPressureDrop { get; set; }
+        public double DesignTemperatureDiffrence { get; set; }
+
         public SystemMultiChiller(string name)
             : base(name)
         {
@@ -14,7 +17,11 @@ namespace SAM.Analytical.Systems
         public SystemMultiChiller(SystemMultiChiller systemMultiChiller)
             : base(systemMultiChiller)
         {
-
+            if (systemMultiChiller != null)
+            {
+                DesignPressureDrop = systemMultiChiller.DesignPressureDrop;
+                DesignTemperatureDiffrence = systemMultiChiller.DesignTemperatureDiffrence;
+            }
         }
 
         public SystemMultiChiller(JObject jObject)
@@ -38,12 +45,44 @@ namespace SAM.Analytical.Systems
 
         public override bool FromJObject(JObject jObject)
         {
-            return base.FromJObject(jObject);
+            bool result = base.FromJObject(jObject);
+            if (!result)
+            {
+                return result;
+            }
+
+            if (jObject.ContainsKey("DesignPressureDrop"))
+            {
+                DesignPressureDrop = jObject.Value<double>("DesignPressureDrop");
+            }
+
+            if (jObject.ContainsKey("DesignTemperatureDiffrence"))
+            {
+                DesignTemperatureDiffrence = jObject.Value<double>("DesignTemperatureDiffrence");
+            }
+
+            return result;
         }
 
         public override JObject ToJObject()
         {
-            return base.ToJObject();
+            JObject result = base.ToJObject();
+            if (result == null)
+            {
+                return result;
+            }
+
+            if (!double.IsNaN(DesignPressureDrop))
+            {
+                result.Add("DesignPressureDrop", DesignPressureDrop);
+            }
+
+            if (!double.IsNaN(DesignTemperatureDiffrence))
+            {
+                result.Add("DesignTemperatureDiffrence", DesignTemperatureDiffrence);
+            }
+
+            return result;
         }
     }
 }
