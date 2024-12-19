@@ -59,7 +59,7 @@ namespace SAM.Analytical.Systems
 
             if(PipeLength != null)
             {
-                result.Add(PipeLength.ToJObject());
+                result.Add("PipeLength", PipeLength.ToJObject());
             }
 
             return result;

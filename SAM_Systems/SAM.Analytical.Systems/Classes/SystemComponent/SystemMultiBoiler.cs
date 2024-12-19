@@ -5,10 +5,8 @@ using System.Collections.Generic;
 
 namespace SAM.Analytical.Systems
 {
-    public class SystemMultiBoiler : SystemComponent
+    public class SystemMultiBoiler : SystemMultiComponent<SystemMultiBoilerItem>
     {
-        private List<SystemMultiBoilerItem> systemMultiBoilerItems;
-
         public ModifiableValue Setpoint { get; set; }
 
         public SizableValue Duty { get; set; }
@@ -30,7 +28,6 @@ namespace SAM.Analytical.Systems
         {
             if(systemMultiBoiler != null)
             {
-                systemMultiBoilerItems = systemMultiBoiler.systemMultiBoilerItems?.ConvertAll(x => x.Clone());
                 Setpoint = systemMultiBoiler.Setpoint?.Clone();
                 Duty = systemMultiBoiler.Duty.Clone();
                 DesignTemperatureDifference = systemMultiBoiler.DesignTemperatureDifference;
@@ -58,62 +55,12 @@ namespace SAM.Analytical.Systems
             }
         }
 
-        public int Multiplicity
-        {
-            get
-            {
-                return systemMultiBoilerItems == null ? 0 : systemMultiBoilerItems.Count;
-            }
-        }
-
-        public bool Add(SystemMultiBoilerItem systemMultiBoilerItem)
-        {
-            if(systemMultiBoilerItem == null)
-            {
-                return false;
-            }
-
-            if(systemMultiBoilerItems == null)
-            {
-                systemMultiBoilerItems = new List<SystemMultiBoilerItem>();
-            }
-
-            systemMultiBoilerItems.Add(systemMultiBoilerItem.Clone());
-            return true;
-        }
-
-        public List<SystemMultiBoilerItem> SystemMultiBoilerItems
-        {
-            get
-            {
-                return systemMultiBoilerItems?.ConvertAll(x => x?.Clone());
-            }
-
-            set
-            {
-                systemMultiBoilerItems = value?.ConvertAll(x => x?.Clone());
-            }
-        }
-
         public override bool FromJObject(JObject jObject)
         {
             bool result = base.FromJObject(jObject);
             if (!result)
             {
                 return result;
-            }
-
-            if (jObject.ContainsKey("SystemMultiBoilerItems"))
-            {
-                JArray jArray = jObject.Value<JArray>("SystemMultiBoilerItems");
-                if(jArray != null)
-                {
-                    systemMultiBoilerItems = new List<SystemMultiBoilerItem>();
-                    foreach(JObject jObject_SystemMultiBoilerItem in jArray)
-                    {
-                        systemMultiBoilerItems.Add(Core.Query.IJSAMObject<SystemMultiBoilerItem>(jObject_SystemMultiBoilerItem));
-                    }
-                }
             }
 
             if (jObject.ContainsKey("Setpoint"))
@@ -150,18 +97,6 @@ namespace SAM.Analytical.Systems
             if (result == null)
             {
                 return null;
-            }
-
-            if (systemMultiBoilerItems != null)
-            {
-                JArray jArray = new JArray();
-
-                foreach(SystemMultiBoilerItem systemMultiBoilerItem in systemMultiBoilerItems)
-                {
-                    jArray.Add(systemMultiBoilerItem.ToJObject());
-                }
-
-                result.Add("SystemMultiBoilerItems", jArray);
             }
 
             if (Setpoint != null)

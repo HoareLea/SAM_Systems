@@ -44,7 +44,13 @@ namespace SAM.Core.Systems
         public SystemMultiComponent(SystemMultiComponent<TSystemObject> systemMultiComponent)
             : base(systemMultiComponent)
         {
-
+            if(systemMultiComponent != null)
+            {
+                foreach(TSystemObject systemObject in systemMultiComponent.dictionary.Values)
+                {
+                    Add(systemObject);
+                }
+            }
         }
 
         public SystemMultiComponent(JObject jObject)
@@ -111,12 +117,53 @@ namespace SAM.Core.Systems
 
         public override bool FromJObject(JObject jObject)
         {
-            return base.FromJObject(jObject);
+            bool result = base.FromJObject(jObject);
+            if(!result)
+            {
+                return result;
+            }
+
+            if(jObject.ContainsKey("Items"))
+            {
+                JArray jArray = jObject.Value<JArray>("Items");
+                if(jArray != null)
+                {
+                    foreach(JObject jObject_Item in jArray)
+                    {
+                        TSystemObject item = Core.Query.IJSAMObject<TSystemObject>(jObject_Item);
+                        if(item == null)
+                        {
+                            continue;
+                        }
+
+                        Add(item);
+                    }
+                }
+            }
+
+            return result;
         }
 
         public override JObject ToJObject()
         {
-            return base.ToJObject();
+            JObject result = base.ToJObject();
+            if(result == null)
+            {
+                return result;
+            }
+
+            if(dictionary != null)
+            {
+                JArray jArray = new JArray();
+                foreach(TSystemObject item in dictionary.Values)
+                {
+                    jArray.Add(item.ToJObject());
+                }
+
+                result.Add("Items", jArray);
+            }
+
+            return result;
         }
     }
 }

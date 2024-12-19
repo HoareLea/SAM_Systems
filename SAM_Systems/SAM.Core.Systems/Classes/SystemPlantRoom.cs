@@ -1493,8 +1493,8 @@ namespace SAM.Core.Systems
             {
                 SystemObjectParameter.EnergySourceName,
                 SystemObjectParameter.ElectricalEnergySourceName,
-                SystemObjectParameter.AncillarySourceName,
-                SystemObjectParameter.FanSourceName
+                SystemObjectParameter.AncillaryEnergySourceName,
+                SystemObjectParameter.FanEnergySourceName
             };
 
             foreach(SystemObject systemObject in systemObjects)

@@ -1,12 +1,14 @@
 ﻿using Newtonsoft.Json.Linq;
+using SAM.Core;
 using SAM.Core.Systems;
 
 namespace SAM.Analytical.Systems
 {
-    public class SystemMultiChiller : SystemChiller
+    public class SystemMultiChiller : SystemMultiComponent<SystemMultiChillerItem>
     {
         public double DesignPressureDrop { get; set; }
         public double DesignTemperatureDiffrence { get; set; }
+        public SizableValue Duty { get; set; }
 
         public SystemMultiChiller(string name)
             : base(name)
@@ -19,6 +21,7 @@ namespace SAM.Analytical.Systems
         {
             if (systemMultiChiller != null)
             {
+                Duty = systemMultiChiller.Duty?.Clone();
                 DesignPressureDrop = systemMultiChiller.DesignPressureDrop;
                 DesignTemperatureDiffrence = systemMultiChiller.DesignTemperatureDiffrence;
             }
@@ -61,6 +64,11 @@ namespace SAM.Analytical.Systems
                 DesignTemperatureDiffrence = jObject.Value<double>("DesignTemperatureDiffrence");
             }
 
+            if (jObject.ContainsKey("Duty"))
+            {
+                Duty = Core.Query.IJSAMObject<SizableValue>(jObject.Value<JObject>("Duty"));
+            }
+
             return result;
         }
 
@@ -80,6 +88,11 @@ namespace SAM.Analytical.Systems
             if (!double.IsNaN(DesignTemperatureDiffrence))
             {
                 result.Add("DesignTemperatureDiffrence", DesignTemperatureDiffrence);
+            }
+
+            if (Duty != null)
+            {
+                result.Add("Duty", Duty.ToJObject());
             }
 
             return result;
