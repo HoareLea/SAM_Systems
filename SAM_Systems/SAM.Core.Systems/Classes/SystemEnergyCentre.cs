@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace SAM.Core.Systems
 {
@@ -26,7 +27,9 @@ namespace SAM.Core.Systems
 
     public class SystemEnergyCentre<T> : SAMModel, ISystemObject where T : SystemPlantRoom
     {
-        private List<T> systemPlantRooms;
+        private Dictionary<System.Guid, SystemEnergySource> systemEnergySources = new Dictionary<System.Guid, SystemEnergySource>();
+
+        private Dictionary<System.Guid, T> systemPlantRooms = new Dictionary<System.Guid, T>();
 
         public new string Name
         {
@@ -56,30 +59,67 @@ namespace SAM.Core.Systems
         public SystemEnergyCentre(SystemEnergyCentre<T> systemEnergyCentre)
             : base(systemEnergyCentre)
         {
-            systemPlantRooms = systemEnergyCentre?.systemPlantRooms == null ? null : systemEnergyCentre.systemPlantRooms.ConvertAll(x => x.Clone());
+            if(systemEnergyCentre != null)
+            {
+                Dictionary<System.Guid, T> systemPlantRooms_Temp = systemEnergyCentre.systemPlantRooms;
+                if(systemPlantRooms_Temp != null)
+                {
+                    foreach(T systemPlantRoom in systemPlantRooms_Temp.Values)
+                    {
+                        Add(systemPlantRoom);
+                    }
+                }
+
+                Dictionary<System.Guid, SystemEnergySource> systemEnergySources_Temp = systemEnergyCentre.systemEnergySources;
+                if (systemEnergySources_Temp != null)
+                {
+                    foreach (SystemEnergySource systemEnergySource in systemEnergySources_Temp.Values)
+                    {
+                        Add(systemEnergySource);
+                    }
+                }
+            }
         }
 
         public List<T> GetSystemPlantRooms()
         {
-            return systemPlantRooms == null ? null : systemPlantRooms.ConvertAll(x => x.Clone());
+            return systemPlantRooms?.Values.ToList().ConvertAll(x => x?.Clone());
         }
 
-        public bool TryGetSystem<T>(System.Guid guid, out SystemPlantRoom systemPlantRoom, out T system) where T : ISystem
+        public List<SystemEnergySource> GetSystemEnergySources()
         {
-            systemPlantRoom = null;
-            system = default;
+            return systemEnergySources?.Values.ToList().ConvertAll(x => x?.Clone());
+        }
 
-            if(systemPlantRooms == null)
+        public SystemEnergySource GetSystemEnergySource(string name)
+        {
+            if(systemEnergySources == null || name == null)
             {
-                return false;
+                return null;
             }
 
-            foreach(SystemPlantRoom systemPlantRoom_Temp in systemPlantRooms)
+            foreach(SystemEnergySource systemEnergySource in systemEnergySources.Values)
             {
-                system = systemPlantRoom_Temp.GetSystem<T>(x => x.Guid == guid);
+                if(systemEnergySource?.Name == name)
+                {
+                    return systemEnergySource.Clone();
+                }
+            }
+
+            return null;
+        }
+
+        public bool TryGetSystem<USystem>(System.Guid guid, out T systemPlantRoom, out USystem system) where USystem : ISystem
+        {
+            systemPlantRoom = default;
+            system = default;
+
+            foreach(T systemPlantRoom_Temp in systemPlantRooms.Values)
+            {
+                system = systemPlantRoom_Temp.GetSystem<USystem>(x => x.Guid == guid);
                 if(system != null)
                 {
-                    systemPlantRoom = new SystemPlantRoom(systemPlantRoom_Temp);
+                    systemPlantRoom = systemPlantRoom_Temp.Clone();
                     system = system.Clone();
                     return true;
                 }
@@ -90,26 +130,25 @@ namespace SAM.Core.Systems
 
         public bool Add(T systemPlantRoom)
         {
-            if (systemPlantRoom == null)
+            T systemPlantRoom_Temp = systemPlantRoom?.Clone();
+            if (systemPlantRoom_Temp == null)
             {
                 return false;
             }
 
-            if (systemPlantRooms == null)
+            systemPlantRooms[systemPlantRoom_Temp.Guid] = systemPlantRoom_Temp;
+            return true;
+        }
+
+        public bool Add(SystemEnergySource systemEnergySource)
+        {
+            SystemEnergySource systemEnergySource_Temp = systemEnergySource?.Clone();
+            if (systemEnergySource_Temp == null)
             {
-                systemPlantRooms = new List<T>();
+                return false;
             }
 
-            int index = systemPlantRooms.FindIndex(x => x.Guid == systemPlantRoom.Guid);
-            if (index == -1)
-            {
-                systemPlantRooms.Add(systemPlantRoom.Clone());
-            }
-            else
-            {
-                systemPlantRooms[index] = systemPlantRoom.Clone();
-            }
-
+            systemEnergySources[systemEnergySource_Temp.Guid] = systemEnergySource_Temp;
             return true;
         }
 
@@ -120,14 +159,26 @@ namespace SAM.Core.Systems
                 return false;
             }
 
-            int index = systemPlantRooms.FindIndex(x => x.Guid == systemPlantRoom.Guid);
-            if (index == -1)
+            return systemPlantRooms.Remove(systemPlantRoom.Guid);
+        }
+
+        public bool Remove(SystemEnergySource systemEnergySource)
+        {
+            if (systemEnergySource == null || systemEnergySources == null)
             {
                 return false;
             }
 
-            systemPlantRooms.RemoveAt(index);
-            return true;
+            bool result = systemEnergySources.Remove(systemEnergySource.Guid);
+            if(result)
+            {
+                foreach(T systemPlantRoom in systemPlantRooms.Values)
+                {
+                    systemPlantRoom.Remove(systemEnergySource);
+                }
+            }
+
+            return result;
         }
 
         public override bool FromJObject(JObject jObject)
@@ -138,12 +189,31 @@ namespace SAM.Core.Systems
                 return result;
             }
 
+            if (jObject.ContainsKey("SystemEnergySources"))
+            {
+                JArray jArray = jObject.Value<JArray>("SystemEnergySources");
+                if (jArray != null)
+                {
+                    systemEnergySources = new Dictionary<System.Guid, SystemEnergySource>();
+                    foreach (JObject jObject_Temp in jArray)
+                    {
+                        SystemEnergySource systemEnergySource = Core.Query.IJSAMObject<SystemEnergySource>(jObject_Temp);
+                        if (systemEnergySource == null)
+                        {
+                            continue;
+                        }
+
+                        systemEnergySources[systemEnergySource.Guid] = systemEnergySource;
+                    }
+                }
+            }
+
             if (jObject.ContainsKey("SystemPlantRooms"))
             {
                 JArray jArray = jObject.Value<JArray>("SystemPlantRooms");
                 if (jArray != null)
                 {
-                    systemPlantRooms = new List<T>();
+                    systemPlantRooms = new Dictionary<System.Guid, T>();
                     foreach (JObject jObject_Temp in jArray)
                     {
                         T systemPlantRoom = Core.Query.IJSAMObject<T>(jObject_Temp);
@@ -152,7 +222,7 @@ namespace SAM.Core.Systems
                             continue;
                         }
 
-                        systemPlantRooms.Add(systemPlantRoom);
+                        systemPlantRooms[systemPlantRoom.Guid] = systemPlantRoom;
                     }
                 }
             }
@@ -167,9 +237,10 @@ namespace SAM.Core.Systems
                 return null;
             }
 
+            IEnumerable<T> systemPlantRooms_Temp = systemPlantRooms.Values;
             for (int i = 0; i < systemPlantRooms.Count; i++)
             {
-                T systemPlantRoom = systemPlantRooms[i];
+                T systemPlantRoom = systemPlantRooms_Temp.ElementAt(i);
                 if (systemPlantRoom == null)
                 {
                     continue;
@@ -197,12 +268,23 @@ namespace SAM.Core.Systems
             if (systemPlantRooms != null)
             {
                 JArray jArray = new JArray();
-                foreach (T systemPlantRoom in systemPlantRooms)
+                foreach (T systemPlantRoom in systemPlantRooms.Values)
                 {
                     jArray.Add(systemPlantRoom.ToJObject());
                 }
 
                 result.Add("SystemPlantRooms", jArray);
+            }
+
+            if (systemEnergySources != null)
+            {
+                JArray jArray = new JArray();
+                foreach (SystemEnergySource systemEnergySource in systemEnergySources.Values)
+                {
+                    jArray.Add(systemEnergySource.ToJObject());
+                }
+
+                result.Add("SystemEnergySources", jArray);
             }
 
             return result;

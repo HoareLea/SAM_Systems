@@ -1185,8 +1185,6 @@ namespace SAM.Core.Systems
             return default;
         }
 
-
-
         public List<ISystemObject> GetSystemObjects()
         {
             return GetSystemObjects<ISystemJSAMObject>()?.ConvertAll(x => x as ISystemObject);
@@ -1476,6 +1474,80 @@ namespace SAM.Core.Systems
             }
 
             return systemObjects.FirstOrDefault();
+        }
+
+        public virtual void Remove(SystemEnergySource systemEnergySource)
+        {
+            if(systemEnergySource == null)
+            {
+                return;
+            }
+
+            List<SystemObject> systemObjects = systemRelationCluster.GetObjects<SystemObject>();
+            if(systemObjects == null || systemObjects.Count == 0)
+            {
+                return;
+            }
+
+            HashSet<Enum> enums = new HashSet<Enum>() 
+            {
+                SystemObjectParameter.EnergySourceName,
+                SystemObjectParameter.ElectricalEnergySourceName,
+                SystemObjectParameter.AncillarySourceName,
+                SystemObjectParameter.FanSourceName
+            };
+
+            foreach(SystemObject systemObject in systemObjects)
+            {
+                if(systemObject == null)
+                {
+                    continue;
+                }
+
+                bool updated = false;
+                foreach(Enum @enum in enums)
+                {
+                    if(systemObject.RemoveValue(@enum))
+                    {
+                        updated = true;
+                    }
+                }
+
+                if(systemObject is SystemMultiComponent)
+                {
+                    SystemMultiComponent systemMultiComponent = (SystemMultiComponent)systemObject;
+                    int count = systemMultiComponent.Multiplicity;
+                    if(count > 0)
+                    {
+                        for (int i = 0; i < systemMultiComponent.Multiplicity; i++)
+                        {
+                            SystemObject systemObject_Temp = systemMultiComponent.GetItem(i);
+                            if(systemObject_Temp != null)
+                            {
+                                bool updated_Temp = false;
+                                foreach (Enum @enum in enums)
+                                {
+                                    if (systemObject.RemoveValue(@enum))
+                                    {
+                                        updated_Temp = true;
+                                    }
+                                }
+
+                                if(updated_Temp)
+                                {
+                                    systemMultiComponent.Add(systemObject);
+                                    updated = true;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                if(updated)
+                {
+                    systemRelationCluster.AddObject(systemObject);
+                }
+            }
         }
 
     }
