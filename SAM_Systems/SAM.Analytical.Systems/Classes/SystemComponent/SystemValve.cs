@@ -5,6 +5,11 @@ namespace SAM.Analytical.Systems
 {
     public class SystemValve : SystemComponent
     {
+        public double Capacity { get; set; }
+        public double DesignCapacitySignal { get; set; }
+        public double DesignFlowRate { get; set; }
+        public double DesignPressureDrop { get; set; }
+
         public SystemValve(string name)
             : base(name)
         {
@@ -14,7 +19,13 @@ namespace SAM.Analytical.Systems
         public SystemValve(SystemValve systemValve)
             : base(systemValve)
         {
-
+            if(systemValve != null)
+            {
+                Capacity = systemValve.Capacity;
+                DesignCapacitySignal = systemValve.DesignCapacitySignal;
+                DesignFlowRate = systemValve.DesignFlowRate;
+                DesignPressureDrop = systemValve.DesignPressureDrop;
+            }
         }
 
         public SystemValve(JObject jObject)
@@ -38,12 +49,64 @@ namespace SAM.Analytical.Systems
 
         public override bool FromJObject(JObject jObject)
         {
-            return base.FromJObject(jObject);
+            bool result = base.FromJObject(jObject);
+            if (!result)
+            {
+                return result;
+            }
+
+            if(jObject.ContainsKey("Capacity"))
+            {
+                Capacity = jObject.Value<double>("Capacity");
+            }
+
+            if (jObject.ContainsKey("DesignCapacitySignal"))
+            {
+                DesignCapacitySignal = jObject.Value<double>("DesignCapacitySignal");
+            }
+
+            if (jObject.ContainsKey("DesignFlowRate"))
+            {
+                DesignFlowRate = jObject.Value<double>("DesignFlowRate");
+            }
+
+            if (jObject.ContainsKey("DesignPressureDrop"))
+            {
+                DesignPressureDrop = jObject.Value<double>("DesignPressureDrop");
+            }
+
+            return result;
         }
 
         public override JObject ToJObject()
         {
-            return base.ToJObject();
+            JObject result = base.ToJObject();
+            if(result == null)
+            {
+                return result;
+            }
+
+            if(!double.IsNaN(Capacity))
+            {
+                result.Add("Capacity", Capacity);
+            }
+
+            if (!double.IsNaN(DesignCapacitySignal))
+            {
+                result.Add("DesignCapacitySignal", DesignCapacitySignal);
+            }
+
+            if (!double.IsNaN(DesignFlowRate))
+            {
+                result.Add("DesignFlowRate", DesignFlowRate);
+            }
+
+            if (!double.IsNaN(DesignPressureDrop))
+            {
+                result.Add("DesignPressureDrop", DesignPressureDrop);
+            }
+
+            return result;
         }
     }
 }
