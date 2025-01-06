@@ -11,6 +11,7 @@ namespace SAM.Analytical.Systems
         public double PeakDemand { get; set; }
         public double SizeFraction { get; set; }
         public ModifiableValue Distribution { get; set; }
+        public double DesignPressureDrop { get; set; }
 
         public HeatingSystemCollection()
             : base()
@@ -38,6 +39,7 @@ namespace SAM.Analytical.Systems
                 PeakDemand = heatingSystemCollection.PeakDemand;
                 SizeFraction = heatingSystemCollection.SizeFraction;
                 Distribution = heatingSystemCollection.Distribution?.Clone();
+                DesignPressureDrop = heatingSystemCollection.DesignPressureDrop;
             }
         }
 
@@ -74,6 +76,11 @@ namespace SAM.Analytical.Systems
                 Distribution = Core.Query.IJSAMObject<ModifiableValue>(jObject.Value<JObject>("Distribution"));
             }
 
+            if (jObject.ContainsKey("DesignPressureDrop"))
+            {
+                DesignPressureDrop = jObject.Value<double>("DesignPressureDrop");
+            }
+
             return true;
         }
 
@@ -105,6 +112,11 @@ namespace SAM.Analytical.Systems
             if (Distribution != null)
             {
                 result.Add("Distribution", Distribution.ToJObject());
+            }
+
+            if (!double.IsNaN(DesignPressureDrop))
+            {
+                result.Add("DesignPressureDrop", DesignPressureDrop);
             }
 
             return result;
