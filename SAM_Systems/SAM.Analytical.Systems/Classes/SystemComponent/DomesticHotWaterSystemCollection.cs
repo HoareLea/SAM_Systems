@@ -12,6 +12,8 @@ namespace SAM.Analytical.Systems
 
         public ModifiableValue Distribution { get; set; }
 
+        public double DesignPressureDrop { get; set; }
+
         public DomesticHotWaterSystemCollection()
             : base()
         {
@@ -36,6 +38,7 @@ namespace SAM.Analytical.Systems
                 LoadDistribution = domesticHotWaterSystemCollection.LoadDistribution;
                 MinimumReturnTemperature = domesticHotWaterSystemCollection.MinimumReturnTemperature;
                 Distribution = domesticHotWaterSystemCollection.Distribution?.Clone();
+                DesignPressureDrop = domesticHotWaterSystemCollection.DesignPressureDrop;
             }
         }
 
@@ -62,6 +65,11 @@ namespace SAM.Analytical.Systems
                 Distribution = Core.Query.IJSAMObject<ModifiableValue>(jObject.Value<JObject>("Dictribution"));
             }
 
+            if (jObject.ContainsKey("DesignPressureDrop"))
+            {
+                DesignPressureDrop = jObject.Value<double>("DesignPressureDrop");
+            }
+
             return true;
         }
 
@@ -85,6 +93,10 @@ namespace SAM.Analytical.Systems
                 result.Add("Distribution", Distribution.ToJObject());
             }
 
+            if (!double.IsNaN(DesignPressureDrop))
+            {
+                result.Add("DesignPressureDrop", DesignPressureDrop);
+            }
 
             return result;
         }
