@@ -10,7 +10,7 @@ namespace SAM.Analytical.Systems
 
         public double MinimumReturnTemperature { get; set; }
 
-        public ModifiableValue Distribution { get; set; }
+        public Distribution Distribution { get; set; }
 
         public double DesignPressureDrop { get; set; }
 
@@ -60,9 +60,9 @@ namespace SAM.Analytical.Systems
                 MinimumReturnTemperature = jObject.Value<double>("MinimumReturnTemperature");
             }
 
-            if (jObject.ContainsKey("Dictribution"))
+            if (jObject.ContainsKey("Distribution"))
             {
-                Distribution = Core.Query.IJSAMObject<ModifiableValue>(jObject.Value<JObject>("Dictribution"));
+                Distribution = Core.Query.IJSAMObject<Distribution>(jObject.Value<JObject>("Distribution"));
             }
 
             if (jObject.ContainsKey("DesignPressureDrop"))

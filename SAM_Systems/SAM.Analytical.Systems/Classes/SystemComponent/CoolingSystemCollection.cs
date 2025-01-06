@@ -14,7 +14,7 @@ namespace SAM.Analytical.Systems
 
         public double SizeFraction { get; set; }
 
-        public ModifiableValue Distribution { get; set; }
+        public Distribution Distribution { get; set; }
 
         public double DesignPressureDrop { get; set; }
 
@@ -79,7 +79,7 @@ namespace SAM.Analytical.Systems
 
             if (jObject.ContainsKey("Distribution"))
             {
-                Distribution = Core.Query.IJSAMObject<ModifiableValue>(jObject.Value<JObject>("Distribution"));
+                Distribution = Core.Query.IJSAMObject<Distribution>(jObject.Value<JObject>("Distribution"));
             }
 
             if (jObject.ContainsKey("DesignPressureDrop"))

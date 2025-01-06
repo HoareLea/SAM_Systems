@@ -10,7 +10,7 @@ namespace SAM.Analytical.Systems
         public bool VariableFlowCapacity { get; set; }
         public double PeakDemand { get; set; }
         public double SizeFraction { get; set; }
-        public ModifiableValue Distribution { get; set; }
+        public Distribution Distribution { get; set; }
         public double DesignPressureDrop { get; set; }
 
         public HeatingSystemCollection()
@@ -73,7 +73,7 @@ namespace SAM.Analytical.Systems
 
             if (jObject.ContainsKey("Distribution"))
             {
-                Distribution = Core.Query.IJSAMObject<ModifiableValue>(jObject.Value<JObject>("Distribution"));
+                Distribution = Core.Query.IJSAMObject<Distribution>(jObject.Value<JObject>("Distribution"));
             }
 
             if (jObject.ContainsKey("DesignPressureDrop"))
