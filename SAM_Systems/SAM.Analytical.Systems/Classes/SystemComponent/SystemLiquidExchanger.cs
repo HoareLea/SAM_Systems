@@ -15,7 +15,7 @@ namespace SAM.Analytical.Systems
         public double DesignPressureDrop1 { get; set; }
         public double DesignPressureDrop2 { get; set; }
         public ModifiableValue Setpoint { get; set; }
-        public ModifiableValue Setpoint2 { get; set; }
+        //public ModifiableValue Setpoint2 { get; set; }
         public ExchangerPosition BypassPosition { get; set; }
         public ExchangerPosition SetpointPosition { get; set; }
         public ExchangerCalculationMethod ExchangerCalculationMethod { get; set; }
@@ -43,7 +43,7 @@ namespace SAM.Analytical.Systems
                 DesignPressureDrop2 = systemLiquidExchanger.DesignPressureDrop2;
 
                 Setpoint = systemLiquidExchanger.Setpoint?.Clone();
-                Setpoint2 = systemLiquidExchanger?.Setpoint2?.Clone();
+                //Setpoint2 = systemLiquidExchanger?.Setpoint2?.Clone();
 
                 BypassPosition = systemLiquidExchanger.BypassPosition;
                 SetpointPosition = systemLiquidExchanger.SetpointPosition;
@@ -117,10 +117,10 @@ namespace SAM.Analytical.Systems
                 Setpoint = Core.Query.IJSAMObject<ModifiableValue>(jObject.Value<JObject>("Setpoint"));
             }
 
-            if (jObject.ContainsKey("Setpoint2"))
-            {
-                Setpoint2 = Core.Query.IJSAMObject<ModifiableValue>(jObject.Value<JObject>("Setpoint2"));
-            }
+            //if (jObject.ContainsKey("Setpoint2"))
+            //{
+            //    Setpoint2 = Core.Query.IJSAMObject<ModifiableValue>(jObject.Value<JObject>("Setpoint2"));
+            //}
 
             if (jObject.ContainsKey("BypassPosition"))
             {
@@ -193,10 +193,10 @@ namespace SAM.Analytical.Systems
                 result.Add("Setpoint", Setpoint.ToJObject());
             }
 
-            if (Setpoint2 != null)
-            {
-                result.Add("Setpoint2", Setpoint2.ToJObject());
-            }
+            //if (Setpoint2 != null)
+            //{
+            //    result.Add("Setpoint2", Setpoint2.ToJObject());
+            //}
 
             result.Add("BypassPosition", BypassPosition.ToString());
 
