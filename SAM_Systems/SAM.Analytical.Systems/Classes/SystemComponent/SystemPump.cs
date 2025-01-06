@@ -10,7 +10,7 @@ namespace SAM.Analytical.Systems
         
         public double Pressure { get; set; }
 
-        public double DesignFrowRate { get; set; }
+        public double DesignFlowRate { get; set; }
 
         public double Capacity { get; set; }
 
@@ -31,7 +31,7 @@ namespace SAM.Analytical.Systems
             {
                 OverallEfficiency = systemPump.OverallEfficiency?.Clone();
                 Pressure = systemPump.Pressure;
-                DesignFrowRate = systemPump.DesignFrowRate;
+                DesignFlowRate = systemPump.DesignFlowRate;
                 Capacity = systemPump.Capacity;
                 PartLoad = systemPump.PartLoad?.Clone();
                 FanControlType = systemPump.FanControlType;
@@ -80,9 +80,9 @@ namespace SAM.Analytical.Systems
                 Pressure = jObject.Value<double>("Pressure");
             }
 
-            if (jObject.ContainsKey("DesignFrowRate"))
+            if (jObject.ContainsKey("DesignFlowRate"))
             {
-                DesignFrowRate = jObject.Value<double>("DesignFrowRate");
+                DesignFlowRate = jObject.Value<double>("DesignFlowRate");
             }
 
             if (jObject.ContainsKey("Capacity"))
@@ -118,9 +118,9 @@ namespace SAM.Analytical.Systems
                 result.Add("Pressure", Pressure);
             }
 
-            if (!double.IsNaN(DesignFrowRate))
+            if (!double.IsNaN(DesignFlowRate))
             {
-                result.Add("DesignFrowRate", DesignFrowRate);
+                result.Add("DesignFlowRate", DesignFlowRate);
             }
 
             if (!double.IsNaN(Capacity))
