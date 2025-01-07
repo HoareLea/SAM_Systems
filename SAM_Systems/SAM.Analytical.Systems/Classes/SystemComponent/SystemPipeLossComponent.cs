@@ -20,6 +20,10 @@ namespace SAM.Analytical.Systems
         public double GroundConductivity { get; set; }
         public double GroundHeatCapacity { get; set; }
         public double GroundDensity { get; set; }
+        
+        /// <summary>
+        /// -1000 means comes from TSD
+        /// </summary>
         public double GroundTemperature { get; set; }
 
         public SystemPipeLossComponent(SystemPipeLossComponent systemPipeLossComponent)
