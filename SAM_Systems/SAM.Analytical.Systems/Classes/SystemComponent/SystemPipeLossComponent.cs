@@ -16,6 +16,12 @@ namespace SAM.Analytical.Systems
         public double InsulationConductivity { get; set; }
         public ModifiableValue AmbientTemperature { get; set; }
 
+        public bool IsUnderground { get; set; }
+        public double GroundConductivity { get; set; }
+        public double GroundHeatCapacity { get; set; }
+        public double GroundDensity { get; set; }
+        public double GroundTemperature { get; set; }
+
         public SystemPipeLossComponent(SystemPipeLossComponent systemPipeLossComponent)
             : base(systemPipeLossComponent)
         {
@@ -30,6 +36,12 @@ namespace SAM.Analytical.Systems
                 InsulationThickness = systemPipeLossComponent.InsulationThickness;
                 InsulationConductivity = systemPipeLossComponent.InsulationConductivity;
                 AmbientTemperature = systemPipeLossComponent.AmbientTemperature?.Clone();
+
+                IsUnderground = systemPipeLossComponent.IsUnderground;
+                GroundConductivity = systemPipeLossComponent.GroundConductivity;
+                GroundHeatCapacity = systemPipeLossComponent.GroundHeatCapacity;
+                GroundDensity = systemPipeLossComponent.GroundDensity;
+                GroundTemperature = systemPipeLossComponent.GroundTemperature;
             }
         }
 
@@ -51,8 +63,8 @@ namespace SAM.Analytical.Systems
             {
                 return Core.Systems.Create.SystemConnectorManager
                 (
-                    Core.Systems.Create.SystemConnector<LiquidSystem>(Core.Direction.In, 1),
-                    Core.Systems.Create.SystemConnector<LiquidSystem>(Core.Direction.Out, 1)
+                    Core.Systems.Create.SystemConnector<LiquidSystem>(Direction.In, 1),
+                    Core.Systems.Create.SystemConnector<LiquidSystem>(Direction.Out, 1)
                 );
             }
         }
@@ -110,6 +122,31 @@ namespace SAM.Analytical.Systems
                 AmbientTemperature = Core.Query.IJSAMObject<ModifiableValue>(jObject.Value<JObject>("AmbientTemperature"));
             }
 
+            if (jObject.ContainsKey("IsUnderground"))
+            {
+                IsUnderground = jObject.Value<bool>("IsUnderground");
+            }
+
+            if (jObject.ContainsKey("GroundConductivity"))
+            {
+                GroundConductivity = jObject.Value<double>("GroundConductivity");
+            }
+
+            if (jObject.ContainsKey("GroundHeatCapacity"))
+            {
+                GroundHeatCapacity = jObject.Value<double>("GroundHeatCapacity");
+            }
+
+            if (jObject.ContainsKey("GroundDensity"))
+            {
+                GroundDensity = jObject.Value<double>("GroundDensity");
+            }
+
+            if (jObject.ContainsKey("GroundTemperature"))
+            {
+                GroundTemperature = jObject.Value<double>("GroundTemperature");
+            }
+
             return result;
         }
 
@@ -164,6 +201,28 @@ namespace SAM.Analytical.Systems
             if(AmbientTemperature != null)
             {
                 result.Add("AmbientTemperature", AmbientTemperature.ToJObject());
+            }
+
+            result.Add("IsUnderground", IsUnderground);
+
+            if (!double.IsNaN(GroundConductivity))
+            {
+                result.Add("GroundConductivity", GroundConductivity);
+            }
+
+            if (!double.IsNaN(GroundHeatCapacity))
+            {
+                result.Add("GroundHeatCapacity", GroundHeatCapacity);
+            }
+
+            if (!double.IsNaN(GroundDensity))
+            {
+                result.Add("GroundDensity", GroundDensity);
+            }
+
+            if (!double.IsNaN(GroundTemperature))
+            {
+                result.Add("GroundTemperature", GroundTemperature);
             }
 
             return result;
