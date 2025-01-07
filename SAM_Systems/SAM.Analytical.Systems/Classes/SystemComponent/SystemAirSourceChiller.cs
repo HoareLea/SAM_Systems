@@ -103,17 +103,17 @@ namespace SAM.Analytical.Systems
 
             if(Setpoint != null)
             {
-                result.Add(Setpoint.ToJObject());
+                result.Add("Setpoint", Setpoint.ToJObject());
             }
 
             if (Efficiency != null)
             {
-                result.Add(Efficiency.ToJObject());
+                result.Add("Efficiency", Efficiency.ToJObject());
             }
 
             if (CondenserFanLoad != null)
             {
-                result.Add(CondenserFanLoad.ToJObject());
+                result.Add("CondenserFanLoad", CondenserFanLoad.ToJObject());
             }
 
             if (!double.IsNaN(DesignTemperatureDifference))
