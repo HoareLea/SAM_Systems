@@ -12,6 +12,7 @@ namespace SAM.Analytical.Systems
         public double DesignTemperatureDifference { get; set; }
         public double Capacity { get; set; }
         public double DesignPressureDrop { get; set; }
+        public bool LossesInSizing { get; set; }
 
         public SystemAirSourceChiller(string name)
             : base(name)
@@ -30,6 +31,7 @@ namespace SAM.Analytical.Systems
                 DesignTemperatureDifference = systemAirSourceChiller.DesignTemperatureDifference;
                 Capacity = systemAirSourceChiller.Capacity;
                 DesignPressureDrop = systemAirSourceChiller.DesignPressureDrop;
+                LossesInSizing = systemAirSourceChiller.LossesInSizing;
             }
         }
 
@@ -45,8 +47,8 @@ namespace SAM.Analytical.Systems
             {
                 return Core.Systems.Create.SystemConnectorManager
                 (
-                    Core.Systems.Create.SystemConnector<LiquidSystem>(Core.Direction.In, 1),
-                    Core.Systems.Create.SystemConnector<LiquidSystem>(Core.Direction.Out, 1),
+                    Core.Systems.Create.SystemConnector<LiquidSystem>(Direction.In, 1),
+                    Core.Systems.Create.SystemConnector<LiquidSystem>(Direction.Out, 1),
                     Core.Systems.Create.SystemConnector<IControlSystem>()
                 );
             }
@@ -90,6 +92,11 @@ namespace SAM.Analytical.Systems
                 DesignPressureDrop = jObject.Value<double>("DesignPressureDrop");
             }
 
+            if (jObject.ContainsKey("LossesInSizing"))
+            {
+                LossesInSizing = jObject.Value<bool>("LossesInSizing");
+            }
+
             return result;
         }
 
@@ -130,6 +137,8 @@ namespace SAM.Analytical.Systems
             {
                 result.Add("DesignPressureDrop", DesignPressureDrop);
             }
+
+            result.Add("LossesInSizing", LossesInSizing);
 
             return result;
         }
