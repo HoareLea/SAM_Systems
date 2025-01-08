@@ -16,6 +16,13 @@ namespace SAM.Analytical.Systems
         public double DesignTemperatureDifference2 { get; set; }
         public bool LossesInSizing { get; set; }
         public ModifiableValue MotorEfficiency { get; set; }
+        public ExchangerCalculationMethod ExchangerCalculationMethod { get; set; }
+        public ModifiableValue ExchangerEfficiency { get; set; }
+        public ExchangerType ExchangerType { get; set; }
+        public double HeatTransferSurfaceArea { get; set; }
+        public double HeatTransferCoefficient { get; set; }
+        public ModifiableValue AncillaryLoad { get; set; }
+        public FreeCoolingType FreeCoolingType { get; set; }
 
         public SystemWaterSourceChiller(string name)
             : base(name)
@@ -38,6 +45,13 @@ namespace SAM.Analytical.Systems
                 DesignTemperatureDifference2 = waterSourceSystemChiller.DesignTemperatureDifference2;
                 LossesInSizing = waterSourceSystemChiller.LossesInSizing;
                 MotorEfficiency = waterSourceSystemChiller.MotorEfficiency?.Clone();
+                ExchangerCalculationMethod = waterSourceSystemChiller.ExchangerCalculationMethod;
+                ExchangerEfficiency = waterSourceSystemChiller.ExchangerEfficiency?.Clone();
+                ExchangerType = waterSourceSystemChiller.ExchangerType;
+                HeatTransferSurfaceArea = waterSourceSystemChiller.HeatTransferSurfaceArea;
+                HeatTransferCoefficient = waterSourceSystemChiller.HeatTransferCoefficient;
+                AncillaryLoad = waterSourceSystemChiller.AncillaryLoad?.Clone();
+                FreeCoolingType = waterSourceSystemChiller.FreeCoolingType;
             }
         }
 
@@ -120,6 +134,41 @@ namespace SAM.Analytical.Systems
                 MotorEfficiency = Core.Query.IJSAMObject<ModifiableValue>(jObject.Value<JObject>("MotorEfficiency"));
             }
 
+            if (jObject.ContainsKey("ExchangerCalculationMethod"))
+            {
+                ExchangerCalculationMethod = Core.Query.Enum<ExchangerCalculationMethod>(jObject.Value<string>("ExchangerCalculationMethod"));
+            }
+
+            if (jObject.ContainsKey("ExchangerEfficiency"))
+            {
+                ExchangerEfficiency = Core.Query.IJSAMObject<ModifiableValue>(jObject.Value<JObject>("ExchangerEfficiency"));
+            }
+
+            if (jObject.ContainsKey("ExchangerType"))
+            {
+                ExchangerType = Core.Query.Enum<ExchangerType>(jObject.Value<string>("ExchangerType"));
+            }
+
+            if (jObject.ContainsKey("HeatTransferSurfaceArea"))
+            {
+                HeatTransferSurfaceArea = jObject.Value<double>("HeatTransferSurfaceArea");
+            }
+
+            if (jObject.ContainsKey("HeatTransferCoefficient"))
+            {
+                HeatTransferCoefficient = jObject.Value<double>("HeatTransferCoefficient");
+            }
+
+            if (jObject.ContainsKey("AncillaryLoad"))
+            {
+                AncillaryLoad = Core.Query.IJSAMObject<ModifiableValue>(jObject.Value<JObject>("AncillaryLoad"));
+            }
+
+            if (jObject.ContainsKey("FreeCoolingType"))
+            {
+                FreeCoolingType = Core.Query.Enum<FreeCoolingType>(jObject.Value<string>("FreeCoolingType"));
+            }
+
             return result;
         }
 
@@ -177,6 +226,32 @@ namespace SAM.Analytical.Systems
             {
                 result.Add("MotorEfficiency", MotorEfficiency.ToJObject());
             }
+
+            result.Add("ExchangerCalculationMethod", ExchangerCalculationMethod.ToString());
+
+            if (ExchangerEfficiency != null)
+            {
+                result.Add("ExchangerEfficiency", ExchangerEfficiency.ToJObject());
+            }
+
+            result.Add("ExchangerType", ExchangerType.ToString());
+
+            if (!double.IsNaN(HeatTransferSurfaceArea))
+            {
+                result.Add("HeatTransferSurfaceArea", HeatTransferSurfaceArea);
+            }
+
+            if (!double.IsNaN(HeatTransferCoefficient))
+            {
+                result.Add("HeatTransferCoefficient", HeatTransferCoefficient);
+            }
+
+            if (AncillaryLoad != null)
+            {
+                result.Add("AncillaryLoad", AncillaryLoad.ToJObject());
+            }
+
+            result.Add("FreeCoolingType", FreeCoolingType.ToString());
 
             return result;
         }
