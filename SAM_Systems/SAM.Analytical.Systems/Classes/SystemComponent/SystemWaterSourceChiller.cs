@@ -14,6 +14,8 @@ namespace SAM.Analytical.Systems
         public double Capacity2 { get; set; }
         public double DesignPressureDrop2 { get; set; }
         public double DesignTemperatureDifference2 { get; set; }
+        public bool LossesInSizing { get; set; }
+        public ModifiableValue MotorEfficiency { get; set; }
 
         public SystemWaterSourceChiller(string name)
             : base(name)
@@ -34,6 +36,8 @@ namespace SAM.Analytical.Systems
                 Capacity2 = waterSourceSystemChiller.Capacity2;
                 DesignPressureDrop2 = waterSourceSystemChiller.DesignPressureDrop2;
                 DesignTemperatureDifference2 = waterSourceSystemChiller.DesignTemperatureDifference2;
+                LossesInSizing = waterSourceSystemChiller.LossesInSizing;
+                MotorEfficiency = waterSourceSystemChiller.MotorEfficiency?.Clone();
             }
         }
 
@@ -106,6 +110,16 @@ namespace SAM.Analytical.Systems
                 DesignTemperatureDifference2 = jObject.Value<double>("DesignTemperatureDifference2");
             }
 
+            if (jObject.ContainsKey("LossesInSizing"))
+            {
+                LossesInSizing = jObject.Value<bool>("LossesInSizing");
+            }
+
+            if (jObject.ContainsKey("MotorEfficiency"))
+            {
+                MotorEfficiency = Core.Query.IJSAMObject<ModifiableValue>(jObject.Value<JObject>("MotorEfficiency"));
+            }
+
             return result;
         }
 
@@ -155,6 +169,13 @@ namespace SAM.Analytical.Systems
             if (!double.IsNaN(DesignTemperatureDifference2))
             {
                 result.Add("DesignTemperatureDifference2", DesignTemperatureDifference2);
+            }
+
+            result.Add("LossesInSizing", LossesInSizing);
+
+            if (MotorEfficiency != null)
+            {
+                result.Add("MotorEfficiency", MotorEfficiency.ToJObject());
             }
 
             return result;
