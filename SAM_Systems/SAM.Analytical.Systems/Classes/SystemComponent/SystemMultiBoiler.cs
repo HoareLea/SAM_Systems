@@ -1,7 +1,6 @@
 ﻿using Newtonsoft.Json.Linq;
 using SAM.Core;
 using SAM.Core.Systems;
-using System.Collections.Generic;
 
 namespace SAM.Analytical.Systems
 {
@@ -15,7 +14,7 @@ namespace SAM.Analytical.Systems
 
         public bool LossesInSizing { get; set; }
 
-        public BoilerSequence BoilerSequence { get; set; }
+        public EquipmentSequence Sequence { get; set; }
 
         public SystemMultiBoiler(string name)
             : base(name)
@@ -32,7 +31,7 @@ namespace SAM.Analytical.Systems
                 Duty = systemMultiBoiler.Duty.Clone();
                 DesignTemperatureDifference = systemMultiBoiler.DesignTemperatureDifference;
                 LossesInSizing = systemMultiBoiler.LossesInSizing;
-                BoilerSequence = systemMultiBoiler.BoilerSequence;
+                Sequence = systemMultiBoiler.Sequence;
             }
         }
 
@@ -83,9 +82,9 @@ namespace SAM.Analytical.Systems
                 LossesInSizing = jObject.Value<bool>("LossesInSizing");
             }
 
-            if (jObject.ContainsKey("BoilerSequence"))
+            if (jObject.ContainsKey("Sequence"))
             {
-                BoilerSequence = Core.Query.Enum<BoilerSequence>(jObject.Value<string>("BoilerSequence"));
+                Sequence = Core.Query.Enum<EquipmentSequence>(jObject.Value<string>("Sequence"));
             }
 
             return true;
@@ -116,7 +115,7 @@ namespace SAM.Analytical.Systems
 
             result.Add("LossesInSizing", LossesInSizing);
 
-            result.Add("BoilerSequence", BoilerSequence.ToString());
+            result.Add("Sequence", Sequence.ToString());
 
             return result;
         }

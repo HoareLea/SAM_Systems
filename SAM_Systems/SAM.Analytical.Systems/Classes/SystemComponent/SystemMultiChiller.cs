@@ -9,6 +9,9 @@ namespace SAM.Analytical.Systems
         public double DesignPressureDrop { get; set; }
         public double DesignTemperatureDiffrence { get; set; }
         public SizableValue Duty { get; set; }
+        public ModifiableValue Setpoint { get; set; }
+        public double Capacity { get; set; }
+        public EquipmentSequence Sequence { get; set; }
 
         public SystemMultiChiller(string name)
             : base(name)
@@ -24,6 +27,9 @@ namespace SAM.Analytical.Systems
                 Duty = systemMultiChiller.Duty?.Clone();
                 DesignPressureDrop = systemMultiChiller.DesignPressureDrop;
                 DesignTemperatureDiffrence = systemMultiChiller.DesignTemperatureDiffrence;
+                Setpoint = systemMultiChiller.Setpoint?.Clone();
+                Capacity = systemMultiChiller.Capacity;
+                Sequence = systemMultiChiller.Sequence;
             }
         }
 
@@ -39,8 +45,8 @@ namespace SAM.Analytical.Systems
             {
                 return Core.Systems.Create.SystemConnectorManager
                 (
-                    Core.Systems.Create.SystemConnector<LiquidSystem>(Core.Direction.In, 1),
-                    Core.Systems.Create.SystemConnector<LiquidSystem>(Core.Direction.Out, 1),
+                    Core.Systems.Create.SystemConnector<LiquidSystem>(Direction.In, 1),
+                    Core.Systems.Create.SystemConnector<LiquidSystem>(Direction.Out, 1),
                     Core.Systems.Create.SystemConnector<IControlSystem>()
                 );
             }
@@ -69,6 +75,21 @@ namespace SAM.Analytical.Systems
                 Duty = Core.Query.IJSAMObject<SizableValue>(jObject.Value<JObject>("Duty"));
             }
 
+            if (jObject.ContainsKey("Setpoint"))
+            {
+                Setpoint = Core.Query.IJSAMObject<ModifiableValue>(jObject.Value<JObject>("Setpoint"));
+            }
+
+            if (jObject.ContainsKey("Capacity"))
+            {
+                Capacity = jObject.Value<double>("Capacity");
+            }
+
+            if (jObject.ContainsKey("Sequence"))
+            {
+                Sequence = Core.Query.Enum<EquipmentSequence>(jObject.Value<string>("Sequence"));
+            }
+
             return result;
         }
 
@@ -94,6 +115,18 @@ namespace SAM.Analytical.Systems
             {
                 result.Add("Duty", Duty.ToJObject());
             }
+
+            if (Setpoint != null)
+            {
+                result.Add("Setpoint", Setpoint.ToJObject());
+            }
+
+            if (!double.IsNaN(Capacity))
+            {
+                result.Add("Capacity", Capacity);
+            }
+
+            result.Add("Sequence", Sequence.ToString());
 
             return result;
         }

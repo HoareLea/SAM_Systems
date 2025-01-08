@@ -2,8 +2,8 @@
 
 namespace SAM.Analytical.Systems
 {
-    [Description("Boiler Sequence")]
-    public enum BoilerSequence
+    [Description("Equipment Sequence")]
+    public enum EquipmentSequence
     {
         [Description("Parallel")] Parallel,
         [Description("Serial")] Serial,
