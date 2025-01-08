@@ -33,7 +33,7 @@ namespace SAM.Analytical.Systems
                 DesignTemperatureDiffrence = systemBoiler.DesignTemperatureDiffrence;
                 Capacity = systemBoiler.Capacity;
                 DesignPressureDrop = systemBoiler.DesignPressureDrop;
-                AncillaryLoad = systemBoiler.AncillaryLoad;
+                AncillaryLoad = systemBoiler.AncillaryLoad?.Clone();
                 LossesInSizing = systemBoiler.LossesInSizing;
             }
         }
@@ -101,12 +101,12 @@ namespace SAM.Analytical.Systems
                 DesignPressureDrop = jObject.Value<double>("DesignPressureDrop");
             }
 
-            if (jObject.ContainsKey("LossesInSizing"))
+            if (jObject.ContainsKey("AncillaryLoad"))
             {
                 AncillaryLoad = Core.Query.IJSAMObject<ModifiableValue>(jObject.Value<JObject>("AncillaryLoad"));
             }
 
-            if (jObject.ContainsKey("AncillaryLoad"))
+            if (jObject.ContainsKey("LossesInSizing"))
             {
                 LossesInSizing = jObject.Value<bool>("LossesInSizing");
             }
