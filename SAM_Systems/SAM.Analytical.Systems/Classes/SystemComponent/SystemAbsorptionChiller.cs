@@ -12,8 +12,8 @@ namespace SAM.Analytical.Systems
         public double DesignPressureDrop1 { get; set; }
         public double Capacity2 { get; set; }
         public double DesignPressureDrop2 { get; set; }
-        public double Capacity3 { get; set; }
-        public double DesignPressureDrop3 { get; set; }
+        //public double Capacity3 { get; set; }
+        //public double DesignPressureDrop3 { get; set; }
         public ModifiableValue AncillaryLoad { get; set; }
         public ModifiableValue MinimalOutSourceTemperature { get; set; }
         public bool LossesInSizing { get; set; }
@@ -33,10 +33,10 @@ namespace SAM.Analytical.Systems
                 Efficiency = absorptionSystemChiller.Efficiency?.Clone();
                 Capacity1 = absorptionSystemChiller.Capacity1;
                 Capacity2 = absorptionSystemChiller.Capacity2;
-                Capacity3 = absorptionSystemChiller.Capacity3;
+                //Capacity3 = absorptionSystemChiller.Capacity3;
                 DesignPressureDrop1 = absorptionSystemChiller.DesignPressureDrop1;
                 DesignPressureDrop2 = absorptionSystemChiller.DesignPressureDrop2;
-                DesignPressureDrop3 = absorptionSystemChiller.DesignPressureDrop3;
+                //DesignPressureDrop3 = absorptionSystemChiller.DesignPressureDrop3;
                 AncillaryLoad = absorptionSystemChiller.AncillaryLoad?.Clone();
                 MinimalOutSourceTemperature = absorptionSystemChiller.MinimalOutSourceTemperature?.Clone();
                 LossesInSizing = absorptionSystemChiller.LossesInSizing;
@@ -92,10 +92,10 @@ namespace SAM.Analytical.Systems
                 Capacity2 = jObject.Value<double>("Capacity2");
             }
 
-            if (jObject.ContainsKey("Capacity3"))
-            {
-                Capacity3 = jObject.Value<double>("Capacity3");
-            }
+            //if (jObject.ContainsKey("Capacity3"))
+            //{
+            //    Capacity3 = jObject.Value<double>("Capacity3");
+            //}
 
             if (jObject.ContainsKey("DesignPressureDrop1"))
             {
@@ -107,10 +107,10 @@ namespace SAM.Analytical.Systems
                 DesignPressureDrop2 = jObject.Value<double>("DesignPressureDrop2");
             }
 
-            if (jObject.ContainsKey("DesignPressureDrop3"))
-            {
-                DesignPressureDrop3 = jObject.Value<double>("DesignPressureDrop3");
-            }
+            //if (jObject.ContainsKey("DesignPressureDrop3"))
+            //{
+            //    DesignPressureDrop3 = jObject.Value<double>("DesignPressureDrop3");
+            //}
 
             if (jObject.ContainsKey("AncillaryLoad"))
             {
@@ -158,10 +158,10 @@ namespace SAM.Analytical.Systems
                 result.Add("Capacity2", Capacity2);
             }
 
-            if (!double.IsNaN(Capacity3))
-            {
-                result.Add("Capacity3", Capacity3);
-            }
+            //if (!double.IsNaN(Capacity3))
+            //{
+            //    result.Add("Capacity3", Capacity3);
+            //}
 
             if (!double.IsNaN(DesignPressureDrop1))
             {
@@ -173,10 +173,10 @@ namespace SAM.Analytical.Systems
                 result.Add("DesignPressureDrop2", DesignPressureDrop2);
             }
 
-            if (!double.IsNaN(DesignPressureDrop3))
-            {
-                result.Add("DesignPressureDrop3", DesignPressureDrop3);
-            }
+            //if (!double.IsNaN(DesignPressureDrop3))
+            //{
+            //    result.Add("DesignPressureDrop3", DesignPressureDrop3);
+            //}
 
             if (AncillaryLoad != null)
             {
