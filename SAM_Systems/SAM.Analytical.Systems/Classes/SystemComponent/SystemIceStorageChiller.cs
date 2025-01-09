@@ -9,12 +9,9 @@ namespace SAM.Analytical.Systems
         public ModifiableValue Setpoint { get; set; }
         public ModifiableValue Efficiency { get; set; }
         public ModifiableValue IceMakingEfficiency { get; set; }
-        public double Capacity1 { get; set; }
-        public double DesignPressureDrop1 { get; set; }
-        public double DesignTemperatureDifference1 { get; set; }
-        public double Capacity2 { get; set; }
-        public double DesignPressureDrop2 { get; set; }
-        public double DesignTemperatureDifference2 { get; set; }
+        public double Capacity { get; set; }
+        public double DesignPressureDrop { get; set; }
+        public double DesignTemperatureDifference { get; set; }
         public SizableValue IceCapacity { get; set; }
         public double InitialIceReserve { get; set; }
         public ModifiableValue CondenserFanLoad { get; set; }
@@ -37,12 +34,9 @@ namespace SAM.Analytical.Systems
                 Setpoint = iceStorageSystemChiller.Setpoint?.Clone();
                 Efficiency = iceStorageSystemChiller.Efficiency?.Clone();
                 IceMakingEfficiency = iceStorageSystemChiller.IceMakingEfficiency?.Clone();
-                Capacity1 = iceStorageSystemChiller.Capacity1;
-                DesignPressureDrop1 = iceStorageSystemChiller.DesignPressureDrop1;
-                DesignTemperatureDifference1 = iceStorageSystemChiller.DesignTemperatureDifference1;
-                Capacity2 = iceStorageSystemChiller.Capacity2;
-                DesignPressureDrop2 = iceStorageSystemChiller.DesignPressureDrop2;
-                DesignTemperatureDifference2 = iceStorageSystemChiller.DesignTemperatureDifference2;
+                Capacity = iceStorageSystemChiller.Capacity;
+                DesignPressureDrop = iceStorageSystemChiller.DesignPressureDrop;
+                DesignTemperatureDifference = iceStorageSystemChiller.DesignTemperatureDifference;
                 IceCapacity = iceStorageSystemChiller.IceCapacity?.Clone();
                 InitialIceReserve = iceStorageSystemChiller.InitialIceReserve;
                 CondenserFanLoad = iceStorageSystemChiller.CondenserFanLoad?.Clone();
@@ -95,34 +89,19 @@ namespace SAM.Analytical.Systems
                 IceMakingEfficiency = Core.Query.IJSAMObject<ModifiableValue>(jObject.Value<JObject>("IceMakingEfficiency"));
             }
 
-            if (jObject.ContainsKey("Capacity1"))
+            if (jObject.ContainsKey("Capacity"))
             {
-                Capacity1 = jObject.Value<double>("Capacity1");
+                Capacity = jObject.Value<double>("Capacity");
             }
 
-            if (jObject.ContainsKey("DesignPressureDrop1"))
+            if (jObject.ContainsKey("DesignPressureDrop"))
             {
-                DesignPressureDrop1 = jObject.Value<double>("DesignPressureDrop1");
+                DesignPressureDrop = jObject.Value<double>("DesignPressureDrop");
             }
 
-            if (jObject.ContainsKey("DesignTemperatureDifference1"))
+            if (jObject.ContainsKey("DesignTemperatureDifference"))
             {
-                DesignTemperatureDifference1 = jObject.Value<double>("DesignTemperatureDifference1");
-            }
-
-            if (jObject.ContainsKey("Capacity2"))
-            {
-                Capacity2 = jObject.Value<double>("Capacity2");
-            }
-
-            if (jObject.ContainsKey("DesignPressureDrop2"))
-            {
-                DesignPressureDrop2 = jObject.Value<double>("DesignPressureDrop2");
-            }
-
-            if (jObject.ContainsKey("DesignTemperatureDifference2"))
-            {
-                DesignTemperatureDifference2 = jObject.Value<double>("DesignTemperatureDifference2");
+                DesignTemperatureDifference = jObject.Value<double>("DesignTemperatureDifference");
             }
 
             if (jObject.ContainsKey("IceCapacity"))
@@ -186,34 +165,19 @@ namespace SAM.Analytical.Systems
                 result.Add("IceMakingEfficiency", IceMakingEfficiency.ToJObject());
             }
 
-            if (!double.IsNaN(Capacity1))
+            if (!double.IsNaN(Capacity))
             {
-                result.Add("Capacity1", Capacity1);
+                result.Add("Capacity", Capacity);
             }
 
-            if (!double.IsNaN(DesignPressureDrop1))
+            if (!double.IsNaN(DesignPressureDrop))
             {
-                result.Add("DesignPressureDrop1", DesignPressureDrop1);
+                result.Add("DesignPressureDrop", DesignPressureDrop);
             }
 
-            if (!double.IsNaN(DesignTemperatureDifference1))
+            if (!double.IsNaN(DesignTemperatureDifference))
             {
-                result.Add("DesignTemperatureDifference1", DesignTemperatureDifference1);
-            }
-
-            if (!double.IsNaN(Capacity2))
-            {
-                result.Add("Capacity2", Capacity2);
-            }
-
-            if (!double.IsNaN(DesignPressureDrop2))
-            {
-                result.Add("DesignPressureDrop2", DesignPressureDrop2);
-            }
-
-            if (!double.IsNaN(DesignTemperatureDifference2))
-            {
-                result.Add("DesignTemperatureDifference2", DesignTemperatureDifference2);
+                result.Add("DesignTemperatureDifference", DesignTemperatureDifference);
             }
 
             if (IceCapacity != null)
