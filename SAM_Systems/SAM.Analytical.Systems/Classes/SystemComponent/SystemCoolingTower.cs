@@ -14,13 +14,16 @@ namespace SAM.Analytical.Systems
         public ModifiableValue FanSFP { get; set; }
         public double HeatTransferCoefficient { get; set; }
         public SizableValue HeatTransferSurfaceArea { get; set; }
+        public SizingType LimitingWetBulbTemperatureSizingType { get; set; }
         public double LimitingWetBulbTemperature { get; set; }
         public double DesignApproach { get; set; }
         public double DesignRange { get; set; }
+        public SizingType DesignWaterFlowRateSizingType { get; set; }
         public double DesignWaterFlowRate { get; set; }
         public ModifiableValue MaxAirFlowRate { get; set; }
         public double FanLoadRatio { get; set; }
         public double AirWaterFlowRatio { get; set; }
+        public SizingType MinAirFlowRateSizingType { get; set; }
         public double MinAirFlowRate { get; set; }
         public double FanMode2Ratio { get; set; }
         public double WaterDriftLoss { get; set; }
@@ -46,11 +49,17 @@ namespace SAM.Analytical.Systems
                 FanSFP = systemCoolingTower.FanSFP?.Clone();
                 HeatTransferCoefficient = systemCoolingTower.HeatTransferCoefficient;
                 HeatTransferSurfaceArea = systemCoolingTower?.HeatTransferSurfaceArea?.Clone();
+                LimitingWetBulbTemperatureSizingType = systemCoolingTower.LimitingWetBulbTemperatureSizingType;
                 LimitingWetBulbTemperature = systemCoolingTower.LimitingWetBulbTemperature;
                 DesignApproach = systemCoolingTower.DesignApproach;
                 DesignRange = systemCoolingTower.DesignRange;
+                DesignWaterFlowRateSizingType = systemCoolingTower.DesignWaterFlowRateSizingType;
                 DesignWaterFlowRate = systemCoolingTower.DesignWaterFlowRate;
                 MaxAirFlowRate = systemCoolingTower.MaxAirFlowRate?.Clone();
+                FanLoadRatio = systemCoolingTower.FanLoadRatio;
+                AirWaterFlowRatio = systemCoolingTower.AirWaterFlowRatio;
+                MinAirFlowRateSizingType = systemCoolingTower.DesignWaterFlowRateSizingType;
+                MinAirFlowRate = systemCoolingTower.MinAirFlowRate;
                 FanMode2Ratio = systemCoolingTower.FanMode2Ratio;
                 WaterDriftLoss = systemCoolingTower.WaterDriftLoss;
                 BlowdownConcentrationRatio = systemCoolingTower.BlowdownConcentrationRatio;
@@ -125,6 +134,11 @@ namespace SAM.Analytical.Systems
                 HeatTransferSurfaceArea = Core.Query.IJSAMObject<SizableValue>(jObject.Value<JObject>("HeatTransferSurfaceArea"));
             }
 
+            if (jObject.ContainsKey("LimitingWetBulbTemperatureSizingType"))
+            {
+                LimitingWetBulbTemperatureSizingType = Core.Query.Enum<SizingType>(jObject.Value<string>("LimitingWetBulbTemperatureSizingType"));
+            }
+
             if (jObject.ContainsKey("LimitingWetBulbTemperature"))
             {
                 LimitingWetBulbTemperature = jObject.Value<double>("LimitingWetBulbTemperature");
@@ -140,6 +154,11 @@ namespace SAM.Analytical.Systems
                 DesignRange = jObject.Value<double>("DesignRange");
             }
 
+            if (jObject.ContainsKey("DesignWaterFlowRateSizingType"))
+            {
+                DesignWaterFlowRateSizingType = Core.Query.Enum<SizingType>(jObject.Value<string>("DesignWaterFlowRateSizingType"));
+            }
+
             if (jObject.ContainsKey("DesignWaterFlowRate"))
             {
                 DesignWaterFlowRate = jObject.Value<double>("DesignWaterFlowRate");
@@ -148,6 +167,26 @@ namespace SAM.Analytical.Systems
             if (jObject.ContainsKey("MaxAirFlowRate"))
             {
                 MaxAirFlowRate = Core.Query.IJSAMObject<ModifiableValue>(jObject.Value<JObject>("MaxAirFlowRate"));
+            }
+
+            if (jObject.ContainsKey("FanLoadRatio"))
+            {
+                FanLoadRatio = jObject.Value<double>("FanLoadRatio");
+            }
+
+            if (jObject.ContainsKey("AirWaterFlowRatio"))
+            {
+                AirWaterFlowRatio = jObject.Value<double>("AirWaterFlowRatio");
+            }
+
+            if (jObject.ContainsKey("MinAirFlowRateSizingType"))
+            {
+                MinAirFlowRateSizingType = Core.Query.Enum<SizingType>(jObject.Value<string>("MinAirFlowRateSizingType"));
+            }
+
+            if (jObject.ContainsKey("MinAirFlowRate"))
+            {
+                MinAirFlowRate = jObject.Value<double>("MinAirFlowRate");
             }
 
             if (jObject.ContainsKey("FanMode2Ratio"))
@@ -218,6 +257,8 @@ namespace SAM.Analytical.Systems
                 result.Add("HeatTransferSurfaceArea", HeatTransferSurfaceArea.ToJObject());
             }
 
+            result.Add("LimitingWetBulbTemperatureSizingType", LimitingWetBulbTemperatureSizingType.ToString());
+
             if (!double.IsNaN(LimitingWetBulbTemperature))
             {
                 result.Add("LimitingWetBulbTemperature", LimitingWetBulbTemperature);
@@ -232,6 +273,8 @@ namespace SAM.Analytical.Systems
             {
                 result.Add("DesignRange", DesignRange);
             }
+
+            result.Add("DesignWaterFlowRateSizingType", DesignWaterFlowRateSizingType.ToString());
 
             if (!double.IsNaN(DesignWaterFlowRate))
             {
@@ -252,6 +295,8 @@ namespace SAM.Analytical.Systems
             {
                 result.Add("AirWaterFlowRatio", AirWaterFlowRatio);
             }
+
+            result.Add("MinAirFlowRateSizingType", MinAirFlowRateSizingType.ToString());
 
             if (!double.IsNaN(MinAirFlowRate))
             {
