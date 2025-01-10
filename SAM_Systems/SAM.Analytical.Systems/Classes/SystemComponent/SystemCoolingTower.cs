@@ -15,13 +15,13 @@ namespace SAM.Analytical.Systems
         public double HeatTransferCoefficient { get; set; }
         public SizingType HeatTransferSurfaceAreaSizingType { get; set; }
         public SizableValue HeatTransferSurfaceArea { get; set; }
-        public SizingType LimitingWetBulbTemperatureSizingType { get; set; }
-        public double LimitingWetBulbTemperature { get; set; }
+        public ExternalWetBulbTemperatureSizingType ExternalWetBulbTemperatureSizingType { get; set; }
+        public double ExternalWetBulbTemperature { get; set; }
         public double DesignApproach { get; set; }
         public double DesignRange { get; set; }
-        public SizingType DesignWaterFlowRateSizingType { get; set; }
+        public DesignWaterFlowRateSizingType DesignWaterFlowRateSizingType { get; set; }
         public double DesignWaterFlowRate { get; set; }
-        public SizingType MaxAirFlowRateSizingType { get; set; }
+        public MaxAirFlowRateSizingType MaxAirFlowRateSizingType { get; set; }
         public ModifiableValue MaxAirFlowRate { get; set; }
         public double FanLoadRatio { get; set; }
         public double AirWaterFlowRatio { get; set; }
@@ -51,8 +51,8 @@ namespace SAM.Analytical.Systems
                 HeatTransferCoefficient = systemCoolingTower.HeatTransferCoefficient;
                 HeatTransferSurfaceAreaSizingType = systemCoolingTower.HeatTransferSurfaceAreaSizingType;
                 HeatTransferSurfaceArea = systemCoolingTower?.HeatTransferSurfaceArea?.Clone();
-                LimitingWetBulbTemperatureSizingType = systemCoolingTower.LimitingWetBulbTemperatureSizingType;
-                LimitingWetBulbTemperature = systemCoolingTower.LimitingWetBulbTemperature;
+                ExternalWetBulbTemperatureSizingType = systemCoolingTower.ExternalWetBulbTemperatureSizingType;
+                ExternalWetBulbTemperature = systemCoolingTower.ExternalWetBulbTemperature;
                 DesignApproach = systemCoolingTower.DesignApproach;
                 DesignRange = systemCoolingTower.DesignRange;
                 DesignWaterFlowRateSizingType = systemCoolingTower.DesignWaterFlowRateSizingType;
@@ -141,14 +141,14 @@ namespace SAM.Analytical.Systems
                 HeatTransferSurfaceArea = Core.Query.IJSAMObject<SizableValue>(jObject.Value<JObject>("HeatTransferSurfaceArea"));
             }
 
-            if (jObject.ContainsKey("LimitingWetBulbTemperatureSizingType"))
+            if (jObject.ContainsKey("ExternalWetBulbTemperatureSizingType"))
             {
-                LimitingWetBulbTemperatureSizingType = Core.Query.Enum<SizingType>(jObject.Value<string>("LimitingWetBulbTemperatureSizingType"));
+                ExternalWetBulbTemperatureSizingType = Core.Query.Enum<ExternalWetBulbTemperatureSizingType>(jObject.Value<string>("ExternalWetBulbTemperatureSizingType"));
             }
 
-            if (jObject.ContainsKey("LimitingWetBulbTemperature"))
+            if (jObject.ContainsKey("ExternalWetBulbTemperature"))
             {
-                LimitingWetBulbTemperature = jObject.Value<double>("LimitingWetBulbTemperature");
+                ExternalWetBulbTemperature = jObject.Value<double>("ExternalWetBulbTemperature");
             }
 
             if (jObject.ContainsKey("DesignApproach"))
@@ -163,7 +163,7 @@ namespace SAM.Analytical.Systems
 
             if (jObject.ContainsKey("DesignWaterFlowRateSizingType"))
             {
-                DesignWaterFlowRateSizingType = Core.Query.Enum<SizingType>(jObject.Value<string>("DesignWaterFlowRateSizingType"));
+                DesignWaterFlowRateSizingType = Core.Query.Enum<DesignWaterFlowRateSizingType>(jObject.Value<string>("DesignWaterFlowRateSizingType"));
             }
 
             if (jObject.ContainsKey("DesignWaterFlowRate"))
@@ -173,7 +173,7 @@ namespace SAM.Analytical.Systems
 
             if (jObject.ContainsKey("MaxAirFlowRateSizingType"))
             {
-                MaxAirFlowRateSizingType = Core.Query.Enum<SizingType>(jObject.Value<string>("MaxAirFlowRateSizingType"));
+                MaxAirFlowRateSizingType = Core.Query.Enum<MaxAirFlowRateSizingType>(jObject.Value<string>("MaxAirFlowRateSizingType"));
             }
 
             if (jObject.ContainsKey("MaxAirFlowRate"))
@@ -266,11 +266,11 @@ namespace SAM.Analytical.Systems
                 result.Add("HeatTransferSurfaceArea", HeatTransferSurfaceArea.ToJObject());
             }
 
-            result.Add("LimitingWetBulbTemperatureSizingType", LimitingWetBulbTemperatureSizingType.ToString());
+            result.Add("ExternalWetBulbTemperatureSizingType", ExternalWetBulbTemperatureSizingType.ToString());
 
-            if (!double.IsNaN(LimitingWetBulbTemperature))
+            if (!double.IsNaN(ExternalWetBulbTemperature))
             {
-                result.Add("LimitingWetBulbTemperature", LimitingWetBulbTemperature);
+                result.Add("ExternalWetBulbTemperature", ExternalWetBulbTemperature);
             }
 
             if (!double.IsNaN(DesignApproach))
