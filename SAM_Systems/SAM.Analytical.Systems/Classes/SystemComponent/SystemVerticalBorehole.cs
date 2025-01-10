@@ -13,14 +13,14 @@ namespace SAM.Analytical.Systems
         public double GroundConductivity { get; set; }
         public double GroundHeatCapacity { get; set; }
         public double GroundDensity { get; set; }
-        public double Count { get; set; }
+        public int NumberOfBoreholes { get; set; }
         public GFunction GFunction { get; set; }
-        public double ReferenceRatio { get; set; }
+        public double GFunctionReferenceRatio { get; set; }
         public double PipeInDiameter { get; set; }
         public double PipeOutDiameter { get; set; }
         public double PipeConductivity { get; set; }
         public double GroutConductivity { get; set; }
-        public double GroundTemperature { get; set; }
+        public double GroundTemperatureAve { get; set; }
 
         public SystemVerticalBorehole(string name)
             : base(name)
@@ -38,16 +38,16 @@ namespace SAM.Analytical.Systems
                 Length = systemVerticalBorehole.Length;
                 Diameter = systemVerticalBorehole.Diameter;
                 GroundConductivity = systemVerticalBorehole.GroundConductivity;
-                GroundHeatCapacity = systemVerticalBorehole.GroundConductivity;
-                GroundHeatCapacity = systemVerticalBorehole.GroundDensity;
-                Count = systemVerticalBorehole.Count;
+                GroundHeatCapacity = systemVerticalBorehole.GroundHeatCapacity;
+                GroundDensity = systemVerticalBorehole.GroundDensity;
+                NumberOfBoreholes = systemVerticalBorehole.NumberOfBoreholes;
                 GFunction = systemVerticalBorehole.GFunction?.Clone();
-                ReferenceRatio = systemVerticalBorehole.ReferenceRatio;
+                GFunctionReferenceRatio = systemVerticalBorehole.GFunctionReferenceRatio;
                 PipeInDiameter = systemVerticalBorehole.PipeInDiameter;
                 PipeOutDiameter = systemVerticalBorehole.PipeOutDiameter;
                 PipeConductivity = systemVerticalBorehole.PipeConductivity;
                 GroutConductivity = systemVerticalBorehole.GroutConductivity;
-                GroundTemperature = systemVerticalBorehole.GroundTemperature;
+                GroundTemperatureAve = systemVerticalBorehole.GroundTemperatureAve;
             }
         }
 
@@ -113,9 +113,9 @@ namespace SAM.Analytical.Systems
                 GroundDensity = jObject.Value<double>("GroundDensity");
             }
 
-            if (jObject.ContainsKey("Count"))
+            if (jObject.ContainsKey("NumberOfBoreholes"))
             {
-                Count = jObject.Value<double>("Count");
+                NumberOfBoreholes = jObject.Value<int>("NumberOfBoreholes");
             }
 
             if (jObject.ContainsKey("GFunction"))
@@ -123,9 +123,9 @@ namespace SAM.Analytical.Systems
                 GFunction = Core.Query.IJSAMObject<GFunction>(jObject.Value<JObject>("GFunction"));
             }
 
-            if (jObject.ContainsKey("ReferenceRatio"))
+            if (jObject.ContainsKey("GFunctionReferenceRatio"))
             {
-                ReferenceRatio = jObject.Value<double>("ReferenceRatio");
+                GFunctionReferenceRatio = jObject.Value<double>("GFunctionReferenceRatio");
             }
 
             if (jObject.ContainsKey("PipeInDiameter"))
@@ -148,9 +148,9 @@ namespace SAM.Analytical.Systems
                 GroutConductivity = jObject.Value<double>("GroutConductivity");
             }
 
-            if (jObject.ContainsKey("GroundTemperature"))
+            if (jObject.ContainsKey("GroundTemperatureAve"))
             {
-                GroundTemperature = jObject.Value<double>("GroundTemperature");
+                GroundTemperatureAve = jObject.Value<double>("GroundTemperatureAve");
             }
 
             return result;
@@ -199,19 +199,16 @@ namespace SAM.Analytical.Systems
                 result.Add("GroundDensity", GroundDensity);
             }
 
-            if (!double.IsNaN(Count))
-            {
-                result.Add("Count", Count);
-            }
+            result.Add("NumberOfBoreholes", NumberOfBoreholes);
 
             if (GFunction != null)
             {
                 result.Add("GFunction", GFunction.ToJObject());
             }
 
-            if (!double.IsNaN(ReferenceRatio))
+            if (!double.IsNaN(GFunctionReferenceRatio))
             {
-                result.Add("ReferenceRatio", ReferenceRatio);
+                result.Add("GFunctionReferenceRatio", GFunctionReferenceRatio);
             }
 
             if (!double.IsNaN(PipeInDiameter))
@@ -234,9 +231,9 @@ namespace SAM.Analytical.Systems
                 result.Add("GroutConductivity", GroutConductivity);
             }
 
-            if (!double.IsNaN(GroundTemperature))
+            if (!double.IsNaN(GroundTemperatureAve))
             {
-                result.Add("GroundTemperature", GroundTemperature);
+                result.Add("GroundTemperatureAve", GroundTemperatureAve);
             }
 
             return result;
