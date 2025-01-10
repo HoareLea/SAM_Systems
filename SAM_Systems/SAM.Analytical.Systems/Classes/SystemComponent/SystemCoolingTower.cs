@@ -21,10 +21,10 @@ namespace SAM.Analytical.Systems
         public double DesignRange { get; set; }
         public SizingType DesignWaterFlowRateSizingType { get; set; }
         public double DesignWaterFlowRate { get; set; }
+        public SizingType MaxAirFlowRateSizingType { get; set; }
         public ModifiableValue MaxAirFlowRate { get; set; }
         public double FanLoadRatio { get; set; }
         public double AirWaterFlowRatio { get; set; }
-        public SizingType MinAirFlowRateSizingType { get; set; }
         public double MinAirFlowRate { get; set; }
         public double FanMode2Ratio { get; set; }
         public double WaterDriftLoss { get; set; }
@@ -57,10 +57,10 @@ namespace SAM.Analytical.Systems
                 DesignRange = systemCoolingTower.DesignRange;
                 DesignWaterFlowRateSizingType = systemCoolingTower.DesignWaterFlowRateSizingType;
                 DesignWaterFlowRate = systemCoolingTower.DesignWaterFlowRate;
+                MaxAirFlowRateSizingType = systemCoolingTower.MaxAirFlowRateSizingType;
                 MaxAirFlowRate = systemCoolingTower.MaxAirFlowRate?.Clone();
                 FanLoadRatio = systemCoolingTower.FanLoadRatio;
                 AirWaterFlowRatio = systemCoolingTower.AirWaterFlowRatio;
-                MinAirFlowRateSizingType = systemCoolingTower.DesignWaterFlowRateSizingType;
                 MinAirFlowRate = systemCoolingTower.MinAirFlowRate;
                 FanMode2Ratio = systemCoolingTower.FanMode2Ratio;
                 WaterDriftLoss = systemCoolingTower.WaterDriftLoss;
@@ -171,6 +171,11 @@ namespace SAM.Analytical.Systems
                 DesignWaterFlowRate = jObject.Value<double>("DesignWaterFlowRate");
             }
 
+            if (jObject.ContainsKey("MaxAirFlowRateSizingType"))
+            {
+                MaxAirFlowRateSizingType = Core.Query.Enum<SizingType>(jObject.Value<string>("MaxAirFlowRateSizingType"));
+            }
+
             if (jObject.ContainsKey("MaxAirFlowRate"))
             {
                 MaxAirFlowRate = Core.Query.IJSAMObject<ModifiableValue>(jObject.Value<JObject>("MaxAirFlowRate"));
@@ -184,11 +189,6 @@ namespace SAM.Analytical.Systems
             if (jObject.ContainsKey("AirWaterFlowRatio"))
             {
                 AirWaterFlowRatio = jObject.Value<double>("AirWaterFlowRatio");
-            }
-
-            if (jObject.ContainsKey("MinAirFlowRateSizingType"))
-            {
-                MinAirFlowRateSizingType = Core.Query.Enum<SizingType>(jObject.Value<string>("MinAirFlowRateSizingType"));
             }
 
             if (jObject.ContainsKey("MinAirFlowRate"))
@@ -290,6 +290,8 @@ namespace SAM.Analytical.Systems
                 result.Add("DesignWaterFlowRate", DesignWaterFlowRate);
             }
 
+            result.Add("MaxAirFlowRateSizingType", MaxAirFlowRateSizingType.ToString());
+
             if (MaxAirFlowRate != null)
             {
                 result.Add("MaxAirFlowRate", MaxAirFlowRate.ToJObject());
@@ -304,8 +306,6 @@ namespace SAM.Analytical.Systems
             {
                 result.Add("AirWaterFlowRatio", AirWaterFlowRatio);
             }
-
-            result.Add("MinAirFlowRateSizingType", MinAirFlowRateSizingType.ToString());
 
             if (!double.IsNaN(MinAirFlowRate))
             {
