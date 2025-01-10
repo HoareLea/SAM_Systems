@@ -27,12 +27,12 @@ namespace SAM.Analytical.Systems
         public double MinAirFlowRate { get; set; }
         public double MinAirFlowRatio { get; set; }
         public bool VariableFans { get; set; }
-        public double DesignExternalDryBulbTemperature { get; set; }
-        public SizingType DesignExternalDryBulbTemperatureSizingType { get; set; }
+        public double ExternalWetBulbTemperature { get; set; }
+        public ExternalWetBulbTemperatureSizingType ExternalWetBulbTemperatureSizingType { get; set; }
         public double LimitingDryBulbTemperature { get; set; }
         public double DesignRange { get; set; }
         public double DesignWaterFlowRate { get; set; }
-        public SizingType WaterFlowSizingType { get; set; }
+        public DesignWaterFlowRateSizingType DesignWaterFlowRateSizingType { get; set; }
 
 
         public SystemDryCooler(string name)
@@ -67,12 +67,12 @@ namespace SAM.Analytical.Systems
                 MinAirFlowRate = systemDryCooler.MinAirFlowRate;
                 MinAirFlowRatio = systemDryCooler.MinAirFlowRatio;
                 VariableFans = systemDryCooler.VariableFans;
-                DesignExternalDryBulbTemperature = systemDryCooler.DesignExternalDryBulbTemperature;
-                DesignExternalDryBulbTemperatureSizingType = systemDryCooler.DesignExternalDryBulbTemperatureSizingType;
+                ExternalWetBulbTemperature = systemDryCooler.ExternalWetBulbTemperature;
+                ExternalWetBulbTemperatureSizingType = systemDryCooler.ExternalWetBulbTemperatureSizingType;
                 LimitingDryBulbTemperature = systemDryCooler.LimitingDryBulbTemperature;
                 DesignRange = systemDryCooler.DesignRange;
                 DesignWaterFlowRate = systemDryCooler.DesignWaterFlowRate;
-                WaterFlowSizingType = systemDryCooler.WaterFlowSizingType;
+                DesignWaterFlowRateSizingType = systemDryCooler.DesignWaterFlowRateSizingType;
             }
         }
 
@@ -208,14 +208,14 @@ namespace SAM.Analytical.Systems
                 VariableFans = jObject.Value<bool>("VariableFans");
             }
 
-            if (jObject.ContainsKey("DesignExternalDryBulbTemperature"))
+            if (jObject.ContainsKey("ExternalWetBulbTemperature"))
             {
-                DesignExternalDryBulbTemperature = jObject.Value<double>("DesignExternalDryBulbTemperature");
+                ExternalWetBulbTemperature = jObject.Value<double>("ExternalWetBulbTemperature");
             }
 
-            if (jObject.ContainsKey("DesignExternalDryBulbTemperatureSizingType"))
+            if (jObject.ContainsKey("ExternalWetBulbTemperatureSizingType"))
             {
-                DesignExternalDryBulbTemperatureSizingType = Core.Query.Enum<SizingType>(jObject.Value<string>("DesignExternalDryBulbTemperatureSizingType"));
+                ExternalWetBulbTemperatureSizingType = Core.Query.Enum<ExternalWetBulbTemperatureSizingType>(jObject.Value<string>("ExternalWetBulbTemperatureSizingType"));
             }
 
             if (jObject.ContainsKey("LimitingDryBulbTemperature"))
@@ -233,9 +233,9 @@ namespace SAM.Analytical.Systems
                 DesignWaterFlowRate = jObject.Value<double>("DesignWaterFlowRate");
             }
 
-            if (jObject.ContainsKey("WaterFlowSizingType"))
+            if (jObject.ContainsKey("DesignWaterFlowRateSizingType"))
             {
-                WaterFlowSizingType = Core.Query.Enum<SizingType>(jObject.Value<string>("WaterFlowSizingType"));
+                DesignWaterFlowRateSizingType = Core.Query.Enum<DesignWaterFlowRateSizingType>(jObject.Value<string>("DesignWaterFlowRateSizingType"));
             }
 
             return result;
@@ -339,12 +339,12 @@ namespace SAM.Analytical.Systems
 
             result.Add("VariableFans", VariableFans);
 
-            if (!double.IsNaN(DesignExternalDryBulbTemperature))
+            if (!double.IsNaN(ExternalWetBulbTemperature))
             {
-                result.Add("DesignExternalDryBulbTemperature", DesignExternalDryBulbTemperature);
+                result.Add("ExternalWetBulbTemperature", ExternalWetBulbTemperature);
             }
 
-            result.Add("DesignExternalDryBulbTemperatureSizingType", DesignExternalDryBulbTemperatureSizingType.ToString());
+            result.Add("ExternalWetBulbTemperatureSizingType", ExternalWetBulbTemperatureSizingType.ToString());
 
             if (!double.IsNaN(LimitingDryBulbTemperature))
             {
@@ -361,7 +361,7 @@ namespace SAM.Analytical.Systems
                 result.Add("DesignWaterFlowRate", DesignWaterFlowRate);
             }
 
-            result.Add("WaterFlowSizingType", WaterFlowSizingType.ToString());
+            result.Add("DesignWaterFlowRateSizingType", DesignWaterFlowRateSizingType.ToString());
 
             return result;
         }
