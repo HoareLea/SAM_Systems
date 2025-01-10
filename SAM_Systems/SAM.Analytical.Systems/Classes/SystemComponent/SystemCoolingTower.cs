@@ -15,7 +15,7 @@ namespace SAM.Analytical.Systems
         public double HeatTransferCoefficient { get; set; }
         public SizingType HeatTransferSurfaceAreaSizingType { get; set; }
         public SizableValue HeatTransferSurfaceArea { get; set; }
-        public ExternalWetBulbTemperatureSizingType ExternalWetBulbTemperatureSizingType { get; set; }
+        public TemperatureSizingType ExternalWetBulbTemperatureSizingType { get; set; }
         public double ExternalWetBulbTemperature { get; set; }
         public double DesignApproach { get; set; }
         public double DesignRange { get; set; }
@@ -143,7 +143,7 @@ namespace SAM.Analytical.Systems
 
             if (jObject.ContainsKey("ExternalWetBulbTemperatureSizingType"))
             {
-                ExternalWetBulbTemperatureSizingType = Core.Query.Enum<ExternalWetBulbTemperatureSizingType>(jObject.Value<string>("ExternalWetBulbTemperatureSizingType"));
+                ExternalWetBulbTemperatureSizingType = Core.Query.Enum<TemperatureSizingType>(jObject.Value<string>("ExternalWetBulbTemperatureSizingType"));
             }
 
             if (jObject.ContainsKey("ExternalWetBulbTemperature"))

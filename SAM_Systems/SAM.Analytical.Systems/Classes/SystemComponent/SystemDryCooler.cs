@@ -27,8 +27,8 @@ namespace SAM.Analytical.Systems
         public double MinAirFlowRate { get; set; }
         public double MinAirFlowRatio { get; set; }
         public bool VariableFans { get; set; }
-        public double ExternalWetBulbTemperature { get; set; }
-        public ExternalWetBulbTemperatureSizingType ExternalWetBulbTemperatureSizingType { get; set; }
+        public double ExternalDryBulbTemperature { get; set; }
+        public TemperatureSizingType ExternalDryBulbTemperatureSizingType { get; set; }
         public double LimitingDryBulbTemperature { get; set; }
         public double DesignRange { get; set; }
         public double DesignWaterFlowRate { get; set; }
@@ -67,8 +67,8 @@ namespace SAM.Analytical.Systems
                 MinAirFlowRate = systemDryCooler.MinAirFlowRate;
                 MinAirFlowRatio = systemDryCooler.MinAirFlowRatio;
                 VariableFans = systemDryCooler.VariableFans;
-                ExternalWetBulbTemperature = systemDryCooler.ExternalWetBulbTemperature;
-                ExternalWetBulbTemperatureSizingType = systemDryCooler.ExternalWetBulbTemperatureSizingType;
+                ExternalDryBulbTemperature = systemDryCooler.ExternalDryBulbTemperature;
+                ExternalDryBulbTemperatureSizingType = systemDryCooler.ExternalDryBulbTemperatureSizingType;
                 LimitingDryBulbTemperature = systemDryCooler.LimitingDryBulbTemperature;
                 DesignRange = systemDryCooler.DesignRange;
                 DesignWaterFlowRate = systemDryCooler.DesignWaterFlowRate;
@@ -208,14 +208,14 @@ namespace SAM.Analytical.Systems
                 VariableFans = jObject.Value<bool>("VariableFans");
             }
 
-            if (jObject.ContainsKey("ExternalWetBulbTemperature"))
+            if (jObject.ContainsKey("ExternalDryBulbTemperature"))
             {
-                ExternalWetBulbTemperature = jObject.Value<double>("ExternalWetBulbTemperature");
+                ExternalDryBulbTemperature = jObject.Value<double>("ExternalDryBulbTemperature");
             }
 
-            if (jObject.ContainsKey("ExternalWetBulbTemperatureSizingType"))
+            if (jObject.ContainsKey("ExternalDryBulbTemperatureSizingType"))
             {
-                ExternalWetBulbTemperatureSizingType = Core.Query.Enum<ExternalWetBulbTemperatureSizingType>(jObject.Value<string>("ExternalWetBulbTemperatureSizingType"));
+                ExternalDryBulbTemperatureSizingType = Core.Query.Enum<TemperatureSizingType>(jObject.Value<string>("ExternalDryBulbTemperatureSizingType"));
             }
 
             if (jObject.ContainsKey("LimitingDryBulbTemperature"))
@@ -339,12 +339,12 @@ namespace SAM.Analytical.Systems
 
             result.Add("VariableFans", VariableFans);
 
-            if (!double.IsNaN(ExternalWetBulbTemperature))
+            if (!double.IsNaN(ExternalDryBulbTemperature))
             {
-                result.Add("ExternalWetBulbTemperature", ExternalWetBulbTemperature);
+                result.Add("ExternalDryBulbTemperature", ExternalDryBulbTemperature);
             }
 
-            result.Add("ExternalWetBulbTemperatureSizingType", ExternalWetBulbTemperatureSizingType.ToString());
+            result.Add("ExternalDryBulbTemperatureSizingType", ExternalDryBulbTemperatureSizingType.ToString());
 
             if (!double.IsNaN(LimitingDryBulbTemperature))
             {
