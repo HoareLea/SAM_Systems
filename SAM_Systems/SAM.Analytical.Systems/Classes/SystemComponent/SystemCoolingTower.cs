@@ -13,6 +13,7 @@ namespace SAM.Analytical.Systems
         public bool VariableFans { get; set; }
         public ModifiableValue FanSFP { get; set; }
         public double HeatTransferCoefficient { get; set; }
+        public SizingType HeatTransferSurfaceAreaSizingType { get; set; }
         public SizableValue HeatTransferSurfaceArea { get; set; }
         public SizingType LimitingWetBulbTemperatureSizingType { get; set; }
         public double LimitingWetBulbTemperature { get; set; }
@@ -48,6 +49,7 @@ namespace SAM.Analytical.Systems
                 VariableFans = systemCoolingTower.VariableFans;
                 FanSFP = systemCoolingTower.FanSFP?.Clone();
                 HeatTransferCoefficient = systemCoolingTower.HeatTransferCoefficient;
+                HeatTransferSurfaceAreaSizingType = systemCoolingTower.HeatTransferSurfaceAreaSizingType;
                 HeatTransferSurfaceArea = systemCoolingTower?.HeatTransferSurfaceArea?.Clone();
                 LimitingWetBulbTemperatureSizingType = systemCoolingTower.LimitingWetBulbTemperatureSizingType;
                 LimitingWetBulbTemperature = systemCoolingTower.LimitingWetBulbTemperature;
@@ -127,6 +129,11 @@ namespace SAM.Analytical.Systems
             if (jObject.ContainsKey("HeatTransferCoefficient"))
             {
                 HeatTransferCoefficient = jObject.Value<double>("HeatTransferCoefficient");
+            }
+
+            if (jObject.ContainsKey("HeatTransferSurfaceAreaSizingType"))
+            {
+                HeatTransferSurfaceAreaSizingType = Core.Query.Enum<SizingType>(jObject.Value<string>("HeatTransferSurfaceAreaSizingType"));
             }
 
             if (jObject.ContainsKey("HeatTransferSurfaceArea"))
@@ -251,6 +258,8 @@ namespace SAM.Analytical.Systems
             {
                 result.Add("HeatTransferCoefficient", HeatTransferCoefficient);
             }
+
+            result.Add("HeatTransferSurfaceAreaSizingType", HeatTransferSurfaceAreaSizingType.ToString());
 
             if (HeatTransferSurfaceArea != null)
             {
