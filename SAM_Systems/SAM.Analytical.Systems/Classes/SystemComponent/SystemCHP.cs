@@ -10,7 +10,7 @@ namespace SAM.Analytical.Systems
         public ModifiableValue Efficiency { get; set; }
         public ModifiableValue HeatPowerRatio { get; set; }
         public SizableValue Duty { get; set; }
-        public double DesignTemperatureDiffrence { get; set; }
+        public double DesignTemperatureDifference { get; set; }
         public double Capacity { get; set; }
         public double DesignPressureDrop { get; set; }
         public bool LossesInSizing { get; set; }
@@ -30,7 +30,7 @@ namespace SAM.Analytical.Systems
                 Efficiency = systemCHP.Efficiency;
                 HeatPowerRatio = systemCHP.HeatPowerRatio;
                 Duty = systemCHP.Duty;
-                DesignTemperatureDiffrence = systemCHP.DesignTemperatureDiffrence;
+                DesignTemperatureDifference = systemCHP.DesignTemperatureDifference;
                 Capacity = systemCHP.Capacity;
                 DesignPressureDrop = systemCHP.DesignPressureDrop;
                 LossesInSizing = systemCHP.LossesInSizing;
@@ -84,9 +84,9 @@ namespace SAM.Analytical.Systems
                 Duty = Core.Query.IJSAMObject<SizableValue>(jObject.Value<JObject>("Duty"));
             }
 
-            if (jObject.ContainsKey("DesignTemperatureDiffrence"))
+            if (jObject.ContainsKey("DesignTemperatureDifference"))
             {
-                DesignTemperatureDiffrence = jObject.Value<double>("DesignTemperatureDiffrence");
+                DesignTemperatureDifference = jObject.Value<double>("DesignTemperatureDifference");
             }
 
             if (jObject.ContainsKey("Capacity"))
@@ -135,9 +135,9 @@ namespace SAM.Analytical.Systems
                 result.Add("Duty", Duty.ToJObject());
             }
 
-            if (!double.IsNaN(DesignTemperatureDiffrence))
+            if (!double.IsNaN(DesignTemperatureDifference))
             {
-                result.Add("DesignTemperatureDiffrence", DesignTemperatureDiffrence);
+                result.Add("DesignTemperatureDifference", DesignTemperatureDifference);
             }
 
             if (!double.IsNaN(Capacity))

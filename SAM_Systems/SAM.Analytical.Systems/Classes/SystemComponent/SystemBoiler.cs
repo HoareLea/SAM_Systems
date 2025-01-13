@@ -12,7 +12,7 @@ namespace SAM.Analytical.Systems
 
         public SizableValue Duty { get; set; }
 
-        public double DesignTemperatureDiffrence { get; set; }
+        public double DesignTemperatureDifference { get; set; }
 
         public double Capacity { get; set; }
 
@@ -30,7 +30,7 @@ namespace SAM.Analytical.Systems
                 Setpoint = systemBoiler.Setpoint?.Clone();
                 Efficiency = systemBoiler.Efficiency?.Clone();
                 Duty = systemBoiler.Duty?.Clone();
-                DesignTemperatureDiffrence = systemBoiler.DesignTemperatureDiffrence;
+                DesignTemperatureDifference = systemBoiler.DesignTemperatureDifference;
                 Capacity = systemBoiler.Capacity;
                 DesignPressureDrop = systemBoiler.DesignPressureDrop;
                 AncillaryLoad = systemBoiler.AncillaryLoad?.Clone();
@@ -86,9 +86,9 @@ namespace SAM.Analytical.Systems
                 Duty = Core.Query.IJSAMObject<SizableValue>(jObject.Value<JObject>("Duty"));
             }
 
-            if (jObject.ContainsKey("DesignTemperatureDiffrence"))
+            if (jObject.ContainsKey("DesignTemperatureDifference"))
             {
-                DesignTemperatureDiffrence = jObject.Value<double>("DesignTemperatureDiffrence");
+                DesignTemperatureDifference = jObject.Value<double>("DesignTemperatureDifference");
             }
 
             if (jObject.ContainsKey("Capacity"))
@@ -137,9 +137,9 @@ namespace SAM.Analytical.Systems
                 result.Add("Duty", Duty.ToJObject());
             }
 
-            if (double.IsNaN(DesignTemperatureDiffrence))
+            if (double.IsNaN(DesignTemperatureDifference))
             {
-                result.Add("DesignTemperatureDiffrence", DesignTemperatureDiffrence);
+                result.Add("DesignTemperatureDifference", DesignTemperatureDifference);
             }
 
             if (double.IsNaN(Capacity))
