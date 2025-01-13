@@ -1,64 +1,75 @@
 ﻿using Newtonsoft.Json.Linq;
 using SAM.Core;
-using SAM.Geometry.Planar;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace SAM.Analytical.Systems
 {
-    public class GFunction : IJSAMObject
+    public class Distribution : ModifiableValue
     {
-        private List<Point2D> point2Ds = new List<Point2D>();
+        private bool isEfficiency;
 
-        public GFunction(IEnumerable<Point2D> point2Ds)
+        public Distribution(IModifier modifier, double value, bool isEfficiency)
+            : base(modifier, value)
         {
-            this.point2Ds = point2Ds == null ? null : point2Ds.ToList().ConvertAll(x => x == null ? null : new Point2D(x));
+            this.isEfficiency = isEfficiency;
         }
 
-        public GFunction(GFunction gFunction)
-            :this(gFunction?.point2Ds)
+        public Distribution(double value, bool isEfficiency)
+            : base(value)
+        {
+            this.isEfficiency = isEfficiency;
+        }
+
+        public Distribution(Distribution distribution)
+            : base(distribution)
+        {
+            if (distribution != null)
+            {
+                isEfficiency = distribution.isEfficiency;
+            }
+        }
+
+        public Distribution(JObject jObject)
+            : base(jObject)
         {
 
         }
-        public GFunction(JObject jObject)
-        {
-            FromJObject(jObject);
-        }
 
-        public List<Point2D> Point2Ds
+        public bool IsEfficiency
         {
             get
             {
-                return point2Ds?.ConvertAll(x => x == null ? null : new Point2D(x));
+                return isEfficiency;
             }
         }
 
         public virtual bool FromJObject(JObject jObject)
         {
-            if (jObject == null)
+            bool result = base.FromJObject(jObject);
+            if (!result)
             {
-                return false;
+                return result;
             }
 
-            if (jObject.ContainsKey("Point2Ds"))
+            if (jObject.ContainsKey("IsEfficiency"))
             {
-                point2Ds = Core.Create.IJSAMObjects<Point2D>(jObject.Value<JArray>("Point2Ds"));
+                isEfficiency = jObject.Value<bool>("IsEfficiency");
             }
 
-            return true;
+            return result;
         }
 
         public virtual JObject ToJObject()
         {
-            JObject result = new JObject();
-            result.Add("_type", Core.Query.FullTypeName(this));
-
-            if (point2Ds != null)
+            JObject result = base.ToJObject();
+            if (result == null)
             {
-                result.Add("Point2Ds", Core.Create.JArray(point2Ds));
+                return result;
             }
+
+            result.Add("IsEfficiency", isEfficiency);
 
             return result;
         }
     }
 }
+
