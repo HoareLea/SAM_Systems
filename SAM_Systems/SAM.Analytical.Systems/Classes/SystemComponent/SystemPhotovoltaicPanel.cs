@@ -34,7 +34,7 @@ namespace SAM.Analytical.Systems
             if(systemPhotovoltaicPanel != null)
             {
                 PanelEfficiency = systemPhotovoltaicPanel.PanelEfficiency?.Clone();
-                InverterEfficiency = systemPhotovoltaicPanel.InverterEfficiency?.Clone();
+                InverterSize = systemPhotovoltaicPanel.InverterSize?.Clone();
                 Multiplicity = systemPhotovoltaicPanel.Multiplicity;
                 InverterEfficiency = systemPhotovoltaicPanel?.InverterEfficiency?.Clone();
                 UseZoneSurface = systemPhotovoltaicPanel.UseZoneSurface;
