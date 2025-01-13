@@ -12,6 +12,8 @@ namespace SAM.Analytical.Systems
 
         public double DesignTemperatureDifference { get; set; }
 
+        public double DesignPressureDrop { get; set; }
+
         public bool LossesInSizing { get; set; }
 
         public EquipmentSequence Sequence { get; set; }
@@ -30,6 +32,7 @@ namespace SAM.Analytical.Systems
                 Setpoint = systemMultiBoiler.Setpoint?.Clone();
                 Duty = systemMultiBoiler.Duty.Clone();
                 DesignTemperatureDifference = systemMultiBoiler.DesignTemperatureDifference;
+                DesignPressureDrop = systemMultiBoiler.DesignPressureDrop;
                 LossesInSizing = systemMultiBoiler.LossesInSizing;
                 Sequence = systemMultiBoiler.Sequence;
             }
@@ -77,6 +80,11 @@ namespace SAM.Analytical.Systems
                 DesignTemperatureDifference = jObject.Value<double>("DesignTemperatureDifference");
             }
 
+            if (jObject.ContainsKey("DesignPressureDrop"))
+            {
+                DesignPressureDrop = jObject.Value<double>("DesignPressureDrop");
+            }
+
             if (jObject.ContainsKey("LossesInSizing"))
             {
                 LossesInSizing = jObject.Value<bool>("LossesInSizing");
@@ -111,6 +119,11 @@ namespace SAM.Analytical.Systems
             if (!double.IsNaN(DesignTemperatureDifference))
             {
                 result.Add("DesignTemperatureDifference", DesignTemperatureDifference);
+            }
+
+            if (!double.IsNaN(DesignPressureDrop))
+            {
+                result.Add("DesignPressureDrop", DesignPressureDrop);
             }
 
             result.Add("LossesInSizing", LossesInSizing);
