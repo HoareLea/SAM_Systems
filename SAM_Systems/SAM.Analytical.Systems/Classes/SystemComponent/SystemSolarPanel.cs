@@ -14,7 +14,7 @@ namespace SAM.Analytical.Systems
         public double DesignPressureDrop { get; set; }
         public bool NoNegativeLoad { get; set; }
         public bool UseZoneSurface { get; set; }
-        public double Area { get; set; }
+        public double SweptArea { get; set; }
         public ModifiableValue Inclination { get; set; }
         public ModifiableValue Orientation { get; set; }
         public double Reflectance { get; set; }
@@ -39,7 +39,7 @@ namespace SAM.Analytical.Systems
                 DesignPressureDrop = systemSolarPanel.DesignPressureDrop;
                 NoNegativeLoad = systemSolarPanel.NoNegativeLoad;
                 UseZoneSurface = systemSolarPanel.UseZoneSurface;
-                Area = systemSolarPanel.Area;
+                SweptArea = systemSolarPanel.SweptArea;
                 Inclination = systemSolarPanel.Inclination?.Clone();
                 Orientation = systemSolarPanel.Orientation?.Clone();
                 Reflectance = systemSolarPanel.Reflectance;
@@ -114,9 +114,9 @@ namespace SAM.Analytical.Systems
                 NoNegativeLoad = jObject.Value<bool>("NoNegativeLoad");
             }
 
-            if (jObject.ContainsKey("Area"))
+            if (jObject.ContainsKey("SweptArea"))
             {
-                Area = jObject.Value<double>("Area");
+                SweptArea = jObject.Value<double>("SweptArea");
             }
 
             if (jObject.ContainsKey("Inclination"))
@@ -181,9 +181,9 @@ namespace SAM.Analytical.Systems
 
             result.Add("UseZoneSurface", UseZoneSurface);
 
-            if (!double.IsNaN(Area))
+            if (!double.IsNaN(SweptArea))
             {
-                result.Add("Area", Area);
+                result.Add("SweptArea", SweptArea);
             }
 
             if (Inclination != null)
