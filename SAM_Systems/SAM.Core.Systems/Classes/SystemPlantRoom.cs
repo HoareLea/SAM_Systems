@@ -1089,6 +1089,11 @@ namespace SAM.Core.Systems
             }
             while (systemComponent_Temp != null);
 
+            if(result.Count == 0)
+            {
+                result.Add(systemComponent);
+            }
+
             return result;
         }
 
