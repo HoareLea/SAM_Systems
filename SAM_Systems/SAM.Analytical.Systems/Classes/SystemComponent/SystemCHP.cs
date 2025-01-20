@@ -14,6 +14,7 @@ namespace SAM.Analytical.Systems
         public double Capacity { get; set; }
         public double DesignPressureDrop { get; set; }
         public bool LossesInSizing { get; set; }
+        public bool IsDomesticHotWater { get; set; }
 
         public SystemCHP(string name)
             : base(name)
@@ -34,6 +35,7 @@ namespace SAM.Analytical.Systems
                 Capacity = systemCHP.Capacity;
                 DesignPressureDrop = systemCHP.DesignPressureDrop;
                 LossesInSizing = systemCHP.LossesInSizing;
+                IsDomesticHotWater = systemCHP.IsDomesticHotWater;
             }
         }
 
@@ -104,6 +106,11 @@ namespace SAM.Analytical.Systems
                 LossesInSizing = jObject.Value<bool>("LossesInSizing");
             }
 
+            if (jObject.ContainsKey("IsDomesticHotWater"))
+            {
+                IsDomesticHotWater = jObject.Value<bool>("IsDomesticHotWater");
+            }
+
             return result;
         }
 
@@ -151,6 +158,8 @@ namespace SAM.Analytical.Systems
             }
 
             result.Add("LossesInSizing", LossesInSizing);
+
+            result.Add("IsDomesticHotWater", IsDomesticHotWater);
 
             return result;
         }

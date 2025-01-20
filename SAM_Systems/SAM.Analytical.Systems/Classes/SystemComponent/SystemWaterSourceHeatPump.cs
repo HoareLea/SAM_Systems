@@ -25,6 +25,7 @@ namespace SAM.Analytical.Systems
         public ModifiableValue MotorEfficiency { get; set; }
         public double HeatSizeFraction { get; set; }
         public ModifiableValue AncillaryLoad { get; set; }
+        public bool IsDomesticHotWater { get; set; }
 
         public SystemWaterSourceHeatPump(string name)
             : base(name)
@@ -56,6 +57,7 @@ namespace SAM.Analytical.Systems
                 MotorEfficiency = systemWaterSourceHeatPump.MotorEfficiency?.Clone();
                 HeatSizeFraction = systemWaterSourceHeatPump.HeatSizeFraction;
                 AncillaryLoad = systemWaterSourceHeatPump.AncillaryLoad?.Clone();
+                IsDomesticHotWater = systemWaterSourceHeatPump.IsDomesticHotWater;
             }
         }
 
@@ -183,6 +185,11 @@ namespace SAM.Analytical.Systems
                 AncillaryLoad = Core.Query.IJSAMObject<ModifiableValue>(jObject.Value<JObject>("AncillaryLoad"));
             }
 
+            if (jObject.ContainsKey("IsDomesticHotWater"))
+            {
+                IsDomesticHotWater = jObject.Value<bool>("IsDomesticHotWater");
+            }
+
             return result;
         }
 
@@ -285,6 +292,8 @@ namespace SAM.Analytical.Systems
             {
                 result.Add("AncillaryLoad", AncillaryLoad.ToJObject());
             }
+
+            result.Add("IsDomesticHotWater", IsDomesticHotWater);
 
             return result;
         }

@@ -21,6 +21,7 @@ namespace SAM.Analytical.Systems
         public ModifiableValue MotorEfficiency { get; set; }
         public ModifiableValue AncillaryLoad { get; set; }
         public bool LossesInSizing { get; set; }
+        public bool IsDomesticHotWater { get; set; }
 
         public SystemWaterToWaterHeatPump(string name)
             : base(name)
@@ -48,6 +49,7 @@ namespace SAM.Analytical.Systems
                 MotorEfficiency = systemWaterToWaterHeatPump.MotorEfficiency?.Clone();
                 AncillaryLoad = systemWaterToWaterHeatPump.AncillaryLoad?.Clone();
                 LossesInSizing = systemWaterToWaterHeatPump.LossesInSizing;
+                IsDomesticHotWater = systemWaterToWaterHeatPump.IsDomesticHotWater;
             }
         }
 
@@ -156,6 +158,11 @@ namespace SAM.Analytical.Systems
                 LossesInSizing = jObject.Value<bool>("LossesInSizing");
             }
 
+            if (jObject.ContainsKey("IsDomesticHotWater"))
+            {
+                IsDomesticHotWater = jObject.Value<bool>("IsDomesticHotWater");
+            }
+
             return result;
         }
 
@@ -238,6 +245,8 @@ namespace SAM.Analytical.Systems
             }
 
             result.Add("LossesInSizing", LossesInSizing);
+
+            result.Add("IsDomesticHotWater", IsDomesticHotWater);
 
             return result;
         }

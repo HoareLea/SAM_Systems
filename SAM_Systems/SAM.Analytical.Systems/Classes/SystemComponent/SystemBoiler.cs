@@ -6,21 +6,15 @@ namespace SAM.Analytical.Systems
 {
     public class SystemBoiler: SystemComponent
     {
-        public ModifiableValue Setpoint { get; set; }
-        
+        public ModifiableValue Setpoint { get; set; }        
         public ModifiableValue Efficiency { get; set; }
-
         public SizableValue Duty { get; set; }
-
         public double DesignTemperatureDifference { get; set; }
-
         public double Capacity { get; set; }
-
         public double DesignPressureDrop { get; set; }
-
         public ModifiableValue AncillaryLoad { get; set; }
-
         public bool LossesInSizing { get; set; }
+        public bool IsDomesticHotWater { get; set; }
 
         public SystemBoiler(SystemBoiler systemBoiler)
             : base(systemBoiler)
@@ -35,6 +29,7 @@ namespace SAM.Analytical.Systems
                 DesignPressureDrop = systemBoiler.DesignPressureDrop;
                 AncillaryLoad = systemBoiler.AncillaryLoad?.Clone();
                 LossesInSizing = systemBoiler.LossesInSizing;
+                IsDomesticHotWater = systemBoiler.IsDomesticHotWater;
             }
         }
 
@@ -111,6 +106,11 @@ namespace SAM.Analytical.Systems
                 LossesInSizing = jObject.Value<bool>("LossesInSizing");
             }
 
+            if (jObject.ContainsKey("IsDomesticHotWater"))
+            {
+                IsDomesticHotWater = jObject.Value<bool>("IsDomesticHotWater");
+            }
+
             return result;
         }
 
@@ -158,6 +158,8 @@ namespace SAM.Analytical.Systems
             }
 
             result.Add("LossesInSizing", LossesInSizing);
+
+            result.Add("IsDomesticHotWater", IsDomesticHotWater);
 
             return result;
         }

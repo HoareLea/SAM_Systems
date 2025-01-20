@@ -24,7 +24,7 @@ namespace SAM.Analytical.Systems
         public double WaterPipeLength { get; set; }
         public ModifiableValue AncillaryLoad { get; set; }
         public double HeatSizeFraction { get; set; }
-
+        public bool IsDomesticHotWater { get; set; }
 
         public SystemAirSourceHeatPump(string name)
             : base(name)
@@ -55,6 +55,7 @@ namespace SAM.Analytical.Systems
                 WaterPipeLength = systemAirSourceHeatPump.WaterPipeLength;
                 AncillaryLoad = systemAirSourceHeatPump.AncillaryLoad?.Clone();
                 HeatSizeFraction = systemAirSourceHeatPump.HeatSizeFraction;
+                IsDomesticHotWater = systemAirSourceHeatPump.IsDomesticHotWater;
             }
         }
 
@@ -175,6 +176,11 @@ namespace SAM.Analytical.Systems
                 HeatSizeFraction = jObject.Value<double>("HeatSizeFraction");
             }
 
+            if (jObject.ContainsKey("IsDomesticHotWater"))
+            {
+                IsDomesticHotWater = jObject.Value<bool>("IsDomesticHotWater");
+            }
+
             return result;
         }
 
@@ -272,6 +278,8 @@ namespace SAM.Analytical.Systems
             {
                 result.Add("HeatSizeFraction", HeatSizeFraction);
             }
+
+            result.Add("IsDomesticHotWater", IsDomesticHotWater);
 
             return result;
         }

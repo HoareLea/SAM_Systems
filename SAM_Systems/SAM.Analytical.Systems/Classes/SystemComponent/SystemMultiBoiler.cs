@@ -7,16 +7,12 @@ namespace SAM.Analytical.Systems
     public class SystemMultiBoiler : SystemMultiComponent<SystemMultiBoilerItem>
     {
         public ModifiableValue Setpoint { get; set; }
-
         public SizableValue Duty { get; set; }
-
         public double DesignTemperatureDifference { get; set; }
-
         public double DesignPressureDrop { get; set; }
-
         public bool LossesInSizing { get; set; }
-
         public EquipmentSequence Sequence { get; set; }
+        public bool IsDomesticHotWater { get; set; }
 
         public SystemMultiBoiler(string name)
             : base(name)
@@ -35,6 +31,7 @@ namespace SAM.Analytical.Systems
                 DesignPressureDrop = systemMultiBoiler.DesignPressureDrop;
                 LossesInSizing = systemMultiBoiler.LossesInSizing;
                 Sequence = systemMultiBoiler.Sequence;
+                IsDomesticHotWater = systemMultiBoiler.IsDomesticHotWater;
             }
         }
 
@@ -95,6 +92,11 @@ namespace SAM.Analytical.Systems
                 Sequence = Core.Query.Enum<EquipmentSequence>(jObject.Value<string>("Sequence"));
             }
 
+            if (jObject.ContainsKey("IsDomesticHotWater"))
+            {
+                IsDomesticHotWater = jObject.Value<bool>("IsDomesticHotWater");
+            }
+
             return true;
         }
 
@@ -127,6 +129,8 @@ namespace SAM.Analytical.Systems
             }
 
             result.Add("LossesInSizing", LossesInSizing);
+
+            result.Add("IsDomesticHotWater", IsDomesticHotWater);
 
             result.Add("Sequence", Sequence.ToString());
 
