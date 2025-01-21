@@ -10,6 +10,7 @@ namespace SAM.Analytical.Systems
         public SizableValue Duty { get; set; }
         public double DesignTemperatureDifference { get; set; }
         public double DesignPressureDrop { get; set; }
+        public double Capacity { get; set; }
         public bool LossesInSizing { get; set; }
         public EquipmentSequence Sequence { get; set; }
         public bool IsDomesticHotWater { get; set; }
@@ -32,6 +33,7 @@ namespace SAM.Analytical.Systems
                 LossesInSizing = systemMultiBoiler.LossesInSizing;
                 Sequence = systemMultiBoiler.Sequence;
                 IsDomesticHotWater = systemMultiBoiler.IsDomesticHotWater;
+                Capacity = systemMultiBoiler.Capacity;
             }
         }
 
@@ -92,6 +94,11 @@ namespace SAM.Analytical.Systems
                 Sequence = Core.Query.Enum<EquipmentSequence>(jObject.Value<string>("Sequence"));
             }
 
+            if (jObject.ContainsKey("Capacity"))
+            {
+                Capacity = jObject.Value<double>("Capacity");
+            }
+
             if (jObject.ContainsKey("IsDomesticHotWater"))
             {
                 IsDomesticHotWater = jObject.Value<bool>("IsDomesticHotWater");
@@ -126,6 +133,11 @@ namespace SAM.Analytical.Systems
             if (!double.IsNaN(DesignPressureDrop))
             {
                 result.Add("DesignPressureDrop", DesignPressureDrop);
+            }
+
+            if (!double.IsNaN(Capacity))
+            {
+                result.Add("Capacity", Capacity);
             }
 
             result.Add("LossesInSizing", LossesInSizing);
