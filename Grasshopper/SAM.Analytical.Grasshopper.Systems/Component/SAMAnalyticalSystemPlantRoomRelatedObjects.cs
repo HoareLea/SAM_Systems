@@ -1,5 +1,6 @@
 ﻿using Grasshopper.Kernel;
 using SAM.Analytical.Grasshopper.Systems.Properties;
+using SAM.Analytical.Systems;
 using SAM.Core.Grasshopper;
 using SAM.Core.Grasshopper.Systems;
 using SAM.Core.Systems;
@@ -109,16 +110,30 @@ namespace SAM.Analytical.Grasshopper.Systems
                 }
             }
 
-            List<ISystemJSAMObject> result = null;
-            if (type == null)
-                result = systemPlantRoom.GetRelatedObjects(systemObject);
-            else
-                result = systemPlantRoom.GetRelatedObjects(systemObject, type);
+            List<ISystemJSAMObject> result = type == null ? systemPlantRoom.GetRelatedObjects(systemObject) : systemPlantRoom.GetRelatedObjects(systemObject, type);
+            if (systemObject is LiquidSystem)
+            {
+                List<ISystemComponent> systemComponents = systemPlantRoom.GetSystemComponents();
+                if (systemComponents != null)
+                {
+                    foreach (ISystemComponent systemComponent in systemComponents)
+                    {
+                        List<ISystem> systems = systemPlantRoom.GetRelatedObjects<ISystem>(systemComponent);
+                        if (systems != null && systems.Count > 0)
+                        {
+                            continue;
+                        }
 
+                        result.Add(systemComponent);
+                    }
+                }
+            }
 
             index = Params.IndexOfOutputParam("systemObjects");
             if (index != -1)
+            {
                 dataAccess.SetDataList(index, result);
+            }
 
         }
     }
