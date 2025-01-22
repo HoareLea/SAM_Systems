@@ -1,13 +1,15 @@
 ﻿using Newtonsoft.Json.Linq;
+using SAM.Core;
 using SAM.Core.Systems;
 
 namespace SAM.Analytical.Systems
 {
     public class SystemCoolingCoil: SystemComponent
     {
-        public double BypassFactor { get; set; }
-
+        public ModifiableValue Setpoint { get; set; }
+        public ModifiableValue BypassFactor { get; set; }
         public SizableValue Duty { get; set; }
+        public ModifiableValue MinimumOffcoil { get; set; }
 
         public SystemCoolingCoil(string name)
             : base(name)
@@ -20,8 +22,10 @@ namespace SAM.Analytical.Systems
         {
             if(systemCoolingCoil != null)
             {
-                BypassFactor = systemCoolingCoil.BypassFactor;
-                Duty = Core.Query.Clone(systemCoolingCoil.Duty);
+                Setpoint = systemCoolingCoil.Setpoint?.Clone();
+                BypassFactor = systemCoolingCoil.BypassFactor?.Clone();
+                Duty = systemCoolingCoil.Duty?.Clone();
+                MinimumOffcoil = systemCoolingCoil.MinimumOffcoil?.Clone();
             }
         }
 
@@ -37,10 +41,10 @@ namespace SAM.Analytical.Systems
             {
                 return Core.Systems.Create.SystemConnectorManager
                 (
-                    Core.Systems.Create.SystemConnector<AirSystem>(Core.Direction.In, 1),
-                    Core.Systems.Create.SystemConnector<AirSystem>(Core.Direction.Out, 1),
-                    Core.Systems.Create.SystemConnector<LiquidSystem>(Core.Direction.In, 2),
-                    Core.Systems.Create.SystemConnector<LiquidSystem>(Core.Direction.Out, 2),
+                    Core.Systems.Create.SystemConnector<AirSystem>(Direction.In, 1),
+                    Core.Systems.Create.SystemConnector<AirSystem>(Direction.Out, 1),
+                    Core.Systems.Create.SystemConnector<LiquidSystem>(Direction.In, 2),
+                    Core.Systems.Create.SystemConnector<LiquidSystem>(Direction.Out, 2),
                     Core.Systems.Create.SystemConnector<IControlSystem>()
                 );
             }
@@ -54,14 +58,24 @@ namespace SAM.Analytical.Systems
                 return result;
             }
 
-            if(jObject.ContainsKey("BypassFactor"))
+            if (jObject.ContainsKey("Setpoint"))
             {
-                BypassFactor = jObject.Value<double>("BypassFactor");
+                Setpoint = Core.Query.IJSAMObject<ModifiableValue>(jObject.Value<JObject>("Setpoint"));
+            }
+
+            if (jObject.ContainsKey("BypassFactor"))
+            {
+                BypassFactor = Core.Query.IJSAMObject<ModifiableValue>(jObject.Value<JObject>("BypassFactor"));
             }
 
             if (jObject.ContainsKey("Duty"))
             {
                 Duty = Core.Query.IJSAMObject<SizableValue>(jObject.Value<JObject>("Duty"));
+            }
+
+            if (jObject.ContainsKey("MinimumOffcoil"))
+            {
+                MinimumOffcoil = Core.Query.IJSAMObject<ModifiableValue>(jObject.Value<JObject>("MinimumOffcoil"));
             }
 
             return result;
@@ -75,14 +89,25 @@ namespace SAM.Analytical.Systems
                 return result;
             }
 
-            if(!double.IsNaN(BypassFactor))
+
+            if (Setpoint != null)
             {
-                result.Add("BypassFactor", BypassFactor);
+                result.Add("Setpoint", Setpoint.ToJObject());
             }
 
-            if(Duty != null)
+            if (BypassFactor != null)
+            {
+                result.Add("BypassFactor", BypassFactor.ToJObject());
+            }
+
+            if (Duty != null)
             {
                 result.Add("Duty", Duty.ToJObject());
+            }
+
+            if (MinimumOffcoil != null)
+            {
+                result.Add("MinimumOffcoil", MinimumOffcoil.ToJObject());
             }
 
             return result;
