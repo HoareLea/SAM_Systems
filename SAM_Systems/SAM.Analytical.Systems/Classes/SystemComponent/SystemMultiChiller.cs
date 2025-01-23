@@ -12,6 +12,7 @@ namespace SAM.Analytical.Systems
         public ModifiableValue Setpoint { get; set; }
         public double Capacity { get; set; }
         public EquipmentSequence Sequence { get; set; }
+        public bool LossesInSizing { get; set; }
 
         public SystemMultiChiller(string name)
             : base(name)
@@ -30,6 +31,7 @@ namespace SAM.Analytical.Systems
                 Setpoint = systemMultiChiller.Setpoint?.Clone();
                 Capacity = systemMultiChiller.Capacity;
                 Sequence = systemMultiChiller.Sequence;
+                LossesInSizing = systemMultiChiller.LossesInSizing;
             }
         }
 
@@ -90,6 +92,11 @@ namespace SAM.Analytical.Systems
                 Sequence = Core.Query.Enum<EquipmentSequence>(jObject.Value<string>("Sequence"));
             }
 
+            if (jObject.ContainsKey("LossesInSizing"))
+            {
+                LossesInSizing = jObject.Value<bool>("LossesInSizing");
+            }
+
             return result;
         }
 
@@ -127,6 +134,8 @@ namespace SAM.Analytical.Systems
             }
 
             result.Add("Sequence", Sequence.ToString());
+
+            result.Add("LossesInSizing", LossesInSizing);
 
             return result;
         }

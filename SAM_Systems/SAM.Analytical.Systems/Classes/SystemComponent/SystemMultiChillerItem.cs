@@ -7,9 +7,8 @@ namespace SAM.Analytical.Systems
     public class SystemMultiChillerItem : SystemObject
     {
         public ModifiableValue Efficiency { get; set; }
-
+        public ModifiableValue CondenserFanLoad { get; set; }
         public double Percentage { get; set; }
-
         public double Threshold { get; set; }
 
         public SystemMultiChillerItem()
@@ -24,6 +23,7 @@ namespace SAM.Analytical.Systems
             if(systemMultiChillerItem != null)
             {
                 Efficiency = systemMultiChillerItem.Efficiency?.Clone();
+                CondenserFanLoad = systemMultiChillerItem.CondenserFanLoad?.Clone();
                 Percentage = systemMultiChillerItem.Percentage;
                 Threshold = systemMultiChillerItem.Threshold;
             }
@@ -46,6 +46,11 @@ namespace SAM.Analytical.Systems
             if (jObject.ContainsKey("Efficiency"))
             {
                 Efficiency = Core.Query.IJSAMObject<ModifiableValue>(jObject.Value<JObject>("Efficiency"));
+            }
+
+            if (jObject.ContainsKey("CondenserFanLoad"))
+            {
+                CondenserFanLoad = Core.Query.IJSAMObject<ModifiableValue>(jObject.Value<JObject>("CondenserFanLoad"));
             }
 
             if (jObject.ContainsKey("Percentage"))
@@ -72,6 +77,11 @@ namespace SAM.Analytical.Systems
             if (Efficiency != null)
             {
                 result.Add("Efficiency", Efficiency.ToJObject());
+            }
+
+            if (CondenserFanLoad != null)
+            {
+                result.Add("CondenserFanLoad", CondenserFanLoad.ToJObject());
             }
 
             if (!double.IsNaN(Percentage))
