@@ -26,7 +26,14 @@ namespace SAM.Analytical.Systems
         {
             if(systemEconomiser != null)
             {
-                Setpoint = systemEconomiser.Setpoint.Clone();   
+                Capacity = systemEconomiser.Capacity;
+                DesignFlowRate = systemEconomiser.DesignFlowRate?.Clone();
+                DesignFlowType = systemEconomiser.DesignFlowType;
+                Setpoint = systemEconomiser.Setpoint?.Clone();   
+                MinFreshAirRate = systemEconomiser?.MinFreshAirRate?.Clone();
+                MinFreshAirType = systemEconomiser.MinFreshAirType;
+                ScheduleMode = systemEconomiser.ScheduleMode;
+                DesignPressureDrop = systemEconomiser.DesignPressureDrop;
             }
         }
 
