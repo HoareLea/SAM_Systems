@@ -3,11 +3,11 @@ using System.Collections.Generic;
 
 namespace SAM.Analytical.Systems
 {
-    public class Duty : SizedValue
+    public class DesignConditionSizedValue : SizedValue
     {
         private HashSet<string> designConditionNames;
 
-        public Duty(double value, double sizeFraction, IEnumerable<string> designConditionNames)
+        public DesignConditionSizedValue(double value, double sizeFraction, IEnumerable<string> designConditionNames)
             : base(value, sizeFraction)
         {
             this.designConditionNames = designConditionNames == null ? null : new HashSet<string>(designConditionNames);
@@ -15,17 +15,17 @@ namespace SAM.Analytical.Systems
             SizeFraction = sizeFraction;
         }
 
-        public Duty(Duty duty)
-            :base(duty)
+        public DesignConditionSizedValue(DesignConditionSizedValue designConditionSizedValue)
+            :base(designConditionSizedValue)
         {
-            if(duty != null)
+            if(designConditionSizedValue != null)
             {
-                SizeFraction = duty.SizeFraction;
-                designConditionNames = duty.designConditionNames == null ? null : new HashSet<string>(duty.designConditionNames);
+                SizeFraction = designConditionSizedValue.SizeFraction;
+                designConditionNames = designConditionSizedValue.designConditionNames == null ? null : new HashSet<string>(designConditionSizedValue.designConditionNames);
             }
         }
 
-        public Duty(JObject jObject)
+        public DesignConditionSizedValue(JObject jObject)
             : base(jObject)
         {
 
