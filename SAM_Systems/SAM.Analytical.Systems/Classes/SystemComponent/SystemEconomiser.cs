@@ -6,7 +6,14 @@ namespace SAM.Analytical.Systems
 {
     public class SystemEconomiser : SystemComponent
     {
+        public double Capacity { get; set; }
+        public SizedFlowValue DesignFlowRate { get; set; }
+        public FlowRateType DesignFlowType { get; set; }
         public ModifiableValue Setpoint { get; set; }
+        public SizedFlowValue MinFreshAirRate { get; set; }
+        public FlowRateType MinFreshAirType { get; set; }
+        public ScheduleMode ScheduleMode { get; set; }
+        public double DesignPressureDrop { get; set; }
 
         public SystemEconomiser(string name)
             : base(name)
@@ -35,9 +42,9 @@ namespace SAM.Analytical.Systems
             {
                 return Core.Systems.Create.SystemConnectorManager
                 (
-                    Core.Systems.Create.SystemConnector<AirSystem>(Core.Direction.In, 1),
-                    Core.Systems.Create.SystemConnector<AirSystem>(Core.Direction.Out, 1),
-                    Core.Systems.Create.SystemConnector<AirSystem>(Core.Direction.In, 2),
+                    Core.Systems.Create.SystemConnector<AirSystem>(Direction.In, 1),
+                    Core.Systems.Create.SystemConnector<AirSystem>(Direction.Out, 1),
+                    Core.Systems.Create.SystemConnector<AirSystem>(Direction.In, 2),
                     Core.Systems.Create.SystemConnector<IControlSystem>()
                 );
             }
@@ -51,9 +58,44 @@ namespace SAM.Analytical.Systems
                 return result;
             }
 
+            if (jObject.ContainsKey("Capacity"))
+            {
+                Capacity = jObject.Value<double>("Capacity");
+            }
+
+            if (jObject.ContainsKey("DesignFlowRate"))
+            {
+                DesignFlowRate = Core.Query.IJSAMObject<SizedFlowValue>(jObject.Value<JObject>("DesignFlowRate"));
+            }
+
+            if (jObject.ContainsKey("DesignFlowType"))
+            {
+                DesignFlowType = Core.Query.Enum<FlowRateType>(jObject.Value<string>("DesignFlowType"));
+            }
+
             if (jObject.ContainsKey("Setpoint"))
             {
                 Setpoint = Core.Query.IJSAMObject<ModifiableValue>(jObject.Value<JObject>("Setpoint"));
+            }
+
+            if (jObject.ContainsKey("MinFreshAirRate"))
+            {
+                MinFreshAirRate = Core.Query.IJSAMObject<SizedFlowValue>(jObject.Value<JObject>("MinFreshAirRate"));
+            }
+
+            if (jObject.ContainsKey("MinFreshAirType"))
+            {
+                MinFreshAirType = Core.Query.Enum<FlowRateType>(jObject.Value<string>("MinFreshAirType"));
+            }
+
+            if (jObject.ContainsKey("ScheduleMode"))
+            {
+                ScheduleMode = Core.Query.Enum<ScheduleMode>(jObject.Value<string>("ScheduleMode"));
+            }
+
+            if (jObject.ContainsKey("DesignPressureDrop"))
+            {
+                DesignPressureDrop = jObject.Value<double>("DesignPressureDrop");
             }
 
             return result;
@@ -67,9 +109,35 @@ namespace SAM.Analytical.Systems
                 return null;
             }
 
+            if (double.IsNaN(Capacity))
+            {
+                result.Add("Capacity", Capacity);
+            }
+
+            if (DesignFlowRate != null)
+            {
+                result.Add("DesignFlowRate", DesignFlowRate.ToJObject());
+            }
+
+            result.Add("DesignFlowType", DesignFlowType.ToString());
+
             if (Setpoint != null)
             {
                 result.Add("Setpoint", Setpoint.ToJObject());
+            }
+
+            if (MinFreshAirRate != null)
+            {
+                result.Add("MinFreshAirRate", MinFreshAirRate.ToJObject());
+            }
+
+            result.Add("MinFreshAirType", MinFreshAirType.ToString());
+
+            result.Add("ScheduleMode", ScheduleMode.ToString());
+
+            if (double.IsNaN(DesignPressureDrop))
+            {
+                result.Add("DesignPressureDrop", DesignPressureDrop);
             }
 
             return result;
