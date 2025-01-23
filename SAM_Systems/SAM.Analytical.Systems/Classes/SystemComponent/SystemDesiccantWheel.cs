@@ -1,10 +1,13 @@
 ﻿using Newtonsoft.Json.Linq;
+using SAM.Analytical.Systems.Interfaces;
 using SAM.Core;
+using SAM.Core.Systems;
 
 namespace SAM.Analytical.Systems
 {
-    public class SystemDesiccantWheel : SystemExchanger
+    public class SystemDesiccantWheel : SystemComponent, ISystemExchanger
     {
+        public ModifiableValue SensibleEfficiency { get; set; }
         public ModifiableValue Reactivation { get; set; }
         public ModifiableValue MinimumRH { get; set; }
         public ModifiableValue MaximumRH { get; set; }
@@ -26,6 +29,7 @@ namespace SAM.Analytical.Systems
         {
             if(systemDesiccantWheel != null)
             {
+                SensibleEfficiency = systemDesiccantWheel.SensibleEfficiency?.Clone();
                 Reactivation = systemDesiccantWheel.Reactivation?.Clone();
                 MinimumRH = systemDesiccantWheel.MinimumRH?.Clone();
                 MaximumRH = systemDesiccantWheel.MaximumRH?.Clone();
@@ -43,12 +47,32 @@ namespace SAM.Analytical.Systems
 
         }
 
+        public override SystemConnectorManager SystemConnectorManager
+        {
+            get
+            {
+                return Core.Systems.Create.SystemConnectorManager
+                (
+                    Core.Systems.Create.SystemConnector<AirSystem>(Direction.In, 1),
+                    Core.Systems.Create.SystemConnector<AirSystem>(Direction.Out, 1),
+                    Core.Systems.Create.SystemConnector<AirSystem>(Direction.In, 2),
+                    Core.Systems.Create.SystemConnector<AirSystem>(Direction.Out, 2),
+                    Core.Systems.Create.SystemConnector<IControlSystem>()
+                );
+            }
+        }
+
         public override bool FromJObject(JObject jObject)
         {
             bool result = base.FromJObject(jObject);
             if (!result)
             {
                 return result;
+            }
+
+            if (jObject.ContainsKey("SensibleEfficiency"))
+            {
+                SensibleEfficiency = Core.Query.IJSAMObject<ModifiableValue>(jObject.Value<JObject>("SensibleEfficiency"));
             }
 
             if (jObject.ContainsKey("Reactivation"))
@@ -100,6 +124,11 @@ namespace SAM.Analytical.Systems
             if (result == null)
             {
                 return null;
+            }
+
+            if (SensibleEfficiency != null)
+            {
+                result.Add("SensibleEfficiency", SensibleEfficiency.ToJObject());
             }
 
             if (Reactivation != null)
