@@ -5,6 +5,7 @@ namespace SAM.Analytical.Systems
 {
     public class SystemLiquidJunction : SystemJunction<LiquidSystem>
     {
+        public double MainsPressure { get; set; }
         public SystemLiquidJunction()
             : base()
         {
@@ -14,7 +15,10 @@ namespace SAM.Analytical.Systems
         public SystemLiquidJunction(SystemLiquidJunction systemLiquidJunction)
             : base(systemLiquidJunction)
         {
-
+            if(systemLiquidJunction != null)
+            {
+                MainsPressure = systemLiquidJunction.MainsPressure;
+            }
         }
 
         public SystemLiquidJunction(JObject jObject)
@@ -31,12 +35,34 @@ namespace SAM.Analytical.Systems
 
         public override bool FromJObject(JObject jObject)
         {
-            return base.FromJObject(jObject);
+            bool result = base.FromJObject(jObject);
+            if (!result)
+            {
+                return result;
+            }
+
+            if(jObject.ContainsKey("MainsPressure"))
+            {
+                MainsPressure = jObject.Value<double>("MainsPressure");
+            }
+
+            return result;
         }
 
         public override JObject ToJObject()
         {
-            return base.ToJObject();
+            JObject result = base.ToJObject();
+            if (result == null)
+            {
+                return null;
+            }
+
+            if(!double.IsNaN(MainsPressure))
+            {
+                result.Add("MainsPressure", MainsPressure);
+            }
+
+            return result;
         }
     }
 }
