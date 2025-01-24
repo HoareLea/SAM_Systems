@@ -21,6 +21,7 @@ namespace SAM.Analytical.Systems
         public double DesignPressureDrop2 { get; set; }
         public double DesignPressureDrop3 { get; set; }
         public double DefinedHeatLossRate { get; set; }
+        public SetpointMode SetpointMode { get; set; }
 
         public SystemTank(string name)
             : base(name)
@@ -48,6 +49,7 @@ namespace SAM.Analytical.Systems
                 DesignPressureDrop2 = systemTank.DesignPressureDrop2;
                 DesignPressureDrop3 = systemTank.DesignPressureDrop3;
                 DefinedHeatLossRate = systemTank.DefinedHeatLossRate;
+                SetpointMode = systemTank.SetpointMode;
             }
         }
 
@@ -157,6 +159,11 @@ namespace SAM.Analytical.Systems
                 DefinedHeatLossRate = jObject.Value<double>("DefinedHeatLossRate");
             }
 
+            if (jObject.ContainsKey("SetpointMode"))
+            {
+                SetpointMode = Core.Query.Enum<SetpointMode>(jObject.Value<string>("SetpointMode"));
+            }
+
             return result;
         }
 
@@ -242,6 +249,8 @@ namespace SAM.Analytical.Systems
             {
                 result.Add("DefinedHeatLossRate", DefinedHeatLossRate);
             }
+
+            result.Add("SetpointMode", SetpointMode.ToString());
 
             return result;
         }
