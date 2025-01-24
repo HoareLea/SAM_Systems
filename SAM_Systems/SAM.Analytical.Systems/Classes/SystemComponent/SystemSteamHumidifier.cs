@@ -6,10 +6,9 @@ namespace SAM.Analytical.Systems
     public class SystemSteamHumidifier : SystemHumidifier
     {
         public SizableValue Duty { get; set; }
-        
         public ModifiableValue Setpoint { get; set; }
-
         public ModifiableValue WaterSupplyTemperature { get; set; }
+        public SizingType WaterTemperatureSource { get; set; }
 
         public SystemSteamHumidifier(string name)
             : base(name)
@@ -24,7 +23,8 @@ namespace SAM.Analytical.Systems
             {
                 Duty = systemSteamHumidifier.Duty?.Clone();
                 Setpoint = systemSteamHumidifier.Setpoint?.Clone();
-                WaterSupplyTemperature = systemSteamHumidifier?.WaterSupplyTemperature?.Clone();
+                WaterSupplyTemperature = systemSteamHumidifier.WaterSupplyTemperature?.Clone();
+                WaterTemperatureSource = systemSteamHumidifier.WaterTemperatureSource;
             }
         }
 
@@ -57,6 +57,11 @@ namespace SAM.Analytical.Systems
                 WaterSupplyTemperature = Core.Query.IJSAMObject<ModifiableValue>(jObject.Value<JObject>("WaterSupplyTemperature"));
             }
 
+            if (jObject.ContainsKey("WaterTemperatureSource"))
+            {
+                WaterTemperatureSource = Core.Query.Enum<SizingType>(jObject.Value<string>("WaterTemperatureSource"));
+            }
+
             return result;
         }
 
@@ -82,6 +87,8 @@ namespace SAM.Analytical.Systems
             {
                 result.Add("WaterSupplyTemperature", WaterSupplyTemperature.ToJObject());
             }
+
+            result.Add("WaterTemperatureSource", WaterTemperatureSource.ToString());
 
             return result;
         }
