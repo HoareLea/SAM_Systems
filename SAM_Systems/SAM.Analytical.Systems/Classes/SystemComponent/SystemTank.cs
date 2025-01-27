@@ -207,12 +207,12 @@ namespace SAM.Analytical.Systems
 
             if(AmbientTemperature != null)
             {
-                result.Add(AmbientTemperature.ToJObject());
+                result.Add("AmbientTemperature", AmbientTemperature.ToJObject());
             }
 
             if (Setpoint != null)
             {
-                result.Add(Setpoint.ToJObject());
+                result.Add("Setpoint", Setpoint.ToJObject());
             }
 
             if (!double.IsNaN(Capacity1))
