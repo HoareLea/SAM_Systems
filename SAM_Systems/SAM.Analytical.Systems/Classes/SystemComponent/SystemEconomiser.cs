@@ -15,6 +15,8 @@ namespace SAM.Analytical.Systems
         public ScheduleMode ScheduleMode { get; set; }
         public double DesignPressureDrop { get; set; }
 
+        public string ScheduleName { get; set; }
+
         public SystemEconomiser(string name)
             : base(name)
         {
@@ -34,6 +36,7 @@ namespace SAM.Analytical.Systems
                 MinFreshAirType = systemEconomiser.MinFreshAirType;
                 ScheduleMode = systemEconomiser.ScheduleMode;
                 DesignPressureDrop = systemEconomiser.DesignPressureDrop;
+                ScheduleName = systemEconomiser.ScheduleName;
             }
         }
 
@@ -100,6 +103,11 @@ namespace SAM.Analytical.Systems
                 ScheduleMode = Core.Query.Enum<ScheduleMode>(jObject.Value<string>("ScheduleMode"));
             }
 
+            if (jObject.ContainsKey("ScheduleName"))
+            {
+                ScheduleName = jObject.Value<string>("ScheduleName");
+            }
+
             if (jObject.ContainsKey("DesignPressureDrop"))
             {
                 DesignPressureDrop = jObject.Value<double>("DesignPressureDrop");
@@ -145,6 +153,11 @@ namespace SAM.Analytical.Systems
             if (double.IsNaN(DesignPressureDrop))
             {
                 result.Add("DesignPressureDrop", DesignPressureDrop);
+            }
+
+            if (ScheduleName != null)
+            {
+                result.Add("ScheduleName", ScheduleName);
             }
 
             return result;
