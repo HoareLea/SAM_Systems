@@ -1,10 +1,13 @@
 ﻿using Newtonsoft.Json.Linq;
 using SAM.Core.Systems;
+using System.Collections.Generic;
 
 namespace SAM.Analytical.Systems
 {
     public abstract class SystemController : SystemComponent, ISystemController
     {
+        public HashSet<string> DayTypeNames { get; set; }
+
         public SystemController(string name)
             : base(name)
         {
@@ -16,7 +19,7 @@ namespace SAM.Analytical.Systems
         {
             if (systemController != null)
             {
-
+                DayTypeNames = systemController.DayTypeNames == null ? null : new HashSet<string>(systemController.DayTypeNames);
             }
         }
 
@@ -34,6 +37,19 @@ namespace SAM.Analytical.Systems
                 return result;
             }
 
+            if(jObject.ContainsKey("DayTypeNames"))
+            {
+                JArray jArray = jObject.Value<JArray>("DayTypeNames");
+                if(jArray != null)
+                {
+                    DayTypeNames = new HashSet<string>();
+                    foreach(string dayTypeName in jArray)
+                    {
+                        DayTypeNames.Add(dayTypeName);
+                    }
+                }
+            }
+
             return true;
         }
 
@@ -43,6 +59,17 @@ namespace SAM.Analytical.Systems
             if (result == null)
             {
                 return null;
+            }
+
+            if(DayTypeNames != null)
+            {
+                JArray jArray = new JArray();
+                foreach (string dayTypeName in DayTypeNames)
+                {
+                    jArray.Add(dayTypeName);
+                }
+
+                result.Add("DayTypeNames", jArray);
             }
 
             return result;
