@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json.Linq;
+using SAM.Core;
 using SAM.Core.Systems;
 
 namespace SAM.Analytical.Systems
@@ -7,6 +8,10 @@ namespace SAM.Analytical.Systems
     {
         public double Capacity { get; set; }
         public double DesignCapacitySignal { get; set; }
+        public SizedFlowValue DesignFlowRate { get; set; }
+        public FlowRateType DesignFlowType { get; set; }
+        public SizedFlowValue MinimumFlowRate { get; set; }
+        public FlowRateType MinimumFlowType { get; set; }
         public double MinimumFlowFraction { get; set; }
         public double DesignPressureDrop { get; set; }
 
@@ -23,6 +28,10 @@ namespace SAM.Analytical.Systems
             {
                 Capacity = systemDamper.Capacity;
                 DesignCapacitySignal = systemDamper.DesignCapacitySignal;
+                DesignFlowRate = systemDamper.DesignFlowRate?.Clone();
+                DesignFlowType = systemDamper.DesignFlowType;
+                MinimumFlowRate = systemDamper.MinimumFlowRate?.Clone();
+                MinimumFlowType = systemDamper.MinimumFlowType;
                 MinimumFlowFraction = systemDamper.MinimumFlowFraction;
                 DesignPressureDrop = systemDamper.DesignPressureDrop;
             }
@@ -40,8 +49,8 @@ namespace SAM.Analytical.Systems
             {
                 return Core.Systems.Create.SystemConnectorManager
                 (
-                    Core.Systems.Create.SystemConnector<AirSystem>(Core.Direction.In, 1),
-                    Core.Systems.Create.SystemConnector<AirSystem>(Core.Direction.Out, 1),
+                    Core.Systems.Create.SystemConnector<AirSystem>(Direction.In, 1),
+                    Core.Systems.Create.SystemConnector<AirSystem>(Direction.Out, 1),
                     Core.Systems.Create.SystemConnector<ElectricalSystem>(),
                     Core.Systems.Create.SystemConnector<IControlSystem>()
                 );
@@ -64,6 +73,26 @@ namespace SAM.Analytical.Systems
             if (jObject.ContainsKey("DesignCapacitySignal"))
             {
                 DesignCapacitySignal = jObject.Value<double>("DesignCapacitySignal");
+            }
+
+            if (jObject.ContainsKey("DesignFlowRate"))
+            {
+                DesignFlowRate = Core.Query.IJSAMObject<SizedFlowValue>(jObject.Value<JObject>("DesignFlowRate"));
+            }
+
+            if (jObject.ContainsKey("DesignFlowType"))
+            {
+                DesignFlowType = Core.Query.Enum<FlowRateType>(jObject.Value<string>("DesignFlowType"));
+            }
+
+            if (jObject.ContainsKey("MinimumFlowRate"))
+            {
+                MinimumFlowRate = Core.Query.IJSAMObject<SizedFlowValue>(jObject.Value<JObject>("MinimumFlowRate"));
+            }
+
+            if (jObject.ContainsKey("MinimumFlowType"))
+            {
+                MinimumFlowType = Core.Query.Enum<FlowRateType>(jObject.Value<string>("MinimumFlowType"));
             }
 
             if (jObject.ContainsKey("MinimumFlowFraction"))
@@ -96,6 +125,20 @@ namespace SAM.Analytical.Systems
             {
                 result.Add("DesignCapacitySignal", DesignCapacitySignal);
             }
+
+            if (DesignFlowRate != null)
+            {
+                result.Add("DesignFlowRate", DesignFlowRate.ToJObject());
+            }
+
+            result.Add("DesignFlowType", DesignFlowType.ToString());
+
+            if (MinimumFlowRate != null)
+            {
+                result.Add("MinimumFlowRate", MinimumFlowRate.ToJObject());
+            }
+
+            result.Add("MinimumFlowType", MinimumFlowType.ToString());
 
             if (double.IsNaN(MinimumFlowFraction))
             {
