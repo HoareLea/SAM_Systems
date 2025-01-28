@@ -19,6 +19,12 @@ namespace SAM.Analytical.Systems
             ModifiableValue = value;
         }
 
+        public SizableValue(double value, double sizeFraction)
+        {
+            ModifiableValue = value;
+            SizeFraction = sizeFraction;
+        }
+
         public SizableValue(SizableValue sizableValue)
         {
             if(sizableValue != null)

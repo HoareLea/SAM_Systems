@@ -3,29 +3,26 @@ using System.Collections.Generic;
 
 namespace SAM.Analytical.Systems
 {
-    public class DesignConditionSizedValue : SizedValue
+    public class DesignConditionSizableValue : SizableValue
     {
         private HashSet<string> designConditionNames;
 
-        public DesignConditionSizedValue(double value, double sizeFraction, IEnumerable<string> designConditionNames)
+        public DesignConditionSizableValue(double value, double sizeFraction, IEnumerable<string> designConditionNames)
             : base(value, sizeFraction)
         {
             this.designConditionNames = designConditionNames == null ? null : new HashSet<string>(designConditionNames);
-
-            SizeFraction = sizeFraction;
         }
 
-        public DesignConditionSizedValue(DesignConditionSizedValue designConditionSizedValue)
-            :base(designConditionSizedValue)
+        public DesignConditionSizableValue(DesignConditionSizableValue designConditionSizableValue)
+            :base(designConditionSizableValue)
         {
-            if(designConditionSizedValue != null)
+            if(designConditionSizableValue != null)
             {
-                SizeFraction = designConditionSizedValue.SizeFraction;
-                designConditionNames = designConditionSizedValue.designConditionNames == null ? null : new HashSet<string>(designConditionSizedValue.designConditionNames);
+                designConditionNames = designConditionSizableValue.designConditionNames == null ? null : new HashSet<string>(designConditionSizableValue.designConditionNames);
             }
         }
 
-        public DesignConditionSizedValue(JObject jObject)
+        public DesignConditionSizableValue(JObject jObject)
             : base(jObject)
         {
 
