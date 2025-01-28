@@ -7,7 +7,7 @@ namespace SAM.Analytical.Systems
     public class SystemAirSourceHeatPump : SystemHeatPump
     {
         public HeatPumpType HeatPumpType { get; set; }
-        public SizableValue CoolingCapacity { get; set; }
+        public ISizableValue CoolingCapacity { get; set; }
         public ModifiableValue CoolingPower { get; set; }
         public ModifiableValue HeatingCapacity { get; set; }
         public ModifiableValue HeatingPower { get; set; }

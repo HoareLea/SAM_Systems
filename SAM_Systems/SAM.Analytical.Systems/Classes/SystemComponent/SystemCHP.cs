@@ -9,7 +9,7 @@ namespace SAM.Analytical.Systems
         public ModifiableValue Setpoint { get; set; }
         public ModifiableValue Efficiency { get; set; }
         public ModifiableValue HeatPowerRatio { get; set; }
-        public SizableValue Duty { get; set; }
+        public ISizableValue Duty { get; set; }
         public double DesignTemperatureDifference { get; set; }
         public double Capacity { get; set; }
         public double DesignPressureDrop { get; set; }

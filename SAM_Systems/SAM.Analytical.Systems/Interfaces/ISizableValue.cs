@@ -4,6 +4,6 @@ namespace SAM.Analytical.Systems
 {
     public interface ISizableValue : ISystemJSAMObject
     {
-        Core.ModifiableValue ModifiableValue { get; }
+        SizingType SizingType { get; }
     }
 }

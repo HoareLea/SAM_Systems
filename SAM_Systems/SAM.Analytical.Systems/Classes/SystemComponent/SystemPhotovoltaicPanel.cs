@@ -7,7 +7,7 @@ namespace SAM.Analytical.Systems
     public class SystemPhotovoltaicPanel : SystemComponent
     {
         public ModifiableValue PanelEfficiency { get; set; }
-        public SizableValue InverterSize { get; set; }
+        public ISizableValue InverterSize { get; set; }
         public int Multiplicity { get; set; }
         public ModifiableValue InverterEfficiency { get; set; }
         public bool UseZoneSurface { get; set; }

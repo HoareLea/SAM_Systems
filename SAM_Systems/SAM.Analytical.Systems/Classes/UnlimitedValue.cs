@@ -3,34 +3,39 @@ using SAM.Core;
 
 namespace SAM.Analytical.Systems
 {
-    public class UnlimitedValue : SizableValue
+    public class UnlimitedValue : ISizableValue
     {
-        public override ModifiableValue ModifiableValue 
-        { 
-            get
-            {
-                return double.NaN;
-            }
-            
-            set
-            {
-                return;
-            }
-        }
+        public SizingType SizingType => SizingType.None;
 
         public UnlimitedValue()
         {
         }
 
         public UnlimitedValue(UnlimitedValue unlimitedValue)
-            :base(unlimitedValue)
         {
         }
 
         public UnlimitedValue(JObject jObject)
-            :base(jObject)
         {
+            FromJObject(jObject);
+        }
 
+        public virtual bool FromJObject(JObject jObject)
+        {
+            if (jObject == null)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        public virtual JObject ToJObject()
+        {
+            JObject result = new JObject();
+            result.Add("_type", Core.Query.FullTypeName(this));
+
+            return result;
         }
     }
 }

@@ -20,7 +20,7 @@ namespace SAM.Analytical.Systems
         public SetpointMode SetpointMode { get; set; }
         public ModifiableValue Setpoint { get; set; }
         public ModifiableValue ElectricalLoad { get; set; }
-        public SizableValue Duty { get; set; }
+        public ISizableValue Duty { get; set; }
         public ModifiableValue BypassFactor { get; set; }
 
         public SystemExchanger(string name)

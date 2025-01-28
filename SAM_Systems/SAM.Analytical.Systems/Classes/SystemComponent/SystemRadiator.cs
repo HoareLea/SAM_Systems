@@ -6,7 +6,7 @@ namespace SAM.Analytical.Systems
     public class SystemRadiator : SystemSpaceComponent
     {
         public double Efficiency { get; set; }
-        public SizableValue Duty { get; set; }
+        public ISizableValue Duty { get; set; }
 
         public override SystemConnectorManager SystemConnectorManager
         {

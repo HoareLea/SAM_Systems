@@ -12,7 +12,7 @@ namespace SAM.Analytical.Systems
         public double Capacity { get; set; }
         public double DesignPressureDrop { get; set; }
         public double DesignTemperatureDifference { get; set; }
-        public SizableValue IceCapacity { get; set; }
+        public ISizableValue IceCapacity { get; set; }
         public double InitialIceReserve { get; set; }
         public ModifiableValue CondenserFanLoad { get; set; }
         public ModifiableValue MotorEfficiency { get; set; }

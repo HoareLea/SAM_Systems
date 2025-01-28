@@ -9,11 +9,11 @@ namespace SAM.Analytical.Systems
 
         public ModifiableValue Effectiveness { get; set; }
 
-        public SizableValue WaterFlowCapacity { get; set; }
+        public ISizableValue WaterFlowCapacity { get; set; }
 
         public ModifiableValue ElectricalLoad { get; set; }
 
-        public SizableValue TankVolume { get; set; }
+        public ISizableValue TankVolume { get; set; }
 
         public double HoursBeforePurgingTank { get; set; }
 

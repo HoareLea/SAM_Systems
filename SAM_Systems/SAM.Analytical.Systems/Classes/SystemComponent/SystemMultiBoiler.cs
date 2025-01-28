@@ -7,7 +7,7 @@ namespace SAM.Analytical.Systems
     public class SystemMultiBoiler : SystemMultiComponent<SystemMultiBoilerItem>
     {
         public ModifiableValue Setpoint { get; set; }
-        public SizableValue Duty { get; set; }
+        public ISizableValue Duty { get; set; }
         public double DesignTemperatureDifference { get; set; }
         public double DesignPressureDrop { get; set; }
         public double Capacity { get; set; }

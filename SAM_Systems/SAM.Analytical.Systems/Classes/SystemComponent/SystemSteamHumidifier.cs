@@ -5,7 +5,7 @@ namespace SAM.Analytical.Systems
 {
     public class SystemSteamHumidifier : SystemHumidifier
     {
-        public SizableValue Duty { get; set; }
+        public ISizableValue Duty { get; set; }
         public ModifiableValue Setpoint { get; set; }
         public ModifiableValue WaterSupplyTemperature { get; set; }
         public SizingType WaterTemperatureSource { get; set; }

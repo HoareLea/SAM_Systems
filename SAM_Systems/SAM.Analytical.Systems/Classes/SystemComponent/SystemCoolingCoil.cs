@@ -8,7 +8,7 @@ namespace SAM.Analytical.Systems
     {
         public ModifiableValue Setpoint { get; set; }
         public ModifiableValue BypassFactor { get; set; }
-        public SizableValue Duty { get; set; }
+        public ISizableValue Duty { get; set; }
         public ModifiableValue MinimumOffcoil { get; set; }
 
         public SystemCoolingCoil(string name)

@@ -10,8 +10,8 @@ namespace SAM.Analytical.Systems
         public ModifiableValue CoolingSetpoint { get; set; }
         public ModifiableValue HeatingEfficiency { get; set; }
         public ModifiableValue CoolingEfficiency { get; set; }
-        public SizableValue HeatingDuty { get; set; }
-        public SizableValue CoolingDuty { get; set; }
+        public ISizableValue HeatingDuty { get; set; }
+        public ISizableValue CoolingDuty { get; set; }
         public double Capacity1 { get; set; }
         public double DesignPressureDrop1 { get; set; }
         public double DesignTemperatureDifference1 { get; set; }

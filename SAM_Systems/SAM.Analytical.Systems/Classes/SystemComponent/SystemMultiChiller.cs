@@ -8,7 +8,7 @@ namespace SAM.Analytical.Systems
     {
         public double DesignPressureDrop { get; set; }
         public double DesignTemperatureDifference { get; set; }
-        public SizableValue Duty { get; set; }
+        public ISizableValue Duty { get; set; }
         public ModifiableValue Setpoint { get; set; }
         public double Capacity { get; set; }
         public EquipmentSequence Sequence { get; set; }

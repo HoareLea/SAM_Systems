@@ -6,7 +6,7 @@ namespace SAM.Analytical.Systems
 {
     public abstract class SystemChiller : SystemComponent
     {
-        public SizableValue Duty { get; set; }
+        public ISizableValue Duty { get; set; }
 
         public SystemChiller(string name)
             : base(name)

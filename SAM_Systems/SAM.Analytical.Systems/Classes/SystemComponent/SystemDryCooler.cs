@@ -9,7 +9,7 @@ namespace SAM.Analytical.Systems
         public double DesignPressureDrop { get; set; }
         public double Capacity { get; set; }
         public ModifiableValue CoolingSetpoint { get; set; }
-        public SizableValue MaxFlowRate { get; set; }
+        public ISizableValue MaxFlowRate { get; set; }
         public ModifiableValue FanSFP { get; set; }
         public ExchangerCalculationMethod DryCoolerExchangerCalculationMethod { get; set; }
         public ModifiableValue Efficiency { get; set; }
@@ -23,7 +23,7 @@ namespace SAM.Analytical.Systems
         public bool HasPreCooling { get; set; }
         public ModifiableValue PreCoolingEffectiveness { get; set; }
         public ModifiableValue AncillaryLoad { get; set; }
-        public SizableValue PreCoolingWaterFlowCapacity { get; set; }
+        public ISizableValue PreCoolingWaterFlowCapacity { get; set; }
         public double MinAirFlowRate { get; set; }
         public double MinAirFlowRatio { get; set; }
         public bool VariableFans { get; set; }

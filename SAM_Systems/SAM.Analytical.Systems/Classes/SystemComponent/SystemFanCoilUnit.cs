@@ -6,8 +6,8 @@ namespace SAM.Analytical.Systems
     public class SystemFanCoilUnit : SystemSpaceComponent
     {
         public double Pressure { get; set; }
-        public SizableValue CoolingDuty { get; set; }
-        public SizableValue HeatingDuty { get; set; }
+        public ISizableValue CoolingDuty { get; set; }
+        public ISizableValue HeatingDuty { get; set; }
         public double DesignFlowRate { get; set; }
         public double HeatingEfficiency { get; set; }
         public double OverallEfficiency { get; set; }

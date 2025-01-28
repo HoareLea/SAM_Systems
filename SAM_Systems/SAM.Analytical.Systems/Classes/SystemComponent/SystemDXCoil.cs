@@ -14,8 +14,8 @@ namespace SAM.Analytical.Systems
 
         public ModifiableValue BypassFactor { get; set; }
 
-        public SizableValue CoolingDuty { get; set; }
-        public SizableValue HeatingDuty { get; set; }
+        public ISizableValue CoolingDuty { get; set; }
+        public ISizableValue HeatingDuty { get; set; }
 
         public SystemDXCoil(string name)
             : base(name)

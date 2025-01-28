@@ -14,7 +14,7 @@ namespace SAM.Analytical.Systems
         public ModifiableValue FanSFP { get; set; }
         public double HeatTransferCoefficient { get; set; }
         public SizingType HeatTransferSurfaceAreaSizingType { get; set; }
-        public SizableValue HeatTransferSurfaceArea { get; set; }
+        public ISizableValue HeatTransferSurfaceArea { get; set; }
         public TemperatureSizingType ExternalWetBulbTemperatureSizingType { get; set; }
         public double ExternalWetBulbTemperature { get; set; }
         public double DesignApproach { get; set; }

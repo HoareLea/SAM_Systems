@@ -5,6 +5,9 @@ namespace SAM.Analytical.Systems
 {
     public class SizableValue : ISizableValue
     {
+        public SizingType SizingType { get; set; }
+        public double SizeFraction { get; set; }
+        public SizeMethod SizeMethod { get; set; } = SizeMethod.Normal;
         public virtual ModifiableValue ModifiableValue { get; set; }
 
         public SizableValue()
@@ -20,7 +23,10 @@ namespace SAM.Analytical.Systems
         {
             if(sizableValue != null)
             {
+                SizingType = sizableValue.SizingType;
                 ModifiableValue = sizableValue.ModifiableValue;
+                SizeFraction = sizableValue.SizeFraction;
+                SizeMethod = sizableValue.SizeMethod;
             }
         }
 
@@ -36,7 +42,22 @@ namespace SAM.Analytical.Systems
                 return false;
             }
 
-            if(jObject.ContainsKey("ModifiableValue"))
+            if (jObject.ContainsKey("SizingType"))
+            {
+                SizingType = Core.Query.Enum<SizingType>(jObject.Value<string>("SizingType"));
+            }
+
+            if (jObject.ContainsKey("SizeFraction"))
+            {
+                SizeFraction = jObject.Value<double>("SizeFraction");
+            }
+
+            if (jObject.ContainsKey("SizeMethod"))
+            {
+                SizeMethod = Core.Query.Enum<SizeMethod>(jObject.Value<string>("SizeMethod"));
+            }
+
+            if (jObject.ContainsKey("ModifiableValue"))
             {
                 ModifiableValue = Core.Query.IJSAMObject<ModifiableValue>(jObject.Value<JObject>("ModifiableValue"));
             }
@@ -49,7 +70,16 @@ namespace SAM.Analytical.Systems
             JObject result = new JObject();
             result.Add("_type", Core.Query.FullTypeName(this));
 
-            if(ModifiableValue != null)
+            result.Add("SizingType", SizingType.ToString());
+
+            if (!double.IsNaN(SizeFraction))
+            {
+                result.Add("SizeFraction", SizeFraction);
+            }
+
+            result.Add("SizeMethod", SizeMethod.ToString());
+
+            if (ModifiableValue != null)
             {
                 result.Add("ModifiableValue", ModifiableValue.ToJObject());
             }
