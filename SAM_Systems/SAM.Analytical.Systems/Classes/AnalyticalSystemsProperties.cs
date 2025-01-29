@@ -37,7 +37,7 @@ namespace SAM.Analytical.Systems
         {
             get
             {
-                return schedules.Values.ToList();
+                return schedules?.Values?.ToList();
             }
         }
 
@@ -46,6 +46,11 @@ namespace SAM.Analytical.Systems
             if(schedule?.Name == null)
             {
                 return false;
+            }
+
+            if(schedules == null)
+            {
+                schedules = new Dictionary<string, ISchedule>();
             }
 
             schedules[schedule.Name] = schedule;
