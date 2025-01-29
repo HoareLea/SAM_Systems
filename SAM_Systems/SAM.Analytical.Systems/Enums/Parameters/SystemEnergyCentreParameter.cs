@@ -11,5 +11,6 @@ namespace SAM.Analytical.Systems
         [ParameterProperties("Annual CO2 Emission", "Annual CO2 Emission [kg]"), ParameterValue(Core.ParameterType.Double)] AnnualCO2Emission,
         [ParameterProperties("Annual Cost", "Annual Cost"), ParameterValue(Core.ParameterType.Double)] AnnualCost,
         [ParameterProperties("Annual Unmet Hours", "Annual Unmet Hours [h]"), ParameterValue(Core.ParameterType.Double)] AnnualUnmetHours,
+        [ParameterProperties("Analytical Systems Properties", "Analytical Systems Properties"), SAMObjectParameterValue(typeof(AnalyticalSystemsProperties))] AnalyticalSystemsProperties,
     }
 }

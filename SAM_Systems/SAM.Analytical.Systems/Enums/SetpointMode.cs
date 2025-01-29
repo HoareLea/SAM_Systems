@@ -2,11 +2,12 @@
 
 namespace SAM.Analytical.Systems
 {
-    [Description("Setpoint Mode")]
-    public enum SetpointMode
+    [Description("Schedule Function Type")]
+    public enum ScheduleFunctionType
     {
         [Description("None")] None,
-        [Description("On")] On,
+        [Description("Nearest Zone Load")] NearestZoneLoad,
+        [Description("All Zones Load")] AllZonesLoad,
     }
 }
 
