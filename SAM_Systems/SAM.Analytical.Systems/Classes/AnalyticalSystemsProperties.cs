@@ -20,7 +20,8 @@ namespace SAM.Analytical.Systems
             {
                 if(analyticalSystemsProperties.schedules != null)
                 {
-                    foreach(ISchedule schedule in analyticalSystemsProperties.schedules.Values)
+                    schedules = new Dictionary<string, ISchedule>();
+                    foreach (ISchedule schedule in analyticalSystemsProperties.schedules.Values)
                     {
                         schedules[schedule.Name] = schedule;
                     }
