@@ -202,6 +202,9 @@
 
                 case AnalyticalSystemComponentType.SystemWindTurbine:
                     return typeof(SystemWindTurbine);
+
+                case AnalyticalSystemComponentType.SystemLoadComponent:
+                    return typeof(SystemLoadComponent);
             }
 
             return null;

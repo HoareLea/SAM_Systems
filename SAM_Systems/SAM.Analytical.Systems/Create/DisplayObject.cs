@@ -278,6 +278,10 @@ namespace SAM.Analytical.Systems
             {
                 displayObject = new DisplaySystemWindTurbine((SystemWindTurbine)systemComponent, systemGeometrySymbol, location);
             }
+            else if (systemComponent is SystemLoadComponent)
+            {
+                displayObject = new DisplaySystemLoadComponent((SystemLoadComponent)systemComponent, systemGeometrySymbol, location);
+            }
 
             if (!(displayObject is T))
             {

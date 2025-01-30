@@ -69,6 +69,7 @@ namespace SAM.Analytical.Systems
         [Description("System Solar Panel")] SystemSolarPanel,
         [Description("System Photovoltaic Panel")] SystemPhotovoltaicPanel,
         [Description("System Valve")] SystemValve,
-        [Description("System Wind Turbine")] SystemWindTurbine
+        [Description("System Wind Turbine")] SystemWindTurbine,
+        [Description("System Load Component")] SystemLoadComponent
     }
 }
