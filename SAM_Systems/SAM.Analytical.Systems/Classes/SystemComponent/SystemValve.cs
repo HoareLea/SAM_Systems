@@ -10,6 +10,8 @@ namespace SAM.Analytical.Systems
         public double DesignFlowRate { get; set; }
         public double DesignPressureDrop { get; set; }
 
+        public string ScheduleName { get; set; }
+
         public SystemValve(string name)
             : base(name)
         {
@@ -25,6 +27,7 @@ namespace SAM.Analytical.Systems
                 DesignCapacitySignal = systemValve.DesignCapacitySignal;
                 DesignFlowRate = systemValve.DesignFlowRate;
                 DesignPressureDrop = systemValve.DesignPressureDrop;
+                ScheduleName = systemValve.ScheduleName;
             }
         }
 
@@ -75,6 +78,11 @@ namespace SAM.Analytical.Systems
                 DesignPressureDrop = jObject.Value<double>("DesignPressureDrop");
             }
 
+            if (jObject.ContainsKey("ScheduleName"))
+            {
+                ScheduleName = jObject.Value<string>("ScheduleName");
+            }
+
             return result;
         }
 
@@ -104,6 +112,11 @@ namespace SAM.Analytical.Systems
             if (!double.IsNaN(DesignPressureDrop))
             {
                 result.Add("DesignPressureDrop", DesignPressureDrop);
+            }
+
+            if (ScheduleName != null)
+            {
+                result.Add("ScheduleName", ScheduleName);
             }
 
             return result;

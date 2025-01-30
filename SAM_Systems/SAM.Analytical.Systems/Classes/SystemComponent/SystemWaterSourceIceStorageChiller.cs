@@ -23,6 +23,8 @@ namespace SAM.Analytical.Systems
         public ModifiableValue AncillaryLoad { get; set; }
         public bool LossesInSizing { get; set; }
 
+        public string ScheduleName { get; set; }
+
         public SystemWaterSourceIceStorageChiller(string name)
             : base(name)
         {
@@ -50,6 +52,7 @@ namespace SAM.Analytical.Systems
                 IceMeltChillerFraction = waterSourceIceStorageSystemChiller.IceMeltChillerFraction;
                 AncillaryLoad = waterSourceIceStorageSystemChiller.AncillaryLoad?.Clone();
                 LossesInSizing = waterSourceIceStorageSystemChiller.LossesInSizing;
+                ScheduleName = waterSourceIceStorageSystemChiller.ScheduleName;
             }
         }
 
@@ -162,6 +165,11 @@ namespace SAM.Analytical.Systems
                 LossesInSizing = jObject.Value<bool>("LossesInSizing");
             }
 
+            if (jObject.ContainsKey("ScheduleName"))
+            {
+                ScheduleName = jObject.Value<string>("ScheduleName");
+            }
+
             return result;
         }
 
@@ -249,6 +257,11 @@ namespace SAM.Analytical.Systems
             }
 
             result.Add("LossesInSizing", LossesInSizing);
+
+            if (ScheduleName != null)
+            {
+                result.Add("ScheduleName", ScheduleName);
+            }
 
             return result;
         }

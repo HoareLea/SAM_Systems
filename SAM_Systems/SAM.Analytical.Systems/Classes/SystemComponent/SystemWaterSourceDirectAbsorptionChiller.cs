@@ -24,6 +24,8 @@ namespace SAM.Analytical.Systems
         public ModifiableValue AncillaryLoad { get; set; }
         public FreeCoolingType FreeCoolingType { get; set; }
 
+        public string ScheduleName { get; set; }
+
         public SystemWaterSourceDirectAbsorptionChiller(string name)
             : base(name)
         {
@@ -52,6 +54,7 @@ namespace SAM.Analytical.Systems
                 HeatTransferCoefficient = waterSourceDirectAbsorptionSystemChiller.HeatTransferCoefficient;
                 AncillaryLoad = waterSourceDirectAbsorptionSystemChiller.AncillaryLoad?.Clone();
                 FreeCoolingType = waterSourceDirectAbsorptionSystemChiller.FreeCoolingType;
+                ScheduleName = waterSourceDirectAbsorptionSystemChiller.ScheduleName;
             }
         }
 
@@ -169,6 +172,11 @@ namespace SAM.Analytical.Systems
                 FreeCoolingType = Core.Query.Enum<FreeCoolingType>(jObject.Value<string>("FreeCoolingType"));
             }
 
+            if (jObject.ContainsKey("ScheduleName"))
+            {
+                ScheduleName = jObject.Value<string>("ScheduleName");
+            }
+
             return result;
         }
 
@@ -252,6 +260,11 @@ namespace SAM.Analytical.Systems
             }
 
             result.Add("FreeCoolingType", FreeCoolingType.ToString());
+
+            if (ScheduleName != null)
+            {
+                result.Add("ScheduleName", ScheduleName);
+            }
 
             return result;
         }

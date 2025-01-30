@@ -17,6 +17,8 @@ namespace SAM.Analytical.Systems
         public ModifiableValue HESetpoint { get; set; }
         public ModifiableValue ElectricalLoad { get; set; }
 
+        public string ScheduleName { get; set; }
+
 
         public SystemDesiccantWheel(string name)
             : base(name)
@@ -38,6 +40,7 @@ namespace SAM.Analytical.Systems
                 HESetpointMethod = systemDesiccantWheel.HESetpointMethod;
                 HESetpoint = systemDesiccantWheel.HESetpoint?.Clone();
                 ElectricalLoad = systemDesiccantWheel.ElectricalLoad?.Clone();
+                ScheduleName = systemDesiccantWheel.ScheduleName;
             }
         }
 
@@ -115,6 +118,11 @@ namespace SAM.Analytical.Systems
                 ElectricalLoad = Core.Query.IJSAMObject<ModifiableValue>(jObject.Value<JObject>("ElectricalLoad"));
             }
 
+            if (jObject.ContainsKey("ScheduleName"))
+            {
+                ScheduleName = jObject.Value<string>("ScheduleName");
+            }
+
             return result;
         }
 
@@ -166,6 +174,11 @@ namespace SAM.Analytical.Systems
             if (ElectricalLoad != null)
             {
                 result.Add("ElectricalLoad", ElectricalLoad.ToJObject());
+            }
+
+            if (ScheduleName != null)
+            {
+                result.Add("ScheduleName", ScheduleName);
             }
 
             return result;

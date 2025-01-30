@@ -11,6 +11,8 @@ namespace SAM.Analytical.Systems
         public ISizableValue Duty { get; set; }
         public ModifiableValue MinimumOffcoil { get; set; }
 
+        public string ScheduleName { get; set; }
+
         public SystemCoolingCoil(string name)
             : base(name)
         {
@@ -26,6 +28,7 @@ namespace SAM.Analytical.Systems
                 BypassFactor = systemCoolingCoil.BypassFactor?.Clone();
                 Duty = systemCoolingCoil.Duty?.Clone();
                 MinimumOffcoil = systemCoolingCoil.MinimumOffcoil?.Clone();
+                ScheduleName = systemCoolingCoil.ScheduleName;
             }
         }
 
@@ -78,6 +81,11 @@ namespace SAM.Analytical.Systems
                 MinimumOffcoil = Core.Query.IJSAMObject<ModifiableValue>(jObject.Value<JObject>("MinimumOffcoil"));
             }
 
+            if (jObject.ContainsKey("ScheduleName"))
+            {
+                ScheduleName = jObject.Value<string>("ScheduleName");
+            }
+
             return result;
         }
 
@@ -108,6 +116,11 @@ namespace SAM.Analytical.Systems
             if (MinimumOffcoil != null)
             {
                 result.Add("MinimumOffcoil", MinimumOffcoil.ToJObject());
+            }
+
+            if (ScheduleName != null)
+            {
+                result.Add("ScheduleName", ScheduleName);
             }
 
             return result;

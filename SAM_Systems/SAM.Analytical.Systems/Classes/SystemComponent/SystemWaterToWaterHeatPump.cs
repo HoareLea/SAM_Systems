@@ -23,6 +23,8 @@ namespace SAM.Analytical.Systems
         public bool LossesInSizing { get; set; }
         public bool IsDomesticHotWater { get; set; }
 
+        public string ScheduleName { get; set; }
+
         public SystemWaterToWaterHeatPump(string name)
             : base(name)
         {
@@ -50,6 +52,7 @@ namespace SAM.Analytical.Systems
                 AncillaryLoad = systemWaterToWaterHeatPump.AncillaryLoad?.Clone();
                 LossesInSizing = systemWaterToWaterHeatPump.LossesInSizing;
                 IsDomesticHotWater = systemWaterToWaterHeatPump.IsDomesticHotWater;
+                ScheduleName = systemWaterToWaterHeatPump.ScheduleName;
             }
         }
 
@@ -163,6 +166,11 @@ namespace SAM.Analytical.Systems
                 IsDomesticHotWater = jObject.Value<bool>("IsDomesticHotWater");
             }
 
+            if (jObject.ContainsKey("ScheduleName"))
+            {
+                ScheduleName = jObject.Value<string>("ScheduleName");
+            }
+
             return result;
         }
 
@@ -247,6 +255,11 @@ namespace SAM.Analytical.Systems
             result.Add("LossesInSizing", LossesInSizing);
 
             result.Add("IsDomesticHotWater", IsDomesticHotWater);
+
+            if (ScheduleName != null)
+            {
+                result.Add("ScheduleName", ScheduleName);
+            }
 
             return result;
         }

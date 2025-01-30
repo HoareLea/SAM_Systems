@@ -23,6 +23,8 @@ namespace SAM.Analytical.Systems
         public ISizableValue Duty { get; set; }
         public ModifiableValue BypassFactor { get; set; }
 
+        public string ScheduleName { get; set; }
+
         public SystemExchanger(string name)
             : base(name)
         {
@@ -46,6 +48,7 @@ namespace SAM.Analytical.Systems
                 ElectricalLoad = systemExchanger.ElectricalLoad?.Clone();
                 Duty = systemExchanger.Duty?.Clone();
                 BypassFactor = systemExchanger.BypassFactor?.Clone();
+                ScheduleName = systemExchanger.ScheduleName;
             }
         }
 
@@ -133,6 +136,11 @@ namespace SAM.Analytical.Systems
                 BypassFactor = Core.Query.IJSAMObject<ModifiableValue>(jObject.Value<JObject>("BypassFactor"));
             }
 
+            if (jObject.ContainsKey("ScheduleName"))
+            {
+                ScheduleName = jObject.Value<string>("ScheduleName");
+            }
+
             return true;
         }
 
@@ -190,6 +198,11 @@ namespace SAM.Analytical.Systems
             if (BypassFactor != null)
             {
                 result.Add("BypassFactor", BypassFactor.ToJObject());
+            }
+
+            if (ScheduleName != null)
+            {
+                result.Add("ScheduleName", ScheduleName);
             }
 
             return result;

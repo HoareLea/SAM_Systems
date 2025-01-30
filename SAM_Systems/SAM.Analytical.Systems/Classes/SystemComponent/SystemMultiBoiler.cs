@@ -15,6 +15,8 @@ namespace SAM.Analytical.Systems
         public EquipmentSequence Sequence { get; set; }
         public bool IsDomesticHotWater { get; set; }
 
+        public string ScheduleName { get; set; }
+
         public SystemMultiBoiler(string name)
             : base(name)
         {
@@ -34,6 +36,7 @@ namespace SAM.Analytical.Systems
                 Sequence = systemMultiBoiler.Sequence;
                 IsDomesticHotWater = systemMultiBoiler.IsDomesticHotWater;
                 Capacity = systemMultiBoiler.Capacity;
+                ScheduleName = systemMultiBoiler.ScheduleName;
             }
         }
 
@@ -104,6 +107,11 @@ namespace SAM.Analytical.Systems
                 IsDomesticHotWater = jObject.Value<bool>("IsDomesticHotWater");
             }
 
+            if (jObject.ContainsKey("ScheduleName"))
+            {
+                ScheduleName = jObject.Value<string>("ScheduleName");
+            }
+
             return true;
         }
 
@@ -145,6 +153,11 @@ namespace SAM.Analytical.Systems
             result.Add("IsDomesticHotWater", IsDomesticHotWater);
 
             result.Add("Sequence", Sequence.ToString());
+
+            if (ScheduleName != null)
+            {
+                result.Add("ScheduleName", ScheduleName);
+            }
 
             return result;
         }

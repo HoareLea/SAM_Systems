@@ -23,6 +23,8 @@ namespace SAM.Analytical.Systems
         public double HeatTransferSurfaceArea { get; set; }
         public double HeatTransferCoefficient { get; set; }
 
+        public string ScheduleName { get; set; }
+
         public SystemLiquidExchanger(string name)
             : base(name)
         {
@@ -55,6 +57,8 @@ namespace SAM.Analytical.Systems
                 HeatTransferSurfaceArea = systemLiquidExchanger.HeatTransferSurfaceArea;
 
                 HeatTransferCoefficient = systemLiquidExchanger.HeatTransferCoefficient;
+
+                ScheduleName = systemLiquidExchanger.ScheduleName;
             }
         }
 
@@ -152,6 +156,11 @@ namespace SAM.Analytical.Systems
                 HeatTransferCoefficient = jObject.Value<double>("HeatTransferCoefficient");
             }
 
+            if (jObject.ContainsKey("ScheduleName"))
+            {
+                ScheduleName = jObject.Value<string>("ScheduleName");
+            }
+
             return result;
         }
 
@@ -214,6 +223,11 @@ namespace SAM.Analytical.Systems
             if (!double.IsNaN(HeatTransferCoefficient))
             {
                 result.Add("HeatTransferCoefficient", HeatTransferCoefficient);
+            }
+
+            if (ScheduleName != null)
+            {
+                result.Add("ScheduleName", ScheduleName);
             }
 
             return result;

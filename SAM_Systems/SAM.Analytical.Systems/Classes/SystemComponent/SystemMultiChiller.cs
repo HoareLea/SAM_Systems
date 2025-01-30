@@ -14,6 +14,8 @@ namespace SAM.Analytical.Systems
         public EquipmentSequence Sequence { get; set; }
         public bool LossesInSizing { get; set; }
 
+        public string ScheduleName { get; set; }
+
         public SystemMultiChiller(string name)
             : base(name)
         {
@@ -32,6 +34,7 @@ namespace SAM.Analytical.Systems
                 Capacity = systemMultiChiller.Capacity;
                 Sequence = systemMultiChiller.Sequence;
                 LossesInSizing = systemMultiChiller.LossesInSizing;
+                ScheduleName = systemMultiChiller.ScheduleName;
             }
         }
 
@@ -97,6 +100,11 @@ namespace SAM.Analytical.Systems
                 LossesInSizing = jObject.Value<bool>("LossesInSizing");
             }
 
+            if (jObject.ContainsKey("ScheduleName"))
+            {
+                ScheduleName = jObject.Value<string>("ScheduleName");
+            }
+
             return result;
         }
 
@@ -136,6 +144,11 @@ namespace SAM.Analytical.Systems
             result.Add("Sequence", Sequence.ToString());
 
             result.Add("LossesInSizing", LossesInSizing);
+
+            if (ScheduleName != null)
+            {
+                result.Add("ScheduleName", ScheduleName);
+            }
 
             return result;
         }

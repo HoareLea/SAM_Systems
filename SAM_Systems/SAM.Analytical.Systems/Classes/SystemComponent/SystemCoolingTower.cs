@@ -31,6 +31,8 @@ namespace SAM.Analytical.Systems
         public double BlowdownConcentrationRatio { get; set; }
         public ModifiableValue AncillaryLoad { get; set; }
 
+        public string ScheduleName { get; set; }
+
         public SystemCoolingTower(string name)
             : base(name)
         {
@@ -66,6 +68,7 @@ namespace SAM.Analytical.Systems
                 WaterDriftLoss = systemCoolingTower.WaterDriftLoss;
                 BlowdownConcentrationRatio = systemCoolingTower.BlowdownConcentrationRatio;
                 AncillaryLoad = systemCoolingTower.AncillaryLoad?.Clone();
+                ScheduleName = systemCoolingTower.ScheduleName;
             }
         }
 
@@ -216,6 +219,11 @@ namespace SAM.Analytical.Systems
                 AncillaryLoad = Core.Query.IJSAMObject<ModifiableValue>(jObject.Value<JObject>("AncillaryLoad"));
             }
 
+            if (jObject.ContainsKey("ScheduleName"))
+            {
+                ScheduleName = jObject.Value<string>("ScheduleName");
+            }
+
             return result;
         }
 
@@ -330,6 +338,11 @@ namespace SAM.Analytical.Systems
             if (AncillaryLoad != null)
             {
                 result.Add("AncillaryLoad", AncillaryLoad.ToJObject());
+            }
+
+            if (ScheduleName != null)
+            {
+                result.Add("ScheduleName", ScheduleName);
             }
 
             return result;

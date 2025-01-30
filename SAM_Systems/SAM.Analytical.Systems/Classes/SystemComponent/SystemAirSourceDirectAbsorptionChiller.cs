@@ -14,6 +14,8 @@ namespace SAM.Analytical.Systems
         public double DesignPressureDrop { get; set; }
         public bool LossesInSizing { get; set; }
 
+        public string ScheduleName { get; set; }
+
         public SystemAirSourceDirectAbsorptionChiller(string name)
             : base(name)
         {
@@ -32,6 +34,7 @@ namespace SAM.Analytical.Systems
                 Capacity = airSourceDirectAbsorptionSystemChiller.Capacity;
                 DesignPressureDrop = airSourceDirectAbsorptionSystemChiller.DesignPressureDrop;
                 LossesInSizing = airSourceDirectAbsorptionSystemChiller.LossesInSizing;
+                ScheduleName = airSourceDirectAbsorptionSystemChiller.ScheduleName;
             }
         }
 
@@ -97,6 +100,11 @@ namespace SAM.Analytical.Systems
                 LossesInSizing = jObject.Value<bool>("LossesInSizing");
             }
 
+            if (jObject.ContainsKey("ScheduleName"))
+            {
+                ScheduleName = jObject.Value<string>("ScheduleName");
+            }
+
             return result;
         }
 
@@ -139,6 +147,11 @@ namespace SAM.Analytical.Systems
             }
 
             result.Add("LossesInSizing", LossesInSizing);
+
+            if (ScheduleName != null)
+            {
+                result.Add("ScheduleName", ScheduleName);
+            }
 
             return result;
         }

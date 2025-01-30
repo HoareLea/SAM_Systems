@@ -18,6 +18,8 @@ namespace SAM.Analytical.Systems
         public ModifiableValue MinimalOutSourceTemperature { get; set; }
         public bool LossesInSizing { get; set; }
 
+        public string ScheduleName { get; set; }
+
         public SystemAbsorptionChiller(string name)
             : base(name)
         {
@@ -40,6 +42,7 @@ namespace SAM.Analytical.Systems
                 AncillaryLoad = absorptionSystemChiller.AncillaryLoad?.Clone();
                 MinimalOutSourceTemperature = absorptionSystemChiller.MinimalOutSourceTemperature?.Clone();
                 LossesInSizing = absorptionSystemChiller.LossesInSizing;
+                ScheduleName = absorptionSystemChiller.ScheduleName;
             }
         }
 
@@ -127,6 +130,11 @@ namespace SAM.Analytical.Systems
                 MinimalOutSourceTemperature = Core.Query.IJSAMObject<ModifiableValue>(jObject.Value<JObject>("MinimalOutSourceTemperature"));
             }
 
+            if (jObject.ContainsKey("ScheduleName"))
+            {
+                ScheduleName = jObject.Value<string>("ScheduleName");
+            }
+
             return result;
         }
 
@@ -189,6 +197,11 @@ namespace SAM.Analytical.Systems
             }
 
             result.Add("LossesInSizing", LossesInSizing);
+
+            if (ScheduleName != null)
+            {
+                result.Add("ScheduleName", ScheduleName);
+            }
 
             return result;
         }

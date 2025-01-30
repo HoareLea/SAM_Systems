@@ -27,6 +27,8 @@ namespace SAM.Analytical.Systems
         public ModifiableValue AncillaryLoad { get; set; }
         public bool IsDomesticHotWater { get; set; }
 
+        public string ScheduleName { get; set; }
+
         public SystemWaterSourceHeatPump(string name)
             : base(name)
         {
@@ -58,6 +60,7 @@ namespace SAM.Analytical.Systems
                 HeatSizeFraction = systemWaterSourceHeatPump.HeatSizeFraction;
                 AncillaryLoad = systemWaterSourceHeatPump.AncillaryLoad?.Clone();
                 IsDomesticHotWater = systemWaterSourceHeatPump.IsDomesticHotWater;
+                ScheduleName = systemWaterSourceHeatPump.ScheduleName;
             }
         }
 
@@ -190,6 +193,11 @@ namespace SAM.Analytical.Systems
                 IsDomesticHotWater = jObject.Value<bool>("IsDomesticHotWater");
             }
 
+            if (jObject.ContainsKey("ScheduleName"))
+            {
+                ScheduleName = jObject.Value<string>("ScheduleName");
+            }
+
             return result;
         }
 
@@ -294,6 +302,11 @@ namespace SAM.Analytical.Systems
             }
 
             result.Add("IsDomesticHotWater", IsDomesticHotWater);
+
+            if (ScheduleName != null)
+            {
+                result.Add("ScheduleName", ScheduleName);
+            }
 
             return result;
         }

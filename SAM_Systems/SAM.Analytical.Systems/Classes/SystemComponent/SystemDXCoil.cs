@@ -17,6 +17,8 @@ namespace SAM.Analytical.Systems
         public ISizableValue CoolingDuty { get; set; }
         public ISizableValue HeatingDuty { get; set; }
 
+        public string ScheduleName { get; set; }
+
         public SystemDXCoil(string name)
             : base(name)
         {
@@ -35,6 +37,7 @@ namespace SAM.Analytical.Systems
                 BypassFactor = systemDXCoil.BypassFactor.Clone();
                 CoolingDuty = systemDXCoil.CoolingDuty.Clone();
                 HeatingDuty = systemDXCoil.HeatingDuty.Clone();
+                ScheduleName = systemDXCoil.ScheduleName;
             }
         }
 
@@ -103,6 +106,11 @@ namespace SAM.Analytical.Systems
                 HeatingDuty = Core.Query.IJSAMObject<SizableValue>(jObject.Value<JObject>("HeatingDuty"));
             }
 
+            if (jObject.ContainsKey("ScheduleName"))
+            {
+                ScheduleName = jObject.Value<string>("ScheduleName");
+            }
+
             return result;
         }
 
@@ -147,6 +155,11 @@ namespace SAM.Analytical.Systems
             if (HeatingDuty != null)
             {
                 result.Add("HeatingDuty", HeatingDuty.ToJObject());
+            }
+
+            if (ScheduleName != null)
+            {
+                result.Add("ScheduleName", ScheduleName);
             }
 
             return result;

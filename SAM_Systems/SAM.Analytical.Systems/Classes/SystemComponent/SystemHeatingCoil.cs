@@ -11,6 +11,8 @@ namespace SAM.Analytical.Systems
         public ISizableValue Duty { get; set; }
         public ModifiableValue MaximumOffcoil { get; set; }
 
+        public string ScheduleName { get; set; }
+
         public SystemHeatingCoil(string name)
             : base(name)
         {
@@ -26,6 +28,7 @@ namespace SAM.Analytical.Systems
                 Efficiency = systemHeatingCoil.Efficiency?.Clone();
                 Duty = systemHeatingCoil.Duty?.Clone();
                 MaximumOffcoil = systemHeatingCoil.MaximumOffcoil?.Clone();
+                ScheduleName = systemHeatingCoil.ScheduleName;
             }
         }
 
@@ -79,6 +82,11 @@ namespace SAM.Analytical.Systems
                 MaximumOffcoil = Core.Query.IJSAMObject<ModifiableValue>(jObject.Value<JObject>("MaximumOffcoil"));
             }
 
+            if (jObject.ContainsKey("ScheduleName"))
+            {
+                ScheduleName = jObject.Value<string>("ScheduleName");
+            }
+
             return result;
         }
 
@@ -108,6 +116,11 @@ namespace SAM.Analytical.Systems
             if (MaximumOffcoil != null)
             {
                 result.Add("MaximumOffcoil", MaximumOffcoil.ToJObject());
+            }
+
+            if (ScheduleName != null)
+            {
+                result.Add("ScheduleName", ScheduleName);
             }
 
             return result;

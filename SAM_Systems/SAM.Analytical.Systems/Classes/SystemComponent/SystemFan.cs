@@ -18,6 +18,9 @@ namespace SAM.Analytical.Systems
         public FanControlType FanControlType { get; set; }
         public ModifiableValue PartLoad { get; set; }
 
+        public string ScheduleName { get; set; }
+
+
         public SystemFan(string name)
             : base(name)
         {
@@ -40,6 +43,7 @@ namespace SAM.Analytical.Systems
                 Capacity = systemFan.Capacity;
                 FanControlType = systemFan.FanControlType;
                 PartLoad = systemFan.PartLoad?.Clone();
+                ScheduleName = systemFan.ScheduleName;
             }
         }
 
@@ -126,6 +130,11 @@ namespace SAM.Analytical.Systems
                 PartLoad = Core.Query.IJSAMObject<ModifiableValue>(jObject.Value<JObject>("PartLoad"));
             }
 
+            if (jObject.ContainsKey("ScheduleName"))
+            {
+                ScheduleName = jObject.Value<string>("ScheduleName");
+            }
+
             return result;
         }
 
@@ -181,6 +190,11 @@ namespace SAM.Analytical.Systems
             if (PartLoad != null)
             {
                 result.Add("PartLoad", PartLoad.ToJObject());
+            }
+
+            if (ScheduleName != null)
+            {
+                result.Add("ScheduleName", ScheduleName);
             }
 
             return result;

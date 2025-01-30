@@ -15,6 +15,8 @@ namespace SAM.Analytical.Systems
         public ScheduleMode ScheduleMode { get; set; }
         public double DesignPressureDrop { get; set; }
 
+        public string ScheduleName { get; set; }
+
         public SystemMixingBox(string name)
             : base(name)
         {
@@ -34,6 +36,7 @@ namespace SAM.Analytical.Systems
                 MinFreshAirType = systemMixingBox.MinFreshAirType;
                 ScheduleMode = systemMixingBox.ScheduleMode;
                 DesignPressureDrop = systemMixingBox.DesignPressureDrop;
+                ScheduleName = systemMixingBox.ScheduleName;
             }
         }
 
@@ -105,6 +108,11 @@ namespace SAM.Analytical.Systems
                 DesignPressureDrop = jObject.Value<double>("DesignPressureDrop");
             }
 
+            if (jObject.ContainsKey("ScheduleName"))
+            {
+                ScheduleName = jObject.Value<string>("ScheduleName");
+            }
+
             return result;
         }
 
@@ -145,6 +153,11 @@ namespace SAM.Analytical.Systems
             if (double.IsNaN(DesignPressureDrop))
             {
                 result.Add("DesignPressureDrop", DesignPressureDrop);
+            }
+
+            if (ScheduleName != null)
+            {
+                result.Add("ScheduleName", ScheduleName);
             }
 
             return result;

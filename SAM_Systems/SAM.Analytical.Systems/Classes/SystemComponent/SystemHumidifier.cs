@@ -5,6 +5,8 @@ namespace SAM.Analytical.Systems
 {
     public class SystemHumidifier : SystemComponent
     {
+        public string ScheduleName { get; set; }
+
         public SystemHumidifier(string name)
             : base(name)
         {
@@ -14,7 +16,10 @@ namespace SAM.Analytical.Systems
         public SystemHumidifier(SystemHumidifier systemHumidifier)
             : base(systemHumidifier)
         {
-
+            if(systemHumidifier != null)
+            {
+                ScheduleName = systemHumidifier.ScheduleName;
+            }
         }
 
         public SystemHumidifier(JObject jObject)
@@ -38,12 +43,34 @@ namespace SAM.Analytical.Systems
 
         public override bool FromJObject(JObject jObject)
         {
-            return base.FromJObject(jObject);
+            bool result = base.FromJObject(jObject);
+            if (!result)
+            {
+                return result;
+            }
+
+            if (jObject.ContainsKey("ScheduleName"))
+            {
+                ScheduleName = jObject.Value<string>("ScheduleName");
+            }
+
+            return result;
         }
 
         public override JObject ToJObject()
         {
-            return base.ToJObject();
+            JObject result = base.ToJObject();
+            if (result == null)
+            {
+                return null;
+            }
+
+            if (ScheduleName != null)
+            {
+                result.Add("ScheduleName", ScheduleName);
+            }
+
+            return result;
         }
     }
 }

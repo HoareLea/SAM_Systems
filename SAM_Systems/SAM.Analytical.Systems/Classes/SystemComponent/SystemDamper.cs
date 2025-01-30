@@ -15,6 +15,8 @@ namespace SAM.Analytical.Systems
         public double MinimumFlowFraction { get; set; }
         public double DesignPressureDrop { get; set; }
 
+        public string ScheduleName { get; set; }
+
         public SystemDamper(string name)
             : base(name)
         {
@@ -34,6 +36,7 @@ namespace SAM.Analytical.Systems
                 MinimumFlowType = systemDamper.MinimumFlowType;
                 MinimumFlowFraction = systemDamper.MinimumFlowFraction;
                 DesignPressureDrop = systemDamper.DesignPressureDrop;
+                ScheduleName = systemDamper.ScheduleName;
             }
         }
 
@@ -105,6 +108,11 @@ namespace SAM.Analytical.Systems
                 DesignPressureDrop = jObject.Value<double>("DesignPressureDrop");
             }
 
+            if (jObject.ContainsKey("ScheduleName"))
+            {
+                ScheduleName = jObject.Value<string>("ScheduleName");
+            }
+
             return result;
         }
 
@@ -148,6 +156,11 @@ namespace SAM.Analytical.Systems
             if (double.IsNaN(DesignPressureDrop))
             {
                 result.Add("DesignPressureDrop", DesignPressureDrop);
+            }
+
+            if (ScheduleName != null)
+            {
+                result.Add("ScheduleName", ScheduleName);
             }
 
             return result;

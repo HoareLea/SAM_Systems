@@ -34,6 +34,8 @@ namespace SAM.Analytical.Systems
         public double DesignWaterFlowRate { get; set; }
         public DesignWaterFlowRateSizingType DesignWaterFlowRateSizingType { get; set; }
 
+        public string ScheduleName { get; set; }
+
 
         public SystemDryCooler(string name)
             : base(name)
@@ -73,6 +75,7 @@ namespace SAM.Analytical.Systems
                 DesignRange = systemDryCooler.DesignRange;
                 DesignWaterFlowRate = systemDryCooler.DesignWaterFlowRate;
                 DesignWaterFlowRateSizingType = systemDryCooler.DesignWaterFlowRateSizingType;
+                ScheduleName = systemDryCooler.ScheduleName;
             }
         }
 
@@ -238,6 +241,11 @@ namespace SAM.Analytical.Systems
                 DesignWaterFlowRateSizingType = Core.Query.Enum<DesignWaterFlowRateSizingType>(jObject.Value<string>("DesignWaterFlowRateSizingType"));
             }
 
+            if (jObject.ContainsKey("ScheduleName"))
+            {
+                ScheduleName = jObject.Value<string>("ScheduleName");
+            }
+
             return result;
         }
 
@@ -362,6 +370,11 @@ namespace SAM.Analytical.Systems
             }
 
             result.Add("DesignWaterFlowRateSizingType", DesignWaterFlowRateSizingType.ToString());
+
+            if (ScheduleName != null)
+            {
+                result.Add("ScheduleName", ScheduleName);
+            }
 
             return result;
         }

@@ -17,6 +17,8 @@ namespace SAM.Analytical.Systems
 
         public double HoursBeforePurgingTank { get; set; }
 
+        public string ScheduleName { get; set; }
+
         public SystemDirectEvaporativeCooler(string name)
             : base(name)
         {
@@ -34,6 +36,7 @@ namespace SAM.Analytical.Systems
                 ElectricalLoad = systemDirectEvaporativeCooler.ElectricalLoad?.Clone();
                 TankVolume = systemDirectEvaporativeCooler.TankVolume?.Clone();
                 HoursBeforePurgingTank = systemDirectEvaporativeCooler.HoursBeforePurgingTank;
+                ScheduleName = systemDirectEvaporativeCooler.ScheduleName;
             }
         }
 
@@ -81,6 +84,11 @@ namespace SAM.Analytical.Systems
                 HoursBeforePurgingTank = jObject.Value<double>("HoursBeforePurgingTank");
             }
 
+            if (jObject.ContainsKey("ScheduleName"))
+            {
+                ScheduleName = jObject.Value<string>("ScheduleName");
+            }
+
             return result;
         }
 
@@ -120,6 +128,11 @@ namespace SAM.Analytical.Systems
             if (!double.IsNaN(HoursBeforePurgingTank))
             {
                 result.Add("HoursBeforePurgingTank", HoursBeforePurgingTank);
+            }
+
+            if (ScheduleName != null)
+            {
+                result.Add("ScheduleName", ScheduleName);
             }
 
             return result;
