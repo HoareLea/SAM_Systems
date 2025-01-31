@@ -4,7 +4,7 @@ using SAM.Core.Systems;
 
 namespace SAM.Analytical.Systems
 {
-    public class SystemMultiBoiler : SystemMultiComponent<SystemMultiBoilerItem>
+    public class SystemMultiBoiler : SystemMultiComponent<SystemMultiBoilerItem>, ILiquidSystemComponent
     {
         public ModifiableValue Setpoint { get; set; }
         public ISizableValue Duty { get; set; }

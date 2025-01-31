@@ -4,7 +4,7 @@ using SAM.Core.Systems;
 
 namespace SAM.Analytical.Systems
 {
-    public class SystemFan : SystemComponent
+    public class SystemFan : SystemComponent, IAirSystemComponent
     {
         public ModifiableValue OverallEfficiency { get; set; }
         public double HeatGainFactor { get; set; }

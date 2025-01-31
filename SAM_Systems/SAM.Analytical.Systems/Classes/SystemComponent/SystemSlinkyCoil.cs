@@ -4,7 +4,7 @@ using SAM.Core.Systems;
 
 namespace SAM.Analytical.Systems
 {
-    public class SystemSlinkyCoil : SystemComponent
+    public class SystemSlinkyCoil : SystemComponent, ILiquidSystemComponent
     {
         public double DesignPressureDrop { get; set; }
         public double Capacity { get; set; }

@@ -4,7 +4,7 @@ using SAM.Core.Systems;
 
 namespace SAM.Analytical.Systems
 {
-    public class SystemAirSourceHeatPump : SystemHeatPump
+    public class SystemAirSourceHeatPump : SystemHeatPump, ILiquidSystemComponent
     {
         public HeatPumpType HeatPumpType { get; set; }
         public ISizableValue CoolingCapacity { get; set; }

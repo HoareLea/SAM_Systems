@@ -7,7 +7,7 @@ namespace SAM.Analytical.Systems
     /// <summary>
     /// Surface Water Exchanger, Heat Rejection (Liquid side)
     /// </summary>
-    public class SystemSurfaceWaterExchanger : SystemComponent
+    public class SystemSurfaceWaterExchanger : SystemComponent, ILiquidSystemComponent
     {
         public double Capacity { get; set; }
         public double DesignPressureDrop { get; set; }

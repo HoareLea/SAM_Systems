@@ -4,7 +4,7 @@ using SAM.Core.Systems;
 
 namespace SAM.Analytical.Systems
 {
-    public class SystemHeatingCoil : SystemComponent
+    public class SystemHeatingCoil : SystemComponent, IAirSystemComponent
     {
         public ModifiableValue Setpoint { get; set; }
         public ModifiableValue Efficiency { get; set; }

@@ -5,7 +5,7 @@ using SAM.Core.Systems;
 
 namespace SAM.Analytical.Systems
 {
-    public class SystemDesiccantWheel : SystemComponent, ISystemExchanger
+    public class SystemDesiccantWheel : SystemComponent, ISystemExchanger, IAirSystemComponent
     {
         public ModifiableValue SensibleEfficiency { get; set; }
         public ModifiableValue Reactivation { get; set; }

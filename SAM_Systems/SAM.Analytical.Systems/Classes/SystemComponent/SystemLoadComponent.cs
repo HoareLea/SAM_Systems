@@ -4,7 +4,7 @@ using SAM.Core.Systems;
 
 namespace SAM.Analytical.Systems
 {
-    public class SystemLoadComponent : SystemComponent
+    public class SystemLoadComponent : SystemComponent, ILiquidSystemComponent
     {
         public ModifiableValue Load { get; set; }
 

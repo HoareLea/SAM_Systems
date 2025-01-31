@@ -4,7 +4,7 @@ using SAM.Core.Systems;
 
 namespace SAM.Analytical.Systems
 {
-    public class SystemMixingBox : SystemComponent
+    public class SystemMixingBox : SystemComponent, IAirSystemComponent
     {
         public double Capacity { get; set; }
         public SizedFlowValue DesignFlowRate { get; set; }

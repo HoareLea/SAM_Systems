@@ -4,7 +4,7 @@ using SAM.Core.Systems;
 
 namespace SAM.Analytical.Systems
 {
-    public class SystemIceStorageChiller : SystemChiller
+    public class SystemIceStorageChiller : SystemChiller, ILiquidSystemComponent
     {
         public ModifiableValue Setpoint { get; set; }
         public ModifiableValue Efficiency { get; set; }

@@ -3,7 +3,7 @@ using SAM.Core.Systems;
 
 namespace SAM.Analytical.Systems
 {
-    public class SystemAirJunction : SystemJunction<AirSystem>
+    public class SystemAirJunction : SystemJunction<AirSystem>, IAirSystemComponent
     {
         public SystemAirJunction()
             : base()

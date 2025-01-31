@@ -4,7 +4,7 @@ using SAM.Core.Systems;
 
 namespace SAM.Analytical.Systems
 {
-    public abstract class SystemChiller : SystemComponent
+    public abstract class SystemChiller : SystemComponent, ILiquidSystemComponent
     {
         public ISizableValue Duty { get; set; }
 

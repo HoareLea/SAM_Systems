@@ -4,7 +4,7 @@ using SAM.Core.Systems;
 
 namespace SAM.Analytical.Systems
 {
-    public class SystemMultiChiller : SystemMultiComponent<SystemMultiChillerItem>
+    public class SystemMultiChiller : SystemMultiComponent<SystemMultiChillerItem>, ILiquidSystemComponent
     {
         public double DesignPressureDrop { get; set; }
         public double DesignTemperatureDifference { get; set; }

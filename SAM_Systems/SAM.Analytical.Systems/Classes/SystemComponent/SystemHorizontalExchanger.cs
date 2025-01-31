@@ -6,7 +6,7 @@ namespace SAM.Analytical.Systems
     /// <summary>
     /// Horizontal GHE, Heat Rejection (Liquid Side)
     /// </summary>
-    public class SystemHorizontalExchanger : SystemComponent
+    public class SystemHorizontalExchanger : SystemComponent, ILiquidSystemComponent
     {
         public double DesignPressureDrop { get; set; }
         public double Capacity { get; set; }

@@ -4,7 +4,7 @@ using SAM.Core.Systems;
 
 namespace SAM.Analytical.Systems
 {
-    public class SystemTank : SystemComponent
+    public class SystemTank : SystemComponent, ILiquidSystemComponent
     {
         public double InsulationConductivity { get; set; }
         public double InsulationThickness { get; set; }

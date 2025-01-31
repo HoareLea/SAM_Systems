@@ -4,7 +4,7 @@ using SAM.Core.Systems;
 
 namespace SAM.Analytical.Systems
 {
-    public class SystemPump : SystemComponent
+    public class SystemPump : SystemComponent, ILiquidSystemComponent
     {
         public ModifiableValue OverallEfficiency { get; set; }
         

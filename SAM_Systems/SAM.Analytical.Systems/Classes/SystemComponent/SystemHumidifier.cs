@@ -3,7 +3,7 @@ using SAM.Core.Systems;
 
 namespace SAM.Analytical.Systems
 {
-    public class SystemHumidifier : SystemComponent
+    public class SystemHumidifier : SystemComponent, IAirSystemComponent
     {
         public string ScheduleName { get; set; }
 

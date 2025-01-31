@@ -4,7 +4,7 @@ using SAM.Core.Systems;
 
 namespace SAM.Analytical.Systems
 {
-    public class SystemDXCoil : SystemComponent
+    public class SystemDXCoil : SystemComponent, IAirSystemComponent
     {
         public ModifiableValue CoolingSetpoint { get; set; }
         public ModifiableValue HeatingSetpoint { get; set; }

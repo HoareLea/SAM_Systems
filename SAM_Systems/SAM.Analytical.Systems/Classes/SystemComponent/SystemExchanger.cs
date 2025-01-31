@@ -8,7 +8,7 @@ namespace SAM.Analytical.Systems
     /// <summary>
     /// Heat Recovery (Air Side)
     /// </summary>
-    public class SystemExchanger : SystemComponent, ISystemExchanger
+    public class SystemExchanger : SystemComponent, ISystemExchanger, IAirSystemComponent
     {
         public ExchangerCalculationMethod ExchangerCalculationMethod { get; set; }
         public ExchangerType ExchangerType { get; set; }

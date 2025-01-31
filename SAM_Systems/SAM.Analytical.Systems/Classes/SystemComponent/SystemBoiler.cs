@@ -4,7 +4,7 @@ using SAM.Core.Systems;
 
 namespace SAM.Analytical.Systems
 {
-    public class SystemBoiler: SystemComponent
+    public class SystemBoiler: SystemComponent, ILiquidSystemComponent
     {
         public ModifiableValue Setpoint { get; set; }        
         public ModifiableValue Efficiency { get; set; }

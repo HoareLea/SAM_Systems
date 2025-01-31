@@ -3,7 +3,7 @@ using SAM.Core.Systems;
 
 namespace SAM.Analytical.Systems
 {
-    public class SystemValve : SystemComponent
+    public class SystemValve : SystemComponent, ILiquidSystemComponent
     {
         public double Capacity { get; set; }
         public double DesignCapacitySignal { get; set; }

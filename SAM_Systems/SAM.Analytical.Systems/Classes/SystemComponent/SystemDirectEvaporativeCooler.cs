@@ -3,7 +3,7 @@ using SAM.Core;
 
 namespace SAM.Analytical.Systems
 {
-    public class SystemDirectEvaporativeCooler : SystemHumidifier
+    public class SystemDirectEvaporativeCooler : SystemHumidifier, IAirSystemComponent
     {
         public ModifiableValue Setpoint { get; set; }
 

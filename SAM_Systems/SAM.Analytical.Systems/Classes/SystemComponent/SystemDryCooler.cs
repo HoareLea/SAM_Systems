@@ -4,7 +4,7 @@ using SAM.Core.Systems;
 
 namespace SAM.Analytical.Systems
 {
-    public class SystemDryCooler : SystemComponent
+    public class SystemDryCooler : SystemComponent, IAirSystemComponent
     {
         public double DesignPressureDrop { get; set; }
         public double Capacity { get; set; }

@@ -7,7 +7,7 @@ namespace SAM.Analytical.Systems
     /// <summary>
     /// Heat Exchanger (Liquid Side)
     /// </summary>
-    public class SystemLiquidExchanger : SystemComponent
+    public class SystemLiquidExchanger : SystemComponent, ILiquidSystemComponent
     {
         public ModifiableValue Efficiency { get; set; }
         public double Capacity1 { get; set; }

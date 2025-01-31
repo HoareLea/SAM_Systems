@@ -4,7 +4,7 @@ using SAM.Core.Systems;
 
 namespace SAM.Analytical.Systems
 {
-    public class SystemVerticalBorehole : SystemComponent
+    public class SystemVerticalBorehole : SystemComponent, ILiquidSystemComponent
     {
         public double Capacity { get; set; }
         public double DesignPressureDrop { get; set; }

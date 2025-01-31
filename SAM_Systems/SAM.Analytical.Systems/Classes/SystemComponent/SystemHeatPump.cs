@@ -3,7 +3,7 @@ using SAM.Core.Systems;
 
 namespace SAM.Analytical.Systems
 {
-    public abstract class SystemHeatPump : SystemComponent
+    public abstract class SystemHeatPump : SystemComponent, ILiquidSystemComponent
     {
         public SystemHeatPump(string name)
             : base(name)

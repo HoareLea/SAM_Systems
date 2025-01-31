@@ -4,7 +4,7 @@ using SAM.Core.Systems;
 
 namespace SAM.Analytical.Systems
 {
-    public class SystemDamper : SystemComponent
+    public class SystemDamper : SystemComponent, IAirSystemComponent
     {
         public double Capacity { get; set; }
         public double DesignCapacitySignal { get; set; }
