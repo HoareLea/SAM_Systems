@@ -3,7 +3,7 @@ using SAM.Core.Attributes;
 
 namespace SAM.Analytical.Systems
 {
-    [AssociatedTypes(typeof(SystemDXCoil)), Description("System Space Parameter")]
+    [AssociatedTypes(typeof(SystemSpace)), Description("System Space Parameter")]
     public enum SystemSpaceParameter
     {
         [ParameterProperties("Domestic Hot Water Collection", "Domestic Hot Water Collection"), SAMObjectParameterValue(typeof(CollectionLink))] DomesticHotWaterCollection,
