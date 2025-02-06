@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace SAM.Analytical.Systems
 {
-    public class GFunction : IJSAMObject
+    public class GFunction : IJSAMObject, Core.Systems.ISystemObject
     {
         private List<Point2D> point2Ds = new List<Point2D>();
 
