@@ -27,6 +27,15 @@ namespace SAM.Analytical.Systems
                         schedules[schedule.Name] = schedule;
                     }
                 }
+
+                if (analyticalSystemsProperties.fluidTypes != null)
+                {
+                    fluidTypes = new Dictionary<string, FluidType>();
+                    foreach (FluidType fluidType in analyticalSystemsProperties.fluidTypes.Values)
+                    {
+                        fluidTypes[fluidType.Name] = fluidType;
+                    }
+                }
             }
         }
 
