@@ -85,7 +85,7 @@ namespace SAM.Analytical.Systems
                 return false;
             }
 
-            if (schedules == null)
+            if (designConditions == null)
             {
                 designConditions = new Dictionary<string, DesignCondition>();
             }
