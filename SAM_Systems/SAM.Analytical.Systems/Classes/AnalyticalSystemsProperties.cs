@@ -9,6 +9,7 @@ namespace SAM.Analytical.Systems
     {
         Dictionary<string, ISchedule> schedules;
         Dictionary<string, FluidType> fluidTypes;
+        Dictionary<string, DesignCondition> designConditions;
 
         public AnalyticalSystemsProperties()
         {
@@ -36,6 +37,15 @@ namespace SAM.Analytical.Systems
                         fluidTypes[fluidType.Name] = fluidType;
                     }
                 }
+
+                if (analyticalSystemsProperties.designConditions != null)
+                {
+                    designConditions = new Dictionary<string, DesignCondition>();
+                    foreach (DesignCondition designCondition in analyticalSystemsProperties.designConditions.Values)
+                    {
+                        designConditions[designCondition.Name] = designCondition;
+                    }
+                }
             }
         }
 
@@ -58,6 +68,30 @@ namespace SAM.Analytical.Systems
             {
                 return fluidTypes?.Values?.ToList();
             }
+        }
+
+        public List<DesignCondition> DesignConditions
+        {
+            get
+            {
+                return designConditions?.Values?.ToList();
+            }
+        }
+
+        public bool Add(DesignCondition designCondition)
+        {
+            if (designCondition?.Name == null)
+            {
+                return false;
+            }
+
+            if (schedules == null)
+            {
+                designConditions = new Dictionary<string, DesignCondition>();
+            }
+
+            designConditions[designCondition.Name] = designCondition;
+            return true;
         }
 
         public bool Add(ISchedule schedule)
@@ -138,6 +172,26 @@ namespace SAM.Analytical.Systems
                 }
             }
 
+            if (jObject.ContainsKey("DesignConditions"))
+            {
+                JArray jArray = jObject.Value<JArray>("DesignConditions");
+                if (jArray != null)
+                {
+                    designConditions = new Dictionary<string, DesignCondition>();
+
+                    foreach (JObject jObject_DesignConditions in jArray)
+                    {
+                        DesignCondition designCondition = Core.Query.IJSAMObject<DesignCondition>(jObject_DesignConditions);
+                        if (designCondition == null)
+                        {
+                            continue;
+                        }
+
+                        designConditions[designCondition.Name] = designCondition;
+                    }
+                }
+            }
+
             return true;
         }
 
@@ -166,6 +220,17 @@ namespace SAM.Analytical.Systems
                 }
 
                 result.Add("FluidTypes", jArray);
+            }
+
+            if (designConditions != null)
+            {
+                JArray jArray = new JArray();
+                foreach (DesignCondition designCondition in designConditions.Values)
+                {
+                    jArray.Add(designCondition.ToJObject());
+                }
+
+                result.Add("DesignConditions", jArray);
             }
 
             return result;
