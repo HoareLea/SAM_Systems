@@ -1045,7 +1045,24 @@ namespace SAM.Core.Systems
             do
             {
                 List<ISystemComponent> systemComponents_Next = GetNextSystemComponents<ISystemComponent>(systemComponent_Temp, system, direction);
-                systemComponents_Next?.RemoveAll(x => result.Find(y => systemRelationCluster.GetGuid(x) == systemRelationCluster.GetGuid(y)) != null);
+                if (systemComponents_Next == null || systemComponents_Next.Count == 0)
+                {
+                    break;
+                }
+
+                List<ISystemComponent> systemComponents_Next_Temp = new List<ISystemComponent>(systemComponents_Next);
+                systemComponents_Next_Temp?.RemoveAll(x => result.Find(y => systemRelationCluster.GetGuid(x) == systemRelationCluster.GetGuid(y)) != null);
+                if (systemComponents_Next_Temp != null && systemComponents_Next_Temp.Count != 0)
+                {
+                    systemComponents_Next = systemComponents_Next_Temp;
+                }
+                else
+                {
+                    systemComponents_Next = GetNextSystemComponents<ISystemComponent>(systemComponents_Next[0], system, direction);
+                    systemComponents_Next?.RemoveAll(x => result.Find(y => systemRelationCluster.GetGuid(x) == systemRelationCluster.GetGuid(y)) != null);
+                }
+
+                //systemComponents_Next?.RemoveAll(x => result.Find(y => systemRelationCluster.GetGuid(x) == systemRelationCluster.GetGuid(y)) != null);
                 if (systemComponents_Next == null || systemComponents_Next.Count == 0)
                 {
                     break;
