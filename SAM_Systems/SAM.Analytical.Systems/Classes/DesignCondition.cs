@@ -44,7 +44,7 @@ namespace SAM.Analytical.Systems
         {
             get
             {
-                return Description;
+                return description;
             }
         }
 
