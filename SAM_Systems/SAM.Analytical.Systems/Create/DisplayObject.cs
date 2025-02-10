@@ -154,14 +154,6 @@ namespace SAM.Analytical.Systems
             {
                 displayObject = new DisplaySystemLiquidJunction((SystemLiquidJunction)systemComponent, systemGeometrySymbol, location);
             }
-            else if (systemComponent is SystemNormalController)
-            {
-                displayObject = new DisplaySystemNormalController((SystemNormalController)systemComponent, systemGeometrySymbol, location);
-            }
-            else if (systemComponent is SystemLiquidNormalController)
-            {
-                displayObject = new DisplaySystemLiquidNormalController((SystemLiquidNormalController)systemComponent, systemGeometrySymbol, location);
-            }
             else if (systemComponent is SystemOutdoorController)
             {
                 displayObject = new DisplaySystemOutdoorController((SystemOutdoorController)systemComponent, systemGeometrySymbol, location);
@@ -201,6 +193,14 @@ namespace SAM.Analytical.Systems
             else if (systemComponent is SystemSigLogicalController)
             {
                 displayObject = new DisplaySystemSigLogicalController((SystemSigLogicalController)systemComponent, systemGeometrySymbol, location);
+            }
+            else if (systemComponent is SystemNormalController)
+            {
+                displayObject = new DisplaySystemNormalController((SystemNormalController)systemComponent, systemGeometrySymbol, location);
+            }
+            else if (systemComponent is SystemLiquidNormalController)
+            {
+                displayObject = new DisplaySystemLiquidNormalController((SystemLiquidNormalController)systemComponent, systemGeometrySymbol, location);
             }
             else if (systemComponent is CoolingSystemCollection)
             {
