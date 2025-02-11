@@ -8,15 +8,15 @@ namespace SAM.Analytical.Systems
         private NormalControllerDataType normalControllerDataType;
         private NormalControllerLimit normalControllerLimit;
 
-        public SystemNormalController(string name, NormalControllerDataType normalControllerDataType, ISetpoint setpoint, NormalControllerLimit normalControllerLimit)
-            : base(name, setpoint)
+        public SystemNormalController(string name, NormalControllerDataType normalControllerDataType, ISetpoint setpoint, ISetback setback, NormalControllerLimit normalControllerLimit)
+            : base(name, setpoint, setback)
         {
             this.normalControllerDataType = normalControllerDataType;
             this.normalControllerLimit = normalControllerLimit; 
         }
 
-        public SystemNormalController(string name, string sensorReference, NormalControllerDataType normalControllerDataType, ISetpoint setpoint, NormalControllerLimit normalControllerLimit)
-            : base(name, sensorReference, setpoint)
+        public SystemNormalController(string name, string sensorReference, NormalControllerDataType normalControllerDataType, ISetpoint setpoint, ISetback setback, NormalControllerLimit normalControllerLimit)
+            : base(name, sensorReference, setpoint, setback)
         {
             this.normalControllerDataType = normalControllerDataType;
             this.normalControllerLimit = normalControllerLimit;

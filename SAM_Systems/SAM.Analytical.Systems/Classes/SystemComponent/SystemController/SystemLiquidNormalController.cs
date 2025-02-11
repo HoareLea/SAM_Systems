@@ -7,14 +7,14 @@ namespace SAM.Analytical.Systems
     {
         private LiquidNormalControllerDataType liquidNormalControllerDataType;
 
-        public SystemLiquidNormalController(string name, LiquidNormalControllerDataType liquidNormalControllerDataType, ISetpoint setpoint)
-            : base(name, setpoint)
+        public SystemLiquidNormalController(string name, LiquidNormalControllerDataType liquidNormalControllerDataType, ISetpoint setpoint, ISetback setback)
+            : base(name, setpoint, setback)
         {
             this.liquidNormalControllerDataType = liquidNormalControllerDataType;
         }
 
-        public SystemLiquidNormalController(string name, string sensorReference, LiquidNormalControllerDataType liquidNormalControllerDataType, ISetpoint setpoint)
-            : base(name, sensorReference, setpoint)
+        public SystemLiquidNormalController(string name, string sensorReference, LiquidNormalControllerDataType liquidNormalControllerDataType, ISetpoint setpoint, ISetback setback)
+            : base(name, sensorReference, setpoint, setback)
         {
             this.liquidNormalControllerDataType = liquidNormalControllerDataType;
         }

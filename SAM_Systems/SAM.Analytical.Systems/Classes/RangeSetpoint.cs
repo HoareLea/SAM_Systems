@@ -6,8 +6,10 @@ namespace SAM.Analytical.Systems
     public class RangeSetpoint : Setpoint
     {
         private Range<double> inputRange;
+        private Gradient inputGradient = Gradient.Positive;
         private Range<double> outputRange;
-        
+        private Gradient outputGradient = Gradient.Positive;
+
         public RangeSetpoint()
             : base()
         {
@@ -20,7 +22,9 @@ namespace SAM.Analytical.Systems
             if(rangeSetpoint != null)
             {
                 inputRange = rangeSetpoint.InputRange;
+                inputGradient = rangeSetpoint.inputGradient;
                 outputRange = rangeSetpoint.OutputRange;
+                outputGradient = rangeSetpoint.outputGradient;
             }
         }
 
@@ -28,6 +32,19 @@ namespace SAM.Analytical.Systems
             : base(jObject)
         {
 
+        }
+
+        public Gradient InputGradient
+        {
+            get
+            {
+                return inputGradient;
+            }
+
+            set
+            {
+                inputGradient = value;
+            }
         }
 
         public Range<double> InputRange
@@ -61,6 +78,18 @@ namespace SAM.Analytical.Systems
             }
         }
 
+        public Gradient OutputGradient
+        {
+            get
+            {
+                return outputGradient;
+            }
+
+            set
+            {
+                outputGradient = value;
+            }
+        }
 
         public override bool FromJObject(JObject jObject)
         {
@@ -75,9 +104,19 @@ namespace SAM.Analytical.Systems
                 inputRange = new Range<double>(jObject.Value<JObject>("InputRange"));
             }
 
+            if (jObject.ContainsKey("InputGradient"))
+            {
+                inputGradient = Core.Query.Enum<Gradient>(jObject.Value<string>("InputGradient"));
+            }
+
             if (jObject.ContainsKey("OutputRange"))
             {
                 outputRange = new Range<double>(jObject.Value<JObject>("OutputRange"));
+            }
+
+            if (jObject.ContainsKey("OutputGradient"))
+            {
+                outputGradient = Core.Query.Enum<Gradient>(jObject.Value<string>("OutputGradient"));
             }
 
             return result;
@@ -96,9 +135,19 @@ namespace SAM.Analytical.Systems
                 result.Add("InputRange", inputRange.ToJObject());
             }
 
+            if(inputGradient != Gradient.Undefined)
+            {
+                result.Add("InputGradient", inputGradient.ToString());
+            }
+
             if (outputRange != null)
             {
                 result.Add("OutputRange", outputRange.ToJObject());
+            }
+
+            if (outputGradient != Gradient.Undefined)
+            {
+                result.Add("OutputGradient", outputGradient.ToString());
             }
 
             return result;

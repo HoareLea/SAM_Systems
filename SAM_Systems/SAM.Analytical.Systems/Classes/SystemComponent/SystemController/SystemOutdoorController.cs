@@ -6,14 +6,14 @@ namespace SAM.Analytical.Systems
     {
         private OutdoorControllerDataType outdoorControllerDataType;
 
-        public SystemOutdoorController(string name, OutdoorControllerDataType outdoorControllerDataType, ISetpoint setpoint)
-            : base(name, setpoint)
+        public SystemOutdoorController(string name, OutdoorControllerDataType outdoorControllerDataType, ISetpoint setpoint, ISetback setback)
+            : base(name, setpoint, setback)
         {
             this.outdoorControllerDataType = outdoorControllerDataType;
         }
 
-        public SystemOutdoorController(string name, string sensorReference, OutdoorControllerDataType outdoorControllerDataType, ISetpoint setpoint)
-            : base(name, sensorReference, setpoint)
+        public SystemOutdoorController(string name, string sensorReference, OutdoorControllerDataType outdoorControllerDataType, ISetpoint setpoint, ISetback setback)
+            : base(name, sensorReference, setpoint, setback)
         {
             this.outdoorControllerDataType = outdoorControllerDataType;
         }

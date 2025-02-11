@@ -6,14 +6,14 @@ namespace SAM.Analytical.Systems
     {
         private string secondarySensorReference;
 
-        public SystemDifferenceController(string name, NormalControllerDataType normalControllerDataType, ISetpoint setpoint, NormalControllerLimit normalControllerLimit)
-            : base(name, normalControllerDataType, setpoint, normalControllerLimit)
+        public SystemDifferenceController(string name, NormalControllerDataType normalControllerDataType, ISetpoint setpoint, ISetback setback, NormalControllerLimit normalControllerLimit)
+            : base(name, normalControllerDataType, setpoint, setback, normalControllerLimit)
         {
 
         }
 
-        public SystemDifferenceController(string name, string sensorReference, string secondarySensorReference, NormalControllerDataType normalControllerDataType, ISetpoint setpoint, NormalControllerLimit normalControllerLimit)
-            : base(name, sensorReference, normalControllerDataType, setpoint, normalControllerLimit)
+        public SystemDifferenceController(string name, string sensorReference, string secondarySensorReference, NormalControllerDataType normalControllerDataType, ISetpoint setpoint, ISetback setback, NormalControllerLimit normalControllerLimit)
+            : base(name, sensorReference, normalControllerDataType, setpoint, setback, normalControllerLimit)
         {
             this.secondarySensorReference = secondarySensorReference;
         }

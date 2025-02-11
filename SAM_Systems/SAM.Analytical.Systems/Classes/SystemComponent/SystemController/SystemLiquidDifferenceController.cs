@@ -6,14 +6,14 @@ namespace SAM.Analytical.Systems
     {
         private string secondarySensorReference;
 
-        public SystemLiquidDifferenceController(string name, LiquidNormalControllerDataType liquidNormalControllerDataType, ISetpoint setpoint)
-            : base(name, liquidNormalControllerDataType, setpoint)
+        public SystemLiquidDifferenceController(string name, LiquidNormalControllerDataType liquidNormalControllerDataType, ISetpoint setpoint, ISetback setback)
+            : base(name, liquidNormalControllerDataType, setpoint, setback)
         {
 
         }
 
-        public SystemLiquidDifferenceController(string name, string sensorReference, string secondarySensorReference, LiquidNormalControllerDataType liquidNormalControllerDataType, ISetpoint setpoint)
-            : base(name, sensorReference, liquidNormalControllerDataType, setpoint)
+        public SystemLiquidDifferenceController(string name, string sensorReference, string secondarySensorReference, LiquidNormalControllerDataType liquidNormalControllerDataType, ISetpoint setpoint, ISetback setback)
+            : base(name, sensorReference, liquidNormalControllerDataType, setpoint, setback)
         {
             this.secondarySensorReference = secondarySensorReference;
         }
