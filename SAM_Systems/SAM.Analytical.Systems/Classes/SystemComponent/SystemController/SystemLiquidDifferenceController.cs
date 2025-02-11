@@ -45,6 +45,11 @@ namespace SAM.Analytical.Systems
             {
                 return secondarySensorReference;
             }
+
+            set
+            {
+                secondarySensorReference = value;
+            }
         }
 
         public override bool FromJObject(JObject jObject)
