@@ -245,6 +245,34 @@ namespace SAM.Core.Systems
             return result;
         }
 
+        public HashSet<int> GetConnectionIndexes(SystemType systemType)
+        {
+            IEnumerable<T> systemConnectors = SystemConnectors;
+            if (systemConnectors == null)
+            {
+                return null;
+            }
+
+            HashSet<int> result = new HashSet<int>();
+            foreach (T systemConnector in systemConnectors)
+            {
+                if (systemConnector == null || systemConnector.ConnectionIndex == -1)
+                {
+                    continue;
+                }
+
+                SystemType systemType_Temp = systemConnector?.SystemType;
+                if (!(systemType == systemType_Temp || (systemType_Temp != null && systemType_Temp.IsValid(systemType))))
+                {
+                    continue;
+                }
+
+                result.Add(systemConnector.ConnectionIndex);
+            }
+
+            return result;
+        }
+
         public int GetConnectionIndex(int index)
         {
             T systemConnector = this[index];
