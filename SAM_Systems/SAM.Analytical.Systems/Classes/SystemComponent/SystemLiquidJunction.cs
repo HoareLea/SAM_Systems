@@ -6,6 +6,7 @@ namespace SAM.Analytical.Systems
     public class SystemLiquidJunction : SystemJunction<LiquidSystem>, ILiquidSystemComponent
     {
         public double MainsPressure { get; set; }
+        
         public SystemLiquidJunction()
             : base()
         {
