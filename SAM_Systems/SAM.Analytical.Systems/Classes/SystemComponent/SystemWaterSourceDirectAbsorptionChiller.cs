@@ -32,29 +32,29 @@ namespace SAM.Analytical.Systems
 
         }
 
-        public SystemWaterSourceDirectAbsorptionChiller(SystemWaterSourceDirectAbsorptionChiller waterSourceDirectAbsorptionSystemChiller)
-            : base(waterSourceDirectAbsorptionSystemChiller)
+        public SystemWaterSourceDirectAbsorptionChiller(SystemWaterSourceDirectAbsorptionChiller systemWaterSourceDirectAbsorptionChiller)
+            : base(systemWaterSourceDirectAbsorptionChiller)
         {
-            if (waterSourceDirectAbsorptionSystemChiller != null)
+            if (systemWaterSourceDirectAbsorptionChiller != null)
             {
-                Setpoint = waterSourceDirectAbsorptionSystemChiller.Setpoint?.Clone();
-                Efficiency = waterSourceDirectAbsorptionSystemChiller.Efficiency?.Clone();
-                Capacity1 = waterSourceDirectAbsorptionSystemChiller.Capacity1;
-                DesignPressureDrop1 = waterSourceDirectAbsorptionSystemChiller.DesignPressureDrop1;
-                DesignTemperatureDifference1 = waterSourceDirectAbsorptionSystemChiller.DesignTemperatureDifference1;
-                Capacity2 = waterSourceDirectAbsorptionSystemChiller.Capacity2;
-                DesignPressureDrop2 = waterSourceDirectAbsorptionSystemChiller.DesignPressureDrop2;
-                DesignTemperatureDifference2 = waterSourceDirectAbsorptionSystemChiller.DesignTemperatureDifference2;
-                LossesInSizing = waterSourceDirectAbsorptionSystemChiller.LossesInSizing;
-                MotorEfficiency = waterSourceDirectAbsorptionSystemChiller.MotorEfficiency?.Clone();
-                ExchangerCalculationMethod = waterSourceDirectAbsorptionSystemChiller.ExchangerCalculationMethod;
-                ExchangerEfficiency = waterSourceDirectAbsorptionSystemChiller.ExchangerEfficiency?.Clone();
-                ExchangerType = waterSourceDirectAbsorptionSystemChiller.ExchangerType;
-                HeatTransferSurfaceArea = waterSourceDirectAbsorptionSystemChiller.HeatTransferSurfaceArea;
-                HeatTransferCoefficient = waterSourceDirectAbsorptionSystemChiller.HeatTransferCoefficient;
-                AncillaryLoad = waterSourceDirectAbsorptionSystemChiller.AncillaryLoad?.Clone();
-                FreeCoolingType = waterSourceDirectAbsorptionSystemChiller.FreeCoolingType;
-                ScheduleName = waterSourceDirectAbsorptionSystemChiller.ScheduleName;
+                Setpoint = systemWaterSourceDirectAbsorptionChiller.Setpoint?.Clone();
+                Efficiency = systemWaterSourceDirectAbsorptionChiller.Efficiency?.Clone();
+                Capacity1 = systemWaterSourceDirectAbsorptionChiller.Capacity1;
+                DesignPressureDrop1 = systemWaterSourceDirectAbsorptionChiller.DesignPressureDrop1;
+                DesignTemperatureDifference1 = systemWaterSourceDirectAbsorptionChiller.DesignTemperatureDifference1;
+                Capacity2 = systemWaterSourceDirectAbsorptionChiller.Capacity2;
+                DesignPressureDrop2 = systemWaterSourceDirectAbsorptionChiller.DesignPressureDrop2;
+                DesignTemperatureDifference2 = systemWaterSourceDirectAbsorptionChiller.DesignTemperatureDifference2;
+                LossesInSizing = systemWaterSourceDirectAbsorptionChiller.LossesInSizing;
+                MotorEfficiency = systemWaterSourceDirectAbsorptionChiller.MotorEfficiency?.Clone();
+                ExchangerCalculationMethod = systemWaterSourceDirectAbsorptionChiller.ExchangerCalculationMethod;
+                ExchangerEfficiency = systemWaterSourceDirectAbsorptionChiller.ExchangerEfficiency?.Clone();
+                ExchangerType = systemWaterSourceDirectAbsorptionChiller.ExchangerType;
+                HeatTransferSurfaceArea = systemWaterSourceDirectAbsorptionChiller.HeatTransferSurfaceArea;
+                HeatTransferCoefficient = systemWaterSourceDirectAbsorptionChiller.HeatTransferCoefficient;
+                AncillaryLoad = systemWaterSourceDirectAbsorptionChiller.AncillaryLoad?.Clone();
+                FreeCoolingType = systemWaterSourceDirectAbsorptionChiller.FreeCoolingType;
+                ScheduleName = systemWaterSourceDirectAbsorptionChiller.ScheduleName;
             }
         }
 
