@@ -20,7 +20,8 @@ namespace SAM.Analytical.Systems
         public double DesignPressureDrop1 { get; set; }
         public double DesignPressureDrop2 { get; set; }
         public double DesignPressureDrop3 { get; set; }
-        public bool DefinedHeatLossRate { get; set; }
+        public bool UseDefinedHeatLoss { get; set; }
+        public double DefinedHeatLossRate { get; set; }
         public SetpointMode SetpointMode { get; set; }
 
         public SystemTank(string name)
@@ -48,6 +49,7 @@ namespace SAM.Analytical.Systems
                 DesignPressureDrop1 = systemTank.DesignPressureDrop1;
                 DesignPressureDrop2 = systemTank.DesignPressureDrop2;
                 DesignPressureDrop3 = systemTank.DesignPressureDrop3;
+                UseDefinedHeatLoss = systemTank.UseDefinedHeatLoss;
                 DefinedHeatLossRate = systemTank.DefinedHeatLossRate;
                 SetpointMode = systemTank.SetpointMode;
             }
@@ -156,7 +158,12 @@ namespace SAM.Analytical.Systems
 
             if (jObject.ContainsKey("DefinedHeatLossRate"))
             {
-                DefinedHeatLossRate = jObject.Value<bool>("DefinedHeatLossRate");
+                DefinedHeatLossRate = jObject.Value<double>("DefinedHeatLossRate");
+            }
+
+            if (jObject.ContainsKey("UseDefinedHeatLoss"))
+            {
+                UseDefinedHeatLoss = jObject.Value<bool>("UseDefinedHeatLoss");
             }
 
             if (jObject.ContainsKey("SetpointMode"))
@@ -245,7 +252,12 @@ namespace SAM.Analytical.Systems
                 result.Add("DesignPressureDrop3", DesignPressureDrop3);
             }
 
-            result.Add("DefinedHeatLossRate", DefinedHeatLossRate);
+            if (!double.IsNaN(DefinedHeatLossRate))
+            {
+                result.Add("DefinedHeatLossRate", DefinedHeatLossRate);
+            }
+
+            result.Add("UseDefinedHeatLoss", UseDefinedHeatLoss);
 
             result.Add("SetpointMode", SetpointMode.ToString());
 
