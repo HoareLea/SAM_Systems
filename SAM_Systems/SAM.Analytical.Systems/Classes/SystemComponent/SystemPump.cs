@@ -16,7 +16,7 @@ namespace SAM.Analytical.Systems
 
         public ModifiableValue PartLoad { get; set; }
 
-        //public FanControlType FanControlType { get; set; }
+        public FanControlType FanControlType { get; set; }
 
         public string ScheduleName { get; set; }
 
@@ -36,7 +36,7 @@ namespace SAM.Analytical.Systems
                 DesignFlowRate = systemPump.DesignFlowRate;
                 Capacity = systemPump.Capacity;
                 PartLoad = systemPump.PartLoad?.Clone();
-                //FanControlType = systemPump.FanControlType;
+                FanControlType = systemPump.FanControlType;
                 ScheduleName = systemPump.ScheduleName;
             }
         }
@@ -68,10 +68,10 @@ namespace SAM.Analytical.Systems
                 return result;
             }
 
-            //if (jObject.ContainsKey("FanControlType"))
-            //{
-            //    FanControlType = Core.Query.Enum<FanControlType>(jObject.Value<string>("FanControlType"));
-            //}
+            if (jObject.ContainsKey("FanControlType"))
+            {
+                FanControlType = Core.Query.Enum<FanControlType>(jObject.Value<string>("FanControlType"));
+            }
 
             if (jObject.ContainsKey("OverallEfficiency"))
             {
@@ -114,7 +114,7 @@ namespace SAM.Analytical.Systems
                 return null;
             }
 
-            //result.Add("FanControlType", FanControlType.ToString());
+            result.Add("FanControlType", FanControlType.ToString());
 
             if(OverallEfficiency != null)
             {
