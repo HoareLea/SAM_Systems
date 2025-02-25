@@ -4,11 +4,6 @@ namespace SAM.Analytical.Systems
 {
     public class FunctionSchedule : Schedule
     {
-        public ScheduleFunctionType ScheduleFunctionType { get; set; }
-        public bool Heating { get; set; }
-        public bool Cooling { get; set; }
-        public bool OccupancySensible { get; set; }
-
         public FunctionSchedule()
         {
 
@@ -35,6 +30,14 @@ namespace SAM.Analytical.Systems
 
         }
 
+        public bool Cooling { get; set; }
+        
+        public bool Heating { get; set; }
+        
+        public bool OccupancySensible { get; set; }
+        
+        public ScheduleFunctionType ScheduleFunctionType { get; set; }
+        
         public virtual bool FromJObject(JObject jObject)
         {
             bool result = base.FromJObject(jObject);

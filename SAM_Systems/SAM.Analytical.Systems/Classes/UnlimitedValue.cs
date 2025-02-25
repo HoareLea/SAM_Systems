@@ -5,8 +5,6 @@ namespace SAM.Analytical.Systems
 {
     public class UnlimitedValue : ISizableValue
     {
-        public SizingType SizingType => SizingType.None;
-
         public UnlimitedValue()
         {
         }
@@ -20,6 +18,8 @@ namespace SAM.Analytical.Systems
             FromJObject(jObject);
         }
 
+        public SizingType SizingType => SizingType.None;
+        
         public virtual bool FromJObject(JObject jObject)
         {
             if (jObject == null)

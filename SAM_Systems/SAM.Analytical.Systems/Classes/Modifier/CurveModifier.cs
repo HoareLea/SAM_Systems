@@ -6,11 +6,6 @@ namespace SAM.Analytical.Systems
 {
     public class CurveModifier : IndexedSimpleModifier
     {
-        public CurveModifierType CurveModifierType { get; set; }
-        public string Name { get; set; }
-        public CurveModifierVariableType[] CurveModifierVariableTypes { get; set; }
-        public double[] Parameters { get; set; }
-
         public CurveModifier(ArithmeticOperator arithmeticOperator, string name, CurveModifierType curveModifierType, CurveModifierVariableType[] curveModifierVariableTypes, double[] parameters)
         {
             ArithmeticOperator = arithmeticOperator;
@@ -37,6 +32,19 @@ namespace SAM.Analytical.Systems
             : base(jObject)
         {
 
+        }
+
+        public CurveModifierType CurveModifierType { get; set; }
+        
+        public CurveModifierVariableType[] CurveModifierVariableTypes { get; set; }
+        
+        public string Name { get; set; }
+        
+        public double[] Parameters { get; set; }
+        
+        public override bool ContainsIndex(int index)
+        {
+            throw new System.NotImplementedException();
         }
 
         public override bool FromJObject(JObject jObject)
@@ -88,6 +96,11 @@ namespace SAM.Analytical.Systems
             return result;
         }
 
+        public override double GetCalculatedValue(int index, double value)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public override JObject ToJObject()
         {
             JObject result = base.ToJObject();
@@ -126,16 +139,6 @@ namespace SAM.Analytical.Systems
             }
 
             return result;
-        }
-
-        public override bool ContainsIndex(int index)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public override double GetCalculatedValue(int index, double value)
-        {
-            throw new System.NotImplementedException();
         }
     }
 }

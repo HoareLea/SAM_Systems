@@ -5,8 +5,6 @@ namespace SAM.Analytical.Systems
     public abstract class Schedule : ISchedule
     {
         private string name;
-        public string Description { get; set; }
-
         public Schedule()
         {
 
@@ -19,7 +17,7 @@ namespace SAM.Analytical.Systems
 
         public Schedule(Schedule schedule)
         {
-            if(schedule != null)
+            if (schedule != null)
             {
                 name = schedule.name;
                 Description = schedule.Description;
@@ -31,6 +29,8 @@ namespace SAM.Analytical.Systems
             FromJObject(jObject);
         }
 
+        public string Description { get; set; }
+        
         public string Name
         {
             get

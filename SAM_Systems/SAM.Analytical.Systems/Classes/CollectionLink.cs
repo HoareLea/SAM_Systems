@@ -27,6 +27,11 @@ namespace SAM.Analytical.Systems
             }
         }
 
+        public CollectionLink(JObject jObject)
+        {
+            FromJObject(jObject);
+        }
+
         public CollectionType CollectionType
         {
             get
@@ -42,12 +47,7 @@ namespace SAM.Analytical.Systems
                 return name;
             }
         }
-
-        public CollectionLink(JObject jObject)
-        {
-            FromJObject(jObject);
-        }
-
+        
         public virtual bool FromJObject(JObject jObject)
         {
             if (jObject == null)
