@@ -63,6 +63,19 @@ namespace SAM.Analytical.Systems
             }
         }
 
+        public double this[int i]
+        {
+            get
+            {
+                return values[i];
+            }
+
+            set
+            {
+                values[i] = value;
+            }
+        }
+
         public virtual bool FromJObject(JObject jObject)
         {
             bool result = base.FromJObject(jObject);

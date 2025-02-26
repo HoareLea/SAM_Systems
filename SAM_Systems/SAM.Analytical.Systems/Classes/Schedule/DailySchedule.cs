@@ -54,6 +54,27 @@ namespace SAM.Analytical.Systems
             return true;
         }
 
+        public List<string> ScheduleDayNames
+        {
+            get
+            {
+                return scheduleDayNames == null ? null : new List<string>(scheduleDayNames);
+            }
+        }
+
+        public ScheduleDay this[string scheduleDayName]
+        {
+            get
+            {
+                if(scheduleDayName == null || !dictionary.TryGetValue(scheduleDayName, out ScheduleDay scheduleDay))
+                {
+                    return null;
+                }
+
+                return Core.Query.Clone(scheduleDay);
+            }
+        }
+
         public virtual bool FromJObject(JObject jObject)
         {
             bool result = base.FromJObject(jObject);
