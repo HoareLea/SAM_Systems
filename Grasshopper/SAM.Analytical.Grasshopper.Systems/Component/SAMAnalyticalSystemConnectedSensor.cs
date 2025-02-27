@@ -1,14 +1,9 @@
 ﻿using Grasshopper.Kernel;
 using SAM.Analytical.Grasshopper.Systems.Properties;
 using SAM.Analytical.Systems;
-using SAM.Core;
 using SAM.Core.Grasshopper;
 using SAM.Core.Grasshopper.Systems;
 using SAM.Core.Systems;
-using SAM.Geometry.Planar;
-using SAM.Geometry.Rhino;
-using SAM.Geometry.Spatial;
-using SAM.Geometry.Systems;
 using System;
 using System.Collections.Generic;
 

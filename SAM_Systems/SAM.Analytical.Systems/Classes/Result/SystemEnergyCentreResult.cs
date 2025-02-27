@@ -1,10 +1,8 @@
 ﻿using Newtonsoft.Json.Linq;
 using SAM.Core;
 using SAM.Core.Systems;
-using SAM.Geometry.Planar;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
 
 namespace SAM.Analytical.Systems
 {

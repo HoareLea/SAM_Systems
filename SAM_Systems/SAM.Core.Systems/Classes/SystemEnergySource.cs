@@ -1,4 +1,6 @@
 ﻿using Newtonsoft.Json.Linq;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace SAM.Core.Systems
 {
@@ -13,6 +15,8 @@ namespace SAM.Core.Systems
         public double CustomerMonthlyCharge { get; set; }
         public double FuelCostAdjustment { get; set; }
         public double Discount { get; set; }
+        public List<TariffProfile> DemandTariffProfiles { get; set; }
+        public List<TariffProfile> ConsumptionTariffProfiles { get; set; }
 
         public SystemEnergySource(SystemEnergySource systemEnergySource)
             : base(systemEnergySource)
@@ -28,6 +32,8 @@ namespace SAM.Core.Systems
                 CustomerMonthlyCharge = systemEnergySource.CustomerMonthlyCharge;
                 FuelCostAdjustment = systemEnergySource.FuelCostAdjustment;
                 Discount = systemEnergySource.Discount;
+                DemandTariffProfiles = systemEnergySource.DemandTariffProfiles?.ToList();
+                ConsumptionTariffProfiles = systemEnergySource.ConsumptionTariffProfiles?.ToList();
             }
         }
 
@@ -102,6 +108,32 @@ namespace SAM.Core.Systems
                 Discount = jObject.Value<double>("Discount");
             }
 
+            if (jObject.ContainsKey("DemandTariffProfiles"))
+            {
+                DemandTariffProfiles = new List<TariffProfile>();
+                foreach(JObject jObject_Temp in jObject.Value<JArray>("DemandTariffProfiles"))
+                {
+                    TariffProfile tariffProfile = Core.Query.IJSAMObject<TariffProfile>(jObject_Temp);
+                    if(tariffProfile != null)
+                    {
+                        DemandTariffProfiles.Add(tariffProfile);
+                    }
+                }
+            }
+
+            if (jObject.ContainsKey("ConsumptionTariffProfiles"))
+            {
+                ConsumptionTariffProfiles = new List<TariffProfile>();
+                foreach (JObject jObject_Temp in jObject.Value<JArray>("ConsumptionTariffProfiles"))
+                {
+                    TariffProfile tariffProfile = Core.Query.IJSAMObject<TariffProfile>(jObject_Temp);
+                    if (tariffProfile != null)
+                    {
+                        ConsumptionTariffProfiles.Add(tariffProfile);
+                    }
+                }
+            }
+
             return result;
         }
 
@@ -156,6 +188,28 @@ namespace SAM.Core.Systems
             if (!double.IsNaN(Discount))
             {
                 result.Add("Discount", Discount);
+            }
+
+            if(DemandTariffProfiles != null)
+            {
+                JArray jArray = new JArray();
+                foreach(TariffProfile tariffProfile in DemandTariffProfiles)
+                {
+                    jArray.Add(tariffProfile.ToJObject());
+                }
+
+                result.Add("DemandTariffProfiles", jArray);
+            }
+
+            if (ConsumptionTariffProfiles != null)
+            {
+                JArray jArray = new JArray();
+                foreach (TariffProfile tariffProfile in ConsumptionTariffProfiles)
+                {
+                    jArray.Add(tariffProfile.ToJObject());
+                }
+
+                result.Add("ConsumptionTariffProfiles", jArray);
             }
 
             return result;

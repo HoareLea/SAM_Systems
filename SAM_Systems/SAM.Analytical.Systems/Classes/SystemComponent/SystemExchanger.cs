@@ -22,7 +22,8 @@ namespace SAM.Analytical.Systems
         public ModifiableValue ElectricalLoad { get; set; }
         public ISizableValue Duty { get; set; }
         public ModifiableValue BypassFactor { get; set; }
-
+        public bool HeatingOnly { get; set; }
+        public bool AdjustForOptimiser { get; set; }
         public string ScheduleName { get; set; }
 
         public SystemExchanger(string name)
@@ -49,6 +50,8 @@ namespace SAM.Analytical.Systems
                 Duty = systemExchanger.Duty?.Clone();
                 BypassFactor = systemExchanger.BypassFactor?.Clone();
                 ScheduleName = systemExchanger.ScheduleName;
+                HeatingOnly = systemExchanger.HeatingOnly;
+                AdjustForOptimiser = systemExchanger.AdjustForOptimiser;
             }
         }
 
@@ -136,6 +139,16 @@ namespace SAM.Analytical.Systems
                 BypassFactor = Core.Query.IJSAMObject<ModifiableValue>(jObject.Value<JObject>("BypassFactor"));
             }
 
+            if (jObject.ContainsKey("HeatingOnly"))
+            {
+                HeatingOnly = jObject.Value<bool>("HeatingOnly");
+            }
+
+            if (jObject.ContainsKey("AdjustForOptimiser"))
+            {
+                AdjustForOptimiser = jObject.Value<bool>("AdjustForOptimiser");
+            }
+
             if (jObject.ContainsKey("ScheduleName"))
             {
                 ScheduleName = jObject.Value<string>("ScheduleName");
@@ -199,6 +212,10 @@ namespace SAM.Analytical.Systems
             {
                 result.Add("BypassFactor", BypassFactor.ToJObject());
             }
+
+            result.Add("HeatingOnly", HeatingOnly);
+
+            result.Add("AdjustForOptimiser", AdjustForOptimiser);
 
             if (ScheduleName != null)
             {
