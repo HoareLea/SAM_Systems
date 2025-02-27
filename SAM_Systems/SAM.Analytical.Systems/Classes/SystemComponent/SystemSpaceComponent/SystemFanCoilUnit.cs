@@ -52,6 +52,7 @@ namespace SAM.Analytical.Systems
                 HeatingDuty = systemFanCoilUnit.HeatingDuty?.Clone();
                 CoolingDuty = systemFanCoilUnit.CoolingDuty?.Clone();
                 BypassFactor = systemFanCoilUnit.BypassFactor?.Clone();
+                OverallEfficiency = systemFanCoilUnit.OverallEfficiency?.Clone();
                 HeatingEfficiency = systemFanCoilUnit.HeatingEfficiency?.Clone();
                 HeatGainFactor = systemFanCoilUnit.HeatGainFactor;
                 Pressure = systemFanCoilUnit.Pressure;
