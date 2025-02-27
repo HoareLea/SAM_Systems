@@ -1,11 +1,12 @@
 ﻿using Newtonsoft.Json.Linq;
+using SAM.Core;
 using SAM.Core.Systems;
 
 namespace SAM.Analytical.Systems
 {
     public class SystemRadiator : SystemSpaceComponent
     {
-        public double Efficiency { get; set; }
+        public ModifiableValue Efficiency { get; set; }
         public ISizableValue Duty { get; set; }
 
         public override SystemConnectorManager SystemConnectorManager
@@ -14,9 +15,9 @@ namespace SAM.Analytical.Systems
             {
                 return Core.Systems.Create.SystemConnectorManager
                 (
-                    Core.Systems.Create.SystemConnector<LiquidSystem>(Core.Direction.In, 1),
-                    Core.Systems.Create.SystemConnector<LiquidSystem>(Core.Direction.Out, 1),
-                    Core.Systems.Create.SystemConnector<ElectricalSystem>(Core.Direction.In)
+                    Core.Systems.Create.SystemConnector<LiquidSystem>(Direction.In, 1),
+                    Core.Systems.Create.SystemConnector<LiquidSystem>(Direction.Out, 1),
+                    Core.Systems.Create.SystemConnector<ElectricalSystem>(Direction.In)
                 );
             }
         }
@@ -29,7 +30,7 @@ namespace SAM.Analytical.Systems
         public SystemRadiator(JObject jObject)
             : base(jObject)
         {
-            FromJObject(jObject);
+
         }
 
         public SystemRadiator(SystemRadiator systemRadiator)
@@ -37,7 +38,7 @@ namespace SAM.Analytical.Systems
         {
             if (systemRadiator != null)
             {
-                Efficiency = systemRadiator.Efficiency;
+                Efficiency = systemRadiator.Efficiency?.Clone();
                 Duty = systemRadiator.Duty;
             }
         }
@@ -52,7 +53,7 @@ namespace SAM.Analytical.Systems
 
             if (jObject.ContainsKey("Efficiency"))
             {
-                Efficiency = jObject.Value<double>("Efficiency");
+                Efficiency = Core.Query.IJSAMObject<ModifiableValue>(jObject.Value<JObject>("Efficiency"));
             }
 
             if (jObject.ContainsKey("Duty"))
@@ -71,9 +72,9 @@ namespace SAM.Analytical.Systems
                 return null;
             }
 
-            if (!double.IsNaN(Efficiency))
+            if (Efficiency != null)
             {
-                result.Add("Efficiency", Efficiency);
+                result.Add("Efficiency", Efficiency.ToJObject());
             }
 
             if (Duty != null)

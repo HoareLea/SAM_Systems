@@ -12,7 +12,7 @@ namespace SAM.Core.Systems
         public SystemSpaceComponent(JObject jObject)
             : base(jObject)
         {
-            FromJObject(jObject);
+
         }
 
         public SystemSpaceComponent(SystemSpaceComponent systemSpaceComponent)
