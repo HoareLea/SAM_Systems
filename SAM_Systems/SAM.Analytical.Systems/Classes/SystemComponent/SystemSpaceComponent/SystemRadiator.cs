@@ -9,6 +9,8 @@ namespace SAM.Analytical.Systems
         public ModifiableValue Efficiency { get; set; }
         public ISizableValue Duty { get; set; }
 
+        public string ScheduleName { get; set; }
+
         public override SystemConnectorManager SystemConnectorManager
         {
             get
@@ -40,6 +42,7 @@ namespace SAM.Analytical.Systems
             {
                 Efficiency = systemRadiator.Efficiency?.Clone();
                 Duty = systemRadiator.Duty;
+                ScheduleName = systemRadiator.ScheduleName;
             }
         }
 
@@ -61,6 +64,11 @@ namespace SAM.Analytical.Systems
                 Duty = Core.Query.IJSAMObject<SizableValue>(jObject.Value<JObject>("Duty"));
             }
 
+            if (jObject.ContainsKey("ScheduleName"))
+            {
+                ScheduleName = jObject.Value<string>("ScheduleName");
+            }
+
             return true;
         }
 
@@ -80,6 +88,11 @@ namespace SAM.Analytical.Systems
             if (Duty != null)
             {
                 result.Add("Duty", Duty.ToJObject());
+            }
+
+            if (ScheduleName != null)
+            {
+                result.Add("ScheduleName", ScheduleName);
             }
 
             return result;
