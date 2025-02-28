@@ -13,6 +13,7 @@ namespace SAM.Analytical.Systems
         public SizedFlowValue DesignFlowRate { get; set; }
         public FlowRateType DesignFlowType { get; set; }
         public SystemSpaceComponentPosition ZonePosition { get; set; }
+        public string ScheduleName { get; set; }
 
         public override SystemConnectorManager SystemConnectorManager
         {
@@ -49,6 +50,7 @@ namespace SAM.Analytical.Systems
                 DesignFlowRate = systemChilledBeam.DesignFlowRate?.Clone();
                 DesignFlowType = systemChilledBeam.DesignFlowType;
                 ZonePosition = systemChilledBeam.ZonePosition;
+                ScheduleName = systemChilledBeam.ScheduleName;
             }
         }
 
@@ -95,6 +97,11 @@ namespace SAM.Analytical.Systems
                 ZonePosition = Core.Query.Enum<SystemSpaceComponentPosition>(jObject.Value<string>("ZonePosition"));
             }
 
+            if (jObject.ContainsKey("ScheduleName"))
+            {
+                ScheduleName = jObject.Value<string>("ScheduleName");
+            }
+
             return true;
         }
 
@@ -134,6 +141,11 @@ namespace SAM.Analytical.Systems
             result.Add("DesignFlowType", DesignFlowType.ToString());
 
             result.Add("ZonePosition", ZonePosition.ToString());
+
+            if (ScheduleName != null)
+            {
+                result.Add("ScheduleName", ScheduleName);
+            }
 
             return result;
         }

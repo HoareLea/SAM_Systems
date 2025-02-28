@@ -21,6 +21,8 @@ namespace SAM.Analytical.Systems
         public FanCoilControlMethod ControlMethod { get; set; }
         public ModifiableValue PartLoad { get; set; }
 
+        public string ScheduleName { get; set; }
+
 
         public override SystemConnectorManager SystemConnectorManager
         {
@@ -63,6 +65,7 @@ namespace SAM.Analytical.Systems
                 ZonePosition = systemFanCoilUnit.ZonePosition;
                 ControlMethod = systemFanCoilUnit.ControlMethod;
                 PartLoad = systemFanCoilUnit.PartLoad?.Clone();
+                ScheduleName = systemFanCoilUnit.ScheduleName;
             }
         }
 
@@ -132,6 +135,11 @@ namespace SAM.Analytical.Systems
                 PartLoad = Core.Query.IJSAMObject<ModifiableValue>(jObject.Value<JObject>("PartLoad"));
             }
 
+            if (jObject.ContainsKey("ScheduleName"))
+            {
+                ScheduleName = jObject.Value<string>("ScheduleName");
+            }
+
             return true;
         }
 
@@ -199,6 +207,11 @@ namespace SAM.Analytical.Systems
             if (PartLoad != null)
             {
                 result.Add("PartLoad", PartLoad.ToJObject());
+            }
+
+            if (ScheduleName != null)
+            {
+                result.Add("ScheduleName", ScheduleName);
             }
 
             return result;

@@ -19,6 +19,7 @@ namespace SAM.Analytical.Systems
         public SystemSpaceComponentPosition ZonePosition { get; set; }
         public FanCoilControlMethod ControlMethod { get; set; }
         public ModifiableValue PartLoad { get; set; }
+        public string ScheduleName { get; set; }
 
         public SystemDXCoilUnit(string name)
             : base(name)
@@ -49,6 +50,7 @@ namespace SAM.Analytical.Systems
                 ZonePosition = systemDXCoilUnit.ZonePosition;
                 ControlMethod = systemDXCoilUnit.ControlMethod;
                 PartLoad = systemDXCoilUnit.PartLoad?.Clone();
+                ScheduleName = systemDXCoilUnit.ScheduleName;
             }
         }
 
@@ -58,8 +60,8 @@ namespace SAM.Analytical.Systems
             {
                 return Core.Systems.Create.SystemConnectorManager
                 (
-                    Core.Systems.Create.SystemConnector<RefrigerantSystem>(Core.Direction.In, 1),
-                    Core.Systems.Create.SystemConnector<RefrigerantSystem>(Core.Direction.Out, 1),
+                    Core.Systems.Create.SystemConnector<RefrigerantSystem>(Direction.In, 1),
+                    Core.Systems.Create.SystemConnector<RefrigerantSystem>(Direction.Out, 1),
                     Core.Systems.Create.SystemConnector<IControlSystem>()
                 );
             }
@@ -138,6 +140,11 @@ namespace SAM.Analytical.Systems
                 PartLoad = Core.Query.IJSAMObject<ModifiableValue>(jObject.Value<JObject>("PartLoad"));
             }
 
+            if (jObject.ContainsKey("ScheduleName"))
+            {
+                ScheduleName = jObject.Value<string>("ScheduleName");
+            }
+
             return true;
         }
 
@@ -200,6 +207,11 @@ namespace SAM.Analytical.Systems
             if (PartLoad != null)
             {
                 result.Add("PartLoad", PartLoad.ToJObject());
+            }
+
+            if (ScheduleName != null)
+            {
+                result.Add("ScheduleName", ScheduleName);
             }
 
             return result;
