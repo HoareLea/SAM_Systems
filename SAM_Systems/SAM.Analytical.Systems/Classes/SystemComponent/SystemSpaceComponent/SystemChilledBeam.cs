@@ -15,6 +15,8 @@ namespace SAM.Analytical.Systems
         public SystemSpaceComponentPosition ZonePosition { get; set; }
         public string ScheduleName { get; set; }
 
+        public bool Heating { get; set; }
+
         public override SystemConnectorManager SystemConnectorManager
         {
             get
@@ -51,6 +53,7 @@ namespace SAM.Analytical.Systems
                 DesignFlowType = systemChilledBeam.DesignFlowType;
                 ZonePosition = systemChilledBeam.ZonePosition;
                 ScheduleName = systemChilledBeam.ScheduleName;
+                Heating = systemChilledBeam.Heating;
             }
         }
 
@@ -102,6 +105,11 @@ namespace SAM.Analytical.Systems
                 ScheduleName = jObject.Value<string>("ScheduleName");
             }
 
+            if (jObject.ContainsKey("Heating"))
+            {
+                Heating = jObject.Value<bool>("Heating");
+            }
+
             return true;
         }
 
@@ -146,6 +154,8 @@ namespace SAM.Analytical.Systems
             {
                 result.Add("ScheduleName", ScheduleName);
             }
+
+            result.Add("Heating", Heating);
 
             return result;
         }

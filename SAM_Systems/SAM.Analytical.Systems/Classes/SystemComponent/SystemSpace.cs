@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json.Linq;
+using SAM.Core;
 using SAM.Core.Systems;
 
 namespace SAM.Analytical.Systems
@@ -7,16 +8,25 @@ namespace SAM.Analytical.Systems
     {
         private double area;
         private double volume;
-        private double flowRate;
-        private double freshAirRate;
 
-        public SystemSpace(string name, double area, double volume, double flowRate, double freshAirRate)
+        public ModifiableValue TemperatureSetpoint { get; set; }
+        public ModifiableValue RelativeHumiditySetpoint { get; set; }
+        public ModifiableValue PollutantSetpoint { get; set; }
+        public bool DisplacementVentilation { get; set; }
+        public DesignConditionSizedFlowValue FlowRate { get; set; }
+        public DesignConditionSizedFlowValue FreshAir { get; set; }
+
+        public SystemSpace(string name, double area, double volume, ModifiableValue temperatureSetpoint, ModifiableValue relativeHumiditySetpoint, ModifiableValue pollutantSetpoint, bool displacementVentilation, DesignConditionSizedFlowValue flowRate, DesignConditionSizedFlowValue freshAir)
             : base(name)
         {
             this.area = area;
             this.volume = volume;
-            this.flowRate = flowRate;
-            this.freshAirRate = freshAirRate;
+            TemperatureSetpoint = temperatureSetpoint?.Clone();
+            RelativeHumiditySetpoint = relativeHumiditySetpoint?.Clone();
+            PollutantSetpoint = pollutantSetpoint?.Clone();
+            DisplacementVentilation = displacementVentilation;
+            FlowRate = flowRate?.Clone();
+            FreshAir = freshAir?.Clone();
         }
 
         public SystemSpace(JObject jObject)
@@ -32,8 +42,13 @@ namespace SAM.Analytical.Systems
             {
                 area = systemSpace.area;
                 volume = systemSpace.volume;
-                flowRate = systemSpace.flowRate;
-                freshAirRate = systemSpace.freshAirRate;
+
+                TemperatureSetpoint = systemSpace.TemperatureSetpoint?.Clone();
+                RelativeHumiditySetpoint = systemSpace.RelativeHumiditySetpoint?.Clone();
+                PollutantSetpoint = systemSpace.PollutantSetpoint?.Clone();
+                DisplacementVentilation = systemSpace.DisplacementVentilation;
+                FlowRate = systemSpace.FlowRate;
+                FreshAir = systemSpace.FreshAir;
             }
         }
 
@@ -53,31 +68,15 @@ namespace SAM.Analytical.Systems
             }
         }
 
-        public double FlowRate
-        {
-            get
-            {
-                return flowRate;
-            }
-        }
-
-        public double FreshAirRate
-        {
-            get
-            {
-                return freshAirRate;
-            }
-        }
-
         public override SystemConnectorManager SystemConnectorManager
         {
             get
             {
                 return Core.Systems.Create.SystemConnectorManager
                 (
-                    Core.Systems.Create.SystemConnector<AirSystem>(Core.Direction.In),
-                    Core.Systems.Create.SystemConnector<AirSystem>(Core.Direction.Out),
-                    Core.Systems.Create.SystemConnector<IControlSystem>(Core.Direction.Out)
+                    Core.Systems.Create.SystemConnector<AirSystem>(Direction.In),
+                    Core.Systems.Create.SystemConnector<AirSystem>(Direction.Out),
+                    Core.Systems.Create.SystemConnector<IControlSystem>(Direction.Out)
                 );
             }
         }
@@ -100,14 +99,34 @@ namespace SAM.Analytical.Systems
                 volume = jObject.Value<double>("Volume");
             }
 
-            if (jObject.ContainsKey("FlowRate"))
+            if (jObject.ContainsKey("TemperatureSetpoint"))
             {
-                flowRate = jObject.Value<double>("FlowRate");
+                TemperatureSetpoint = Core.Query.IJSAMObject<ModifiableValue>(jObject.Value<JObject>("TemperatureSetpoint"));
             }
 
-            if (jObject.ContainsKey("FreshAirRate"))
+            if (jObject.ContainsKey("RelativeHumiditySetpoint"))
             {
-                freshAirRate = jObject.Value<double>("FreshAirRate");
+                RelativeHumiditySetpoint = Core.Query.IJSAMObject<ModifiableValue>(jObject.Value<JObject>("RelativeHumiditySetpoint"));
+            }
+
+            if (jObject.ContainsKey("PollutantSetpoint"))
+            {
+                PollutantSetpoint = Core.Query.IJSAMObject<ModifiableValue>(jObject.Value<JObject>("PollutantSetpoint"));
+            }
+
+            if (jObject.ContainsKey("DisplacementVentilation"))
+            {
+                DisplacementVentilation = jObject.Value<bool>("DisplacementVentilation");
+            }
+
+            if (jObject.ContainsKey("FlowRate"))
+            {
+                FlowRate = Core.Query.IJSAMObject<DesignConditionSizedFlowValue>(jObject.Value<JObject>("FlowRate"));
+            }
+
+            if (jObject.ContainsKey("FreshAir"))
+            {
+                FreshAir = Core.Query.IJSAMObject<DesignConditionSizedFlowValue>(jObject.Value<JObject>("FreshAir"));
             }
 
             return true;
@@ -131,14 +150,31 @@ namespace SAM.Analytical.Systems
                 result.Add("Volume", volume);
             }
 
-            if (!double.IsNaN(flowRate))
+            if(TemperatureSetpoint != null)
             {
-                result.Add("FlowRate", flowRate);
+                result.Add("TemperatureSetpoint", TemperatureSetpoint.ToJObject());
             }
 
-            if (!double.IsNaN(freshAirRate))
+            if (RelativeHumiditySetpoint != null)
             {
-                result.Add("FreshAirRate", freshAirRate);
+                result.Add("RelativeHumiditySetpoint", RelativeHumiditySetpoint.ToJObject());
+            }
+
+            if (PollutantSetpoint != null)
+            {
+                result.Add("PollutantSetpoint", PollutantSetpoint.ToJObject());
+            }
+
+            result.Add("DisplacementVentilation", DisplacementVentilation);
+
+            if (FlowRate != null)
+            {
+                result.Add("FlowRate", FlowRate.ToJObject());
+            }
+
+            if (FreshAir != null)
+            {
+                result.Add("FreshAir", FreshAir.ToJObject());
             }
 
             return result;
