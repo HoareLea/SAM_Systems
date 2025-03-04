@@ -7,5 +7,6 @@ namespace SAM.Analytical.Systems
     public enum SystemChilledBeamParameter
     {
         [ParameterProperties("Cooling Collection", "Cooling Collection"), SAMObjectParameterValue(typeof(CollectionLink))] CoolingCollection,
+        [ParameterProperties("Heating Collection", "Heating Collection"), SAMObjectParameterValue(typeof(CollectionLink))] HeatingCollection,
     }
 }
