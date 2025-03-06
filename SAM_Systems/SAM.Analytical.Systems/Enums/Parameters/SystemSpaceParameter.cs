@@ -9,5 +9,6 @@ namespace SAM.Analytical.Systems
         [ParameterProperties("Domestic Hot Water Collection", "Domestic Hot Water Collection"), SAMObjectParameterValue(typeof(CollectionLink))] DomesticHotWaterCollection,
         [ParameterProperties("Equipment Electrical Collection", "Equipment Electrical Collection"), SAMObjectParameterValue(typeof(CollectionLink))] EquipmentElectricalCollection,
         [ParameterProperties("Lighting Electrical Collection", "Lighting Electrical Collection"), SAMObjectParameterValue(typeof(CollectionLink))] LightingElectricalCollection,
+        [ParameterProperties("Space Name", "Space Name"), ParameterValue(Core.ParameterType.String)] SpaceName,
     }
 }
