@@ -766,6 +766,36 @@ namespace SAM.Core.Systems
             return systemRelationCluster?.GetObjects<T>()?.ConvertAll(x => Core.Query.Clone(x)).ConvertAll(x => (T)(object)x);
         }
 
+        public List<T> GetSystemGroups<T>(ISystem system) where T : ISystemGroup
+        {
+            if(system == null)
+            {
+                return null;
+            }
+
+            List<T> result = systemRelationCluster?.GetObjects<T>();
+            if(result == null || result.Count == 0)
+            {
+                return result;
+            }
+
+            for (int i = result.Count - 1; i >= 0; i--)
+            {
+                T systemGroup = result[i];
+
+                List<ISystem> systems = GetSystems<ISystem>(systemGroup);
+                if(systems == null || systems.Count == 0 || systems.Find(x => x.Guid == system.Guid) == null)
+                {
+                    result.RemoveAt(i);
+                    continue;
+                }
+
+                result[i] = Core.Query.Clone(systemGroup);
+            }
+
+            return result;
+        }
+
         public List<T> GetSystemComponents<T>() where T : ISystemComponent
         {
             return systemRelationCluster?.GetObjects<T>()?.ConvertAll(x => Core.Query.Clone(x)).ConvertAll(x => (T)(object)x);

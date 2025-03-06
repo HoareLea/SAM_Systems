@@ -7,5 +7,6 @@ namespace SAM.Analytical.Systems
     public enum AirSystemComponentParameter
     {
         [ParameterProperties("Electrical Collection", "Electrical Collection"), SAMObjectParameterValue(typeof(CollectionLink))] ElectricalCollection,
+        [ParameterProperties("Group Index", "Group Index"), IntegerParameterValue()] GroupIndex,
     }
 }
