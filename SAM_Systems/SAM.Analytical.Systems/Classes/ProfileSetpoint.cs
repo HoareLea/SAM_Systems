@@ -21,7 +21,7 @@ namespace SAM.Analytical.Systems
         {
             if(profileSetpoint != null)
             {
-                foreach(Point2D point2D in point2Ds)
+                foreach(Point2D point2D in profileSetpoint.point2Ds)
                 {
                     point2Ds.Add(point2D.Clone<Point2D>());
                 }
