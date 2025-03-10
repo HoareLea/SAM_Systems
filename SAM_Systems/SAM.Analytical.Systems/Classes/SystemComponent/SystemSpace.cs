@@ -4,7 +4,7 @@ using SAM.Core.Systems;
 
 namespace SAM.Analytical.Systems
 {
-    public class SystemSpace : SystemComponent, ISystemSpace
+    public class SystemSpace : SystemComponent, ISystemSpace, IAirSystemComponent
     {
         private double area;
         private double volume;

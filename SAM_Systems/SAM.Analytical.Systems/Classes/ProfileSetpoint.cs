@@ -8,7 +8,7 @@ namespace SAM.Analytical.Systems
 {
     public class ProfileSetpoint : Setpoint
     {
-        private SortedDictionary<double, double> values = new SortedDictionary<double, double>();
+        private List<Point2D> point2Ds = new List<Point2D>();
 
         public ProfileSetpoint()
             : base()
@@ -19,11 +19,11 @@ namespace SAM.Analytical.Systems
         public ProfileSetpoint(ProfileSetpoint profileSetpoint)
             :base(profileSetpoint)
         {
-            if(profileSetpoint != null && profileSetpoint.values != null)
+            if(profileSetpoint != null)
             {
-                foreach(KeyValuePair<double, double> keyValuePair in profileSetpoint.values)
+                foreach(Point2D point2D in profileSetpoint.point2Ds)
                 {
-                    values[keyValuePair.Key] = keyValuePair.Value;
+                    point2Ds.Add(point2D.Clone<Point2D>());
                 }
             }
         }
@@ -38,12 +38,14 @@ namespace SAM.Analytical.Systems
         {
             get
             {
-                if(values?.Keys == null)
+                if(point2Ds == null || point2Ds.Count == 0)
                 {
                     return null;
                 }
 
-                return new Range<double>(values.Keys.Min(), values.Keys.Max());
+                List<double> values = point2Ds.ConvertAll(x => x.X);
+
+                return new Range<double>(values.Min(), values.Max());
             }
         }
 
@@ -51,12 +53,14 @@ namespace SAM.Analytical.Systems
         {
             get
             {
-                if(values?.Values == null)
+                if (point2Ds == null || point2Ds.Count == 0)
                 {
                     return null;
                 }
 
-                return new Range<double>(values.Values.Min(), values.Values.Max());
+                List<double> values = point2Ds.ConvertAll(x => x.Y);
+
+                return new Range<double>(values.Min(), values.Max());
             }
         }
 
@@ -72,7 +76,7 @@ namespace SAM.Analytical.Systems
                 return false;
             }
 
-            values[input] = output;
+            point2Ds.Add(new Point2D(input, output));
             return true;
         }
 
@@ -80,18 +84,12 @@ namespace SAM.Analytical.Systems
         {
             get
             {
-                if(values == null)
+                if(point2Ds == null)
                 {
                     return null;
                 }
 
-                List<Point2D> result = new List<Point2D>();
-                foreach(KeyValuePair<double, double> keyValuePair in values)
-                {
-                    result.Add(new Point2D(keyValuePair.Key, keyValuePair.Value));
-                }
-
-                return result;
+                return point2Ds.ConvertAll(x => x.Clone<Point2D>());
             }
         }
 
@@ -103,15 +101,15 @@ namespace SAM.Analytical.Systems
                 return result;
             }
 
-            if(jObject.ContainsKey("Values"))
+            if(jObject.ContainsKey("Point2Ds"))
             {
-                JArray jArray = jObject.Value<JArray>("Values");
+                JArray jArray = jObject.Value<JArray>("Point2Ds");
                 if(jArray != null)
                 {
-                    values = new SortedDictionary<double, double>();
-                    foreach(JArray jArray_Temp in jArray)
+                    point2Ds = new List<Point2D>();
+                    foreach(JObject jObject_Point2D in jArray)
                     {
-                        values[(double)jArray_Temp[0]] = (double)jArray_Temp[1]; 
+                        point2Ds.Add(new Point2D(jObject_Point2D));
                     }
                 }
             }
@@ -128,15 +126,15 @@ namespace SAM.Analytical.Systems
                 return null;
             }
 
-            if(values != null)
+            if(point2Ds != null)
             {
                 JArray jArray = new JArray();
-                foreach(KeyValuePair<double, double> keyValuePair in values)
+                foreach(Point2D point2D in point2Ds)
                 {
-                    jArray.Add(new JArray(keyValuePair.Key, keyValuePair.Value));
+                    jArray.Add(point2D.ToJObject());
                 }
 
-                result.Add("Values", jArray);
+                result.Add("Point2Ds", jArray);
             }
 
             return result;
