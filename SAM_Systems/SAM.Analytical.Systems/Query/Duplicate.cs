@@ -32,7 +32,7 @@ namespace SAM.Analytical.Systems
                 volume = volume_Temp;
             }
 
-            result = new SystemSpace(space.Name, area, volume, null, null, null, false, null, null);
+            result = new SystemSpace(space.Name, area, volume, null, null, null, false, false, false, null, null);
 
 
             if (displaySystemSpace != null)

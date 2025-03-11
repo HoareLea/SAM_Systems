@@ -13,10 +13,12 @@ namespace SAM.Analytical.Systems
         public ModifiableValue RelativeHumiditySetpoint { get; set; }
         public ModifiableValue PollutantSetpoint { get; set; }
         public bool DisplacementVentilation { get; set; }
+        public bool ModelInterzoneFlow { get; set; }
+        public bool ModelVentilationFlow { get; set; }
         public DesignConditionSizedFlowValue FlowRate { get; set; }
         public DesignConditionSizedFlowValue FreshAir { get; set; }
 
-        public SystemSpace(string name, double area, double volume, ModifiableValue temperatureSetpoint, ModifiableValue relativeHumiditySetpoint, ModifiableValue pollutantSetpoint, bool displacementVentilation, DesignConditionSizedFlowValue flowRate, DesignConditionSizedFlowValue freshAir)
+        public SystemSpace(string name, double area, double volume, ModifiableValue temperatureSetpoint, ModifiableValue relativeHumiditySetpoint, ModifiableValue pollutantSetpoint, bool displacementVentilation, bool modelInterzoneFlow, bool modelVentilationFlow, DesignConditionSizedFlowValue flowRate, DesignConditionSizedFlowValue freshAir)
             : base(name)
         {
             this.area = area;
@@ -25,6 +27,8 @@ namespace SAM.Analytical.Systems
             RelativeHumiditySetpoint = relativeHumiditySetpoint?.Clone();
             PollutantSetpoint = pollutantSetpoint?.Clone();
             DisplacementVentilation = displacementVentilation;
+            ModelInterzoneFlow = modelInterzoneFlow;
+            ModelVentilationFlow = modelVentilationFlow;
             FlowRate = flowRate?.Clone();
             FreshAir = freshAir?.Clone();
         }
@@ -47,6 +51,8 @@ namespace SAM.Analytical.Systems
                 RelativeHumiditySetpoint = systemSpace.RelativeHumiditySetpoint?.Clone();
                 PollutantSetpoint = systemSpace.PollutantSetpoint?.Clone();
                 DisplacementVentilation = systemSpace.DisplacementVentilation;
+                ModelInterzoneFlow = systemSpace.ModelInterzoneFlow;
+                ModelVentilationFlow = systemSpace.ModelVentilationFlow;
                 FlowRate = systemSpace.FlowRate;
                 FreshAir = systemSpace.FreshAir;
             }
@@ -119,6 +125,16 @@ namespace SAM.Analytical.Systems
                 DisplacementVentilation = jObject.Value<bool>("DisplacementVentilation");
             }
 
+            if (jObject.ContainsKey("ModelInterzoneFlow"))
+            {
+                ModelInterzoneFlow = jObject.Value<bool>("ModelInterzoneFlow");
+            }
+
+            if (jObject.ContainsKey("ModelVentilationFlow"))
+            {
+                ModelVentilationFlow = jObject.Value<bool>("ModelVentilationFlow");
+            }
+
             if (jObject.ContainsKey("FlowRate"))
             {
                 FlowRate = Core.Query.IJSAMObject<DesignConditionSizedFlowValue>(jObject.Value<JObject>("FlowRate"));
@@ -166,6 +182,10 @@ namespace SAM.Analytical.Systems
             }
 
             result.Add("DisplacementVentilation", DisplacementVentilation);
+
+            result.Add("ModelVentilationFlow", ModelVentilationFlow);
+
+            result.Add("ModelInterzoneFlow", ModelInterzoneFlow);
 
             if (FlowRate != null)
             {
