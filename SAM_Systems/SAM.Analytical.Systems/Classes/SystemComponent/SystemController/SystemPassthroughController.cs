@@ -3,7 +3,7 @@ using SAM.Core.Systems;
 
 namespace SAM.Analytical.Systems
 {
-    public class SystemPassthroughController : SystemSensorController
+    public class SystemPassthroughController : SystemSetpointController
     {
         private NormalControllerDataType normalControllerDataType;
 
@@ -13,8 +13,8 @@ namespace SAM.Analytical.Systems
 
         }
 
-        public SystemPassthroughController(string name, NormalControllerDataType normalControllerDataType)
-            : base(name)
+        public SystemPassthroughController(string name, string sensorReference, ISetpoint setpoint, ISetback setback, NormalControllerDataType normalControllerDataType)
+            : base(name, sensorReference, setpoint, setback)
         {
             this.normalControllerDataType = normalControllerDataType;
         }
