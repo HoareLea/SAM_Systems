@@ -12,6 +12,7 @@ namespace SAM.Analytical.Systems
         public double SizeFraction { get; set; }
         public Distribution Distribution { get; set; }
         public double DesignPressureDrop { get; set; }
+        public double DesignTemperatureDifference { get; set; }
 
         public HeatingSystemCollection()
             : base()
@@ -40,6 +41,7 @@ namespace SAM.Analytical.Systems
                 SizeFraction = heatingSystemCollection.SizeFraction;
                 Distribution = heatingSystemCollection.Distribution?.Clone();
                 DesignPressureDrop = heatingSystemCollection.DesignPressureDrop;
+                DesignTemperatureDifference = heatingSystemCollection.DesignTemperatureDifference;
             }
         }
 
@@ -81,6 +83,11 @@ namespace SAM.Analytical.Systems
                 DesignPressureDrop = jObject.Value<double>("DesignPressureDrop");
             }
 
+            if (jObject.ContainsKey("DesignTemperatureDifference"))
+            {
+                DesignTemperatureDifference = jObject.Value<double>("DesignTemperatureDifference");
+            }
+
             return true;
         }
 
@@ -117,6 +124,11 @@ namespace SAM.Analytical.Systems
             if (!double.IsNaN(DesignPressureDrop))
             {
                 result.Add("DesignPressureDrop", DesignPressureDrop);
+            }
+
+            if (!double.IsNaN(DesignTemperatureDifference))
+            {
+                result.Add("DesignTemperatureDifference", DesignTemperatureDifference);
             }
 
             return result;

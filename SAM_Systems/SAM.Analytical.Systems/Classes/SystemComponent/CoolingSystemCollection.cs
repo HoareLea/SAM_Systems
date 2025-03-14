@@ -7,16 +7,12 @@ namespace SAM.Analytical.Systems
     public class CoolingSystemCollection : SystemCollection<CoolingSystem>
     {
         public double MaximumReturnTemperature { get; set; }
-
         public bool VariableFlowCapacity { get; set; }
-
         public double PeakDemand { get; set; }
-
         public double SizeFraction { get; set; }
-
         public Distribution Distribution { get; set; }
-
         public double DesignPressureDrop { get; set; }
+        public double DesignTemperatureDifference { get; set; }
 
 
         public CoolingSystemCollection()
@@ -46,6 +42,7 @@ namespace SAM.Analytical.Systems
                 SizeFraction = coolingSystemCollection.SizeFraction;
                 Distribution = coolingSystemCollection.Distribution?.Clone();
                 DesignPressureDrop = coolingSystemCollection.DesignPressureDrop;
+                DesignTemperatureDifference = coolingSystemCollection.DesignTemperatureDifference;
             }
         }
 
@@ -87,6 +84,11 @@ namespace SAM.Analytical.Systems
                 DesignPressureDrop = jObject.Value<double>("DesignPressureDrop");
             }
 
+            if (jObject.ContainsKey("DesignTemperatureDifference"))
+            {
+                DesignTemperatureDifference = jObject.Value<double>("DesignTemperatureDifference");
+            }
+
             return true;
         }
 
@@ -123,6 +125,11 @@ namespace SAM.Analytical.Systems
             if (!double.IsNaN(DesignPressureDrop))
             {
                 result.Add("DesignPressureDrop", DesignPressureDrop);
+            }
+
+            if (!double.IsNaN(DesignTemperatureDifference))
+            {
+                result.Add("DesignTemperatureDifference", DesignTemperatureDifference);
             }
 
             return result;

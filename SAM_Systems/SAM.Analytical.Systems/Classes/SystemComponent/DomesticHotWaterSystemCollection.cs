@@ -7,12 +7,10 @@ namespace SAM.Analytical.Systems
     public class DomesticHotWaterSystemCollection : SystemCollection<DomesticHotWaterSystem>
     {
         public LoadDistribution LoadDistribution { get; set; }
-
         public double MinimumReturnTemperature { get; set; }
-
         public Distribution Distribution { get; set; }
-
         public double DesignPressureDrop { get; set; }
+        public double DesignTemperatureDifference { get; set; }
 
         public DomesticHotWaterSystemCollection()
             : base()
@@ -39,6 +37,7 @@ namespace SAM.Analytical.Systems
                 MinimumReturnTemperature = domesticHotWaterSystemCollection.MinimumReturnTemperature;
                 Distribution = domesticHotWaterSystemCollection.Distribution?.Clone();
                 DesignPressureDrop = domesticHotWaterSystemCollection.DesignPressureDrop;
+                DesignTemperatureDifference = domesticHotWaterSystemCollection.DesignTemperatureDifference;
             }
         }
 
@@ -70,6 +69,11 @@ namespace SAM.Analytical.Systems
                 DesignPressureDrop = jObject.Value<double>("DesignPressureDrop");
             }
 
+            if (jObject.ContainsKey("DesignTemperatureDifference"))
+            {
+                DesignTemperatureDifference = jObject.Value<double>("DesignTemperatureDifference");
+            }
+
             return true;
         }
 
@@ -96,6 +100,11 @@ namespace SAM.Analytical.Systems
             if (!double.IsNaN(DesignPressureDrop))
             {
                 result.Add("DesignPressureDrop", DesignPressureDrop);
+            }
+
+            if (!double.IsNaN(DesignTemperatureDifference))
+            {
+                result.Add("DesignTemperatureDifference", DesignTemperatureDifference);
             }
 
             return result;
