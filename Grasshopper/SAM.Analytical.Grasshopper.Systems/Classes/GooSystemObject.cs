@@ -196,12 +196,25 @@ namespace SAM.Analytical.Grasshopper.Systems
 
         public override void AppendAdditionalMenuItems(ToolStripDropDown menu)
         {
+
+            Menu_AppendItem(menu, "Bake By Type", Menu_BakeByPanelType, VolatileData.AllData(true).Any());
             Menu_AppendItem(menu, "Save As...", Menu_SaveAs, VolatileData.AllData(true).Any());
 
             //Menu_AppendSeparator(menu);
 
             base.AppendAdditionalMenuItems(menu);
         }
+
+        private void Menu_BakeByPanelType(object sender, EventArgs e)
+        {
+            BakeGeometry_ByType(RhinoDoc.ActiveDoc);
+        }
+
+        public void BakeGeometry_ByType(RhinoDoc doc)
+        {
+            Modify.BakeGeometry_ByType(doc, VolatileData);
+        }
+
 
         private void Menu_SaveAs(object sender, EventArgs e)
         {

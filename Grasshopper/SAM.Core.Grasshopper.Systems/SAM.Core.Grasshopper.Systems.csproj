@@ -61,6 +61,9 @@
   <ItemGroup>
     <ProjectReference Include="..\..\SAM_Systems\SAM.Core.Systems\SAM.Core.Systems.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Modify\" />
+  </ItemGroup>
   <PropertyGroup />
   <PropertyGroup>
     <FallbackCulture>en-US</FallbackCulture>

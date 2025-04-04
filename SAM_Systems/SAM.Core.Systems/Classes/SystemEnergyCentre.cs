@@ -25,7 +25,7 @@ namespace SAM.Core.Systems
         }
     }
 
-    public class SystemEnergyCentre<T> : SAMModel, ISystemObject where T : SystemPlantRoom
+    public class SystemEnergyCentre<T> : SAMModel, ISystemJSAMObject where T : SystemPlantRoom
     {
         private Dictionary<System.Guid, SystemEnergySource> systemEnergySources = new Dictionary<System.Guid, SystemEnergySource>();
 
