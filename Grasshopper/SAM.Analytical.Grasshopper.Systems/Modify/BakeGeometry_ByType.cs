@@ -18,7 +18,7 @@ namespace SAM.Analytical.Grasshopper.Systems
                 return;
             }
 
-            List<ISystemComponent> systemComponents = new List<ISystemComponent>();
+            List<ISystemJSAMObject> systemJSAMObjects = new List<ISystemJSAMObject>();
             List<SystemPlantRoom> systemPlantRooms = new List<SystemPlantRoom>();
             List<SystemEnergyCentre> systemEnergyCentres = new List<SystemEnergyCentre>();
 
@@ -33,19 +33,19 @@ namespace SAM.Analytical.Grasshopper.Systems
                     {
                         systemEnergyCentres.Add((SystemEnergyCentre)@object);
                     }
-                    else if(@object is ISystemComponent)
-                    {
-                        systemComponents.Add((ISystemComponent)@object);
-                    }
                     else if (@object is SystemPlantRoom)
                     {
                         systemPlantRooms.Add((SystemPlantRoom)@object);
                     }
+                    else if (@object is ISystemJSAMObject)
+                    {
+                        systemJSAMObjects.Add((ISystemJSAMObject)@object);
+                    }
                 }
 
-                if (systemComponents.Count != 0)
+                if (systemJSAMObjects.Count != 0)
                 {
-                    BakeGeometry_ByType(rhinoDoc, systemComponents);
+                    BakeGeometry_ByType(rhinoDoc, systemJSAMObjects);
                 }
 
                 if (systemEnergyCentres.Count != 0)
@@ -127,13 +127,13 @@ namespace SAM.Analytical.Grasshopper.Systems
                     layer_System.Name = (system as SystemObject).Name;
                     layer_System.ParentLayerId = layer_SystemPlantRoom.Id;
 
-                    List<ISystemComponent> systemComponents = systemPlantRoom.GetRelatedObjects<ISystemComponent>(system);
+                    List<ISystemJSAMObject> systemComponents = systemPlantRoom.GetRelatedObjects<ISystemJSAMObject>(system);
                     BakeGeometry_ByType(rhinoDoc, systemComponents, layer_System);
                 }
             }
         }
 
-        public static void BakeGeometry_ByType(this RhinoDoc rhinoDoc, List<ISystemComponent> systemComponents, Layer layer = null)
+        public static void BakeGeometry_ByType(this RhinoDoc rhinoDoc, List<ISystemJSAMObject> systemJSAMObjects, Layer layer = null)
         {
             LayerTable layerTable = rhinoDoc?.Layers;
             if (layerTable == null)
@@ -152,19 +152,19 @@ namespace SAM.Analytical.Grasshopper.Systems
 
             List<Guid> guids = new List<Guid>();
 
-            foreach(ISystemComponent systemComponent in systemComponents)
+            foreach(ISystemJSAMObject systemJSAMObject in systemJSAMObjects)
             {
-                string name = systemComponent?.GetType()?.Name;
+                string name = systemJSAMObject?.GetType()?.Name;
                 if (string.IsNullOrEmpty(name))
                 {
                     return;
                 }
 
-                Layer layer_Temp = Core.Rhino.Modify.GetLayer(layerTable, layer_Parent.Id, name, Analytical.Systems.Query.Color(systemComponent.GetType()));
+                Layer layer_Temp = Core.Rhino.Modify.GetLayer(layerTable, layer_Parent.Id, name, Analytical.Systems.Query.Color(systemJSAMObject.GetType()));
 
                 objectAttributes.LayerIndex = layer_Temp.Index;
 
-                if (BakeGeometry(systemComponent, rhinoDoc, objectAttributes, out Guid guid) && guid != Guid.Empty)
+                if (BakeGeometry(systemJSAMObject, rhinoDoc, objectAttributes, out Guid guid) && guid != Guid.Empty)
                 {
                     guids.Add(guid);
                 }
