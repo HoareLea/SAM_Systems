@@ -109,6 +109,12 @@ namespace SAM.Analytical.Grasshopper.Systems
             List<ISystem> systems = systemPlantRoom.GetSystems();
             if(systems != null && systems.Count != 0)
             {
+                systems.Sort((x, y) => (x as SystemObject).Name.CompareTo((y as SystemObject).Name));
+
+                List<ISystem> systems_Temp = systems.FindAll(x => x is AirSystem);
+                systems.RemoveAll(x => systems_Temp.Contains(x));
+                systems.AddRange(systems_Temp);
+
                 foreach (ISystem system in systems)
                 {
                     if(!(system is AirSystem) && system.GetType() != typeof(LiquidSystem) )
@@ -118,7 +124,7 @@ namespace SAM.Analytical.Grasshopper.Systems
 
                     index = layerTable.Add();
                     Layer layer_System = layerTable[index];
-                    layer_System.Name = (system as SystemObject)?.Name;
+                    layer_System.Name = (system as SystemObject).Name;
                     layer_System.ParentLayerId = layer_SystemPlantRoom.Id;
 
                     List<ISystemComponent> systemComponents = systemPlantRoom.GetRelatedObjects<ISystemComponent>(system);
