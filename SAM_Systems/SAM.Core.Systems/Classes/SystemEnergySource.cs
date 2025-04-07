@@ -6,7 +6,6 @@ namespace SAM.Core.Systems
 {
     public class SystemEnergySource : SystemObject
     {
-        public string Description { get; set; }
         public IndexedDoubles CO2Factor { get; set; }
         public IndexedDoubles PeakCost { get; set; }
         public IndexedDoubles PrimaryEnergyFactor { get; set; }
@@ -61,11 +60,6 @@ namespace SAM.Core.Systems
             if(!result)
             {
                 return result;
-            }
-
-            if(jObject.ContainsKey("Description"))
-            {
-                Description = jObject.Value<string>("Description");
             }
 
             if(jObject.ContainsKey("CO2Factor"))
@@ -143,11 +137,6 @@ namespace SAM.Core.Systems
             if(result == null)
             {
                 return result;
-            }
-
-            if(Description != null)
-            {
-                result.Add("Description", Description);
             }
 
             if(CO2Factor != null)
