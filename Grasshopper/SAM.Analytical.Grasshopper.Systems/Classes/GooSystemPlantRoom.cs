@@ -49,7 +49,7 @@ namespace SAM.Analytical.Grasshopper.Systems
 
     public class GooSystemPlantRoomParam : GH_PersistentParam<GooSystemPlantRoom>
     {
-        public override Guid ComponentGuid => new Guid("fec532ae-cc6d-48ae-9765-939c109393c7");
+        public override Guid ComponentGuid => new Guid("cc593874-611a-4378-92a0-85d88ed82b9a");
 
         protected override System.Drawing.Bitmap Icon => Resources.SAM3_0;
 

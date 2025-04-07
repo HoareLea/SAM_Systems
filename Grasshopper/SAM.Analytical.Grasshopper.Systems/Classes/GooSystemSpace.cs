@@ -49,7 +49,7 @@ namespace SAM.Analytical.Grasshopper.Systems
 
     public class GooSystemSpaceParam : GH_PersistentParam<GooSystemSpace>
     {
-        public override Guid ComponentGuid => new Guid("07d0a492-c278-494b-91ac-497956f677bd");
+        public override Guid ComponentGuid => new Guid("1ea2ed4a-1fd0-44ff-a4cb-a910aefe2fc9");
 
         protected override System.Drawing.Bitmap Icon => Resources.SAM3_0;
 

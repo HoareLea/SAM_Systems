@@ -39,7 +39,7 @@ namespace SAM.Analytical.Grasshopper.Systems
 
     public class GooSystemEnergyCentreParam : GH_PersistentParam<GooSystemEnergyCentre>
     {
-        public override Guid ComponentGuid => new Guid("49858433-6e52-493a-bea1-e2e76e4e9170");
+        public override Guid ComponentGuid => new Guid("3f01a7cf-8268-496a-8247-602d1b4f109b");
 
         protected override System.Drawing.Bitmap Icon => Resources.SAM3_0;
 
