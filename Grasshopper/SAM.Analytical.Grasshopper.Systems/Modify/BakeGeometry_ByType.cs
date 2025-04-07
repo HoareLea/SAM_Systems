@@ -7,6 +7,7 @@ using Grasshopper.Kernel.Data;
 using Rhino.DocObjects.Tables;
 using SAM.Analytical.Systems;
 using System.Linq;
+using Grasshopper.Kernel.Types;
 
 namespace SAM.Analytical.Grasshopper.Systems
 {
@@ -25,41 +26,41 @@ namespace SAM.Analytical.Grasshopper.Systems
 
             foreach (var variable in gH_Structure.AllData(true))
             {
-                ISystemComponent systemComponent = null;
-                if (variable is GooSystemObject)
+                object @object = variable;
+                if (variable is IGH_Goo)
                 {
-                    object @object = ((GooSystemObject)variable).Value;
-
-                    if(@object is SystemEnergyCentre)
-                    {
-                        systemEnergyCentres.Add((SystemEnergyCentre)@object);
-                    }
-                    else if (@object is SystemPlantRoom)
-                    {
-                        systemPlantRooms.Add((SystemPlantRoom)@object);
-                    }
-                    else if (@object is ISystemJSAMObject)
-                    {
-                        systemJSAMObjects.Add((ISystemJSAMObject)@object);
-                    }
+                    @object = ((dynamic)variable).Value;
                 }
 
-                if (systemJSAMObjects.Count != 0)
+                if (@object is SystemEnergyCentre)
                 {
-                    BakeGeometry_ByType(rhinoDoc, systemJSAMObjects);
+                    systemEnergyCentres.Add((SystemEnergyCentre)@object);
                 }
-
-                if (systemEnergyCentres.Count != 0)
+                else if (@object is SystemPlantRoom)
                 {
-                    systemEnergyCentres.ForEach(x => BakeGeometry_ByType(rhinoDoc, x));
+                    systemPlantRooms.Add((SystemPlantRoom)@object);
                 }
-
-                if (systemPlantRooms.Count != 0)
+                else if (@object is ISystemJSAMObject)
                 {
-                    systemPlantRooms.ForEach(x => BakeGeometry_ByType(rhinoDoc, x));
+                    systemJSAMObjects.Add((ISystemJSAMObject)@object);
                 }
-
             }
+
+            if (systemJSAMObjects.Count != 0)
+            {
+                BakeGeometry_ByType(rhinoDoc, systemJSAMObjects);
+            }
+
+            if (systemEnergyCentres.Count != 0)
+            {
+                systemEnergyCentres.ForEach(x => BakeGeometry_ByType(rhinoDoc, x));
+            }
+
+            if (systemPlantRooms.Count != 0)
+            {
+                systemPlantRooms.ForEach(x => BakeGeometry_ByType(rhinoDoc, x));
+            }
+
         }
 
         public static void BakeGeometry_ByType(this RhinoDoc rhinoDoc, SystemEnergyCentre systemEnergyCentre)

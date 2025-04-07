@@ -1,4 +1,5 @@
 ﻿using SAM.Core;
+using SAM.Geometry.Systems;
 using System.Drawing;
 
 namespace SAM.Analytical.Systems
@@ -172,6 +173,45 @@ namespace SAM.Analytical.Systems
 
                 case nameof(DisplaySystemWindTurbine):
                     return System.Drawing.Color.FromArgb(106, 90, 205); // SlateBlue
+
+                case nameof(DisplaySystemConnection):
+                    return System.Drawing.Color.FromArgb(0, 0, 0); // Black
+
+                case nameof(DisplaySystemDifferenceController):
+                    return System.Drawing.Color.FromArgb(0, 0, 0); // Black
+
+                case nameof(DisplaySystemIfLogicalController):
+                    return System.Drawing.Color.FromArgb(0, 0, 0); // Black
+
+                case nameof(DisplaySystemLiquidDifferenceController):
+                    return System.Drawing.Color.FromArgb(0, 0, 0); // Black
+
+                case nameof(DisplaySystemLiquidNormalController):
+                    return System.Drawing.Color.FromArgb(0, 0, 0); // Black
+
+                case nameof(DisplaySystemLiquidPassthroughController):
+                    return System.Drawing.Color.FromArgb(0, 0, 0); // Black
+
+                case nameof(DisplaySystemMaxLogicalController):
+                    return System.Drawing.Color.FromArgb(0, 0, 0); // Black
+
+                case nameof(DisplaySystemMinLogicalController):
+                    return System.Drawing.Color.FromArgb(0, 0, 0); // Black
+
+                case nameof(DisplaySystemNormalController):
+                    return System.Drawing.Color.FromArgb(0, 0, 0); // Black
+
+                case nameof(DisplaySystemNotLogicalController):
+                    return System.Drawing.Color.FromArgb(0, 0, 0); // Black
+
+                case nameof(DisplaySystemOutdoorController):
+                    return System.Drawing.Color.FromArgb(0, 0, 0); // Black
+
+                case nameof(DisplaySystemPassthroughController):
+                    return System.Drawing.Color.FromArgb(0, 0, 0); // Black
+
+                case nameof(DisplaySystemSigLogicalController):
+                    return System.Drawing.Color.FromArgb(0, 0, 0); // Black
 
                 default:
                     throw new System.NotImplementedException($"Color for {type.Name} is not implemented.");

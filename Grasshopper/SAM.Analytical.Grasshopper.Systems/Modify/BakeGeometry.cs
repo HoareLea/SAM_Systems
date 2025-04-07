@@ -42,6 +42,21 @@ namespace SAM.Analytical.Grasshopper.Systems
                 return false;
             }
 
+            if(systemJSAMObject is SystemObject)
+            {
+                SystemObject systemObject = (SystemObject)systemJSAMObject;
+                foreach(Guid guid_Temp in guids)
+                {
+                    RhinoObject rhinoObject = doc?.Objects?.FindId(guid_Temp);
+                    if(rhinoObject != null)
+                    {
+                        rhinoObject.Attributes.Name = systemObject.Name;
+                        rhinoObject.Attributes.SetUserString("Description", systemObject.Description);
+                        rhinoObject.CommitChanges();
+                    }
+                }
+            }
+
             if (guids.Count == 1)
             {
                 guid = guids[0];
