@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using Grasshopper.Kernel.Data;
 using Rhino.DocObjects.Tables;
 using SAM.Analytical.Systems;
+using System.Linq;
 
 namespace SAM.Analytical.Grasshopper.Systems
 {
@@ -82,7 +83,6 @@ namespace SAM.Analytical.Grasshopper.Systems
             }
         }            
 
-
         public static void BakeGeometry_ByType(this RhinoDoc rhinoDoc, SystemPlantRoom systemPlantRoom, Layer layer = null)
         {
             LayerTable layerTable = rhinoDoc?.Layers;
@@ -127,8 +127,43 @@ namespace SAM.Analytical.Grasshopper.Systems
                     layer_System.Name = (system as SystemObject).Name;
                     layer_System.ParentLayerId = layer_SystemPlantRoom.Id;
 
-                    List<ISystemJSAMObject> systemComponents = systemPlantRoom.GetRelatedObjects<ISystemJSAMObject>(system);
-                    BakeGeometry_ByType(rhinoDoc, systemComponents, layer_System);
+                    List<ISystemJSAMObject> systemJSAMObjects = systemPlantRoom.GetRelatedObjects<ISystemJSAMObject>(system);
+                    if(systemJSAMObjects == null || systemJSAMObjects.Count == 0)
+                    {
+                        continue;
+                    }
+
+                    Dictionary<string, List<ISystemJSAMObject>> dictionary = new Dictionary<string, List<ISystemJSAMObject>>();
+                    foreach(ISystemJSAMObject systemJSAMObject in systemJSAMObjects)
+                    {
+                        string groupName = systemPlantRoom.GetRelatedObjects<AirSystemGroup>(systemJSAMObject)?.FirstOrDefault()?.Name;
+                        if(groupName == null)
+                        {
+                            groupName = string.Empty;
+                        }
+
+                        if(!dictionary.TryGetValue(groupName, out List<ISystemJSAMObject> systemJSAMObjects_Group) || systemJSAMObjects_Group == null)
+                        {
+                            systemJSAMObjects_Group = new List<ISystemJSAMObject>();
+                            dictionary[groupName] = systemJSAMObjects_Group;
+                        }
+
+                        systemJSAMObjects_Group.Add(systemJSAMObject);
+                    }
+
+                    foreach (KeyValuePair<string, List<ISystemJSAMObject>> keyValuePair in dictionary)
+                    {
+                        layer_Parent = layer_System;
+                        if(!string.IsNullOrWhiteSpace(keyValuePair.Key))
+                        {
+                            index = layerTable.Add();
+                            layer_Parent = layerTable[index];
+                            layer_Parent.Name = keyValuePair.Key;
+                            layer_Parent.ParentLayerId = layer_System.Id;
+                        }
+
+                        BakeGeometry_ByType(rhinoDoc, keyValuePair.Value, layer_Parent);
+                    }
                 }
             }
         }

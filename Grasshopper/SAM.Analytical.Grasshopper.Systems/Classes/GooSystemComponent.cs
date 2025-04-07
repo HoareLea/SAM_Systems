@@ -1,13 +1,15 @@
 ﻿using Grasshopper.Kernel;
 using Grasshopper.Kernel.Types;
-using SAM.Core.Grasshopper.Systems.Properties;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using SAM.Core.Systems;
+using SAM.Core.Grasshopper;
+using SAM.Analytical.Grasshopper.Systems.Properties;
+using Rhino;
 
-namespace SAM.Core.Grasshopper.Systems
+namespace SAM.Analytical.Grasshopper.Systems
 {
     public class GooSystemComponent : GooJSAMObject<ISystemComponent>
     {
@@ -58,6 +60,7 @@ namespace SAM.Core.Grasshopper.Systems
 
         public override void AppendAdditionalMenuItems(ToolStripDropDown menu)
         {
+            Menu_AppendItem(menu, "Bake By Type", Menu_BakeByPanelType, VolatileData.AllData(true).Any());
             Menu_AppendItem(menu, "Save As...", Menu_SaveAs, VolatileData.AllData(true).Any());
 
             Menu_AppendSeparator(menu);
@@ -65,9 +68,19 @@ namespace SAM.Core.Grasshopper.Systems
             base.AppendAdditionalMenuItems(menu);
         }
 
+        private void Menu_BakeByPanelType(object sender, EventArgs e)
+        {
+            BakeGeometry_ByType(RhinoDoc.ActiveDoc);
+        }
+
+        public void BakeGeometry_ByType(RhinoDoc doc)
+        {
+            Modify.BakeGeometry_ByType(doc, VolatileData);
+        }
+
         private void Menu_SaveAs(object sender, EventArgs e)
         {
-            Query.SaveAs(VolatileData);
+            Core.Grasshopper.Query.SaveAs(VolatileData);
         }
     }
 }
