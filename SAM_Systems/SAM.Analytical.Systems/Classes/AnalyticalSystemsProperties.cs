@@ -126,6 +126,51 @@ namespace SAM.Analytical.Systems
             return true;
         }
 
+        public ISchedule FindSchedule(string name)
+        {
+            if(schedules == null || name == null)
+            {
+                return null;
+            }
+
+            if(!schedules.TryGetValue(name, out ISchedule schedule))
+            {
+                return null;
+            }
+
+            return schedule;
+        }
+
+        public DesignCondition FindDesignCondition(string name)
+        {
+            if (designConditions == null || name == null)
+            {
+                return null;
+            }
+
+            if (!designConditions.TryGetValue(name, out DesignCondition designCondition))
+            {
+                return null;
+            }
+
+            return designCondition;
+        }
+
+        public FluidType FindFluidType(string name)
+        {
+            if (fluidTypes == null || name == null)
+            {
+                return null;
+            }
+
+            if (!fluidTypes.TryGetValue(name, out FluidType fluidType))
+            {
+                return null;
+            }
+
+            return fluidType;
+        }
+
         public virtual bool FromJObject(JObject jObject)
         {
             if (jObject == null)
