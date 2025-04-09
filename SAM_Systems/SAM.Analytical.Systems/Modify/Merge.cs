@@ -116,13 +116,25 @@ namespace SAM.Analytical.Systems
             if (airSystem == null && systemPlantRoom != null)
             {
                 SystemPlantRoom systemPlantRoom_Temp = systemEnergyCentre_Source?.GetSystemPlantRooms()?.Find(x => x.Guid == systemPlantRoom.Guid);
-                if(systemPlantRoom_Temp != null)
+                if (systemPlantRoom_Temp != null)
                 {
                     systemEnergyCentre_Destination.Add(systemPlantRoom_Temp);
                 }
+
+                return true;
             }
 
-            return true;
+            if (airSystem != null && systemPlantRoom != null)
+            {
+
+            }
+
+            if (airSystem != null && systemPlantRoom != null)
+            {
+
+            }
+
+            return false;
         }
     }
 }
