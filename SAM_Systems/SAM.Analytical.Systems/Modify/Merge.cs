@@ -1,6 +1,7 @@
 ﻿using SAM.Core;
 using SAM.Core.Systems;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace SAM.Analytical.Systems
 {
@@ -99,42 +100,98 @@ namespace SAM.Analytical.Systems
                 systemEnergyCentre_Source.SetValue(SystemEnergyCentreParameter.AnalyticalSystemsProperties, systemEnergyCentre_Destination);
             }
 
-            if (airSystem == null && systemPlantRoom == null)
+            if (airSystem == null)
             {
+                if (systemPlantRoom == null)
+                {
+                    List<SystemPlantRoom> systemPlantRooms = systemEnergyCentre_Source?.GetSystemPlantRooms();
+                    if (systemPlantRooms != null)
+                    {
+                        foreach (SystemPlantRoom systemPlantRoom_Temp in systemPlantRooms)
+                        {
+                            systemEnergyCentre_Destination.Add(systemPlantRoom_Temp);
+                        }
+                    }
+                }
+                else
+                {
+                    SystemPlantRoom systemPlantRoom_Temp = systemEnergyCentre_Source?.GetSystemPlantRooms()?.Find(x => x.Guid == systemPlantRoom.Guid);
+                    if (systemPlantRoom_Temp != null)
+                    {
+                        systemEnergyCentre_Destination.Add(systemPlantRoom_Temp);
+                    }
+                }
+            }
+            else
+            {
+                AirSystem airSystem_Source = null;
+                SystemPlantRoom systemPlantRoom_Source = null;
+
                 List<SystemPlantRoom> systemPlantRooms = systemEnergyCentre_Source?.GetSystemPlantRooms();
                 if (systemPlantRooms != null)
                 {
                     foreach (SystemPlantRoom systemPlantRoom_Temp in systemPlantRooms)
                     {
-                        systemEnergyCentre_Destination.Add(systemPlantRoom_Temp);
+                        AirSystem airSystem_Temp = systemPlantRoom_Temp.GetSystem<AirSystem>(x => x.Guid == airSystem.Guid);
+                        if (airSystem_Temp == null)
+                        {
+                            continue;
+                        }
+                        airSystem_Source = airSystem_Temp;
+                        systemPlantRoom_Source = systemPlantRoom_Temp;
+                        break;
                     }
                 }
 
-                return true;
-            }
-
-            if (airSystem == null && systemPlantRoom != null)
-            {
-                SystemPlantRoom systemPlantRoom_Temp = systemEnergyCentre_Source?.GetSystemPlantRooms()?.Find(x => x.Guid == systemPlantRoom.Guid);
-                if (systemPlantRoom_Temp != null)
+                if (airSystem_Source == null || systemPlantRoom_Source == null)
                 {
-                    systemEnergyCentre_Destination.Add(systemPlantRoom_Temp);
+                    return false;
                 }
 
-                return true;
+                if (systemPlantRoom != null)
+                {
+                    SystemPlantRoom systemPlantRoom_Temp = systemEnergyCentre_Destination?.GetSystemPlantRooms()?.Find(x => x.Guid == systemPlantRoom.Guid);
+                    if (systemPlantRoom_Temp != null)
+                    {
+                        List<ISystemJSAMObject> systemJSAMObjects = systemPlantRoom_Source.GetRelatedObjects<ISystemJSAMObject>(airSystem_Source);
+                        if(systemJSAMObjects != null)
+                        {
+                            foreach (ISystemJSAMObject systemJSAMObject in systemJSAMObjects)
+                            {
+                                systemPlantRoom_Temp.Add(systemJSAMObject as dynamic);
+                            }
+                        }
+
+                        systemPlantRoom_Temp.Add(airSystem_Source);
+
+                        systemPlantRoom_Temp.Connect(airSystem_Source, systemJSAMObjects.FindAll(x => x is ISystemComponent).Cast<ISystemComponent>());
+
+                        foreach (ISystemJSAMObject systemJSAMObject in systemJSAMObjects)
+                        {
+                            List<ISystemJSAMObject> systemJSAMObjects_Related = systemPlantRoom_Source.GetRelatedObjects<ISystemJSAMObject>(systemJSAMObject);
+                            if(systemJSAMObjects_Related != null)
+                            {
+                                foreach(ISystemJSAMObject systemJSAMObject_Related in systemJSAMObjects_Related)
+                                {
+                 
+                                }
+                            }
+                        }
+
+                        systemEnergyCentre_Destination.Add(systemPlantRoom_Temp);
+                    }
+                }
+                else
+                {
+
+
+
+
+
+                }
             }
 
-            if (airSystem != null && systemPlantRoom != null)
-            {
-
-            }
-
-            if (airSystem != null && systemPlantRoom != null)
-            {
-
-            }
-
-            return false;
+            return true;
         }
     }
 }
