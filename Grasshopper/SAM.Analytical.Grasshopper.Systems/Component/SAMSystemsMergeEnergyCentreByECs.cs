@@ -61,7 +61,7 @@ namespace SAM.Analytical.Grasshopper.Systems
             {
                 List<GH_SAMParam> result = new List<GH_SAMParam>();
                 result.Add(new GH_SAMParam(new GooSystemEnergyCentreParam() { Name = "systemEnergyCentre", NickName = "systemEnergyCentre", Description = "SAM SystemEnergyCentre", Access = GH_ParamAccess.item }, ParamVisibility.Binding));
-                result.Add(new GH_SAMParam(new GooSystemParam() { Name = "airSystemGroups", NickName = "airSystemGroups", Description = "SAM AirSystemGroups", Access = GH_ParamAccess.list }, ParamVisibility.Binding));
+                result.Add(new GH_SAMParam(new GooSystemGroupParam() { Name = "airSystemGroups", NickName = "airSystemGroups", Description = "SAM AirSystemGroups", Access = GH_ParamAccess.list }, ParamVisibility.Binding));
                 return result.ToArray();
             }
         }
@@ -99,40 +99,37 @@ namespace SAM.Analytical.Grasshopper.Systems
                 return;
             }
 
-            systemEnergyCentre = new SystemEnergyCentre(systemEnergyCentres[0]);
+            systemEnergyCentre = new SystemEnergyCentre(systemEnergyCentres[0].Name);
 
-            if (systemEnergyCentres.Count != 1)
+            List<ISystem> systems = new List<ISystem>();
+            index = Params.IndexOfInputParam("airSystems_");
+            if (index == -1 || !dataAccess.GetDataList(index, systems) || systems == null)
             {
-                List<ISystem> systems = new List<ISystem>();
-                index = Params.IndexOfInputParam("airSystems_");
-                if (index == -1 || !dataAccess.GetDataList(index, systems) || systems == null)
-                {
-                    systems = new List<ISystem>();
-                }
+                systems = new List<ISystem>();
+            }
 
-                if(systems.Count != 0 && systems.Count != systemEnergyCentres.Count)
-                {
-                    AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "Invalid number of inputs");
-                    return;
-                }
+            if (systems.Count != 0 && systems.Count != systemEnergyCentres.Count)
+            {
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "Invalid number of inputs");
+                return;
+            }
 
-                List<SystemPlantRoom> systemPlantRooms = new List<SystemPlantRoom>();
-                index = Params.IndexOfInputParam("systemPlantRooms_");
-                if (index == -1 || !dataAccess.GetDataList(index, systemPlantRooms) || systemPlantRooms == null)
-                {
-                    systemPlantRooms = new List<SystemPlantRoom>();
-                }
+            List<SystemPlantRoom> systemPlantRooms = new List<SystemPlantRoom>();
+            index = Params.IndexOfInputParam("systemPlantRooms_");
+            if (index == -1 || !dataAccess.GetDataList(index, systemPlantRooms) || systemPlantRooms == null)
+            {
+                systemPlantRooms = new List<SystemPlantRoom>();
+            }
 
-                if (systemPlantRooms.Count != 0 && systemPlantRooms.Count != systemEnergyCentres.Count)
-                {
-                    AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "Invalid number of inputs");
-                    return;
-                }
+            if (systemPlantRooms.Count != 0 && systemPlantRooms.Count != systemEnergyCentres.Count)
+            {
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "Invalid number of inputs");
+                return;
+            }
 
-                for (int i = 0; i < systemEnergyCentres.Count; i++)
-                {
-                    Analytical.Systems.Modify.Merge(systemEnergyCentre, systemEnergyCentres[i], systems.Count == 0 ? null : systems[i] as AirSystem, systemPlantRooms.Count == 0 ? null : systemPlantRooms[i]); 
-                }
+            for (int i = 0; i < systemEnergyCentres.Count; i++)
+            {
+                Analytical.Systems.Modify.Merge(systemEnergyCentre, systemEnergyCentres[i], systems.Count == 0 ? null : systems[i] as AirSystem, systemPlantRooms.Count == 0 ? null : systemPlantRooms[i]);
             }
 
             if (index_SystemEnergyCentre != -1)
@@ -143,6 +140,7 @@ namespace SAM.Analytical.Grasshopper.Systems
             List<SystemPlantRoom> systemPlantRooms_Temp = systemEnergyCentre?.GetSystemPlantRooms();
             if (systemPlantRooms_Temp != null)
             {
+                airSystemGroups = new List<AirSystemGroup>();
                 foreach (SystemPlantRoom systemPlantRoom_Temp in systemPlantRooms_Temp)
                 {
                     List<AirSystemGroup> airSystemGroups_SystemPlantRoom = systemPlantRoom_Temp?.GetSystemObjects<AirSystemGroup>();
@@ -155,7 +153,7 @@ namespace SAM.Analytical.Grasshopper.Systems
 
             if (index_SystemAirGroups != -1)
             {
-                dataAccess.SetData(index_SystemAirGroups, airSystemGroups);
+                dataAccess.SetDataList(index_SystemAirGroups, airSystemGroups?.ConvertAll(x => new GooSystemGroup(x)));
             }
         }
     }
