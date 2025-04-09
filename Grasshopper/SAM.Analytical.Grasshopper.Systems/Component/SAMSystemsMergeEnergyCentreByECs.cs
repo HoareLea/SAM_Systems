@@ -46,8 +46,8 @@ namespace SAM.Analytical.Grasshopper.Systems
             {
                 List<GH_SAMParam> result = new List<GH_SAMParam>();
                 result.Add(new GH_SAMParam(new GooSystemEnergyCentreParam() { Name = "_systemEnergyCentres", NickName = "_systemEnergyCentres", Description = "SAM SystemEnergyCentres", Access = GH_ParamAccess.list }, ParamVisibility.Binding));
-                result.Add(new GH_SAMParam(new GooSystemParam() { Name = "airSystems_", NickName = "airSystems_", Description = "SAM AirSystems", Access = GH_ParamAccess.list }, ParamVisibility.Binding));
-                result.Add(new GH_SAMParam(new GooSystemPlantRoomParam() { Name = "systemPlantRooms_", NickName = "systemPlantRooms_", Description = "SAM SystemPlantRooms", Access = GH_ParamAccess.list }, ParamVisibility.Binding));
+                result.Add(new GH_SAMParam(new GooSystemParam() { Name = "airSystems_", NickName = "airSystems_", Description = "SAM AirSystems", Access = GH_ParamAccess.list, Optional = true }, ParamVisibility.Binding));
+                result.Add(new GH_SAMParam(new GooSystemPlantRoomParam() { Name = "systemPlantRooms_", NickName = "systemPlantRooms_", Description = "SAM SystemPlantRooms", Access = GH_ParamAccess.list, Optional = true }, ParamVisibility.Binding));
                 return result.ToArray();
             }
         }
@@ -77,7 +77,7 @@ namespace SAM.Analytical.Grasshopper.Systems
             int index = -1;
 
             int index_SystemEnergyCentre = Params.IndexOfOutputParam("systemEnergyCentre");
-            int index_SystemAirGroups = Params.IndexOfOutputParam("systemAirGroups");
+            int index_SystemAirGroups = Params.IndexOfOutputParam("airSystemGroups");
 
             SystemEnergyCentre systemEnergyCentre = null;
             List<AirSystemGroup> airSystemGroups = null;
@@ -92,6 +92,7 @@ namespace SAM.Analytical.Grasshopper.Systems
                 dataAccess.SetData(index_SystemAirGroups, airSystemGroups);
             }
 
+            index = Params.IndexOfInputParam("_systemEnergyCentres");
             List<SystemEnergyCentre> systemEnergyCentres = new List<SystemEnergyCentre>();
             if (index == -1 || !dataAccess.GetDataList(index, systemEnergyCentres) || systemEnergyCentres == null || systemEnergyCentres.Count == 0)
             {
@@ -103,7 +104,7 @@ namespace SAM.Analytical.Grasshopper.Systems
             if (systemEnergyCentres.Count != 1)
             {
                 List<ISystem> systems = new List<ISystem>();
-                index = Params.IndexOfOutputParam("airSystems_");
+                index = Params.IndexOfInputParam("airSystems_");
                 if (index == -1 || !dataAccess.GetDataList(index, systems) || systems == null)
                 {
                     systems = new List<ISystem>();
@@ -116,7 +117,7 @@ namespace SAM.Analytical.Grasshopper.Systems
                 }
 
                 List<SystemPlantRoom> systemPlantRooms = new List<SystemPlantRoom>();
-                index = Params.IndexOfOutputParam("systemPlantRooms_");
+                index = Params.IndexOfInputParam("systemPlantRooms_");
                 if (index == -1 || !dataAccess.GetDataList(index, systemPlantRooms) || systemPlantRooms == null)
                 {
                     systemPlantRooms = new List<SystemPlantRoom>();
