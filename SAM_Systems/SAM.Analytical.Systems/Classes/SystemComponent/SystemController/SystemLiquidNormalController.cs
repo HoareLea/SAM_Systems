@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json.Linq;
 using SAM.Core.Systems;
+using System;
 
 namespace SAM.Analytical.Systems
 {
@@ -29,6 +30,15 @@ namespace SAM.Analytical.Systems
             : base(systemLiquidNormalController)
         {
             if(systemLiquidNormalController != null)
+            {
+                liquidNormalControllerDataType = systemLiquidNormalController.liquidNormalControllerDataType;
+            }
+        }
+
+        public SystemLiquidNormalController(System.Guid guid, SystemLiquidNormalController systemLiquidNormalController)
+            : base(guid, systemLiquidNormalController)
+        {
+            if (systemLiquidNormalController != null)
             {
                 liquidNormalControllerDataType = systemLiquidNormalController.liquidNormalControllerDataType;
             }
@@ -87,6 +97,11 @@ namespace SAM.Analytical.Systems
             result.Add("LiquidNormalControllerDataType", liquidNormalControllerDataType.ToString());
 
             return result;
+        }
+
+        public override SystemObject Duplicate(Guid? guid = null)
+        {
+            return new SystemLiquidNormalController(guid == null ? Guid.NewGuid() : guid.Value, this);
         }
     }
 }

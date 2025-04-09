@@ -1,9 +1,16 @@
 ﻿using Newtonsoft.Json.Linq;
+using SAM.Core.Systems;
+using System;
 
 namespace SAM.Analytical.Systems
 {
     public class LiquidSystem : FluidSystem
     {
+        public LiquidSystem(Guid guid, LiquidSystem liquidSystem)
+            : base(guid, liquidSystem)
+        {
+        }
+
         public LiquidSystem(LiquidSystem liquidSystem) 
             : base(liquidSystem)
         {
@@ -27,6 +34,11 @@ namespace SAM.Analytical.Systems
         public override JObject ToJObject()
         {
             return base.ToJObject();
+        }
+
+        public override SystemObject Duplicate(Guid? guid = null)
+        {
+            return new LiquidSystem(guid == null ? Guid.NewGuid() : guid.Value, this);
         }
     }
 }

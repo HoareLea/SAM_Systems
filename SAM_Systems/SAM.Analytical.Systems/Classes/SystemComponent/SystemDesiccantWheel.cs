@@ -2,6 +2,7 @@
 using SAM.Analytical.Systems.Interfaces;
 using SAM.Core;
 using SAM.Core.Systems;
+using System;
 
 namespace SAM.Analytical.Systems
 {
@@ -30,6 +31,24 @@ namespace SAM.Analytical.Systems
             : base(systemDesiccantWheel)
         {
             if(systemDesiccantWheel != null)
+            {
+                SensibleEfficiency = systemDesiccantWheel.SensibleEfficiency?.Clone();
+                Reactivation = systemDesiccantWheel.Reactivation?.Clone();
+                MinimumRH = systemDesiccantWheel.MinimumRH?.Clone();
+                MaximumRH = systemDesiccantWheel.MaximumRH?.Clone();
+                SensibleHEEfficiency = systemDesiccantWheel.SensibleHEEfficiency?.Clone();
+                LatentHEEfficiency = systemDesiccantWheel.LatentHEEfficiency?.Clone();
+                HESetpointMethod = systemDesiccantWheel.HESetpointMethod;
+                HESetpoint = systemDesiccantWheel.HESetpoint?.Clone();
+                ElectricalLoad = systemDesiccantWheel.ElectricalLoad?.Clone();
+                ScheduleName = systemDesiccantWheel.ScheduleName;
+            }
+        }
+
+        public SystemDesiccantWheel(System.Guid guid, SystemDesiccantWheel systemDesiccantWheel)
+            : base(guid, systemDesiccantWheel)
+        {
+            if (systemDesiccantWheel != null)
             {
                 SensibleEfficiency = systemDesiccantWheel.SensibleEfficiency?.Clone();
                 Reactivation = systemDesiccantWheel.Reactivation?.Clone();
@@ -182,6 +201,11 @@ namespace SAM.Analytical.Systems
             }
 
             return result;
+        }
+
+        public override SystemObject Duplicate(Guid? guid = null)
+        {
+            return new SystemDesiccantWheel(guid == null ? Guid.NewGuid() : guid.Value, this);
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json.Linq;
 using SAM.Core.Systems;
+using System;
 
 namespace SAM.Analytical.Systems
 {
@@ -25,6 +26,17 @@ namespace SAM.Analytical.Systems
             : base(airSystemGroup)
         {
 
+        }
+
+        public AirSystemGroup(Guid guid, AirSystemGroup airSystemGroup)
+            : base(guid, airSystemGroup)
+        {
+
+        }
+
+        public override SystemObject Duplicate(Guid? guid = null)
+        {
+            return new AirSystemGroup(guid == null ? Guid.NewGuid() : guid.Value, this);
         }
 
         public override bool FromJObject(JObject jObject)

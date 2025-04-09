@@ -23,6 +23,15 @@ namespace SAM.Analytical.Systems
             }
         }
 
+        public SystemChiller(System.Guid guid, SystemChiller systemChiller)
+            : base(guid, systemChiller)
+        {
+            if (systemChiller != null)
+            {
+                Duty = systemChiller.Duty?.Clone();
+            }
+        }
+
         public SystemChiller(JObject jObject)
             : base(jObject)
         {

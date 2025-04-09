@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json.Linq;
 using SAM.Core;
 using SAM.Core.Systems;
+using System;
 
 namespace SAM.Analytical.Systems
 {
@@ -31,6 +32,26 @@ namespace SAM.Analytical.Systems
             : base(systemFan)
         {
             if(systemFan != null)
+            {
+                OverallEfficiency = systemFan.OverallEfficiency?.Clone();
+                HeatGainFactor = systemFan.HeatGainFactor;
+                Pressure = systemFan.Pressure;
+                DesignFlowRate = systemFan.DesignFlowRate?.Clone();
+                DesignFlowType = systemFan.DesignFlowType;
+                MinimumFlowRate = systemFan.MinimumFlowRate?.Clone();
+                MinimumFlowType = systemFan.MinimumFlowType;
+                MinimumFlowFraction = systemFan.MinimumFlowFraction;
+                Capacity = systemFan.Capacity;
+                FanControlType = systemFan.FanControlType;
+                PartLoad = systemFan.PartLoad?.Clone();
+                ScheduleName = systemFan.ScheduleName;
+            }
+        }
+
+        public SystemFan(System.Guid guid, SystemFan systemFan)
+            : base(guid, systemFan)
+        {
+            if (systemFan != null)
             {
                 OverallEfficiency = systemFan.OverallEfficiency?.Clone();
                 HeatGainFactor = systemFan.HeatGainFactor;
@@ -198,6 +219,11 @@ namespace SAM.Analytical.Systems
             }
 
             return result;
+        }
+
+        public override SystemObject Duplicate(Guid? guid = null)
+        {
+            return new SystemFan(guid == null ? Guid.NewGuid() : guid.Value, this);
         }
     }
 }

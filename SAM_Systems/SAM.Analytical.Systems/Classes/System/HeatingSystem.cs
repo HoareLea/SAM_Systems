@@ -1,4 +1,6 @@
 ﻿using Newtonsoft.Json.Linq;
+using SAM.Core.Systems;
+using System;
 
 namespace SAM.Analytical.Systems
 {
@@ -6,6 +8,11 @@ namespace SAM.Analytical.Systems
     {
         public HeatingSystem(HeatingSystem heatingSystem) 
             : base(heatingSystem)
+        {
+        }
+
+        public HeatingSystem(System.Guid guid, HeatingSystem heatingSystem)
+            : base(guid, heatingSystem)
         {
         }
 
@@ -27,6 +34,11 @@ namespace SAM.Analytical.Systems
         public override JObject ToJObject()
         {
             return base.ToJObject();
+        }
+
+        public override SystemObject Duplicate(Guid? guid = null)
+        {
+            return new HeatingSystem(guid == null ? Guid.NewGuid() : guid.Value, this);
         }
     }
 }

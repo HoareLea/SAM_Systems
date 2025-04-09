@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json.Linq;
 using SAM.Core;
 using SAM.Core.Systems;
+using System;
 
 namespace SAM.Analytical.Systems
 {
@@ -23,6 +24,19 @@ namespace SAM.Analytical.Systems
             : base(systemCoolingCoil)
         {
             if(systemCoolingCoil != null)
+            {
+                Setpoint = systemCoolingCoil.Setpoint?.Clone();
+                BypassFactor = systemCoolingCoil.BypassFactor?.Clone();
+                Duty = systemCoolingCoil.Duty?.Clone();
+                MinimumOffcoil = systemCoolingCoil.MinimumOffcoil?.Clone();
+                ScheduleName = systemCoolingCoil.ScheduleName;
+            }
+        }
+
+        public SystemCoolingCoil(Guid guid, SystemCoolingCoil systemCoolingCoil)
+            : base(guid, systemCoolingCoil)
+        {
+            if (systemCoolingCoil != null)
             {
                 Setpoint = systemCoolingCoil.Setpoint?.Clone();
                 BypassFactor = systemCoolingCoil.BypassFactor?.Clone();
@@ -124,6 +138,11 @@ namespace SAM.Analytical.Systems
             }
 
             return result;
+        }
+
+        public override SystemObject Duplicate(Guid? guid = null)
+        {
+            return new SystemCoolingCoil(guid == null ? Guid.NewGuid() : guid.Value, this);
         }
     }
 }

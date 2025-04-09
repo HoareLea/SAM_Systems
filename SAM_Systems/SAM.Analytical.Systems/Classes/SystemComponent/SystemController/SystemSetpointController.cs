@@ -43,6 +43,16 @@ namespace SAM.Analytical.Systems
             }
         }
 
+        public SystemSetpointController(System.Guid guid, SystemSetpointController systemSetpointController)
+            : base(guid, systemSetpointController)
+        {
+            if (systemSetpointController != null)
+            {
+                setpoint = systemSetpointController.setpoint == null ? null : Core.Query.Clone(systemSetpointController.setpoint);
+                setback = systemSetpointController.setback == null ? null : Core.Query.Clone(systemSetpointController.setback);
+            }
+        }
+
         public SystemSetpointController(JObject jObject)
             : base(jObject)
         {

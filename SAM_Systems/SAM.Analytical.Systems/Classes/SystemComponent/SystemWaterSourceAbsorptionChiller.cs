@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json.Linq;
 using SAM.Core;
 using SAM.Core.Systems;
+using System;
 
 namespace SAM.Analytical.Systems
 {
@@ -26,6 +27,25 @@ namespace SAM.Analytical.Systems
 
         public SystemWaterSourceAbsorptionChiller(SystemWaterSourceAbsorptionChiller waterSourceAbsorptionSystemChiller)
             : base(waterSourceAbsorptionSystemChiller)
+        {
+            if (waterSourceAbsorptionSystemChiller != null)
+            {
+                Setpoint = waterSourceAbsorptionSystemChiller.Setpoint?.Clone();
+                Efficiency = waterSourceAbsorptionSystemChiller.Efficiency?.Clone();
+                Capacity1 = waterSourceAbsorptionSystemChiller.Capacity1;
+                Capacity2 = waterSourceAbsorptionSystemChiller.Capacity2;
+                Capacity3 = waterSourceAbsorptionSystemChiller.Capacity3;
+                DesignPressureDrop1 = waterSourceAbsorptionSystemChiller.DesignPressureDrop1;
+                DesignPressureDrop2 = waterSourceAbsorptionSystemChiller.DesignPressureDrop2;
+                DesignPressureDrop3 = waterSourceAbsorptionSystemChiller.DesignPressureDrop3;
+                AncillaryLoad = waterSourceAbsorptionSystemChiller.AncillaryLoad?.Clone();
+                MinimalOutSourceTemperature = waterSourceAbsorptionSystemChiller.MinimalOutSourceTemperature?.Clone();
+                LossesInSizing = waterSourceAbsorptionSystemChiller.LossesInSizing;
+            }
+        }
+
+        public SystemWaterSourceAbsorptionChiller(System.Guid guid, SystemWaterSourceAbsorptionChiller waterSourceAbsorptionSystemChiller)
+            : base(guid, waterSourceAbsorptionSystemChiller)
         {
             if (waterSourceAbsorptionSystemChiller != null)
             {
@@ -193,6 +213,11 @@ namespace SAM.Analytical.Systems
             result.Add("LossesInSizing", LossesInSizing);
 
             return result;
+        }
+
+        public override SystemObject Duplicate(Guid? guid = null)
+        {
+            return new SystemWaterSourceAbsorptionChiller(guid == null ? Guid.NewGuid() : guid.Value, this);
         }
     }
 }

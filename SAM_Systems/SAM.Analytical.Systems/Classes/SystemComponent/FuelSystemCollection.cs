@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json.Linq;
 using SAM.Core.Systems;
+using System;
 
 namespace SAM.Analytical.Systems
 {
@@ -25,6 +26,17 @@ namespace SAM.Analytical.Systems
             : base(fuelSystemCollection)
         {
 
+        }
+
+        public FuelSystemCollection(System.Guid guid, FuelSystemCollection fuelSystemCollection)
+            : base(guid, fuelSystemCollection)
+        {
+
+        }
+
+        public override SystemObject Duplicate(Guid? guid = null)
+        {
+            return new FuelSystemCollection(guid == null ? Guid.NewGuid() : guid.Value, this);
         }
 
         public override bool FromJObject(JObject jObject)

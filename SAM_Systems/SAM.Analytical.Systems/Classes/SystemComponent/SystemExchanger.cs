@@ -2,6 +2,7 @@
 using SAM.Analytical.Systems.Interfaces;
 using SAM.Core;
 using SAM.Core.Systems;
+using System;
 
 namespace SAM.Analytical.Systems
 {
@@ -36,6 +37,29 @@ namespace SAM.Analytical.Systems
             : base(systemExchanger)
         {
             if(systemExchanger != null)
+            {
+                ExchangerCalculationMethod = systemExchanger.ExchangerCalculationMethod;
+                ExchangerType = systemExchanger.ExchangerType;
+                SensibleEfficiency = systemExchanger.SensibleEfficiency?.Clone();
+                HeatTransferSurfaceArea = systemExchanger.HeatTransferSurfaceArea;
+                HeatTransferCoefficient = systemExchanger.HeatTransferCoefficient;
+                ExchangerLatentType = systemExchanger.ExchangerLatentType;
+                LatentEfficiency = systemExchanger.LatentEfficiency?.Clone();
+                SetpointMode = systemExchanger.SetpointMode;
+                Setpoint = systemExchanger.Setpoint?.Clone();
+                ElectricalLoad = systemExchanger.ElectricalLoad?.Clone();
+                Duty = systemExchanger.Duty?.Clone();
+                BypassFactor = systemExchanger.BypassFactor?.Clone();
+                ScheduleName = systemExchanger.ScheduleName;
+                HeatingOnly = systemExchanger.HeatingOnly;
+                AdjustForOptimiser = systemExchanger.AdjustForOptimiser;
+            }
+        }
+
+        public SystemExchanger(System.Guid guid, SystemExchanger systemExchanger)
+            : base(guid, systemExchanger)
+        {
+            if (systemExchanger != null)
             {
                 ExchangerCalculationMethod = systemExchanger.ExchangerCalculationMethod;
                 ExchangerType = systemExchanger.ExchangerType;
@@ -223,6 +247,11 @@ namespace SAM.Analytical.Systems
             }
 
             return result;
+        }
+
+        public override SystemObject Duplicate(Guid? guid = null)
+        {
+            return new SystemExchanger(guid == null ? Guid.NewGuid() : guid.Value, this);
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json.Linq;
 using SAM.Core;
 using SAM.Core.Systems;
+using System;
 
 namespace SAM.Analytical.Systems
 {
@@ -27,6 +28,22 @@ namespace SAM.Analytical.Systems
 
         public SystemDXCoil(SystemDXCoil systemDXCoil)
             : base(systemDXCoil)
+        {
+            if (systemDXCoil != null)
+            {
+                CoolingSetpoint = systemDXCoil.CoolingSetpoint.Clone();
+                HeatingSetpoint = systemDXCoil.HeatingSetpoint.Clone();
+                MinOffcoilTemperature = systemDXCoil.MinOffcoilTemperature.Clone();
+                MaxOffcoilTemperature = systemDXCoil.MaxOffcoilTemperature.Clone();
+                BypassFactor = systemDXCoil.BypassFactor.Clone();
+                CoolingDuty = systemDXCoil.CoolingDuty.Clone();
+                HeatingDuty = systemDXCoil.HeatingDuty.Clone();
+                ScheduleName = systemDXCoil.ScheduleName;
+            }
+        }
+
+        public SystemDXCoil(System.Guid guid, SystemDXCoil systemDXCoil)
+            : base(guid, systemDXCoil)
         {
             if (systemDXCoil != null)
             {
@@ -163,6 +180,11 @@ namespace SAM.Analytical.Systems
             }
 
             return result;
+        }
+
+        public override SystemObject Duplicate(Guid? guid = null)
+        {
+            return new SystemDXCoil(guid == null ? Guid.NewGuid() : guid.Value, this);
         }
     }
 }

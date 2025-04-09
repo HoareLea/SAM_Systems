@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json.Linq;
 using SAM.Core;
 using SAM.Core.Systems;
+using System;
 
 namespace SAM.Analytical.Systems
 {
@@ -26,6 +27,22 @@ namespace SAM.Analytical.Systems
             : base(systemAirSourceChiller)
         {
             if(systemAirSourceChiller != null)
+            {
+                Setpoint = systemAirSourceChiller.Setpoint?.Clone();
+                Efficiency = systemAirSourceChiller.Efficiency?.Clone();
+                CondenserFanLoad = systemAirSourceChiller.CondenserFanLoad?.Clone();
+                DesignTemperatureDifference = systemAirSourceChiller.DesignTemperatureDifference;
+                Capacity = systemAirSourceChiller.Capacity;
+                DesignPressureDrop = systemAirSourceChiller.DesignPressureDrop;
+                LossesInSizing = systemAirSourceChiller.LossesInSizing;
+                ScheduleName = systemAirSourceChiller.ScheduleName;
+            }
+        }
+
+        public SystemAirSourceChiller(System.Guid guid, SystemAirSourceChiller systemAirSourceChiller)
+            : base(guid, systemAirSourceChiller)
+        {
+            if (systemAirSourceChiller != null)
             {
                 Setpoint = systemAirSourceChiller.Setpoint?.Clone();
                 Efficiency = systemAirSourceChiller.Efficiency?.Clone();
@@ -154,6 +171,11 @@ namespace SAM.Analytical.Systems
             }
 
             return result;
+        }
+
+        public override SystemObject Duplicate(Guid? guid = null)
+        {
+            return new SystemAirSourceChiller(guid == null ? Guid.NewGuid() : guid.Value, this);
         }
     }
 }

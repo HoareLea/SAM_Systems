@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json.Linq;
 using SAM.Core;
 using SAM.Core.Systems;
+using System;
 
 namespace SAM.Analytical.Systems
 {
@@ -32,6 +33,29 @@ namespace SAM.Analytical.Systems
             : base(systemPhotovoltaicPanel)
         {
             if(systemPhotovoltaicPanel != null)
+            {
+                PanelEfficiency = systemPhotovoltaicPanel.PanelEfficiency?.Clone();
+                InverterSize = systemPhotovoltaicPanel.InverterSize?.Clone();
+                Multiplicity = systemPhotovoltaicPanel.Multiplicity;
+                InverterEfficiency = systemPhotovoltaicPanel?.InverterEfficiency?.Clone();
+                UseZoneSurface = systemPhotovoltaicPanel.UseZoneSurface;
+                Area = systemPhotovoltaicPanel.Area;
+                Inclination = systemPhotovoltaicPanel.Inclination?.Clone();
+                Orientation = systemPhotovoltaicPanel.Orientation?.Clone();
+                Reflectance = systemPhotovoltaicPanel.Reflectance;
+                MinIrradiance = systemPhotovoltaicPanel.MinIrradiance;
+                NOCT = systemPhotovoltaicPanel.NOCT;
+                PowerTemperatureCoefficient = systemPhotovoltaicPanel.PowerTemperatureCoefficient;
+                UseSTC = systemPhotovoltaicPanel.UseSTC;
+                OutputAtSTC = systemPhotovoltaicPanel.OutputAtSTC;
+                DeratingFactor = systemPhotovoltaicPanel.DeratingFactor;
+            }
+        }
+
+        public SystemPhotovoltaicPanel(System.Guid guid, SystemPhotovoltaicPanel systemPhotovoltaicPanel)
+            : base(guid, systemPhotovoltaicPanel)
+        {
+            if (systemPhotovoltaicPanel != null)
             {
                 PanelEfficiency = systemPhotovoltaicPanel.PanelEfficiency?.Clone();
                 InverterSize = systemPhotovoltaicPanel.InverterSize?.Clone();
@@ -231,6 +255,11 @@ namespace SAM.Analytical.Systems
             }
 
             return result;
+        }
+
+        public override SystemObject Duplicate(Guid? guid = null)
+        {
+            return new SystemPhotovoltaicPanel(guid == null ? Guid.NewGuid() : guid.Value, this);
         }
     }
 }

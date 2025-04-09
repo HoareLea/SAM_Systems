@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json.Linq;
 using SAM.Core;
 using SAM.Core.Systems;
+using System;
 
 namespace SAM.Analytical.Systems
 {
@@ -25,6 +26,23 @@ namespace SAM.Analytical.Systems
 
         public SystemMixingBox(SystemMixingBox systemMixingBox)
             : base(systemMixingBox)
+        {
+            if (systemMixingBox != null)
+            {
+                Capacity = systemMixingBox.Capacity;
+                DesignFlowRate = systemMixingBox.DesignFlowRate?.Clone();
+                DesignFlowType = systemMixingBox.DesignFlowType;
+                Setpoint = systemMixingBox.Setpoint?.Clone();
+                MinFreshAirRate = systemMixingBox?.MinFreshAirRate?.Clone();
+                MinFreshAirType = systemMixingBox.MinFreshAirType;
+                ScheduleMode = systemMixingBox.ScheduleMode;
+                DesignPressureDrop = systemMixingBox.DesignPressureDrop;
+                ScheduleName = systemMixingBox.ScheduleName;
+            }
+        }
+
+        public SystemMixingBox(System.Guid guid, SystemMixingBox systemMixingBox)
+            : base(guid, systemMixingBox)
         {
             if (systemMixingBox != null)
             {
@@ -161,6 +179,11 @@ namespace SAM.Analytical.Systems
             }
 
             return result;
+        }
+
+        public override SystemObject Duplicate(Guid? guid = null)
+        {
+            return new SystemMixingBox(guid == null ? Guid.NewGuid() : guid.Value, this);
         }
     }
 }

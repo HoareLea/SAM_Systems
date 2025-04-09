@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json.Linq;
 using SAM.Core.Systems;
+using System;
 
 namespace SAM.Analytical.Systems
 {
@@ -28,6 +29,15 @@ namespace SAM.Analytical.Systems
             : base(electricalSystemCollection)
         {
             if(electricalSystemCollection != null)
+            {
+                electricalSystemCollectionType = electricalSystemCollection.electricalSystemCollectionType;
+            }
+        }
+
+        public ElectricalSystemCollection(System.Guid guid, ElectricalSystemCollection electricalSystemCollection)
+            : base(guid, electricalSystemCollection)
+        {
+            if (electricalSystemCollection != null)
             {
                 electricalSystemCollectionType = electricalSystemCollection.electricalSystemCollectionType;
             }
@@ -68,6 +78,11 @@ namespace SAM.Analytical.Systems
             result.Add("ElectricalSystemCollectionType", electricalSystemCollectionType.ToString());
 
             return result;
+        }
+
+        public override SystemObject Duplicate(Guid? guid = null)
+        {
+            return new ElectricalSystemCollection(guid == null ? Guid.NewGuid() : guid.Value, this);
         }
     }
 }

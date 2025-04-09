@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json.Linq;
 using SAM.Core;
 using SAM.Core.Systems;
+using System;
 
 namespace SAM.Analytical.Systems
 {
@@ -28,6 +29,26 @@ namespace SAM.Analytical.Systems
 
         public SystemAbsorptionChiller(SystemAbsorptionChiller absorptionSystemChiller)
             : base(absorptionSystemChiller)
+        {
+            if (absorptionSystemChiller != null)
+            {
+                Setpoint = absorptionSystemChiller.Setpoint?.Clone();
+                Efficiency = absorptionSystemChiller.Efficiency?.Clone();
+                Capacity1 = absorptionSystemChiller.Capacity1;
+                Capacity2 = absorptionSystemChiller.Capacity2;
+                //Capacity3 = absorptionSystemChiller.Capacity3;
+                DesignPressureDrop1 = absorptionSystemChiller.DesignPressureDrop1;
+                DesignPressureDrop2 = absorptionSystemChiller.DesignPressureDrop2;
+                //DesignPressureDrop3 = absorptionSystemChiller.DesignPressureDrop3;
+                AncillaryLoad = absorptionSystemChiller.AncillaryLoad?.Clone();
+                MinimalOutSourceTemperature = absorptionSystemChiller.MinimalOutSourceTemperature?.Clone();
+                LossesInSizing = absorptionSystemChiller.LossesInSizing;
+                ScheduleName = absorptionSystemChiller.ScheduleName;
+            }
+        }
+
+        public SystemAbsorptionChiller(System.Guid guid, SystemAbsorptionChiller absorptionSystemChiller)
+        : base(guid, absorptionSystemChiller)
         {
             if (absorptionSystemChiller != null)
             {
@@ -204,6 +225,11 @@ namespace SAM.Analytical.Systems
             }
 
             return result;
+        }
+
+        public override SystemObject Duplicate(Guid? guid = null)
+        {
+            return new SystemAbsorptionChiller(guid == null ? Guid.NewGuid() : guid.Value, this);
         }
     }
 }

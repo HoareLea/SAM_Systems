@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json.Linq;
 using SAM.Core;
 using SAM.Core.Systems;
+using System;
 
 namespace SAM.Analytical.Systems
 {
@@ -20,6 +21,22 @@ namespace SAM.Analytical.Systems
             : base(name)
         {
 
+        }
+
+        public SystemAirSourceDirectAbsorptionChiller(System.Guid guid, SystemAirSourceDirectAbsorptionChiller airSourceDirectAbsorptionSystemChiller)
+            : base(guid, airSourceDirectAbsorptionSystemChiller)
+        {
+            if (airSourceDirectAbsorptionSystemChiller != null)
+            {
+                Setpoint = airSourceDirectAbsorptionSystemChiller.Setpoint?.Clone();
+                Efficiency = airSourceDirectAbsorptionSystemChiller.Efficiency?.Clone();
+                CondenserFanLoad = airSourceDirectAbsorptionSystemChiller.CondenserFanLoad?.Clone();
+                DesignTemperatureDifference = airSourceDirectAbsorptionSystemChiller.DesignTemperatureDifference;
+                Capacity = airSourceDirectAbsorptionSystemChiller.Capacity;
+                DesignPressureDrop = airSourceDirectAbsorptionSystemChiller.DesignPressureDrop;
+                LossesInSizing = airSourceDirectAbsorptionSystemChiller.LossesInSizing;
+                ScheduleName = airSourceDirectAbsorptionSystemChiller.ScheduleName;
+            }
         }
 
         public SystemAirSourceDirectAbsorptionChiller(SystemAirSourceDirectAbsorptionChiller airSourceDirectAbsorptionSystemChiller)
@@ -154,6 +171,11 @@ namespace SAM.Analytical.Systems
             }
 
             return result;
+        }
+
+        public override SystemObject Duplicate(Guid? guid = null)
+        {
+            return new SystemAirSourceDirectAbsorptionChiller(guid == null ? Guid.NewGuid() : guid.Value, this);
         }
     }
 }

@@ -23,6 +23,15 @@ namespace SAM.Analytical.Systems
             }
         }
 
+        public SystemController(System.Guid guid, SystemController systemController)
+            : base(guid, systemController)
+        {
+            if (systemController != null)
+            {
+                DayTypeNames = systemController.DayTypeNames == null ? null : new HashSet<string>(systemController.DayTypeNames);
+            }
+        }
+
         public SystemController(JObject jObject)
             : base(jObject)
         {

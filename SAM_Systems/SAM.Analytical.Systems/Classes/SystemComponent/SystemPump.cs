@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json.Linq;
 using SAM.Core;
 using SAM.Core.Systems;
+using System;
 
 namespace SAM.Analytical.Systems
 {
@@ -30,6 +31,21 @@ namespace SAM.Analytical.Systems
             : base(systemPump)
         {
             if(systemPump != null)
+            {
+                OverallEfficiency = systemPump.OverallEfficiency?.Clone();
+                Pressure = systemPump.Pressure;
+                DesignFlowRate = systemPump.DesignFlowRate;
+                Capacity = systemPump.Capacity;
+                PartLoad = systemPump.PartLoad?.Clone();
+                FanControlType = systemPump.FanControlType;
+                ScheduleName = systemPump.ScheduleName;
+            }
+        }
+
+        public SystemPump(System.Guid guid, SystemPump systemPump)
+            : base(guid, systemPump)
+        {
+            if (systemPump != null)
             {
                 OverallEfficiency = systemPump.OverallEfficiency?.Clone();
                 Pressure = systemPump.Pressure;
@@ -147,6 +163,11 @@ namespace SAM.Analytical.Systems
             }
 
             return result;
+        }
+
+        public override SystemObject Duplicate(Guid? guid = null)
+        {
+            return new SystemPump(guid == null ? Guid.NewGuid() : guid.Value, this);
         }
     }
 }

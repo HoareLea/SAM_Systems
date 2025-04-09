@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json.Linq;
 using SAM.Core;
 using SAM.Core.Systems;
+using System;
 
 namespace SAM.Analytical.Systems
 {
@@ -34,6 +35,28 @@ namespace SAM.Analytical.Systems
 
         public SystemDXCoilUnit(SystemDXCoilUnit systemDXCoilUnit)
             : base(systemDXCoilUnit)
+        {
+            if (systemDXCoilUnit != null)
+            {
+                HeatingDuty = systemDXCoilUnit.HeatingDuty;
+                CoolingDuty = systemDXCoilUnit.CoolingDuty;
+                BypassFactor = systemDXCoilUnit.BypassFactor?.Clone();
+                OverallEfficiency = systemDXCoilUnit.OverallEfficiency?.Clone();
+                HeatGainFactor = systemDXCoilUnit.HeatGainFactor;
+                Pressure = systemDXCoilUnit.Pressure;
+                DesignFlowRate = systemDXCoilUnit.DesignFlowRate?.Clone();
+                DesignFlowType = systemDXCoilUnit.DesignFlowType;
+                MinimumFlowRate = systemDXCoilUnit.MinimumFlowRate?.Clone();
+                MinimumFlowType = systemDXCoilUnit.MinimumFlowType;
+                ZonePosition = systemDXCoilUnit.ZonePosition;
+                ControlMethod = systemDXCoilUnit.ControlMethod;
+                PartLoad = systemDXCoilUnit.PartLoad?.Clone();
+                ScheduleName = systemDXCoilUnit.ScheduleName;
+            }
+        }
+
+        public SystemDXCoilUnit(System.Guid guid, SystemDXCoilUnit systemDXCoilUnit)
+            : base(guid, systemDXCoilUnit)
         {
             if (systemDXCoilUnit != null)
             {
@@ -215,6 +238,11 @@ namespace SAM.Analytical.Systems
             }
 
             return result;
+        }
+
+        public override SystemObject Duplicate(Guid? guid = null)
+        {
+            return new SystemDXCoilUnit(guid == null ? Guid.NewGuid() : guid.Value, this);
         }
     }
 }

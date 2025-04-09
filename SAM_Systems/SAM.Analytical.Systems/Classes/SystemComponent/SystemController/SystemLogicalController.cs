@@ -22,6 +22,15 @@ namespace SAM.Analytical.Systems
             }
         }
 
+        public SystemLogicalController(System.Guid guid, SystemLogicalController systemLogicalController)
+            : base(guid, systemLogicalController)
+        {
+            if (systemLogicalController != null)
+            {
+
+            }
+        }
+
         public SystemLogicalController(JObject jObject)
             : base(jObject)
         {

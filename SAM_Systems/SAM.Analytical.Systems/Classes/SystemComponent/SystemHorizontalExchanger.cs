@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json.Linq;
 using SAM.Core.Systems;
+using System;
 
 namespace SAM.Analytical.Systems
 {
@@ -29,6 +30,26 @@ namespace SAM.Analytical.Systems
 
         public SystemHorizontalExchanger(SystemHorizontalExchanger systemHorizontalExchanger)
             : base(systemHorizontalExchanger)
+        {
+            if (systemHorizontalExchanger != null)
+            {
+                DesignPressureDrop = systemHorizontalExchanger.DesignPressureDrop;
+                Capacity = systemHorizontalExchanger.Capacity;
+                GroundDensity = systemHorizontalExchanger.GroundDensity;
+                GroundHeatCapacity = systemHorizontalExchanger.GroundHeatCapacity;
+                GroundConductivity = systemHorizontalExchanger.GroundConductivity;
+                GroundSolarReflectance = systemHorizontalExchanger.GroundSolarReflectance;
+                InsidePipeDiameter = systemHorizontalExchanger.InsidePipeDiameter;
+                OutsidePipeDiameter = systemHorizontalExchanger.OutsidePipeDiameter;
+                PipeConductivity = systemHorizontalExchanger.PipeConductivity;
+                PipeLength = systemHorizontalExchanger.PipeLength;
+                PipeSeparation = systemHorizontalExchanger.PipeSeparation;
+                PipeDepth = systemHorizontalExchanger.PipeDepth;
+            }
+        }
+
+        public SystemHorizontalExchanger(System.Guid guid, SystemHorizontalExchanger systemHorizontalExchanger)
+            : base(guid, systemHorizontalExchanger)
         {
             if (systemHorizontalExchanger != null)
             {
@@ -207,6 +228,11 @@ namespace SAM.Analytical.Systems
             }
 
             return result;
+        }
+
+        public override SystemObject Duplicate(Guid? guid = null)
+        {
+            return new SystemHorizontalExchanger(guid == null ? Guid.NewGuid() : guid.Value, this);
         }
     }
 }

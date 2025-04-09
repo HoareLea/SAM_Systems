@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json.Linq;
 using SAM.Core;
 using SAM.Core.Systems;
+using System;
 
 namespace SAM.Analytical.Systems
 {
@@ -33,6 +34,31 @@ namespace SAM.Analytical.Systems
 
         public SystemWaterSourceIceStorageChiller(SystemWaterSourceIceStorageChiller waterSourceIceStorageSystemChiller)
             : base(waterSourceIceStorageSystemChiller)
+        {
+            if (waterSourceIceStorageSystemChiller != null)
+            {
+                Setpoint = waterSourceIceStorageSystemChiller.Setpoint?.Clone();
+                Efficiency = waterSourceIceStorageSystemChiller.Efficiency?.Clone();
+                IceMakingEfficiency = waterSourceIceStorageSystemChiller.IceMakingEfficiency?.Clone();
+                Capacity1 = waterSourceIceStorageSystemChiller.Capacity1;
+                DesignPressureDrop1 = waterSourceIceStorageSystemChiller.DesignPressureDrop1;
+                DesignTemperatureDifference1 = waterSourceIceStorageSystemChiller.DesignTemperatureDifference1;
+                Capacity2 = waterSourceIceStorageSystemChiller.Capacity2;
+                DesignPressureDrop2 = waterSourceIceStorageSystemChiller.DesignPressureDrop2;
+                DesignTemperatureDifference2 = waterSourceIceStorageSystemChiller.DesignTemperatureDifference2;
+                IceCapacity = waterSourceIceStorageSystemChiller.IceCapacity?.Clone();
+                InitialIceReserve = waterSourceIceStorageSystemChiller.InitialIceReserve;
+                CondenserFanLoad = waterSourceIceStorageSystemChiller.CondenserFanLoad?.Clone();
+                MotorEfficiency = waterSourceIceStorageSystemChiller.MotorEfficiency?.Clone();
+                IceMeltChillerFraction = waterSourceIceStorageSystemChiller.IceMeltChillerFraction;
+                AncillaryLoad = waterSourceIceStorageSystemChiller.AncillaryLoad?.Clone();
+                LossesInSizing = waterSourceIceStorageSystemChiller.LossesInSizing;
+                ScheduleName = waterSourceIceStorageSystemChiller.ScheduleName;
+            }
+        }
+
+        public SystemWaterSourceIceStorageChiller(System.Guid guid, SystemWaterSourceIceStorageChiller waterSourceIceStorageSystemChiller)
+            : base(guid, waterSourceIceStorageSystemChiller)
         {
             if (waterSourceIceStorageSystemChiller != null)
             {
@@ -264,6 +290,11 @@ namespace SAM.Analytical.Systems
             }
 
             return result;
+        }
+
+        public override SystemObject Duplicate(Guid? guid = null)
+        {
+            return new SystemWaterSourceIceStorageChiller(guid == null ? Guid.NewGuid() : guid.Value, this);
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json.Linq;
 using SAM.Core;
 using SAM.Core.Systems;
+using System;
 
 namespace SAM.Analytical.Systems
 {
@@ -36,6 +37,32 @@ namespace SAM.Analytical.Systems
             : base(waterSourceSystemChiller)
         {
             if(waterSourceSystemChiller != null)
+            {
+                Setpoint = waterSourceSystemChiller.Setpoint?.Clone();
+                Efficiency = waterSourceSystemChiller.Efficiency?.Clone();
+                Capacity1 = waterSourceSystemChiller.Capacity1;
+                DesignPressureDrop1 = waterSourceSystemChiller.DesignPressureDrop1;
+                DesignTemperatureDifference1 = waterSourceSystemChiller.DesignTemperatureDifference1;
+                Capacity2 = waterSourceSystemChiller.Capacity2;
+                DesignPressureDrop2 = waterSourceSystemChiller.DesignPressureDrop2;
+                DesignTemperatureDifference2 = waterSourceSystemChiller.DesignTemperatureDifference2;
+                LossesInSizing = waterSourceSystemChiller.LossesInSizing;
+                MotorEfficiency = waterSourceSystemChiller.MotorEfficiency?.Clone();
+                ExchangerCalculationMethod = waterSourceSystemChiller.ExchangerCalculationMethod;
+                ExchangerEfficiency = waterSourceSystemChiller.ExchangerEfficiency?.Clone();
+                ExchangerType = waterSourceSystemChiller.ExchangerType;
+                HeatTransferSurfaceArea = waterSourceSystemChiller.HeatTransferSurfaceArea;
+                HeatTransferCoefficient = waterSourceSystemChiller.HeatTransferCoefficient;
+                AncillaryLoad = waterSourceSystemChiller.AncillaryLoad?.Clone();
+                FreeCoolingType = waterSourceSystemChiller.FreeCoolingType;
+                ScheduleName = waterSourceSystemChiller.ScheduleName;
+            }
+        }
+
+        public SystemWaterSourceChiller(System.Guid guid, SystemWaterSourceChiller waterSourceSystemChiller)
+            : base(guid, waterSourceSystemChiller)
+        {
+            if (waterSourceSystemChiller != null)
             {
                 Setpoint = waterSourceSystemChiller.Setpoint?.Clone();
                 Efficiency = waterSourceSystemChiller.Efficiency?.Clone();
@@ -267,6 +294,11 @@ namespace SAM.Analytical.Systems
             }
 
             return result;
+        }
+
+        public override SystemObject Duplicate(Guid? guid = null)
+        {
+            return new SystemWaterSourceChiller(guid == null ? Guid.NewGuid() : guid.Value, this);
         }
     }
 }

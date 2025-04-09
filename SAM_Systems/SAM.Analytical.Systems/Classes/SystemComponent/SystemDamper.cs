@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json.Linq;
 using SAM.Core;
 using SAM.Core.Systems;
+using System;
 
 namespace SAM.Analytical.Systems
 {
@@ -27,6 +28,23 @@ namespace SAM.Analytical.Systems
             : base(systemDamper)
         {
             if(systemDamper != null)
+            {
+                Capacity = systemDamper.Capacity;
+                DesignCapacitySignal = systemDamper.DesignCapacitySignal;
+                DesignFlowRate = systemDamper.DesignFlowRate?.Clone();
+                DesignFlowType = systemDamper.DesignFlowType;
+                MinimumFlowRate = systemDamper.MinimumFlowRate?.Clone();
+                MinimumFlowType = systemDamper.MinimumFlowType;
+                MinimumFlowFraction = systemDamper.MinimumFlowFraction;
+                DesignPressureDrop = systemDamper.DesignPressureDrop;
+                ScheduleName = systemDamper.ScheduleName;
+            }
+        }
+
+        public SystemDamper(System.Guid guid, SystemDamper systemDamper)
+            : base(guid, systemDamper)
+        {
+            if (systemDamper != null)
             {
                 Capacity = systemDamper.Capacity;
                 DesignCapacitySignal = systemDamper.DesignCapacitySignal;
@@ -164,6 +182,11 @@ namespace SAM.Analytical.Systems
             }
 
             return result;
+        }
+
+        public override SystemObject Duplicate(Guid? guid = null)
+        {
+            return new SystemDamper(guid == null ? Guid.NewGuid() : guid.Value, this);
         }
     }
 }

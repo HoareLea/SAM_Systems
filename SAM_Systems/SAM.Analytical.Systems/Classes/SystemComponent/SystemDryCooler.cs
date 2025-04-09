@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json.Linq;
 using SAM.Core;
 using SAM.Core.Systems;
+using System;
 
 namespace SAM.Analytical.Systems
 {
@@ -41,6 +42,42 @@ namespace SAM.Analytical.Systems
             : base(name)
         {
 
+        }
+
+        public SystemDryCooler(System.Guid guid, SystemDryCooler systemDryCooler)
+            : base(guid, systemDryCooler)
+        {
+            if (systemDryCooler != null)
+            {
+                DesignPressureDrop = systemDryCooler.DesignPressureDrop;
+                Capacity = systemDryCooler.Capacity;
+                CoolingSetpoint = systemDryCooler.CoolingSetpoint?.Clone();
+                MaxFlowRate = systemDryCooler.MaxFlowRate?.Clone();
+                FanSFP = systemDryCooler.FanSFP?.Clone();
+                DryCoolerExchangerCalculationMethod = systemDryCooler.DryCoolerExchangerCalculationMethod;
+                Efficiency = systemDryCooler.Efficiency?.Clone();
+                HeatTransferSurfaceArea = systemDryCooler.HeatTransferSurfaceArea;
+                HeatTransferCoefficient = systemDryCooler.HeatTransferCoefficient;
+                ExchangerType = systemDryCooler.ExchangerType;
+                AllowHeating = systemDryCooler.AllowHeating;
+                HeatingSetpoint = systemDryCooler.HeatingSetpoint?.Clone();
+                MinSetpointTemperatureDifferenceCooling = systemDryCooler.MinSetpointTemperatureDifferenceCooling;
+                MinSetpointTemperatureDifferenceHeating = systemDryCooler.MinSetpointTemperatureDifferenceHeating;
+                HasPreCooling = systemDryCooler.HasPreCooling;
+                PreCoolingEffectiveness = systemDryCooler.PreCoolingEffectiveness?.Clone();
+                AncillaryLoad = systemDryCooler.AncillaryLoad?.Clone();
+                PreCoolingWaterFlowCapacity = systemDryCooler.PreCoolingWaterFlowCapacity?.Clone();
+                MinAirFlowRate = systemDryCooler.MinAirFlowRate;
+                MinAirFlowRatio = systemDryCooler.MinAirFlowRatio;
+                VariableFans = systemDryCooler.VariableFans;
+                ExternalDryBulbTemperature = systemDryCooler.ExternalDryBulbTemperature;
+                ExternalDryBulbTemperatureSizingType = systemDryCooler.ExternalDryBulbTemperatureSizingType;
+                LimitingDryBulbTemperature = systemDryCooler.LimitingDryBulbTemperature;
+                DesignRange = systemDryCooler.DesignRange;
+                DesignWaterFlowRate = systemDryCooler.DesignWaterFlowRate;
+                DesignWaterFlowRateSizingType = systemDryCooler.DesignWaterFlowRateSizingType;
+                ScheduleName = systemDryCooler.ScheduleName;
+            }
         }
 
         public SystemDryCooler(SystemDryCooler systemDryCooler)
@@ -377,6 +414,11 @@ namespace SAM.Analytical.Systems
             }
 
             return result;
+        }
+
+        public override SystemObject Duplicate(Guid? guid = null)
+        {
+            return new SystemDryCooler(guid == null ? Guid.NewGuid() : guid.Value, this);
         }
     }
 }

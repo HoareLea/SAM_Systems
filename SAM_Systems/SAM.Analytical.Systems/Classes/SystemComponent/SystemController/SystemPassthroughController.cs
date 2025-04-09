@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json.Linq;
 using SAM.Core.Systems;
+using System;
 
 namespace SAM.Analytical.Systems
 {
@@ -23,6 +24,15 @@ namespace SAM.Analytical.Systems
             : base(systemPassthroughController)
         {
             if(systemPassthroughController != null)
+            {
+                normalControllerDataType = systemPassthroughController.normalControllerDataType;
+            }
+        }
+
+        public SystemPassthroughController(System.Guid guid, SystemPassthroughController systemPassthroughController)
+            : base(guid, systemPassthroughController)
+        {
+            if (systemPassthroughController != null)
             {
                 normalControllerDataType = systemPassthroughController.normalControllerDataType;
             }
@@ -81,6 +91,11 @@ namespace SAM.Analytical.Systems
             result.Add("NormalControllerDataType", normalControllerDataType.ToString());
 
             return result;
+        }
+
+        public override SystemObject Duplicate(Guid? guid = null)
+        {
+            return new SystemPassthroughController(guid == null ? Guid.NewGuid() : guid.Value, this);
         }
     }
 }

@@ -28,6 +28,15 @@ namespace SAM.Analytical.Systems
             }
         }
 
+        public SystemSensorController(System.Guid guid, SystemSensorController systemSensorController)
+            : base(guid, systemSensorController)
+        {
+            if (systemSensorController != null)
+            {
+                sensorReference = systemSensorController.sensorReference;
+            }
+        }
+
         public SystemSensorController(JObject jObject)
             : base(jObject)
         {

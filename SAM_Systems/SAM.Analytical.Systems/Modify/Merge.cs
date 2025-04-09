@@ -193,5 +193,28 @@ namespace SAM.Analytical.Systems
 
             return true;
         }
+    
+        public static bool Merge(this SystemEnergyCentre systemEnergyCentre, IEnumerable<SystemEnergyCentre> systemEnergyCentres, IEnumerable<AirSystem> airSystems = null, IEnumerable<SystemPlantRoom> systemPlantRooms = null)
+        {
+            if(systemEnergyCentre == null || systemEnergyCentres == null || systemEnergyCentres.Count() == 0)
+            {
+                return false;
+            }
+
+            int airSystemCount = airSystems == null ? 0 : airSystems.Count();
+            int systemPlantRoomCount = systemPlantRooms == null  ? 0 : systemPlantRooms.Count();
+
+            if(airSystemCount != systemPlantRoomCount)
+            {
+                return false;
+            }
+
+            if(airSystemCount == 0)
+            {
+
+            }
+
+            return false;
+        }
     }
 }

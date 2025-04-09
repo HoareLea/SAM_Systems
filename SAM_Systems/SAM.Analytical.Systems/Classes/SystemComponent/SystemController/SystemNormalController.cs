@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json.Linq;
 using SAM.Core.Systems;
+using System;
 
 namespace SAM.Analytical.Systems
 {
@@ -32,6 +33,16 @@ namespace SAM.Analytical.Systems
             : base(systemNormalController)
         {
             if(systemNormalController != null)
+            {
+                normalControllerDataType = systemNormalController.normalControllerDataType;
+                normalControllerLimit = systemNormalController.normalControllerLimit;
+            }
+        }
+
+        public SystemNormalController(System.Guid guid, SystemNormalController systemNormalController)
+            : base(guid, systemNormalController)
+        {
+            if (systemNormalController != null)
             {
                 normalControllerDataType = systemNormalController.normalControllerDataType;
                 normalControllerLimit = systemNormalController.normalControllerLimit;
@@ -106,6 +117,11 @@ namespace SAM.Analytical.Systems
             result.Add("NormalControllerLimit", normalControllerLimit.ToString());
 
             return result;
+        }
+
+        public override SystemObject Duplicate(Guid? guid = null)
+        {
+            return new SystemNormalController(guid == null ? Guid.NewGuid() : guid.Value, this);
         }
     }
 }

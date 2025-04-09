@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -16,6 +17,25 @@ namespace SAM.Core.Systems
         public double Discount { get; set; }
         public List<TariffProfile> DemandTariffProfiles { get; set; }
         public List<TariffProfile> ConsumptionTariffProfiles { get; set; }
+
+        public SystemEnergySource(Guid guid, SystemEnergySource systemEnergySource)
+            :base(guid, systemEnergySource)
+        {
+            if (systemEnergySource != null)
+            {
+                Description = systemEnergySource.Description;
+                CO2Factor = systemEnergySource.CO2Factor?.Clone();
+                PeakCost = systemEnergySource.PeakCost?.Clone();
+                PrimaryEnergyFactor = systemEnergySource.PrimaryEnergyFactor?.Clone();
+                OffPeakCost = systemEnergySource.OffPeakCost;
+                ScheduleName = systemEnergySource.ScheduleName;
+                CustomerMonthlyCharge = systemEnergySource.CustomerMonthlyCharge;
+                FuelCostAdjustment = systemEnergySource.FuelCostAdjustment;
+                Discount = systemEnergySource.Discount;
+                DemandTariffProfiles = systemEnergySource.DemandTariffProfiles?.ToList();
+                ConsumptionTariffProfiles = systemEnergySource.ConsumptionTariffProfiles?.ToList();
+            }
+        }
 
         public SystemEnergySource(SystemEnergySource systemEnergySource)
             : base(systemEnergySource)
@@ -202,6 +222,11 @@ namespace SAM.Core.Systems
             }
 
             return result;
+        }
+
+        public override SystemObject Duplicate(Guid? guid = null)
+        {
+            return new SystemEnergySource(guid == null ? Guid.NewGuid() : guid.Value, this);
         }
     }
 }

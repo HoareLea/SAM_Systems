@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json.Linq;
 using SAM.Core;
 using SAM.Core.Systems;
+using System;
 
 namespace SAM.Analytical.Systems
 {
@@ -23,6 +24,19 @@ namespace SAM.Analytical.Systems
             : base(systemHeatingCoil)
         {
             if(systemHeatingCoil != null)
+            {
+                Setpoint = systemHeatingCoil.Setpoint?.Clone();
+                Efficiency = systemHeatingCoil.Efficiency?.Clone();
+                Duty = systemHeatingCoil.Duty?.Clone();
+                MaximumOffcoil = systemHeatingCoil.MaximumOffcoil?.Clone();
+                ScheduleName = systemHeatingCoil.ScheduleName;
+            }
+        }
+
+        public SystemHeatingCoil(System.Guid guid, SystemHeatingCoil systemHeatingCoil)
+            : base(guid, systemHeatingCoil)
+        {
+            if (systemHeatingCoil != null)
             {
                 Setpoint = systemHeatingCoil.Setpoint?.Clone();
                 Efficiency = systemHeatingCoil.Efficiency?.Clone();
@@ -124,6 +138,11 @@ namespace SAM.Analytical.Systems
             }
 
             return result;
+        }
+
+        public override SystemObject Duplicate(Guid? guid = null)
+        {
+            return new SystemHeatingCoil(guid == null ? Guid.NewGuid() : guid.Value, this);
         }
     }
 }

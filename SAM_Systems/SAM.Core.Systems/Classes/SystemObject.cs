@@ -81,5 +81,7 @@ namespace SAM.Core.Systems
 
             return result;
         }
+
+        public abstract SystemObject Duplicate(Guid? guid = null);
     }
 }

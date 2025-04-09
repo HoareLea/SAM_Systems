@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json.Linq;
 using SAM.Core;
 using SAM.Core.Systems;
+using System;
 
 namespace SAM.Analytical.Systems
 {
@@ -29,6 +30,37 @@ namespace SAM.Analytical.Systems
             : base(name)
         {
 
+        }
+
+        public SystemLiquidExchanger(System.Guid guid, SystemLiquidExchanger systemLiquidExchanger)
+            : base(guid, systemLiquidExchanger)
+        {
+            if (systemLiquidExchanger != null)
+            {
+                Efficiency = systemLiquidExchanger.Efficiency?.Clone();
+
+                Capacity1 = systemLiquidExchanger.Capacity1;
+                Capacity2 = systemLiquidExchanger.Capacity2;
+
+                DesignPressureDrop1 = systemLiquidExchanger.DesignPressureDrop1;
+                DesignPressureDrop2 = systemLiquidExchanger.DesignPressureDrop2;
+
+                Setpoint = systemLiquidExchanger.Setpoint?.Clone();
+                //Setpoint2 = systemLiquidExchanger?.Setpoint2?.Clone();
+
+                BypassPosition = systemLiquidExchanger.BypassPosition;
+                SetpointPosition = systemLiquidExchanger.SetpointPosition;
+
+                ExchangerCalculationMethod = systemLiquidExchanger.ExchangerCalculationMethod;
+
+                ExchangerType = systemLiquidExchanger.ExchangerType;
+
+                HeatTransferSurfaceArea = systemLiquidExchanger.HeatTransferSurfaceArea;
+
+                HeatTransferCoefficient = systemLiquidExchanger.HeatTransferCoefficient;
+
+                ScheduleName = systemLiquidExchanger.ScheduleName;
+            }
         }
 
         public SystemLiquidExchanger(SystemLiquidExchanger systemLiquidExchanger)
@@ -231,6 +263,11 @@ namespace SAM.Analytical.Systems
             }
 
             return result;
+        }
+
+        public override SystemObject Duplicate(Guid? guid = null)
+        {
+            return new SystemLiquidExchanger(guid == null ? Guid.NewGuid() : guid.Value, this);
         }
     }
 }

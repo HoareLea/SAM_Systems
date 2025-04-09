@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -8,6 +9,12 @@ namespace SAM.Core.Systems
     {
         public SystemComponent(SystemComponent systemComponent)
             : base(systemComponent)
+        {
+
+        }
+
+        public SystemComponent(Guid guid, SystemComponent systemComponent)
+            : base(guid, systemComponent)
         {
 
         }

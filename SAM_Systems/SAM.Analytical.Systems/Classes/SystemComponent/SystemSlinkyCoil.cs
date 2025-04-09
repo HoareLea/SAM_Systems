@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json.Linq;
 using SAM.Core;
 using SAM.Core.Systems;
+using System;
 
 namespace SAM.Analytical.Systems
 {
@@ -36,6 +37,33 @@ namespace SAM.Analytical.Systems
             : base(systemSlinkyCoil)
         {
             if(systemSlinkyCoil != null)
+            {
+                DesignPressureDrop = systemSlinkyCoil.DesignPressureDrop;
+                Capacity = systemSlinkyCoil.Capacity;
+                GroundDensity = systemSlinkyCoil.GroundDensity;
+                GroundHeatCapacity = systemSlinkyCoil.GroundHeatCapacity;
+                GroundConductivity = systemSlinkyCoil.GroundConductivity;
+                GroundSolarReflectance = systemSlinkyCoil.GroundSolarReflectance;
+                InsidePipeDiameter = systemSlinkyCoil.InsidePipeDiameter;
+                OutsidePipeDiameter = systemSlinkyCoil.OutsidePipeDiameter;
+                PipeConductivity = systemSlinkyCoil.PipeConductivity;
+                LoopPitch = systemSlinkyCoil.LoopPitch;
+                LoopWidth = systemSlinkyCoil.LoopWidth;
+                LoopHeight = systemSlinkyCoil.LoopHeight;
+                IsUprightCoil = systemSlinkyCoil.IsUprightCoil;
+                FillDensity = systemSlinkyCoil.FillDensity;
+                FillHeatCapacity = systemSlinkyCoil.FillHeatCapacity;
+                FillConductivity = systemSlinkyCoil.FillConductivity;
+                TrenchLength = systemSlinkyCoil.TrenchLength;
+                TrenchDepth = systemSlinkyCoil.TrenchDepth;
+                TrenchWidth = systemSlinkyCoil.TrenchWidth;
+            }
+        }
+
+        public SystemSlinkyCoil(Guid guid, SystemSlinkyCoil systemSlinkyCoil)
+            : base(guid, systemSlinkyCoil)
+        {
+            if (systemSlinkyCoil != null)
             {
                 DesignPressureDrop = systemSlinkyCoil.DesignPressureDrop;
                 Capacity = systemSlinkyCoil.Capacity;
@@ -290,6 +318,11 @@ namespace SAM.Analytical.Systems
 
 
             return result;
+        }
+
+        public override SystemObject Duplicate(Guid? guid = null)
+        {
+            return new SystemSlinkyCoil(guid == null ? Guid.NewGuid() : guid.Value, this);
         }
     }
 }

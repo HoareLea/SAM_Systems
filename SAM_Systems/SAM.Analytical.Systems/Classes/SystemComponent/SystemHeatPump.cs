@@ -15,6 +15,12 @@ namespace SAM.Analytical.Systems
             : base(systemHeatPump)
         {
 
+        }  
+        
+        public SystemHeatPump(System.Guid guid, SystemHeatPump systemHeatPump)
+            : base(guid, systemHeatPump)
+        {
+
         }
 
         public SystemHeatPump(JObject jObject)

@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json.Linq;
 using SAM.Core;
 using SAM.Core.Systems;
+using System;
 
 namespace SAM.Analytical.Systems
 {
@@ -24,6 +25,20 @@ namespace SAM.Analytical.Systems
             : base(systemWindTurbine)
         {
             if(systemWindTurbine != null)
+            {
+                HubHeight = systemWindTurbine.HubHeight;
+                Area = systemWindTurbine.Area;
+                MinSpeed = systemWindTurbine.MinSpeed;
+                CutOffSpeed = systemWindTurbine.CutOffSpeed;
+                Multiplicity = systemWindTurbine.Multiplicity;
+                Efficiency = systemWindTurbine.Efficiency?.Clone();
+            }
+        }
+
+        public SystemWindTurbine(System.Guid guid, SystemWindTurbine systemWindTurbine)
+            : base(guid, systemWindTurbine)
+        {
+            if (systemWindTurbine != null)
             {
                 HubHeight = systemWindTurbine.HubHeight;
                 Area = systemWindTurbine.Area;
@@ -130,6 +145,11 @@ namespace SAM.Analytical.Systems
             }
 
             return result;
+        }
+
+        public override SystemObject Duplicate(Guid? guid = null)
+        {
+            return new SystemWindTurbine(guid == null ? Guid.NewGuid() : guid.Value, this);
         }
     }
 }

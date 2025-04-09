@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json.Linq;
 using SAM.Core;
 using SAM.Core.Systems;
+using System;
 
 namespace SAM.Analytical.Systems
 {
@@ -28,6 +29,15 @@ namespace SAM.Analytical.Systems
             : base(refrigerantSystemCollection)
         {
             if(refrigerantSystemCollection != null)
+            {
+                PipeLength = refrigerantSystemCollection.PipeLength?.Clone();
+            }
+        }
+
+        public RefrigerantSystemCollection(System.Guid guid, RefrigerantSystemCollection refrigerantSystemCollection)
+            : base(guid, refrigerantSystemCollection)
+        {
+            if (refrigerantSystemCollection != null)
             {
                 PipeLength = refrigerantSystemCollection.PipeLength?.Clone();
             }
@@ -63,6 +73,11 @@ namespace SAM.Analytical.Systems
             }
 
             return result;
+        }
+
+        public override SystemObject Duplicate(Guid? guid = null)
+        {
+            return new RefrigerantSystemCollection(guid == null ? Guid.NewGuid() : guid.Value, this);
         }
     }
 }

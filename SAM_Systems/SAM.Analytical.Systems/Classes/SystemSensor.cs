@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json.Linq;
 using SAM.Core.Systems;
+using System;
 
 namespace SAM.Analytical.Systems
 {
@@ -25,6 +26,16 @@ namespace SAM.Analytical.Systems
             : base(systemSensor)
         {
 
+        }
+        public SystemSensor(System.Guid guid, SystemSensor systemSensor)
+            : base(guid, systemSensor)
+        {
+
+        }
+
+        public override SystemObject Duplicate(Guid? guid = null)
+        {
+            return new SystemSensor(guid == null ? Guid.NewGuid() : guid.Value, this);
         }
 
         public override bool FromJObject(JObject jObject)

@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json.Linq;
 using SAM.Core;
 using SAM.Core.Systems;
+using System;
 
 namespace SAM.Analytical.Systems
 {
@@ -34,6 +35,31 @@ namespace SAM.Analytical.Systems
             : base(systemTank)
         {
             if(systemTank != null)
+            {
+                InsulationConductivity = systemTank.InsulationConductivity;
+                InsulationThickness = systemTank.InsulationThickness;
+                Volume = systemTank.Volume;
+                HeatExchangeEfficiency1 = systemTank.HeatExchangeEfficiency1;
+                HeatExchangeEfficiency2 = systemTank.HeatExchangeEfficiency2;
+                Height = systemTank.Height;
+                AmbientTemperature = systemTank.AmbientTemperature?.Clone();
+                Setpoint = systemTank.Setpoint?.Clone();
+                Capacity1 = systemTank.Capacity1;
+                Capacity2 = systemTank.Capacity2;
+                Capacity3 = systemTank.Capacity3;
+                DesignPressureDrop1 = systemTank.DesignPressureDrop1;
+                DesignPressureDrop2 = systemTank.DesignPressureDrop2;
+                DesignPressureDrop3 = systemTank.DesignPressureDrop3;
+                UseDefinedHeatLoss = systemTank.UseDefinedHeatLoss;
+                DefinedHeatLossRate = systemTank.DefinedHeatLossRate;
+                SetpointMode = systemTank.SetpointMode;
+            }
+        }
+
+        public SystemTank(System.Guid guid, SystemTank systemTank)
+            : base(guid, systemTank)
+        {
+            if (systemTank != null)
             {
                 InsulationConductivity = systemTank.InsulationConductivity;
                 InsulationThickness = systemTank.InsulationThickness;
@@ -262,6 +288,11 @@ namespace SAM.Analytical.Systems
             result.Add("SetpointMode", SetpointMode.ToString());
 
             return result;
+        }
+
+        public override SystemObject Duplicate(Guid? guid = null)
+        {
+            return new SystemTank(guid == null ? Guid.NewGuid() : guid.Value, this);
         }
     }
 }

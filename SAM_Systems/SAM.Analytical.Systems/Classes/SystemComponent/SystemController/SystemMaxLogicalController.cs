@@ -1,4 +1,6 @@
 ﻿using Newtonsoft.Json.Linq;
+using SAM.Core.Systems;
+using System;
 
 namespace SAM.Analytical.Systems
 {
@@ -16,6 +18,15 @@ namespace SAM.Analytical.Systems
             : base(systemMaxLogicalController)
         {
             if(systemMaxLogicalController != null)
+            {
+
+            }
+        }
+
+        public SystemMaxLogicalController(System.Guid guid, SystemMaxLogicalController systemMaxLogicalController)
+            : base(guid, systemMaxLogicalController)
+        {
+            if (systemMaxLogicalController != null)
             {
 
             }
@@ -47,6 +58,11 @@ namespace SAM.Analytical.Systems
             }
 
             return result;
+        }
+
+        public override SystemObject Duplicate(Guid? guid = null)
+        {
+            return new SystemMaxLogicalController(guid == null ? Guid.NewGuid() : guid.Value, this);
         }
     }
 }

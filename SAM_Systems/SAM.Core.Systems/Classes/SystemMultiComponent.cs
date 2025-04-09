@@ -6,6 +6,12 @@ namespace SAM.Core.Systems
 {
     public abstract class SystemMultiComponent : SystemComponent
     {
+        public SystemMultiComponent(System.Guid guid, SystemMultiComponent systemMultiComponent)
+            : base(guid, systemMultiComponent)
+        {
+
+        }
+
         public SystemMultiComponent(SystemMultiComponent systemMultiComponent)
             : base(systemMultiComponent)
         {
@@ -40,6 +46,18 @@ namespace SAM.Core.Systems
     public abstract class SystemMultiComponent<TSystemObject> : SystemMultiComponent where TSystemObject : SystemObject
     {
         private Dictionary<System.Guid, TSystemObject> dictionary = new Dictionary<System.Guid, TSystemObject>();
+
+        public SystemMultiComponent(System.Guid guid, SystemMultiComponent<TSystemObject> systemMultiComponent)
+            : base(guid, systemMultiComponent)
+        {
+            if (systemMultiComponent != null)
+            {
+                foreach (TSystemObject systemObject in systemMultiComponent.dictionary.Values)
+                {
+                    Add(systemObject);
+                }
+            }
+        }
 
         public SystemMultiComponent(SystemMultiComponent<TSystemObject> systemMultiComponent)
             : base(systemMultiComponent)

@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json.Linq;
 using SAM.Core;
 using SAM.Core.Systems;
+using System;
 
 namespace SAM.Analytical.Systems
 {
@@ -32,6 +33,23 @@ namespace SAM.Analytical.Systems
                 DesignFlowRate = systemEconomiser.DesignFlowRate?.Clone();
                 DesignFlowType = systemEconomiser.DesignFlowType;
                 Setpoint = systemEconomiser.Setpoint?.Clone();   
+                MinFreshAirRate = systemEconomiser?.MinFreshAirRate?.Clone();
+                MinFreshAirType = systemEconomiser.MinFreshAirType;
+                ScheduleMode = systemEconomiser.ScheduleMode;
+                DesignPressureDrop = systemEconomiser.DesignPressureDrop;
+                ScheduleName = systemEconomiser.ScheduleName;
+            }
+        }
+
+        public SystemEconomiser(System.Guid guid, SystemEconomiser systemEconomiser)
+            : base(guid, systemEconomiser)
+        {
+            if (systemEconomiser != null)
+            {
+                Capacity = systemEconomiser.Capacity;
+                DesignFlowRate = systemEconomiser.DesignFlowRate?.Clone();
+                DesignFlowType = systemEconomiser.DesignFlowType;
+                Setpoint = systemEconomiser.Setpoint?.Clone();
                 MinFreshAirRate = systemEconomiser?.MinFreshAirRate?.Clone();
                 MinFreshAirType = systemEconomiser.MinFreshAirType;
                 ScheduleMode = systemEconomiser.ScheduleMode;
@@ -161,6 +179,11 @@ namespace SAM.Analytical.Systems
             }
 
             return result;
+        }
+
+        public override SystemObject Duplicate(Guid? guid = null)
+        {
+            return new SystemEconomiser(guid == null ? Guid.NewGuid() : guid.Value, this);
         }
     }
 }

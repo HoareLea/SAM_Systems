@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json.Linq;
 using SAM.Core;
 using SAM.Core.Systems;
+using System;
 
 namespace SAM.Analytical.Systems
 {
@@ -24,6 +25,22 @@ namespace SAM.Analytical.Systems
 
         public SystemMultiChiller(SystemMultiChiller systemMultiChiller)
             : base(systemMultiChiller)
+        {
+            if (systemMultiChiller != null)
+            {
+                Duty = systemMultiChiller.Duty?.Clone();
+                DesignPressureDrop = systemMultiChiller.DesignPressureDrop;
+                DesignTemperatureDifference = systemMultiChiller.DesignTemperatureDifference;
+                Setpoint = systemMultiChiller.Setpoint?.Clone();
+                Capacity = systemMultiChiller.Capacity;
+                Sequence = systemMultiChiller.Sequence;
+                LossesInSizing = systemMultiChiller.LossesInSizing;
+                ScheduleName = systemMultiChiller.ScheduleName;
+            }
+        }
+
+        public SystemMultiChiller(System.Guid guid, SystemMultiChiller systemMultiChiller)
+            : base(guid, systemMultiChiller)
         {
             if (systemMultiChiller != null)
             {
@@ -151,6 +168,11 @@ namespace SAM.Analytical.Systems
             }
 
             return result;
+        }
+
+        public override SystemObject Duplicate(Guid? guid = null)
+        {
+            return new SystemMultiChiller(guid == null ? Guid.NewGuid() : guid.Value, this);
         }
     }
 }

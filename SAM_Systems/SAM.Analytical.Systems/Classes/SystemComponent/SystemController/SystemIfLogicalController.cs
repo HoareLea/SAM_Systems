@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json.Linq;
 using SAM.Core.Systems;
+using System;
 
 namespace SAM.Analytical.Systems
 {
@@ -17,6 +18,15 @@ namespace SAM.Analytical.Systems
             : base(systemIfLogicalController)
         {
             if(systemIfLogicalController != null)
+            {
+
+            }
+        }
+
+        public SystemIfLogicalController(System.Guid guid, SystemIfLogicalController systemIfLogicalController)
+            : base(guid, systemIfLogicalController)
+        {
+            if (systemIfLogicalController != null)
             {
 
             }
@@ -62,6 +72,11 @@ namespace SAM.Analytical.Systems
             }
 
             return result;
+        }
+
+        public override SystemObject Duplicate(Guid? guid = null)
+        {
+            return new SystemIfLogicalController(guid == null ? Guid.NewGuid() : guid.Value, this);
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json.Linq;
 using SAM.Core.Systems;
+using System;
 
 namespace SAM.Analytical.Systems
 {
@@ -17,6 +18,15 @@ namespace SAM.Analytical.Systems
             : base(systemLiquidJunction)
         {
             if(systemLiquidJunction != null)
+            {
+                MainsPressure = systemLiquidJunction.MainsPressure;
+            }
+        }
+
+        public SystemLiquidJunction(System.Guid guid, SystemLiquidJunction systemLiquidJunction)
+            : base(guid, systemLiquidJunction)
+        {
+            if (systemLiquidJunction != null)
             {
                 MainsPressure = systemLiquidJunction.MainsPressure;
             }
@@ -64,6 +74,11 @@ namespace SAM.Analytical.Systems
             }
 
             return result;
+        }
+
+        public override SystemObject Duplicate(Guid? guid = null)
+        {
+            return new SystemLiquidJunction(guid == null ? Guid.NewGuid() : guid.Value, this);
         }
     }
 }

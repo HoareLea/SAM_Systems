@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json.Linq;
 using SAM.Core;
 using SAM.Core.Systems;
+using System;
 
 namespace SAM.Analytical.Systems
 {
@@ -21,6 +22,18 @@ namespace SAM.Analytical.Systems
             : base(systemMultiChillerItem)
         {
             if(systemMultiChillerItem != null)
+            {
+                Efficiency = systemMultiChillerItem.Efficiency?.Clone();
+                CondenserFanLoad = systemMultiChillerItem.CondenserFanLoad?.Clone();
+                Percentage = systemMultiChillerItem.Percentage;
+                Threshold = systemMultiChillerItem.Threshold;
+            }
+        }
+
+        public SystemMultiChillerItem(System.Guid guid, SystemMultiChillerItem systemMultiChillerItem)
+            : base(guid, systemMultiChillerItem)
+        {
+            if (systemMultiChillerItem != null)
             {
                 Efficiency = systemMultiChillerItem.Efficiency?.Clone();
                 CondenserFanLoad = systemMultiChillerItem.CondenserFanLoad?.Clone();
@@ -95,6 +108,11 @@ namespace SAM.Analytical.Systems
             }
 
             return result;
+        }
+
+        public override SystemObject Duplicate(Guid? guid = null)
+        {
+            return new SystemMultiChillerItem(guid == null ? Guid.NewGuid() : guid.Value, this);
         }
     }
 }

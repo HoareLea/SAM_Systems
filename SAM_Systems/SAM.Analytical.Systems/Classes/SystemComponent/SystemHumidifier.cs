@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json.Linq;
 using SAM.Core.Systems;
+using System;
 
 namespace SAM.Analytical.Systems
 {
@@ -17,6 +18,15 @@ namespace SAM.Analytical.Systems
             : base(systemHumidifier)
         {
             if(systemHumidifier != null)
+            {
+                ScheduleName = systemHumidifier.ScheduleName;
+            }
+        }
+
+        public SystemHumidifier(System.Guid guid, SystemHumidifier systemHumidifier)
+            : base(guid, systemHumidifier)
+        {
+            if (systemHumidifier != null)
             {
                 ScheduleName = systemHumidifier.ScheduleName;
             }
@@ -71,6 +81,11 @@ namespace SAM.Analytical.Systems
             }
 
             return result;
+        }
+
+        public override SystemObject Duplicate(Guid? guid = null)
+        {
+            return new SystemHumidifier(guid == null ? Guid.NewGuid() : guid.Value, this);
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json.Linq;
 using SAM.Core;
 using SAM.Core.Systems;
+using System;
 
 namespace SAM.Analytical.Systems
 {
@@ -35,6 +36,25 @@ namespace SAM.Analytical.Systems
                 ScheduleName = systemBoiler.ScheduleName;
             }
         }
+
+        public SystemBoiler(System.Guid guid, SystemBoiler systemBoiler)
+            : base(guid, systemBoiler)
+        {
+            if (systemBoiler != null)
+            {
+                Setpoint = systemBoiler.Setpoint?.Clone();
+                Efficiency = systemBoiler.Efficiency?.Clone();
+                Duty = systemBoiler.Duty?.Clone();
+                DesignTemperatureDifference = systemBoiler.DesignTemperatureDifference;
+                Capacity = systemBoiler.Capacity;
+                DesignPressureDrop = systemBoiler.DesignPressureDrop;
+                AncillaryLoad = systemBoiler.AncillaryLoad?.Clone();
+                LossesInSizing = systemBoiler.LossesInSizing;
+                IsDomesticHotWater = systemBoiler.IsDomesticHotWater;
+                ScheduleName = systemBoiler.ScheduleName;
+            }
+        }
+
 
         public SystemBoiler(string name)
             : base(name)
@@ -175,6 +195,11 @@ namespace SAM.Analytical.Systems
             }
 
             return result;
+        }
+
+        public override SystemObject Duplicate(Guid? guid = null)
+        {
+            return new SystemBoiler(guid == null ? Guid.NewGuid() : guid.Value, this);
         }
     }
 }

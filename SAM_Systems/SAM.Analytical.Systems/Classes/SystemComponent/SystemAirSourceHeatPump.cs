@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json.Linq;
 using SAM.Core;
 using SAM.Core.Systems;
+using System;
 
 namespace SAM.Analytical.Systems
 {
@@ -38,6 +39,34 @@ namespace SAM.Analytical.Systems
             : base(systemAirSourceHeatPump)
         {
             if(systemAirSourceHeatPump != null)
+            {
+                HeatPumpType = systemAirSourceHeatPump.HeatPumpType;
+                CoolingCapacity = systemAirSourceHeatPump.CoolingCapacity?.Clone();
+                CoolingPower = systemAirSourceHeatPump?.CoolingPower?.Clone();
+                HeatingCapacity = systemAirSourceHeatPump.HeatingCapacity?.Clone();
+                HeatingPower = systemAirSourceHeatPump.HeatingPower?.Clone();
+                CondenserFanLoad = systemAirSourceHeatPump.CondenserFanLoad?.Clone();
+                HeatingCoolingDutyRatio = systemAirSourceHeatPump.HeatingCoolingDutyRatio;
+                HeatingCapacityPowerRatio = systemAirSourceHeatPump.HeatingCapacityPowerRatio;
+                CoolingCapacityPowerRatio = systemAirSourceHeatPump.CoolingCapacityPowerRatio;
+                MaxDemandFanRatio = systemAirSourceHeatPump.MaxDemandFanRatio;
+                StandbyPower = systemAirSourceHeatPump.StandbyPower;
+                ADFHeatingMode = systemAirSourceHeatPump.ADFHeatingMode;
+                ADFCoolingMode = systemAirSourceHeatPump.ADFCoolingMode;
+                PortHeatingPower = systemAirSourceHeatPump.PortHeatingPower;
+                PortCoolingPower = systemAirSourceHeatPump.PortCoolingPower;
+                WaterPipeLength = systemAirSourceHeatPump.WaterPipeLength;
+                AncillaryLoad = systemAirSourceHeatPump.AncillaryLoad?.Clone();
+                HeatSizeFraction = systemAirSourceHeatPump.HeatSizeFraction;
+                IsDomesticHotWater = systemAirSourceHeatPump.IsDomesticHotWater;
+                ScheduleName = systemAirSourceHeatPump.ScheduleName;
+            }
+        }
+
+        public SystemAirSourceHeatPump(System.Guid guid, SystemAirSourceHeatPump systemAirSourceHeatPump)
+            : base(guid, systemAirSourceHeatPump)
+        {
+            if (systemAirSourceHeatPump != null)
             {
                 HeatPumpType = systemAirSourceHeatPump.HeatPumpType;
                 CoolingCapacity = systemAirSourceHeatPump.CoolingCapacity?.Clone();
@@ -295,6 +324,11 @@ namespace SAM.Analytical.Systems
             }
 
             return result;
+        }
+
+        public override SystemObject Duplicate(Guid? guid = null)
+        {
+            return new SystemAirSourceHeatPump(guid == null ? Guid.NewGuid() : guid.Value, this);
         }
     }
 }

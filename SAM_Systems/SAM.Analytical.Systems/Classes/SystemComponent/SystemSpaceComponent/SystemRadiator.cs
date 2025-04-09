@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json.Linq;
 using SAM.Core;
 using SAM.Core.Systems;
+using System;
 
 namespace SAM.Analytical.Systems
 {
@@ -37,6 +38,17 @@ namespace SAM.Analytical.Systems
 
         public SystemRadiator(SystemRadiator systemRadiator)
             : base(systemRadiator)
+        {
+            if (systemRadiator != null)
+            {
+                Efficiency = systemRadiator.Efficiency?.Clone();
+                Duty = systemRadiator.Duty;
+                ScheduleName = systemRadiator.ScheduleName;
+            }
+        }
+
+        public SystemRadiator(Guid guid, SystemRadiator systemRadiator)
+            : base(guid, systemRadiator)
         {
             if (systemRadiator != null)
             {
@@ -96,6 +108,11 @@ namespace SAM.Analytical.Systems
             }
 
             return result;
+        }
+
+        public override SystemObject Duplicate(Guid? guid = null)
+        {
+            return new SystemRadiator(guid == null ? Guid.NewGuid() : guid.Value, this);
         }
     }
 }

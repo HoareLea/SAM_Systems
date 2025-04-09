@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json.Linq;
 using SAM.Core;
 using SAM.Core.Systems;
+using System;
 
 namespace SAM.Analytical.Systems
 {
@@ -28,6 +29,24 @@ namespace SAM.Analytical.Systems
             : base(systemCHP)
         {
             if(systemCHP != null)
+            {
+                Setpoint = systemCHP.Setpoint;
+                Efficiency = systemCHP.Efficiency;
+                HeatPowerRatio = systemCHP.HeatPowerRatio;
+                Duty = systemCHP.Duty;
+                DesignTemperatureDifference = systemCHP.DesignTemperatureDifference;
+                Capacity = systemCHP.Capacity;
+                DesignPressureDrop = systemCHP.DesignPressureDrop;
+                LossesInSizing = systemCHP.LossesInSizing;
+                IsDomesticHotWater = systemCHP.IsDomesticHotWater;
+                ScheduleName = systemCHP.ScheduleName;
+            }
+        }
+
+        public SystemCHP(System.Guid guid, SystemCHP systemCHP)
+            : base(guid, systemCHP)
+        {
+            if (systemCHP != null)
             {
                 Setpoint = systemCHP.Setpoint;
                 Efficiency = systemCHP.Efficiency;
@@ -175,6 +194,11 @@ namespace SAM.Analytical.Systems
             }
 
             return result;
+        }
+
+        public override SystemObject Duplicate(Guid? guid = null)
+        {
+            return new SystemCHP(guid == null ? Guid.NewGuid() : guid.Value, this);
         }
     }
 }

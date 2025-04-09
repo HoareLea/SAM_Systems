@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json.Linq;
 using SAM.Core;
 using SAM.Core.Systems;
+using System;
 
 namespace SAM.Analytical.Systems
 {
@@ -37,6 +38,39 @@ namespace SAM.Analytical.Systems
             : base(name)
         {
 
+        }
+
+        public SystemCoolingTower(System.Guid guid, SystemCoolingTower systemCoolingTower)
+            : base(guid, systemCoolingTower)
+        {
+            if (systemCoolingTower != null)
+            {
+                Capacity = systemCoolingTower.Capacity;
+                DesignPressureDrop = systemCoolingTower.DesignPressureDrop;
+                Setpoint = systemCoolingTower.Setpoint?.Clone();
+                MinApproach = systemCoolingTower.MinApproach;
+                VariableFans = systemCoolingTower.VariableFans;
+                FanSFP = systemCoolingTower.FanSFP?.Clone();
+                HeatTransferCoefficient = systemCoolingTower.HeatTransferCoefficient;
+                HeatTransferSurfaceAreaSizingType = systemCoolingTower.HeatTransferSurfaceAreaSizingType;
+                HeatTransferSurfaceArea = systemCoolingTower?.HeatTransferSurfaceArea?.Clone();
+                ExternalWetBulbTemperatureSizingType = systemCoolingTower.ExternalWetBulbTemperatureSizingType;
+                ExternalWetBulbTemperature = systemCoolingTower.ExternalWetBulbTemperature;
+                DesignApproach = systemCoolingTower.DesignApproach;
+                DesignRange = systemCoolingTower.DesignRange;
+                DesignWaterFlowRateSizingType = systemCoolingTower.DesignWaterFlowRateSizingType;
+                DesignWaterFlowRate = systemCoolingTower.DesignWaterFlowRate;
+                MaxAirFlowRateSizingType = systemCoolingTower.MaxAirFlowRateSizingType;
+                MaxAirFlowRate = systemCoolingTower.MaxAirFlowRate?.Clone();
+                FanLoadRatio = systemCoolingTower.FanLoadRatio;
+                AirWaterFlowRatio = systemCoolingTower.AirWaterFlowRatio;
+                MinAirFlowRate = systemCoolingTower.MinAirFlowRate;
+                FanMode2Ratio = systemCoolingTower.FanMode2Ratio;
+                WaterDriftLoss = systemCoolingTower.WaterDriftLoss;
+                BlowdownConcentrationRatio = systemCoolingTower.BlowdownConcentrationRatio;
+                AncillaryLoad = systemCoolingTower.AncillaryLoad?.Clone();
+                ScheduleName = systemCoolingTower.ScheduleName;
+            }
         }
 
         public SystemCoolingTower(SystemCoolingTower systemCoolingTower)
@@ -346,6 +380,11 @@ namespace SAM.Analytical.Systems
             }
 
             return result;
+        }
+
+        public override SystemObject Duplicate(Guid? guid = null)
+        {
+            return new SystemCoolingTower(guid == null ? Guid.NewGuid() : guid.Value, this);
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json.Linq;
 using SAM.Core;
 using SAM.Core.Systems;
+using System;
 
 namespace SAM.Analytical.Systems
 {
@@ -30,6 +31,28 @@ namespace SAM.Analytical.Systems
 
         public SystemIceStorageChiller(SystemIceStorageChiller iceStorageSystemChiller)
             : base(iceStorageSystemChiller)
+        {
+            if (iceStorageSystemChiller != null)
+            {
+                Setpoint = iceStorageSystemChiller.Setpoint?.Clone();
+                Efficiency = iceStorageSystemChiller.Efficiency?.Clone();
+                IceMakingEfficiency = iceStorageSystemChiller.IceMakingEfficiency?.Clone();
+                Capacity = iceStorageSystemChiller.Capacity;
+                DesignPressureDrop = iceStorageSystemChiller.DesignPressureDrop;
+                DesignTemperatureDifference = iceStorageSystemChiller.DesignTemperatureDifference;
+                IceCapacity = iceStorageSystemChiller.IceCapacity?.Clone();
+                InitialIceReserve = iceStorageSystemChiller.InitialIceReserve;
+                CondenserFanLoad = iceStorageSystemChiller.CondenserFanLoad?.Clone();
+                MotorEfficiency = iceStorageSystemChiller.MotorEfficiency?.Clone();
+                IceMeltChillerFraction = iceStorageSystemChiller.IceMeltChillerFraction;
+                AncillaryLoad = iceStorageSystemChiller.AncillaryLoad?.Clone();
+                LossesInSizing = iceStorageSystemChiller.LossesInSizing;
+                ScheduleName = iceStorageSystemChiller.ScheduleName;
+            }
+        }
+
+        public SystemIceStorageChiller(System.Guid guid, SystemIceStorageChiller iceStorageSystemChiller)
+            : base(guid, iceStorageSystemChiller)
         {
             if (iceStorageSystemChiller != null)
             {
@@ -226,6 +249,11 @@ namespace SAM.Analytical.Systems
             }
 
             return result;
+        }
+
+        public override SystemObject Duplicate(Guid? guid = null)
+        {
+            return new SystemIceStorageChiller(guid == null ? Guid.NewGuid() : guid.Value, this);
         }
     }
 }

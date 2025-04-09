@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json.Linq;
 using SAM.Core;
 using SAM.Core.Systems;
+using System;
 
 namespace SAM.Analytical.Systems
 {
@@ -34,6 +35,32 @@ namespace SAM.Analytical.Systems
 
         public SystemWaterSourceDirectAbsorptionChiller(SystemWaterSourceDirectAbsorptionChiller systemWaterSourceDirectAbsorptionChiller)
             : base(systemWaterSourceDirectAbsorptionChiller)
+        {
+            if (systemWaterSourceDirectAbsorptionChiller != null)
+            {
+                Setpoint = systemWaterSourceDirectAbsorptionChiller.Setpoint?.Clone();
+                Efficiency = systemWaterSourceDirectAbsorptionChiller.Efficiency?.Clone();
+                Capacity1 = systemWaterSourceDirectAbsorptionChiller.Capacity1;
+                DesignPressureDrop1 = systemWaterSourceDirectAbsorptionChiller.DesignPressureDrop1;
+                DesignTemperatureDifference1 = systemWaterSourceDirectAbsorptionChiller.DesignTemperatureDifference1;
+                Capacity2 = systemWaterSourceDirectAbsorptionChiller.Capacity2;
+                DesignPressureDrop2 = systemWaterSourceDirectAbsorptionChiller.DesignPressureDrop2;
+                DesignTemperatureDifference2 = systemWaterSourceDirectAbsorptionChiller.DesignTemperatureDifference2;
+                LossesInSizing = systemWaterSourceDirectAbsorptionChiller.LossesInSizing;
+                MotorEfficiency = systemWaterSourceDirectAbsorptionChiller.MotorEfficiency?.Clone();
+                ExchangerCalculationMethod = systemWaterSourceDirectAbsorptionChiller.ExchangerCalculationMethod;
+                ExchangerEfficiency = systemWaterSourceDirectAbsorptionChiller.ExchangerEfficiency?.Clone();
+                ExchangerType = systemWaterSourceDirectAbsorptionChiller.ExchangerType;
+                HeatTransferSurfaceArea = systemWaterSourceDirectAbsorptionChiller.HeatTransferSurfaceArea;
+                HeatTransferCoefficient = systemWaterSourceDirectAbsorptionChiller.HeatTransferCoefficient;
+                AncillaryLoad = systemWaterSourceDirectAbsorptionChiller.AncillaryLoad?.Clone();
+                FreeCoolingType = systemWaterSourceDirectAbsorptionChiller.FreeCoolingType;
+                ScheduleName = systemWaterSourceDirectAbsorptionChiller.ScheduleName;
+            }
+        }
+
+        public SystemWaterSourceDirectAbsorptionChiller(System.Guid guid, SystemWaterSourceDirectAbsorptionChiller systemWaterSourceDirectAbsorptionChiller)
+            : base(guid, systemWaterSourceDirectAbsorptionChiller)
         {
             if (systemWaterSourceDirectAbsorptionChiller != null)
             {
@@ -267,6 +294,11 @@ namespace SAM.Analytical.Systems
             }
 
             return result;
+        }
+
+        public override SystemObject Duplicate(Guid? guid = null)
+        {
+            return new SystemWaterSourceDirectAbsorptionChiller(guid == null ? Guid.NewGuid() : guid.Value, this);
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json.Linq;
 using SAM.Core;
 using SAM.Core.Systems;
+using System;
 
 namespace SAM.Analytical.Systems
 {
@@ -32,6 +33,29 @@ namespace SAM.Analytical.Systems
             : base(systemVerticalBorehole)
         {
             if(systemVerticalBorehole != null)
+            {
+                Capacity = systemVerticalBorehole.Capacity;
+                DesignPressureDrop = systemVerticalBorehole.DesignPressureDrop;
+                Length = systemVerticalBorehole.Length;
+                Diameter = systemVerticalBorehole.Diameter;
+                GroundConductivity = systemVerticalBorehole.GroundConductivity;
+                GroundHeatCapacity = systemVerticalBorehole.GroundHeatCapacity;
+                GroundDensity = systemVerticalBorehole.GroundDensity;
+                NumberOfBoreholes = systemVerticalBorehole.NumberOfBoreholes;
+                GFunction = systemVerticalBorehole.GFunction?.Clone();
+                GFunctionReferenceRatio = systemVerticalBorehole.GFunctionReferenceRatio;
+                PipeInDiameter = systemVerticalBorehole.PipeInDiameter;
+                PipeOutDiameter = systemVerticalBorehole.PipeOutDiameter;
+                PipeConductivity = systemVerticalBorehole.PipeConductivity;
+                GroutConductivity = systemVerticalBorehole.GroutConductivity;
+                GroundTemperatureAve = systemVerticalBorehole.GroundTemperatureAve;
+            }
+        }
+
+        public SystemVerticalBorehole(System.Guid guid, SystemVerticalBorehole systemVerticalBorehole)
+            : base(guid, systemVerticalBorehole)
+        {
+            if (systemVerticalBorehole != null)
             {
                 Capacity = systemVerticalBorehole.Capacity;
                 DesignPressureDrop = systemVerticalBorehole.DesignPressureDrop;
@@ -237,6 +261,11 @@ namespace SAM.Analytical.Systems
             }
 
             return result;
+        }
+
+        public override SystemObject Duplicate(Guid? guid = null)
+        {
+            return new SystemVerticalBorehole(guid == null ? Guid.NewGuid() : guid.Value, this);
         }
     }
 }

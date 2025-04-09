@@ -21,6 +21,12 @@ namespace SAM.Core.Systems
 
         }
 
+        public SystemSpaceComponent(System.Guid guid, SystemSpaceComponent systemSpaceComponent)
+            : base(guid, systemSpaceComponent)
+        {
+
+        }
+
         public override bool FromJObject(JObject jObject)
         {
             return base.FromJObject(jObject);

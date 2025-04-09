@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json.Linq;
 using SAM.Core;
 using SAM.Core.Systems;
+using System;
 
 namespace SAM.Analytical.Systems
 {
@@ -37,6 +38,35 @@ namespace SAM.Analytical.Systems
 
         public SystemWaterSourceHeatPump(SystemWaterSourceHeatPump systemWaterSourceHeatPump)
             : base(systemWaterSourceHeatPump)
+        {
+            if (systemWaterSourceHeatPump != null)
+            {
+                HeatPumpType = systemWaterSourceHeatPump.HeatPumpType;
+                CoolingCapacity = systemWaterSourceHeatPump.CoolingCapacity?.Clone();
+                CoolingPower = systemWaterSourceHeatPump?.CoolingPower?.Clone();
+                HeatingCapacity = systemWaterSourceHeatPump.HeatingCapacity?.Clone();
+                HeatingPower = systemWaterSourceHeatPump.HeatingPower?.Clone();
+                HeatingCoolingDutyRatio = systemWaterSourceHeatPump.HeatingCoolingDutyRatio;
+                HeatingCapacityPowerRatio = systemWaterSourceHeatPump.HeatingCapacityPowerRatio;
+                CoolingCapacityPowerRatio = systemWaterSourceHeatPump.CoolingCapacityPowerRatio;
+                DesignPressureDrop = systemWaterSourceHeatPump.DesignPressureDrop;
+                Capacity = systemWaterSourceHeatPump.Capacity;
+                DesignTemperatureDifference = systemWaterSourceHeatPump.DesignTemperatureDifference;
+                StandbyPower = systemWaterSourceHeatPump.StandbyPower;
+                ADFHeatingMode = systemWaterSourceHeatPump.ADFHeatingMode;
+                ADFCoolingMode = systemWaterSourceHeatPump.ADFCoolingMode;
+                PortHeatingPower = systemWaterSourceHeatPump.PortHeatingPower;
+                PortCoolingPower = systemWaterSourceHeatPump.PortCoolingPower;
+                MotorEfficiency = systemWaterSourceHeatPump.MotorEfficiency?.Clone();
+                HeatSizeFraction = systemWaterSourceHeatPump.HeatSizeFraction;
+                AncillaryLoad = systemWaterSourceHeatPump.AncillaryLoad?.Clone();
+                IsDomesticHotWater = systemWaterSourceHeatPump.IsDomesticHotWater;
+                ScheduleName = systemWaterSourceHeatPump.ScheduleName;
+            }
+        }
+
+        public SystemWaterSourceHeatPump(System.Guid guid, SystemWaterSourceHeatPump systemWaterSourceHeatPump)
+            : base(guid, systemWaterSourceHeatPump)
         {
             if (systemWaterSourceHeatPump != null)
             {
@@ -309,6 +339,11 @@ namespace SAM.Analytical.Systems
             }
 
             return result;
+        }
+
+        public override SystemObject Duplicate(Guid? guid = null)
+        {
+            return new SystemWaterSourceHeatPump(guid == null ? Guid.NewGuid() : guid.Value, this);
         }
     }
 }

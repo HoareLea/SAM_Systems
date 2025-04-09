@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json.Linq;
 using SAM.Core;
 using SAM.Core.Systems;
+using System;
 
 namespace SAM.Analytical.Systems
 {
@@ -41,6 +42,25 @@ namespace SAM.Analytical.Systems
 
         public SystemSpace(SystemSpace systemSpace)
             : base(systemSpace)
+        {
+            if (systemSpace != null)
+            {
+                area = systemSpace.area;
+                volume = systemSpace.volume;
+
+                TemperatureSetpoint = systemSpace.TemperatureSetpoint?.Clone();
+                RelativeHumiditySetpoint = systemSpace.RelativeHumiditySetpoint?.Clone();
+                PollutantSetpoint = systemSpace.PollutantSetpoint?.Clone();
+                DisplacementVentilation = systemSpace.DisplacementVentilation;
+                ModelInterzoneFlow = systemSpace.ModelInterzoneFlow;
+                ModelVentilationFlow = systemSpace.ModelVentilationFlow;
+                FlowRate = systemSpace.FlowRate;
+                FreshAir = systemSpace.FreshAir;
+            }
+        }
+
+        public SystemSpace(System.Guid guid, SystemSpace systemSpace)
+            : base(guid, systemSpace)
         {
             if (systemSpace != null)
             {
@@ -198,6 +218,11 @@ namespace SAM.Analytical.Systems
             }
 
             return result;
+        }
+
+        public override SystemObject Duplicate(Guid? guid = null)
+        {
+            return new SystemSpace(guid == null ? Guid.NewGuid() : guid.Value, this);
         }
     }
 }

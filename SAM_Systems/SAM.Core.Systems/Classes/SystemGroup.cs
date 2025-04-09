@@ -23,6 +23,12 @@ namespace SAM.Core.Systems
 
         }
 
+        public SystemGroup(System.Guid guid, SystemGroup<T> systemGroup)
+            : base(guid, systemGroup)
+        {
+
+        }
+
         public SystemGroup(JObject jObject)
             : base(jObject)
         {

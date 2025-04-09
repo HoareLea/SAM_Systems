@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json.Linq;
 using SAM.Core;
 using SAM.Core.Systems;
+using System;
 
 namespace SAM.Analytical.Systems
 {
@@ -32,6 +33,19 @@ namespace SAM.Analytical.Systems
             : base(domesticHotWaterSystemCollection)
         {
             if(domesticHotWaterSystemCollection != null)
+            {
+                LoadDistribution = domesticHotWaterSystemCollection.LoadDistribution;
+                MinimumReturnTemperature = domesticHotWaterSystemCollection.MinimumReturnTemperature;
+                Distribution = domesticHotWaterSystemCollection.Distribution?.Clone();
+                DesignPressureDrop = domesticHotWaterSystemCollection.DesignPressureDrop;
+                DesignTemperatureDifference = domesticHotWaterSystemCollection.DesignTemperatureDifference;
+            }
+        }
+
+        public DomesticHotWaterSystemCollection(Guid guid, DomesticHotWaterSystemCollection domesticHotWaterSystemCollection)
+            : base(guid, domesticHotWaterSystemCollection)
+        {
+            if (domesticHotWaterSystemCollection != null)
             {
                 LoadDistribution = domesticHotWaterSystemCollection.LoadDistribution;
                 MinimumReturnTemperature = domesticHotWaterSystemCollection.MinimumReturnTemperature;
@@ -108,6 +122,11 @@ namespace SAM.Analytical.Systems
             }
 
             return result;
+        }
+
+        public override SystemObject Duplicate(Guid? guid = null)
+        {
+            return new DomesticHotWaterSystemCollection(guid == null ? Guid.NewGuid() : guid.Value, this);
         }
     }
 }

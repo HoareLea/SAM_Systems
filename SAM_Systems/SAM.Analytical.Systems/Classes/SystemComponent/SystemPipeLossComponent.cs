@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json.Linq;
 using SAM.Core;
 using SAM.Core.Systems;
+using System;
 
 namespace SAM.Analytical.Systems
 {
@@ -28,6 +29,29 @@ namespace SAM.Analytical.Systems
 
         public SystemPipeLossComponent(SystemPipeLossComponent systemPipeLossComponent)
             : base(systemPipeLossComponent)
+        {
+            if (systemPipeLossComponent != null)
+            {
+                DesignPressureDrop = systemPipeLossComponent.DesignPressureDrop;
+                Capacity = systemPipeLossComponent.Capacity;
+                Length = systemPipeLossComponent.Length;
+                InsidePipeDiameter = systemPipeLossComponent.InsidePipeDiameter;
+                OutsidePipeDiameter = systemPipeLossComponent.OutsidePipeDiameter;
+                PipeConductivity = systemPipeLossComponent.PipeConductivity;
+                InsulationThickness = systemPipeLossComponent.InsulationThickness;
+                InsulationConductivity = systemPipeLossComponent.InsulationConductivity;
+                AmbientTemperature = systemPipeLossComponent.AmbientTemperature?.Clone();
+
+                IsUnderground = systemPipeLossComponent.IsUnderground;
+                GroundConductivity = systemPipeLossComponent.GroundConductivity;
+                GroundHeatCapacity = systemPipeLossComponent.GroundHeatCapacity;
+                GroundDensity = systemPipeLossComponent.GroundDensity;
+                GroundTemperature = systemPipeLossComponent.GroundTemperature;
+            }
+        }
+
+        public SystemPipeLossComponent(System.Guid guid, SystemPipeLossComponent systemPipeLossComponent)
+            : base(guid, systemPipeLossComponent)
         {
             if (systemPipeLossComponent != null)
             {
@@ -230,6 +254,11 @@ namespace SAM.Analytical.Systems
             }
 
             return result;
+        }
+
+        public override SystemObject Duplicate(Guid? guid = null)
+        {
+            return new SystemPipeLossComponent(guid == null ? Guid.NewGuid() : guid.Value, this);
         }
     }
 }

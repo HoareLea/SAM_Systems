@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json.Linq;
 using SAM.Core;
 using SAM.Core.Systems;
+using System;
 
 namespace SAM.Analytical.Systems
 {
@@ -42,6 +43,23 @@ namespace SAM.Analytical.Systems
 
         public SystemChilledBeam(SystemChilledBeam systemChilledBeam)
             : base(systemChilledBeam)
+        {
+            if (systemChilledBeam != null)
+            {
+                HeatingDuty = systemChilledBeam.HeatingDuty?.Clone();
+                CoolingDuty = systemChilledBeam.CoolingDuty?.Clone();
+                BypassFactor = systemChilledBeam.BypassFactor?.Clone();
+                HeatingEfficiency = systemChilledBeam.HeatingEfficiency?.Clone();
+                DesignFlowRate = systemChilledBeam.DesignFlowRate?.Clone();
+                DesignFlowType = systemChilledBeam.DesignFlowType;
+                ZonePosition = systemChilledBeam.ZonePosition;
+                ScheduleName = systemChilledBeam.ScheduleName;
+                Heating = systemChilledBeam.Heating;
+            }
+        }
+
+        public SystemChilledBeam(System.Guid guid, SystemChilledBeam systemChilledBeam)
+            : base(guid, systemChilledBeam)
         {
             if (systemChilledBeam != null)
             {
@@ -158,6 +176,11 @@ namespace SAM.Analytical.Systems
             result.Add("Heating", Heating);
 
             return result;
+        }
+
+        public override SystemObject Duplicate(Guid? guid = null)
+        {
+            return new SystemChilledBeam(guid == null ? Guid.NewGuid() : guid.Value, this);
         }
     }
 }

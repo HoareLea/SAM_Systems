@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json.Linq;
 using SAM.Core;
 using SAM.Core.Systems;
+using System;
 
 namespace SAM.Analytical.Systems
 {
@@ -30,6 +31,27 @@ namespace SAM.Analytical.Systems
             : base(systemSolarPanel)
         {
             if(systemSolarPanel != null)
+            {
+                EtaZero = systemSolarPanel.EtaZero;
+                AlphaOne = systemSolarPanel.AlphaOne;
+                AlphaTwo = systemSolarPanel.AlphaTwo;
+                Multiplicity = systemSolarPanel.Multiplicity;
+                Capacity = systemSolarPanel.Capacity;
+                DesignPressureDrop = systemSolarPanel.DesignPressureDrop;
+                NoNegativeLoad = systemSolarPanel.NoNegativeLoad;
+                UseZoneSurface = systemSolarPanel.UseZoneSurface;
+                SweptArea = systemSolarPanel.SweptArea;
+                Inclination = systemSolarPanel.Inclination?.Clone();
+                Orientation = systemSolarPanel.Orientation?.Clone();
+                Reflectance = systemSolarPanel.Reflectance;
+                DesignFlowPerM2 = systemSolarPanel.DesignFlowPerM2;
+            }
+        }
+
+        public SystemSolarPanel(System.Guid guid, SystemSolarPanel systemSolarPanel)
+            : base(guid, systemSolarPanel)
+        {
+            if (systemSolarPanel != null)
             {
                 EtaZero = systemSolarPanel.EtaZero;
                 AlphaOne = systemSolarPanel.AlphaOne;
@@ -207,6 +229,11 @@ namespace SAM.Analytical.Systems
             }
 
             return result;
+        }
+
+        public override SystemObject Duplicate(Guid? guid = null)
+        {
+            return new SystemSolarPanel(guid == null ? Guid.NewGuid() : guid.Value, this);
         }
     }
 }

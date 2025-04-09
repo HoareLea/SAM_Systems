@@ -34,6 +34,23 @@ namespace SAM.Core.Systems
             }
         }
 
+        public SystemConnection(Guid guid, SystemConnection systemConnection)
+            : base(guid, systemConnection)
+        {
+            if (systemConnection != null)
+            {
+                systemType = systemConnection.systemType == null ? null : new SystemType(systemConnection.systemType);
+                if (systemConnection.dictionary != null)
+                {
+                    dictionary = new Dictionary<ObjectReference, int>();
+                    foreach (KeyValuePair<ObjectReference, int> keyValuePair in systemConnection.dictionary)
+                    {
+                        dictionary[new ObjectReference(keyValuePair.Key)] = keyValuePair.Value;
+                    }
+                }
+            }
+        }
+
         public SystemConnection(JObject jObject)
             : base(jObject)
         {
@@ -217,6 +234,11 @@ namespace SAM.Core.Systems
             return result;
         }
 
+        public override SystemObject Duplicate(Guid? guid = null)
+        {
+            return new SystemConnection(guid == null ? Guid.NewGuid() : guid.Value, this);
+        }
+
         public List<ObjectReference> ObjectReferences
         {
             get
@@ -224,5 +246,6 @@ namespace SAM.Core.Systems
                 return dictionary == null ? null : new List<ObjectReference>(dictionary.Keys);
             }
         }
+
     }
 }

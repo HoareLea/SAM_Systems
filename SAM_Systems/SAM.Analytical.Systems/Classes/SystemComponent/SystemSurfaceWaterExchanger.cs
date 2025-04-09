@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json.Linq;
 using SAM.Core;
 using SAM.Core.Systems;
+using System;
 
 namespace SAM.Analytical.Systems
 {
@@ -26,6 +27,22 @@ namespace SAM.Analytical.Systems
 
         public SystemSurfaceWaterExchanger(SystemSurfaceWaterExchanger systemSurfaceWaterExchanger)
             : base(systemSurfaceWaterExchanger)
+        {
+            if (systemSurfaceWaterExchanger != null)
+            {
+                Capacity = systemSurfaceWaterExchanger.Capacity;
+                DesignPressureDrop = systemSurfaceWaterExchanger.DesignPressureDrop;
+                Efficiency = systemSurfaceWaterExchanger.Efficiency?.Clone();
+                PondVolume = systemSurfaceWaterExchanger.PondVolume;
+                PondSurfaceArea = systemSurfaceWaterExchanger.PondSurfaceArea;
+                PondPerimeter = systemSurfaceWaterExchanger.PondPerimeter;
+                GroundConductivity = systemSurfaceWaterExchanger.GroundConductivity;
+                WaterTableDepth = systemSurfaceWaterExchanger.WaterTableDepth;
+            }
+        }
+
+        public SystemSurfaceWaterExchanger(System.Guid guid, SystemSurfaceWaterExchanger systemSurfaceWaterExchanger)
+            : base(guid, systemSurfaceWaterExchanger)
         {
             if (systemSurfaceWaterExchanger != null)
             {
@@ -159,6 +176,11 @@ namespace SAM.Analytical.Systems
             }
 
             return result;
+        }
+
+        public override SystemObject Duplicate(Guid? guid = null)
+        {
+            return new SystemSurfaceWaterExchanger(guid == null ? Guid.NewGuid() : guid.Value, this);
         }
     }
 }

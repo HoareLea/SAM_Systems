@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json.Linq;
 using SAM.Core;
 using SAM.Core.Systems;
+using System;
 
 namespace SAM.Analytical.Systems
 {
@@ -48,6 +49,29 @@ namespace SAM.Analytical.Systems
 
         public SystemFanCoilUnit(SystemFanCoilUnit systemFanCoilUnit)
             : base(systemFanCoilUnit)
+        {
+            if (systemFanCoilUnit != null)
+            {
+                HeatingDuty = systemFanCoilUnit.HeatingDuty?.Clone();
+                CoolingDuty = systemFanCoilUnit.CoolingDuty?.Clone();
+                BypassFactor = systemFanCoilUnit.BypassFactor?.Clone();
+                OverallEfficiency = systemFanCoilUnit.OverallEfficiency?.Clone();
+                HeatingEfficiency = systemFanCoilUnit.HeatingEfficiency?.Clone();
+                HeatGainFactor = systemFanCoilUnit.HeatGainFactor;
+                Pressure = systemFanCoilUnit.Pressure;
+                DesignFlowRate = systemFanCoilUnit.DesignFlowRate.Clone();
+                DesignFlowType = systemFanCoilUnit.DesignFlowType;
+                MinimumFlowRate = systemFanCoilUnit.MinimumFlowRate?.Clone();
+                MinimumFlowType = systemFanCoilUnit.MinimumFlowType;
+                ZonePosition = systemFanCoilUnit.ZonePosition;
+                ControlMethod = systemFanCoilUnit.ControlMethod;
+                PartLoad = systemFanCoilUnit.PartLoad?.Clone();
+                ScheduleName = systemFanCoilUnit.ScheduleName;
+            }
+        }
+
+        public SystemFanCoilUnit(System.Guid guid, SystemFanCoilUnit systemFanCoilUnit)
+            : base(guid, systemFanCoilUnit)
         {
             if (systemFanCoilUnit != null)
             {
@@ -215,6 +239,11 @@ namespace SAM.Analytical.Systems
             }
 
             return result;
+        }
+
+        public override SystemObject Duplicate(Guid? guid = null)
+        {
+            return new SystemFanCoilUnit(guid == null ? Guid.NewGuid() : guid.Value, this);
         }
     }
 }

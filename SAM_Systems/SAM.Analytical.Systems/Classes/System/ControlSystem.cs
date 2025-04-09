@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json.Linq;
 using SAM.Core.Systems;
+using System;
 
 namespace SAM.Analytical.Systems
 {
@@ -7,6 +8,11 @@ namespace SAM.Analytical.Systems
     {
         public ControlSystem(ControlSystem controlSystem)
             : base(controlSystem)
+        {
+        }
+
+        public ControlSystem(System.Guid guid, ControlSystem controlSystem)
+            : base(guid, controlSystem)
         {
         }
 
@@ -23,6 +29,11 @@ namespace SAM.Analytical.Systems
         public override JObject ToJObject()
         {
             return base.ToJObject();
+        }
+
+        public override SystemObject Duplicate(Guid? guid = null)
+        {
+            return new ControlSystem(guid == null ? Guid.NewGuid() : guid.Value, this);
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json.Linq;
 using SAM.Core;
 using SAM.Core.Systems;
+using System;
 
 namespace SAM.Analytical.Systems
 {
@@ -35,6 +36,31 @@ namespace SAM.Analytical.Systems
             : base(systemWaterToWaterHeatPump)
         {
             if(systemWaterToWaterHeatPump != null)
+            {
+                HeatingSetpoint = systemWaterToWaterHeatPump.HeatingSetpoint?.Clone();
+                CoolingSetpoint = systemWaterToWaterHeatPump.CoolingSetpoint?.Clone();
+                HeatingEfficiency = systemWaterToWaterHeatPump.HeatingEfficiency?.Clone();
+                CoolingEfficiency = systemWaterToWaterHeatPump.CoolingEfficiency?.Clone();
+                HeatingDuty = systemWaterToWaterHeatPump.HeatingDuty?.Clone();
+                CoolingDuty = systemWaterToWaterHeatPump.CoolingDuty?.Clone();
+                Capacity1 = systemWaterToWaterHeatPump.Capacity1;
+                DesignPressureDrop1 = systemWaterToWaterHeatPump.DesignPressureDrop1;
+                DesignTemperatureDifference1 = systemWaterToWaterHeatPump.DesignTemperatureDifference1;
+                Capacity2 = systemWaterToWaterHeatPump.Capacity2;
+                DesignPressureDrop2 = systemWaterToWaterHeatPump.DesignPressureDrop2;
+                DesignTemperatureDifference2 = systemWaterToWaterHeatPump.DesignTemperatureDifference2;
+                MotorEfficiency = systemWaterToWaterHeatPump.MotorEfficiency?.Clone();
+                AncillaryLoad = systemWaterToWaterHeatPump.AncillaryLoad?.Clone();
+                LossesInSizing = systemWaterToWaterHeatPump.LossesInSizing;
+                IsDomesticHotWater = systemWaterToWaterHeatPump.IsDomesticHotWater;
+                ScheduleName = systemWaterToWaterHeatPump.ScheduleName;
+            }
+        }
+
+        public SystemWaterToWaterHeatPump(System.Guid guid, SystemWaterToWaterHeatPump systemWaterToWaterHeatPump)
+            : base(guid, systemWaterToWaterHeatPump)
+        {
+            if (systemWaterToWaterHeatPump != null)
             {
                 HeatingSetpoint = systemWaterToWaterHeatPump.HeatingSetpoint?.Clone();
                 CoolingSetpoint = systemWaterToWaterHeatPump.CoolingSetpoint?.Clone();
@@ -262,6 +288,11 @@ namespace SAM.Analytical.Systems
             }
 
             return result;
+        }
+
+        public override SystemObject Duplicate(Guid? guid = null)
+        {
+            return new SystemWaterToWaterHeatPump(guid == null ? Guid.NewGuid() : guid.Value, this);
         }
     }
 }
