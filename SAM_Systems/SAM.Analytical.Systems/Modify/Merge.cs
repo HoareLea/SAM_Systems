@@ -35,7 +35,7 @@ namespace SAM.Analytical.Systems
             if (systemEnergyCentre_Source.TryGetValue(SystemEnergyCentreParameter.AnalyticalSystemsProperties, out AnalyticalSystemsProperties analyticalSystemsProperties_Source) && analyticalSystemsProperties_Source != null)
             {
 
-                if (!systemEnergyCentre_Destination.TryGetValue(SystemEnergyCentreParameter.AnalyticalSystemsProperties, out AnalyticalSystemsProperties analyticalSystemsProperties_Destination) && analyticalSystemsProperties_Destination != null)
+                if (!systemEnergyCentre_Destination.TryGetValue(SystemEnergyCentreParameter.AnalyticalSystemsProperties, out AnalyticalSystemsProperties analyticalSystemsProperties_Destination) || analyticalSystemsProperties_Destination == null)
                 {
                     analyticalSystemsProperties_Destination = new AnalyticalSystemsProperties();
                 }
