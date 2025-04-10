@@ -1,6 +1,8 @@
 ﻿using Newtonsoft.Json.Linq;
+using SAM.Core.Systems;
 using SAM.Geometry.Planar;
 using SAM.Geometry.Systems;
+using System;
 
 namespace SAM.Analytical.Systems
 {
@@ -32,6 +34,12 @@ namespace SAM.Analytical.Systems
 
         public DisplaySystemDryCooler(DisplaySystemDryCooler displaySystemDryCooler)
             : base(displaySystemDryCooler)
+        {
+            systemGeometryInstance = displaySystemDryCooler?.systemGeometryInstance == null ? null : new SystemGeometryInstance(displaySystemDryCooler?.systemGeometryInstance);
+        }
+
+        public DisplaySystemDryCooler(System.Guid guid, DisplaySystemDryCooler displaySystemDryCooler)
+            : base(guid, displaySystemDryCooler)
         {
             systemGeometryInstance = displaySystemDryCooler?.systemGeometryInstance == null ? null : new SystemGeometryInstance(displaySystemDryCooler?.systemGeometryInstance);
         }
@@ -92,6 +100,11 @@ namespace SAM.Analytical.Systems
             }
 
             return result;
+        }
+
+        public override SystemObject Duplicate(Guid? guid = null)
+        {
+            return new DisplaySystemDryCooler(guid == null ? Guid.NewGuid() : guid.Value, this);
         }
     }
 }

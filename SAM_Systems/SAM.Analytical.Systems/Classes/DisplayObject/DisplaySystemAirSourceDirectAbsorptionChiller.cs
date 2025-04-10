@@ -1,6 +1,8 @@
 ﻿using Newtonsoft.Json.Linq;
+using SAM.Core.Systems;
 using SAM.Geometry.Planar;
 using SAM.Geometry.Systems;
+using System;
 
 namespace SAM.Analytical.Systems
 {
@@ -32,6 +34,12 @@ namespace SAM.Analytical.Systems
 
         public DisplaySystemAirSourceDirectAbsorptionChiller(DisplaySystemAirSourceDirectAbsorptionChiller displaySystemAirSourceDirectAbsorptionChiller)
             : base(displaySystemAirSourceDirectAbsorptionChiller)
+        {
+            systemGeometryInstance = displaySystemAirSourceDirectAbsorptionChiller?.systemGeometryInstance == null ? null : new SystemGeometryInstance(displaySystemAirSourceDirectAbsorptionChiller?.systemGeometryInstance);
+        }
+
+        public DisplaySystemAirSourceDirectAbsorptionChiller(System.Guid guid, DisplaySystemAirSourceDirectAbsorptionChiller displaySystemAirSourceDirectAbsorptionChiller)
+            : base(guid, displaySystemAirSourceDirectAbsorptionChiller)
         {
             systemGeometryInstance = displaySystemAirSourceDirectAbsorptionChiller?.systemGeometryInstance == null ? null : new SystemGeometryInstance(displaySystemAirSourceDirectAbsorptionChiller?.systemGeometryInstance);
         }
@@ -92,6 +100,11 @@ namespace SAM.Analytical.Systems
             }
 
             return result;
+        }
+
+        public override SystemObject Duplicate(Guid? guid = null)
+        {
+            return new DisplaySystemAirSourceDirectAbsorptionChiller(guid == null ? Guid.NewGuid() : guid.Value, this);
         }
     }
 }

@@ -83,5 +83,10 @@ namespace SAM.Core.Systems
         }
 
         public abstract SystemObject Duplicate(Guid? guid = null);
+
+        public T Duplicate<T>(Guid? guid = null) where T : SystemObject
+        {
+            return Duplicate(guid) as T;
+        }
     }
 }

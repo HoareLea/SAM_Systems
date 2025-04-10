@@ -1,6 +1,8 @@
 ﻿using Newtonsoft.Json.Linq;
+using SAM.Core.Systems;
 using SAM.Geometry.Planar;
 using SAM.Geometry.Systems;
+using System;
 
 namespace SAM.Analytical.Systems
 {
@@ -41,6 +43,13 @@ namespace SAM.Analytical.Systems
         {
             systemPolygon = displayAirSystemGroup?.systemPolygon == null ? null : new SystemPolygon(displayAirSystemGroup.systemPolygon);
         }
+
+        public DisplayAirSystemGroup(Guid guid, DisplayAirSystemGroup displayAirSystemGroup)
+            : base(guid, displayAirSystemGroup)
+        {
+            systemPolygon = displayAirSystemGroup?.systemPolygon == null ? null : new SystemPolygon(displayAirSystemGroup.systemPolygon);
+        }
+
 
         public bool Move(Vector2D vector2D)
         {
@@ -92,6 +101,11 @@ namespace SAM.Analytical.Systems
             }
 
             return result;
+        }
+
+        public override SystemObject Duplicate(Guid? guid = null)
+        {
+            return new DisplayAirSystemGroup(guid == null ? Guid.NewGuid() : guid.Value, this);
         }
     }
 }

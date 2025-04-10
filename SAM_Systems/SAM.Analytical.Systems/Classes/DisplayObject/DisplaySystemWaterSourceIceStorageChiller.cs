@@ -1,6 +1,8 @@
 ﻿using Newtonsoft.Json.Linq;
+using SAM.Core.Systems;
 using SAM.Geometry.Planar;
 using SAM.Geometry.Systems;
+using System;
 
 namespace SAM.Analytical.Systems
 {
@@ -32,6 +34,12 @@ namespace SAM.Analytical.Systems
 
         public DisplaySystemWaterSourceIceStorageChiller(DisplaySystemWaterSourceIceStorageChiller displaySystemWaterSourceIceStorageChiller)
             : base(displaySystemWaterSourceIceStorageChiller)
+        {
+            systemGeometryInstance = displaySystemWaterSourceIceStorageChiller?.systemGeometryInstance == null ? null : new SystemGeometryInstance(displaySystemWaterSourceIceStorageChiller?.systemGeometryInstance);
+        }
+
+        public DisplaySystemWaterSourceIceStorageChiller(System.Guid guid, DisplaySystemWaterSourceIceStorageChiller displaySystemWaterSourceIceStorageChiller)
+            : base(guid, displaySystemWaterSourceIceStorageChiller)
         {
             systemGeometryInstance = displaySystemWaterSourceIceStorageChiller?.systemGeometryInstance == null ? null : new SystemGeometryInstance(displaySystemWaterSourceIceStorageChiller?.systemGeometryInstance);
         }
@@ -92,6 +100,11 @@ namespace SAM.Analytical.Systems
             }
 
             return result;
+        }
+
+        public override SystemObject Duplicate(Guid? guid = null)
+        {
+            return new DisplaySystemWaterSourceIceStorageChiller(guid == null ? Guid.NewGuid() : guid.Value, this);
         }
     }
 }

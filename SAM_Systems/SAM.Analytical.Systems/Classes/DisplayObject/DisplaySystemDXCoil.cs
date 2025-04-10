@@ -1,6 +1,8 @@
 ﻿using Newtonsoft.Json.Linq;
+using SAM.Core.Systems;
 using SAM.Geometry.Planar;
 using SAM.Geometry.Systems;
+using System;
 
 namespace SAM.Analytical.Systems
 {
@@ -32,6 +34,12 @@ namespace SAM.Analytical.Systems
 
         public DisplaySystemDXCoil(DisplaySystemDXCoil displaySystemDXCoil)
             : base(displaySystemDXCoil)
+        {
+            systemGeometryInstance = displaySystemDXCoil?.systemGeometryInstance == null ? null : new SystemGeometryInstance(displaySystemDXCoil?.systemGeometryInstance);
+        }
+
+        public DisplaySystemDXCoil(Guid guid, DisplaySystemDXCoil displaySystemDXCoil)
+            : base(guid, displaySystemDXCoil)
         {
             systemGeometryInstance = displaySystemDXCoil?.systemGeometryInstance == null ? null : new SystemGeometryInstance(displaySystemDXCoil?.systemGeometryInstance);
         }
@@ -92,6 +100,11 @@ namespace SAM.Analytical.Systems
             }
 
             return result;
+        }
+
+        public override SystemObject Duplicate(Guid? guid = null)
+        {
+            return new DisplaySystemDXCoil(guid == null ? Guid.NewGuid() : guid.Value, this);
         }
     }
 }

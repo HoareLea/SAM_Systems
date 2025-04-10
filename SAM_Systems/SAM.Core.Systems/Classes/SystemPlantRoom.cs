@@ -1601,6 +1601,5 @@ namespace SAM.Core.Systems
                 }
             }
         }
-
     }
 }

@@ -1,6 +1,8 @@
 ﻿using Newtonsoft.Json.Linq;
+using SAM.Core.Systems;
 using SAM.Geometry.Planar;
 using SAM.Geometry.Systems;
+using System;
 
 namespace SAM.Analytical.Systems
 {
@@ -32,6 +34,12 @@ namespace SAM.Analytical.Systems
 
         public DisplaySystemAirJunction(DisplaySystemAirJunction displaySystemAirJunction)
             : base(displaySystemAirJunction)
+        {
+            systemGeometryInstance = displaySystemAirJunction?.systemGeometryInstance == null ? null : new SystemGeometryInstance(displaySystemAirJunction?.systemGeometryInstance);
+        }
+
+        public DisplaySystemAirJunction(System.Guid guid, DisplaySystemAirJunction displaySystemAirJunction)
+            : base(guid, displaySystemAirJunction)
         {
             systemGeometryInstance = displaySystemAirJunction?.systemGeometryInstance == null ? null : new SystemGeometryInstance(displaySystemAirJunction?.systemGeometryInstance);
         }
@@ -92,6 +100,11 @@ namespace SAM.Analytical.Systems
             }
 
             return result;
+        }
+
+        public override SystemObject Duplicate(Guid? guid = null)
+        {
+            return new DisplaySystemAirJunction(guid == null ? Guid.NewGuid() : guid.Value, this);
         }
     }
 }

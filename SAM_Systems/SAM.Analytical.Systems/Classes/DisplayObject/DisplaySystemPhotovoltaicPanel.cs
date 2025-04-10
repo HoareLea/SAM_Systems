@@ -1,6 +1,8 @@
 ﻿using Newtonsoft.Json.Linq;
+using SAM.Core.Systems;
 using SAM.Geometry.Planar;
 using SAM.Geometry.Systems;
+using System;
 
 namespace SAM.Analytical.Systems
 {
@@ -32,6 +34,12 @@ namespace SAM.Analytical.Systems
 
         public DisplaySystemPhotovoltaicPanel(DisplaySystemPhotovoltaicPanel displaySystemPhotovoltaicPanel)
             : base(displaySystemPhotovoltaicPanel)
+        {
+            systemGeometryInstance = displaySystemPhotovoltaicPanel?.systemGeometryInstance == null ? null : new SystemGeometryInstance(displaySystemPhotovoltaicPanel?.systemGeometryInstance);
+        }
+
+        public DisplaySystemPhotovoltaicPanel(System.Guid guid, DisplaySystemPhotovoltaicPanel displaySystemPhotovoltaicPanel)
+            : base(guid, displaySystemPhotovoltaicPanel)
         {
             systemGeometryInstance = displaySystemPhotovoltaicPanel?.systemGeometryInstance == null ? null : new SystemGeometryInstance(displaySystemPhotovoltaicPanel?.systemGeometryInstance);
         }
@@ -92,6 +100,11 @@ namespace SAM.Analytical.Systems
             }
 
             return result;
+        }
+
+        public override SystemObject Duplicate(Guid? guid = null)
+        {
+            return new DisplaySystemPhotovoltaicPanel(guid == null ? Guid.NewGuid() : guid.Value, this);
         }
     }
 }

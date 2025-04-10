@@ -1,6 +1,8 @@
 ﻿using Newtonsoft.Json.Linq;
+using SAM.Core.Systems;
 using SAM.Geometry.Planar;
 using SAM.Geometry.Systems;
+using System;
 
 namespace SAM.Analytical.Systems
 {
@@ -32,6 +34,12 @@ namespace SAM.Analytical.Systems
 
         public DisplaySystemLiquidExchanger(DisplaySystemLiquidExchanger displaySystemLiquidExchanger)
             : base(displaySystemLiquidExchanger)
+        {
+            systemGeometryInstance = displaySystemLiquidExchanger?.systemGeometryInstance == null ? null : new SystemGeometryInstance(displaySystemLiquidExchanger?.systemGeometryInstance);
+        }
+
+        public DisplaySystemLiquidExchanger(System.Guid guid, DisplaySystemLiquidExchanger displaySystemLiquidExchanger)
+            : base(guid, displaySystemLiquidExchanger)
         {
             systemGeometryInstance = displaySystemLiquidExchanger?.systemGeometryInstance == null ? null : new SystemGeometryInstance(displaySystemLiquidExchanger?.systemGeometryInstance);
         }
@@ -92,6 +100,11 @@ namespace SAM.Analytical.Systems
             }
 
             return result;
+        }
+
+        public override SystemObject Duplicate(Guid? guid = null)
+        {
+            return new DisplaySystemLiquidExchanger(guid == null ? Guid.NewGuid() : guid.Value, this);
         }
     }
 }

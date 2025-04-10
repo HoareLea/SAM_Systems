@@ -1,6 +1,8 @@
 ﻿using Newtonsoft.Json.Linq;
+using SAM.Core.Systems;
 using SAM.Geometry.Planar;
 using SAM.Geometry.Systems;
+using System;
 
 namespace SAM.Analytical.Systems
 {
@@ -32,6 +34,12 @@ namespace SAM.Analytical.Systems
 
         public DisplaySystemWaterToWaterHeatPump(DisplaySystemWaterToWaterHeatPump displaySystemWaterToWaterHeatPump)
             : base(displaySystemWaterToWaterHeatPump)
+        {
+            systemGeometryInstance = displaySystemWaterToWaterHeatPump?.systemGeometryInstance == null ? null : new SystemGeometryInstance(displaySystemWaterToWaterHeatPump?.systemGeometryInstance);
+        }
+
+        public DisplaySystemWaterToWaterHeatPump(System.Guid guid, DisplaySystemWaterToWaterHeatPump displaySystemWaterToWaterHeatPump)
+            : base(guid, displaySystemWaterToWaterHeatPump)
         {
             systemGeometryInstance = displaySystemWaterToWaterHeatPump?.systemGeometryInstance == null ? null : new SystemGeometryInstance(displaySystemWaterToWaterHeatPump?.systemGeometryInstance);
         }
@@ -92,6 +100,11 @@ namespace SAM.Analytical.Systems
             }
 
             return result;
+        }
+
+        public override SystemObject Duplicate(Guid? guid = null)
+        {
+            return new DisplaySystemWaterToWaterHeatPump(guid == null ? Guid.NewGuid() : guid.Value, this);
         }
     }
 }

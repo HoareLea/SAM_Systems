@@ -1,4 +1,6 @@
 ﻿using Newtonsoft.Json.Linq;
+using SAM.Core.Systems;
+using System;
 
 namespace SAM.Analytical.Systems
 {
@@ -28,6 +30,15 @@ namespace SAM.Analytical.Systems
             : base(systemDifferenceController)
         {
             if(systemDifferenceController != null)
+            {
+                secondarySensorReference = systemDifferenceController.secondarySensorReference;
+            }
+        }
+
+        public SystemDifferenceController(Guid guid, SystemDifferenceController systemDifferenceController)
+            : base(guid, systemDifferenceController)
+        {
+            if (systemDifferenceController != null)
             {
                 secondarySensorReference = systemDifferenceController.secondarySensorReference;
             }
@@ -82,6 +93,11 @@ namespace SAM.Analytical.Systems
             }
 
             return result;
+        }
+
+        public override SystemObject Duplicate(Guid? guid = null)
+        {
+            return new SystemDifferenceController(guid == null ? Guid.NewGuid() : guid.Value, this);
         }
     }
 }

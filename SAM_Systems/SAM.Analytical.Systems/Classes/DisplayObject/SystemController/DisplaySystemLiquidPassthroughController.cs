@@ -1,6 +1,8 @@
 ﻿using Newtonsoft.Json.Linq;
+using SAM.Core.Systems;
 using SAM.Geometry.Planar;
 using SAM.Geometry.Systems;
+using System;
 
 namespace SAM.Analytical.Systems
 {
@@ -32,6 +34,12 @@ namespace SAM.Analytical.Systems
 
         public DisplaySystemLiquidPassthroughController(DisplaySystemLiquidPassthroughController displaySystemLiquidPassthroughController)
             : base(displaySystemLiquidPassthroughController)
+        {
+            systemGeometryInstance = displaySystemLiquidPassthroughController?.systemGeometryInstance == null ? null : new SystemGeometryInstance(displaySystemLiquidPassthroughController?.systemGeometryInstance);
+        }
+
+        public DisplaySystemLiquidPassthroughController(System.Guid guid, DisplaySystemLiquidPassthroughController displaySystemLiquidPassthroughController)
+            : base(guid, displaySystemLiquidPassthroughController)
         {
             systemGeometryInstance = displaySystemLiquidPassthroughController?.systemGeometryInstance == null ? null : new SystemGeometryInstance(displaySystemLiquidPassthroughController?.systemGeometryInstance);
         }
@@ -92,6 +100,11 @@ namespace SAM.Analytical.Systems
             }
 
             return result;
+        }
+
+        public override SystemObject Duplicate(Guid? guid = null)
+        {
+            return new DisplaySystemLiquidPassthroughController(guid == null ? Guid.NewGuid() : guid.Value, this);
         }
     }
 }

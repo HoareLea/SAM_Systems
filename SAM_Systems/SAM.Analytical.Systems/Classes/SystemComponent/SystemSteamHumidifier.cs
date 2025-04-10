@@ -1,5 +1,7 @@
 ﻿using Newtonsoft.Json.Linq;
 using SAM.Core;
+using SAM.Core.Systems;
+using System;
 
 namespace SAM.Analytical.Systems
 {
@@ -20,6 +22,18 @@ namespace SAM.Analytical.Systems
             : base(systemSteamHumidifier)
         {
             if(systemSteamHumidifier != null)
+            {
+                Duty = systemSteamHumidifier.Duty?.Clone();
+                Setpoint = systemSteamHumidifier.Setpoint?.Clone();
+                WaterSupplyTemperature = systemSteamHumidifier.WaterSupplyTemperature?.Clone();
+                WaterTemperatureSource = systemSteamHumidifier.WaterTemperatureSource;
+            }
+        }
+
+        public SystemSteamHumidifier(System.Guid guid, SystemSteamHumidifier systemSteamHumidifier)
+            : base(guid, systemSteamHumidifier)
+        {
+            if (systemSteamHumidifier != null)
             {
                 Duty = systemSteamHumidifier.Duty?.Clone();
                 Setpoint = systemSteamHumidifier.Setpoint?.Clone();
@@ -91,6 +105,11 @@ namespace SAM.Analytical.Systems
             result.Add("WaterTemperatureSource", WaterTemperatureSource.ToString());
 
             return result;
+        }
+
+        public override SystemObject Duplicate(Guid? guid = null)
+        {
+            return new SystemSteamHumidifier(guid == null ? Guid.NewGuid() : guid.Value, this);
         }
     }
 }

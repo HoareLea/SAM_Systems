@@ -1,6 +1,8 @@
 ﻿using Newtonsoft.Json.Linq;
+using SAM.Core.Systems;
 using SAM.Geometry.Planar;
 using SAM.Geometry.Systems;
+using System;
 
 namespace SAM.Analytical.Systems
 {
@@ -32,6 +34,12 @@ namespace SAM.Analytical.Systems
 
         public DisplaySystemDirectEvaporativeCooler(DisplaySystemDirectEvaporativeCooler displaySystemDirectEvaporativeCooler)
             : base(displaySystemDirectEvaporativeCooler)
+        {
+            systemGeometryInstance = displaySystemDirectEvaporativeCooler?.systemGeometryInstance == null ? null : new SystemGeometryInstance(displaySystemDirectEvaporativeCooler?.systemGeometryInstance);
+        }
+
+        public DisplaySystemDirectEvaporativeCooler(System.Guid guid, DisplaySystemDirectEvaporativeCooler displaySystemDirectEvaporativeCooler)
+            : base(guid, displaySystemDirectEvaporativeCooler)
         {
             systemGeometryInstance = displaySystemDirectEvaporativeCooler?.systemGeometryInstance == null ? null : new SystemGeometryInstance(displaySystemDirectEvaporativeCooler?.systemGeometryInstance);
         }
@@ -92,6 +100,11 @@ namespace SAM.Analytical.Systems
             }
 
             return result;
+        }
+
+        public override SystemObject Duplicate(Guid? guid = null)
+        {
+            return new DisplaySystemDirectEvaporativeCooler(guid == null ? Guid.NewGuid() : guid.Value, this);
         }
     }
 }

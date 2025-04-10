@@ -1,5 +1,7 @@
 ﻿using Newtonsoft.Json.Linq;
 using SAM.Core;
+using SAM.Core.Systems;
+using System;
 
 namespace SAM.Analytical.Systems
 {
@@ -23,6 +25,21 @@ namespace SAM.Analytical.Systems
             : base(name)
         {
 
+        }
+
+        public SystemDirectEvaporativeCooler(System.Guid guid, SystemDirectEvaporativeCooler systemDirectEvaporativeCooler)
+            : base(guid, systemDirectEvaporativeCooler)
+        {
+            if (systemDirectEvaporativeCooler != null)
+            {
+                Setpoint = systemDirectEvaporativeCooler.Setpoint?.Clone();
+                Effectiveness = systemDirectEvaporativeCooler.Effectiveness?.Clone();
+                WaterFlowCapacity = systemDirectEvaporativeCooler.WaterFlowCapacity?.Clone();
+                ElectricalLoad = systemDirectEvaporativeCooler.ElectricalLoad?.Clone();
+                TankVolume = systemDirectEvaporativeCooler.TankVolume?.Clone();
+                HoursBeforePurgingTank = systemDirectEvaporativeCooler.HoursBeforePurgingTank;
+                ScheduleName = systemDirectEvaporativeCooler.ScheduleName;
+            }
         }
 
         public SystemDirectEvaporativeCooler(SystemDirectEvaporativeCooler systemDirectEvaporativeCooler)
@@ -136,6 +153,11 @@ namespace SAM.Analytical.Systems
             }
 
             return result;
+        }
+
+        public override SystemObject Duplicate(Guid? guid = null)
+        {
+            return new SystemDirectEvaporativeCooler(guid == null ? Guid.NewGuid() : guid.Value, this);
         }
     }
 }

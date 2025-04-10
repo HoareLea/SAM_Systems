@@ -1,6 +1,8 @@
 ﻿using Newtonsoft.Json.Linq;
+using SAM.Core.Systems;
 using SAM.Geometry.Planar;
 using SAM.Geometry.Systems;
+using System;
 
 namespace SAM.Analytical.Systems
 {
@@ -32,6 +34,12 @@ namespace SAM.Analytical.Systems
 
         public DisplaySystemHorizontalExchanger(DisplaySystemHorizontalExchanger displaySystemHorizontalExchanger)
             : base(displaySystemHorizontalExchanger)
+        {
+            systemGeometryInstance = displaySystemHorizontalExchanger?.systemGeometryInstance == null ? null : new SystemGeometryInstance(displaySystemHorizontalExchanger?.systemGeometryInstance);
+        }
+
+        public DisplaySystemHorizontalExchanger(Guid guid, DisplaySystemHorizontalExchanger displaySystemHorizontalExchanger)
+            : base(guid, displaySystemHorizontalExchanger)
         {
             systemGeometryInstance = displaySystemHorizontalExchanger?.systemGeometryInstance == null ? null : new SystemGeometryInstance(displaySystemHorizontalExchanger?.systemGeometryInstance);
         }
@@ -92,6 +100,11 @@ namespace SAM.Analytical.Systems
             }
 
             return result;
+        }
+
+        public override SystemObject Duplicate(Guid? guid = null)
+        {
+            return new DisplaySystemHorizontalExchanger(guid == null ? Guid.NewGuid() : guid.Value, this);
         }
     }
 }
