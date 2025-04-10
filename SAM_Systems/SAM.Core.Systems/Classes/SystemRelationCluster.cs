@@ -48,14 +48,59 @@ namespace SAM.Core.Systems
                         systemJSAMObject = systemJSAMObject.Clone();
                     }
 
-                    dictionary[Guid] = systemJSAMObject;
+                    if (!result.AddObject(systemJSAMObject))
+                    {
+                        continue;
+                    }
+
+                    dictionary[guid] = systemJSAMObject;
                 }
 
-                foreach (ISystemJSAMObject systemJSAMObject in systemJSAMObjects)
+                foreach (KeyValuePair<System.Guid, ISystemJSAMObject> keyValuePair in dictionary)
                 {
-                    if (systemJSAMObject is SystemObject)
+                    ISystemJSAMObject systemJSAMObject_Destination = keyValuePair.Value;
+                    if (systemJSAMObject_Destination == null)
                     {
+                        continue;
+                    }
 
+                    ISystemJSAMObject systemJSAMObject_Source = GetObject(systemJSAMObject_Destination.GetType(), keyValuePair.Key);
+                    if(systemJSAMObject_Source == null)
+                    {
+                        continue;
+                    }
+
+                    List<ISystemJSAMObject> systemJSAMObjects_Source_Related = GetRelatedObjects(systemJSAMObject_Source);
+                    if(systemJSAMObjects_Source_Related != null)
+                    {
+                        foreach(ISystemJSAMObject systemJSAMObject_Source_Related in systemJSAMObjects_Source_Related)
+                        {
+                            System.Guid guid = GetGuid(systemJSAMObject_Source_Related);
+                            if(dictionary.TryGetValue(guid, out ISystemJSAMObject systemJSAMObject_Destination_Related))
+                            {
+                                result.AddRelation(systemJSAMObject_Destination, systemJSAMObject_Destination_Related);
+                            }
+                        }
+                    }
+
+                    if (systemJSAMObject_Destination is SystemConnection)
+                    {
+                        SystemConnection systemConnection_Destination = (SystemConnection)systemJSAMObject_Destination;
+                        List<ObjectReference> objectReferences_Source = systemConnection_Destination.ObjectReferences;
+                        if(objectReferences_Source != null)
+                        {
+                            foreach(ObjectReference objectReference_Source in objectReferences_Source)
+                            {
+                                System.Guid guid = GetGuid(GetObject(objectReference_Source));
+                                if (dictionary.TryGetValue(guid, out ISystemJSAMObject systemJSAMObject_Destination_ObjectReference) && systemJSAMObject_Destination_ObjectReference is SAMObject)
+                                {
+                                    ObjectReference objectReferences_Destionation = new ObjectReference((SAMObject)systemJSAMObject_Destination_ObjectReference);
+                                    systemConnection_Destination.Reassign(objectReference_Source, objectReferences_Destionation);
+                                }
+                            }
+
+                            result.AddObject(systemConnection_Destination);
+                        }
                     }
                 }
             }

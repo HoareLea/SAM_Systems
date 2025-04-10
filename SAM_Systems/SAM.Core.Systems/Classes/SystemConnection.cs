@@ -247,5 +247,41 @@ namespace SAM.Core.Systems
             }
         }
 
+        public bool Reassign(ObjectReference objectReference_From, ObjectReference objectReference_To)
+        {
+            if(objectReference_From == null || dictionary == null || dictionary.Count == 0)
+            {
+                return false;
+            }
+
+            if(!dictionary.TryGetValue(objectReference_From, out int index))
+            {
+                return false;
+            }
+
+            dictionary.Remove(objectReference_From);
+            dictionary[objectReference_To] = index;
+            return true;
+        }
+
+        public List<ObjectReference> Reassign(IEnumerable<KeyValuePair<ObjectReference, ObjectReference>> keyValuePairs)
+        {
+            if (dictionary == null || dictionary.Count == 0 || keyValuePairs == null)
+            {
+                return null;
+            }
+
+            List<ObjectReference> result = new List<ObjectReference>();
+            foreach(KeyValuePair<ObjectReference, ObjectReference> keyValuePair in keyValuePairs)
+            {
+                if (Reassign(keyValuePair.Key, keyValuePair.Value))
+                {
+                    result.Add(keyValuePair.Key);
+                }
+            }
+
+            return result;
+        }
+
     }
 }
