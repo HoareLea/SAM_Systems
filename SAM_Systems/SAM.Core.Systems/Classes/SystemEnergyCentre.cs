@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -23,13 +24,46 @@ namespace SAM.Core.Systems
         {
 
         }
+
+        public SystemEnergyCentre(Guid guid, SystemEnergyCentre systemEnergyCentre)
+            : base(guid, systemEnergyCentre)
+        {
+
+        }
+
+        public SystemEnergyCentre Duplicate(Guid? guid = null)
+        {
+            SystemEnergyCentre result = new SystemEnergyCentre(guid == null ? Guid.NewGuid() : guid.Value, this);
+
+            List<SystemPlantRoom> systemPlantRooms = result.GetSystemPlantRooms();
+            if(systemPlantRooms != null)
+            {
+                foreach(SystemPlantRoom systemPlantRoom in systemPlantRooms)
+                {
+                    Remove(systemPlantRoom);
+                    Add(systemPlantRoom.Duplicate());
+                }
+            }
+
+            List<SystemEnergySource> systemEnergySources = result.GetSystemEnergySources();
+            if (systemEnergySources != null)
+            {
+                foreach (SystemEnergySource systemEnergySource in systemEnergySources)
+                {
+                    Remove(systemEnergySource);
+                    Add((SystemEnergySource)systemEnergySource.Duplicate());
+                }
+            }
+
+            return result;
+        }
     }
 
     public class SystemEnergyCentre<T> : SAMModel, ISystemJSAMObject where T : SystemPlantRoom
     {
-        private Dictionary<System.Guid, SystemEnergySource> systemEnergySources = new Dictionary<System.Guid, SystemEnergySource>();
+        private Dictionary<Guid, SystemEnergySource> systemEnergySources = new Dictionary<Guid, SystemEnergySource>();
 
-        private Dictionary<System.Guid, T> systemPlantRooms = new Dictionary<System.Guid, T>();
+        private Dictionary<Guid, T> systemPlantRooms = new Dictionary<Guid, T>();
 
         public new string Name
         {
@@ -61,7 +95,7 @@ namespace SAM.Core.Systems
         {
             if(systemEnergyCentre != null)
             {
-                Dictionary<System.Guid, T> systemPlantRooms_Temp = systemEnergyCentre.systemPlantRooms;
+                Dictionary<Guid, T> systemPlantRooms_Temp = systemEnergyCentre.systemPlantRooms;
                 if(systemPlantRooms_Temp != null)
                 {
                     foreach(T systemPlantRoom in systemPlantRooms_Temp.Values)
@@ -70,7 +104,7 @@ namespace SAM.Core.Systems
                     }
                 }
 
-                Dictionary<System.Guid, SystemEnergySource> systemEnergySources_Temp = systemEnergyCentre.systemEnergySources;
+                Dictionary<Guid, SystemEnergySource> systemEnergySources_Temp = systemEnergyCentre.systemEnergySources;
                 if (systemEnergySources_Temp != null)
                 {
                     foreach (SystemEnergySource systemEnergySource in systemEnergySources_Temp.Values)
@@ -80,6 +114,32 @@ namespace SAM.Core.Systems
                 }
             }
         }
+
+        public SystemEnergyCentre(Guid guid, SystemEnergyCentre<T> systemEnergyCentre)
+            : base(guid, systemEnergyCentre)
+        {
+            if (systemEnergyCentre != null)
+            {
+                Dictionary<Guid, T> systemPlantRooms_Temp = systemEnergyCentre.systemPlantRooms;
+                if (systemPlantRooms_Temp != null)
+                {
+                    foreach (T systemPlantRoom in systemPlantRooms_Temp.Values)
+                    {
+                        Add(systemPlantRoom);
+                    }
+                }
+
+                Dictionary<Guid, SystemEnergySource> systemEnergySources_Temp = systemEnergyCentre.systemEnergySources;
+                if (systemEnergySources_Temp != null)
+                {
+                    foreach (SystemEnergySource systemEnergySource in systemEnergySources_Temp.Values)
+                    {
+                        Add(systemEnergySource);
+                    }
+                }
+            }
+        }
+
 
         public List<T> GetSystemPlantRooms()
         {
@@ -109,7 +169,7 @@ namespace SAM.Core.Systems
             return null;
         }
 
-        public bool TryGetSystem<USystem>(System.Guid guid, out T systemPlantRoom, out USystem system) where USystem : ISystem
+        public bool TryGetSystem<USystem>(Guid guid, out T systemPlantRoom, out USystem system) where USystem : ISystem
         {
             systemPlantRoom = default;
             system = default;
@@ -194,7 +254,7 @@ namespace SAM.Core.Systems
                 JArray jArray = jObject.Value<JArray>("SystemEnergySources");
                 if (jArray != null)
                 {
-                    systemEnergySources = new Dictionary<System.Guid, SystemEnergySource>();
+                    systemEnergySources = new Dictionary<Guid, SystemEnergySource>();
                     foreach (JObject jObject_Temp in jArray)
                     {
                         SystemEnergySource systemEnergySource = Core.Query.IJSAMObject<SystemEnergySource>(jObject_Temp);
@@ -213,7 +273,7 @@ namespace SAM.Core.Systems
                 JArray jArray = jObject.Value<JArray>("SystemPlantRooms");
                 if (jArray != null)
                 {
-                    systemPlantRooms = new Dictionary<System.Guid, T>();
+                    systemPlantRooms = new Dictionary<Guid, T>();
                     foreach (JObject jObject_Temp in jArray)
                     {
                         T systemPlantRoom = Core.Query.IJSAMObject<T>(jObject_Temp);
@@ -289,5 +349,6 @@ namespace SAM.Core.Systems
 
             return result;
         }
+
     }
 }

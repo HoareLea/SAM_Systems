@@ -68,7 +68,7 @@ namespace SAM.Core.Systems
 
         }
 
-        public SystemEnergySource(System.Guid guid, string name)
+        public SystemEnergySource(Guid guid, string name)
             : base(guid, name)
         {
 

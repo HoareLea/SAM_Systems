@@ -18,6 +18,15 @@ namespace SAM.Core.Systems
             }
         }
 
+        public SystemPlantRoom(Guid guid, SystemPlantRoom systemPlantRoom)
+            : base(guid, systemPlantRoom)
+        {
+            if (systemPlantRoom != null)
+            {
+                systemRelationCluster = systemPlantRoom?.systemRelationCluster == null ? null : new SystemRelationCluster(systemPlantRoom.systemRelationCluster, true);
+            }
+        }
+
         public SystemPlantRoom(JObject jObject)
             : base(jObject)
         {
@@ -1600,6 +1609,14 @@ namespace SAM.Core.Systems
                     systemRelationCluster.AddObject(systemObject);
                 }
             }
+        }
+
+        public SystemPlantRoom Duplicate(Guid? guid = null)
+        {
+            SystemPlantRoom result = new SystemPlantRoom(guid == null ? Guid.NewGuid() : guid.Value, this);
+            result.systemRelationCluster = result.systemRelationCluster?.Duplicate();
+
+            return result;
         }
     }
 }
