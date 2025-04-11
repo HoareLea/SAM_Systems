@@ -108,11 +108,7 @@ namespace SAM.Analytical.Grasshopper.Systems
                 systems = new List<ISystem>();
             }
 
-            if (systems.Count != 0 && systems.Count != systemEnergyCentres.Count)
-            {
-                AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "Invalid number of inputs");
-                return;
-            }
+            List<AirSystem> airSystems = systems?.FindAll(x => x is AirSystem).ConvertAll(x => (AirSystem)x);
 
             List<SystemPlantRoom> systemPlantRooms = new List<SystemPlantRoom>();
             index = Params.IndexOfInputParam("systemPlantRooms_");
@@ -121,17 +117,14 @@ namespace SAM.Analytical.Grasshopper.Systems
                 systemPlantRooms = new List<SystemPlantRoom>();
             }
 
-            if (systemPlantRooms.Count != 0 && systemPlantRooms.Count != systemEnergyCentres.Count)
+            if (systemPlantRooms.Count != 0  && systems.Count != 0 && systemPlantRooms.Count != systems.Count)
             {
                 AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "Invalid number of inputs");
                 return;
             }
 
-            for (int i = 0; i < systemEnergyCentres.Count; i++)
-            {
-                Analytical.Systems.Modify.Merge(systemEnergyCentre, systemEnergyCentres[i], systems.Count == 0 ? null : systems[i] as AirSystem, systemPlantRooms.Count == 0 ? null : systemPlantRooms[i]);
-            }
-
+            Analytical.Systems.Modify.Merge(systemEnergyCentre, systemEnergyCentres, airSystems, systemPlantRooms);
+            
             if (index_SystemEnergyCentre != -1)
             {
                 dataAccess.SetData(index_SystemEnergyCentre, systemEnergyCentre);
