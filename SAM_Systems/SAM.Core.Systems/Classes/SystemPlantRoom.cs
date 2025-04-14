@@ -1511,6 +1511,66 @@ namespace SAM.Core.Systems
             return result;
         }
 
+        public HashSet<Guid> CopyFrom(SystemPlantRoom systemPlantRoom, Guid guid)
+        {
+            if(systemPlantRoom == null)
+            {
+                return null;
+            }
+
+            HashSet<Guid> result = new HashSet<Guid>();
+
+            CopyFrom(systemPlantRoom, guid, result);
+
+            return result;
+        }
+
+        private void CopyFrom(SystemPlantRoom systemPlantRoom, Guid guid, HashSet<Guid> guids = null)
+        {
+            if(systemPlantRoom == null || guid == null)
+            {
+                return;
+            }
+
+            ISystemJSAMObject systemJSAMObject = systemPlantRoom.GetSystemObject<ISystemJSAMObject>(x => systemPlantRoom.GetGuid(x) == guid);
+            if(systemJSAMObject == null)
+            {
+                return;
+            }
+
+            if(guids == null)
+            {
+                guids = new HashSet<Guid>();
+            }
+
+            if(systemRelationCluster == null)
+            {
+                systemRelationCluster = new SystemRelationCluster();
+            }
+
+            systemRelationCluster.AddObject(systemJSAMObject);
+            guids.Add(systemPlantRoom.GetGuid(systemJSAMObject));
+
+            List<ISystemJSAMObject> systemJSAMObjects_Related = systemPlantRoom.GetRelatedObjects(systemJSAMObject);
+            if(systemJSAMObjects_Related != null)
+            {
+                foreach(ISystemJSAMObject systemJSAMObject_Related in systemJSAMObjects_Related)
+                {
+                    Guid guid_Related = systemPlantRoom.GetGuid(systemJSAMObject_Related);
+                    if(guids.Contains(guid_Related))
+                    {
+                        continue;
+                    }
+
+                    guids.Add(guid_Related);
+
+                    CopyFrom(systemPlantRoom, guid_Related, guids);
+
+                    systemRelationCluster.Add(systemJSAMObject, systemJSAMObject_Related);
+                }
+            }
+        }
+
         public Guid GetGuid(ISystemJSAMObject systemJSAMObject)
         {
             if(systemJSAMObject == null || systemRelationCluster == null)

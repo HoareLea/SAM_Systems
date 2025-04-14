@@ -1,5 +1,6 @@
 ﻿using SAM.Core;
 using SAM.Core.Systems;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -255,6 +256,7 @@ namespace SAM.Analytical.Systems
             }
             else if (systemPlantRoomCount == 0)
             {
+                List<Tuple<SystemEnergyCentre, SystemPlantRoom, List<AirSystem>>> tuples = new List<Tuple<SystemEnergyCentre, SystemPlantRoom, List<AirSystem>>>();
                 foreach(AirSystem airSystem in airSystems)
                 {
                     SystemEnergyCentre systemEnergyCentre_Source = null;
@@ -278,12 +280,122 @@ namespace SAM.Analytical.Systems
                         }
                     }
 
-                    //TO BE UPDATED HERE
+                    if(systemPlantRoom_Source == null)
+                    {
+                        continue;
+                    }
+
+                    systemEnergyCentres_Source.Add(systemEnergyCentre_Source);
+
+                    Tuple<SystemEnergyCentre, SystemPlantRoom, List<AirSystem>> tuple = tuples.Find(x => x.Item1.Guid == systemEnergyCentre_Source.Guid && x.Item2.Guid == systemPlantRoom_Source.Guid);
+                    if(tuple == null)
+                    {
+                        tuple = new Tuple<SystemEnergyCentre, SystemPlantRoom, List<AirSystem>>(systemEnergyCentre_Source, systemPlantRoom_Source, new List<AirSystem>());
+                        tuples.Add(tuple);
+                    }
+
+                    tuple.Item3.Add(airSystem);
+                }
+
+                foreach (Tuple<SystemEnergyCentre, SystemPlantRoom, List<AirSystem>> tuple in tuples)
+                {
+                    SystemEnergyCentre systemEnergyCentre_Temp = tuple.Item1;
+                    SystemPlantRoom systemPlantRoom_Temp = new SystemPlantRoom(tuple.Item2);
+
+                    List<AirSystem> airSystems_Temp = systemPlantRoom_Temp.GetSystemObjects<AirSystem>();
+                    for(int i = airSystems_Temp.Count -1; i >= 0; i++)
+                    {
+                        if(tuple.Item3.Find(x => x.Guid == airSystems_Temp[i].Guid) == null)
+                        {
+                            airSystems_Temp.RemoveAt(i);
+                        }
+                    }
+
+                    foreach(AirSystem airSystem_Temp in airSystems_Temp)
+                    {
+                        systemPlantRoom_Temp.Remove(airSystem_Temp);
+                    }
+
+                    systemPlantRoom_Temp = systemPlantRoom_Temp.Duplicate();
+                    systemEnergyCentre.Add(systemPlantRoom_Temp);
                 }
             }
             else
             {
+                //tuple.Item1 -> Destination SystemPlantRoom
+                //tuple.Item2 -> Source SystemEnergyCentre
+                //tuple.Item3 -> Source SystemPlantRoom
+                //tuple.Item4 -> Source AirSystem
+                List<Tuple<SystemPlantRoom, SystemEnergyCentre, SystemPlantRoom, AirSystem>> tuples = new List<Tuple<SystemPlantRoom, SystemEnergyCentre, SystemPlantRoom, AirSystem>>();
 
+                for (int i = 0; i < airSystems.Count(); i++)
+                {
+                    AirSystem airSystem_Source = airSystems.ElementAt(i);
+                    if(airSystem_Source == null)
+                    {
+                        continue;
+                    }
+
+                    SystemPlantRoom systemPlantRoom_Destination = systemPlantRooms.ElementAt(i);
+                    if(systemPlantRoom_Destination == null)
+                    {
+                        continue;
+                    }
+
+                    SystemPlantRoom systemPlantRoom_Source = null;
+                    SystemEnergyCentre systemEnergyCentre_Source = null;
+
+                    foreach (SystemEnergyCentre systemEnergyCentre_Temp in systemEnergyCentres)
+                    {
+                        foreach (SystemPlantRoom systemPlantRoom_Temp in systemEnergyCentre_Temp.GetSystemPlantRooms())
+                        {
+                            if (systemPlantRoom_Temp.GetSystemObject<AirSystem>(new ObjectReference(airSystem_Source)) != null)
+                            {
+                                systemPlantRoom_Source = systemPlantRoom_Temp;
+                                systemEnergyCentre_Source = systemEnergyCentre_Temp;
+                                break;
+                            }
+                        }
+
+                        if (systemPlantRoom_Source != null)
+                        {
+                            break;
+                        }
+                    }
+
+                    if (systemPlantRoom_Source == null)
+                    {
+                        continue;
+                    }
+
+                    if(systemEnergyCentres_Source.Find(x => x.Guid == systemEnergyCentre_Source.Guid) == null)
+                    {
+                        systemEnergyCentres_Source.Add(systemEnergyCentre_Source);
+                    }
+
+                    tuples.Add(new Tuple<SystemPlantRoom, SystemEnergyCentre, SystemPlantRoom, AirSystem>(systemPlantRoom_Destination, systemEnergyCentre_Source, systemPlantRoom_Source, airSystem_Source));
+                }
+
+                while(tuples.Count > 0)
+                {
+                    Tuple<SystemPlantRoom, SystemEnergyCentre, SystemPlantRoom, AirSystem> tuple = tuples[0];
+
+                    List<Tuple<SystemPlantRoom, SystemEnergyCentre, SystemPlantRoom, AirSystem>> tuples_Temp = tuples.FindAll(x => x.Item1.Guid == tuple.Item1.Guid);
+
+                    tuples_Temp.ForEach(x => tuples.Remove(x));
+
+                    SystemPlantRoom systemPlantRoom_Destination = tuple.Item1;
+
+                    foreach(Tuple<SystemPlantRoom, SystemEnergyCentre, SystemPlantRoom, AirSystem> tuple_Temp in tuples_Temp)
+                    {
+                        SystemPlantRoom systemPlantRoom_Source = tuple_Temp.Item3;
+                        AirSystem airSystem_Source = tuple_Temp.Item4;
+
+                        systemPlantRoom_Destination.CopyFrom(systemPlantRoom_Source, airSystem_Source.Guid);
+                    }
+
+                    systemEnergyCentre.Add(systemPlantRoom_Destination);
+                }
             }
 
             foreach (SystemEnergyCentre systemEnergyCentre_Source in systemEnergyCentres_Source)
