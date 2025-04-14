@@ -46,7 +46,7 @@ namespace SAM.Analytical.Grasshopper.Systems
             {
                 List<GH_SAMParam> result = new List<GH_SAMParam>();
                 result.Add(new GH_SAMParam(new GooSystemEnergyCentreParam() { Name = "_systemEnergyCentres", NickName = "_systemEnergyCentres", Description = "SAM SystemEnergyCentres", Access = GH_ParamAccess.list }, ParamVisibility.Binding));
-                result.Add(new GH_SAMParam(new GooSystemParam() { Name = "airSystems_", NickName = "airSystems_", Description = "SAM AirSystems", Access = GH_ParamAccess.list, Optional = true }, ParamVisibility.Binding));
+                result.Add(new GH_SAMParam(new Core.Grasshopper.Systems.GooSystemParam() { Name = "airSystems_", NickName = "airSystems_", Description = "SAM AirSystems", Access = GH_ParamAccess.list, Optional = true }, ParamVisibility.Binding));
                 result.Add(new GH_SAMParam(new GooSystemPlantRoomParam() { Name = "systemPlantRooms_", NickName = "systemPlantRooms_", Description = "SAM SystemPlantRooms", Access = GH_ParamAccess.list, Optional = true }, ParamVisibility.Binding));
                 return result.ToArray();
             }
@@ -89,7 +89,7 @@ namespace SAM.Analytical.Grasshopper.Systems
 
             if (index_SystemAirGroups != -1)
             {
-                dataAccess.SetData(index_SystemAirGroups, airSystemGroups);
+                dataAccess.SetDataList(index_SystemAirGroups, airSystemGroups);
             }
 
             index = Params.IndexOfInputParam("_systemEnergyCentres");
