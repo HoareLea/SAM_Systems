@@ -394,6 +394,20 @@ namespace SAM.Analytical.Systems
                         systemPlantRoom_Destination.CopyFrom(systemPlantRoom_Source, airSystem_Source.Guid);
                     }
 
+                    List<AirSystem> airSystems_Temp = systemPlantRoom_Destination.GetSystemObjects<AirSystem>();
+                    if(airSystems_Temp != null)
+                    {
+                        foreach(AirSystem airSystem_Temp in airSystems_Temp)
+                        {
+                            if(tuples_Temp.Find(x => x.Item4.Guid == airSystem_Temp.Guid) != null)
+                            {
+                                continue;
+                            }
+
+                            systemPlantRoom_Destination.Remove(airSystem_Temp);
+                        }
+                    }
+
                     systemEnergyCentre.Add(systemPlantRoom_Destination);
                 }
             }
