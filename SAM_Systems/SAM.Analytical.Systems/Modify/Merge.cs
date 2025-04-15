@@ -454,7 +454,7 @@ namespace SAM.Analytical.Systems
                             ISchedule schedule = analyticalSystemsProperties_Destination.FindSchedule(name);
                             if (schedule == null)
                             {
-                                analyticalSystemsProperties_Destination.Add(schedule.Clone());
+                                analyticalSystemsProperties_Destination.Add(schedule_Source.Clone());
                             }
                         }
                     }
@@ -473,7 +473,7 @@ namespace SAM.Analytical.Systems
                             DesignCondition designCondition = analyticalSystemsProperties_Destination.FindDesignCondition(name);
                             if (designCondition == null)
                             {
-                                analyticalSystemsProperties_Destination.Add(designCondition.Clone());
+                                analyticalSystemsProperties_Destination.Add(designCondition_Source.Clone());
                             }
                         }
                     }
@@ -492,7 +492,7 @@ namespace SAM.Analytical.Systems
                             FluidType fluidType = analyticalSystemsProperties_Destination.FindFluidType(name);
                             if (fluidType == null)
                             {
-                                analyticalSystemsProperties_Destination.Add(fluidType.Clone());
+                                analyticalSystemsProperties_Destination.Add(fluidType_Source.Clone());
                             }
                         }
                     }
