@@ -391,6 +391,8 @@ namespace SAM.Analytical.Systems
                         SystemPlantRoom systemPlantRoom_Source = tuple_Temp.Item3;
                         AirSystem airSystem_Source = tuple_Temp.Item4;
 
+                        airSystem_Source = systemPlantRoom_Source.Duplicate(airSystem_Source);
+
                         systemPlantRoom_Destination.CopyFrom(systemPlantRoom_Source, airSystem_Source.Guid);
                     }
 

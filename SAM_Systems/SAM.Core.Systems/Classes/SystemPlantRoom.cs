@@ -1678,5 +1678,15 @@ namespace SAM.Core.Systems
 
             return result;
         }
+
+        public T Duplicate<T>(T systemJSAMObject) where T : ISystemJSAMObject
+        {
+            if(systemJSAMObject == null)
+            {
+                return default(T);
+            }
+
+            return systemRelationCluster.Duplicate(systemJSAMObject);
+        }
     }
 }
