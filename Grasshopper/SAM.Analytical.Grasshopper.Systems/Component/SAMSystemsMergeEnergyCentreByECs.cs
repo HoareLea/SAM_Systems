@@ -121,10 +121,13 @@ namespace SAM.Analytical.Grasshopper.Systems
 
             systemPlantRooms = systemPlantRooms.ConvertAll(x => Core.Query.Clone(x) as SystemPlantRoom);
 
-            if (systemPlantRooms.Count != 0  && systems.Count != 0 && systemPlantRooms.Count != systems.Count)
+            if (systemPlantRooms.Count != 0  && airSystems.Count != 0 && systemPlantRooms.Count != airSystems.Count)
             {
-                AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "Invalid number of inputs");
-                return;
+                if(!Core.Modify.MatchLength(systemPlantRooms, airSystems))
+                {
+                    AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "Invalid number of inputs");
+                    return;
+                }
             }
 
             Analytical.Systems.Modify.Merge(systemEnergyCentre, systemEnergyCentres, airSystems, systemPlantRooms);

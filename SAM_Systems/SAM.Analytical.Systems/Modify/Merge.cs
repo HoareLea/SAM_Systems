@@ -199,12 +199,14 @@ namespace SAM.Analytical.Systems
 
                     SystemPlantRoom systemPlantRoom_Destination = tuple.Item1;
 
+                    HashSet<Guid> guids = new HashSet<Guid>();
                     foreach(Tuple<SystemPlantRoom, SystemEnergyCentre, SystemPlantRoom, AirSystem> tuple_Temp in tuples_Temp)
                     {
                         SystemPlantRoom systemPlantRoom_Source = tuple_Temp.Item3;
                         AirSystem airSystem_Source = tuple_Temp.Item4;
 
                         airSystem_Source = systemPlantRoom_Source.Duplicate(airSystem_Source);
+                        guids.Add(airSystem_Source.Guid);
 
                         systemPlantRoom_Destination.CopyFrom(systemPlantRoom_Source, airSystem_Source.Guid);
                     }
@@ -214,7 +216,7 @@ namespace SAM.Analytical.Systems
                     {
                         foreach(AirSystem airSystem_Temp in airSystems_Temp)
                         {
-                            if(tuples_Temp.Find(x => x.Item4.Guid == airSystem_Temp.Guid) != null)
+                            if(guids.Contains(airSystem_Temp.Guid))
                             {
                                 continue;
                             }

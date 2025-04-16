@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -53,20 +54,25 @@ namespace SAM.Core.Systems
             return result is T ? (T)result : default(T);
         }
 
-        public Dictionary<System.Guid, ISystemJSAMObject> Duplicate(IEnumerable<ISystemJSAMObject> systemJSAMObjects)
+        public Dictionary<Guid, ISystemJSAMObject> Duplicate(IEnumerable<ISystemJSAMObject> systemJSAMObjects, bool deepDuplicate = false)
         {
             if(systemJSAMObjects == null)
             {
                 return null;
             }
 
-            Dictionary<System.Guid, ISystemJSAMObject> result = new Dictionary<System.Guid, ISystemJSAMObject>();
+            List<Tuple<Guid, ISystemJSAMObject>> tuples = new List<Tuple<Guid, ISystemJSAMObject>>();
 
             for (int i = 0; i < systemJSAMObjects.Count(); i++)
             {
                 ISystemJSAMObject systemJSAMObject = systemJSAMObjects.ElementAt(i);
-                System.Guid guid = GetGuid(systemJSAMObject);
-                if(guid == System.Guid.Empty)
+                Guid guid = GetGuid(systemJSAMObject);
+                if(guid == Guid.Empty)
+                {
+                    continue;
+                }
+
+                if(tuples.Find(x => x.Item1 == guid) != null)
                 {
                     continue;
                 }
@@ -85,18 +91,26 @@ namespace SAM.Core.Systems
                     continue;
                 }
 
-                result[guid] = systemJSAMObject;
+                tuples.Add(new Tuple<Guid, ISystemJSAMObject>(guid, systemJSAMObject));
             }
 
-            foreach (KeyValuePair<System.Guid, ISystemJSAMObject> keyValuePair in result)
+            Dictionary<Guid, ISystemJSAMObject> result = new Dictionary<Guid, ISystemJSAMObject>();
+
+            while(tuples.Count > 0)
             {
-                ISystemJSAMObject systemJSAMObject_Destination = keyValuePair.Value;
+                Tuple<Guid, ISystemJSAMObject> tuple = tuples.ElementAt(0);
+                tuples.RemoveAt(0);
+
+                ISystemJSAMObject systemJSAMObject_Destination = tuple.Item2;
+
+                result[tuple.Item1] = systemJSAMObject_Destination;
+
                 if (systemJSAMObject_Destination == null)
                 {
                     continue;
                 }
 
-                ISystemJSAMObject systemJSAMObject_Source = GetObject(systemJSAMObject_Destination.GetType(), keyValuePair.Key);
+                ISystemJSAMObject systemJSAMObject_Source = GetObject(systemJSAMObject_Destination.GetType(), tuple.Item1);
                 if (systemJSAMObject_Source == null)
                 {
                     continue;
@@ -107,23 +121,58 @@ namespace SAM.Core.Systems
                 {
                     foreach (ISystemJSAMObject systemJSAMObject_Source_Related in systemJSAMObjects_Source_Related)
                     {
-                        System.Guid guid = GetGuid(systemJSAMObject_Source_Related);
-                        if (result.TryGetValue(guid, out ISystemJSAMObject systemJSAMObject_Destination_Related))
+                        Guid guid = GetGuid(systemJSAMObject_Source_Related);
+                        if (guid == Guid.Empty)
+                        {
+                            continue;
+                        }
+
+                        if (!result.TryGetValue(guid, out ISystemJSAMObject systemJSAMObject_Destination_Related) || systemJSAMObject_Destination_Related == null)
+                        {
+                            if (systemJSAMObject_Source_Related is SystemObject)
+                            {
+                                systemJSAMObject_Destination_Related = ((SystemObject)systemJSAMObject_Source_Related).Duplicate();
+                            }
+                            else
+                            {
+                                systemJSAMObject_Destination_Related = systemJSAMObject_Source_Related.Clone();
+                            }
+
+                            if (!AddObject(systemJSAMObject_Destination_Related))
+                            {
+                                continue;
+                            }
+
+                            if(deepDuplicate)
+                            {
+                                tuples.Add(new Tuple<Guid, ISystemJSAMObject>(guid, systemJSAMObject_Destination_Related));
+                            }
+                            else
+                            {
+                                result[guid] = systemJSAMObject_Destination_Related;
+                            }
+
+                        }
+
+                        if (systemJSAMObject_Destination_Related != null)
                         {
                             AddRelation(systemJSAMObject_Destination, systemJSAMObject_Destination_Related);
                         }
                     }
                 }
+            }
 
-                if (systemJSAMObject_Destination is SystemConnection)
+            foreach(KeyValuePair<Guid, ISystemJSAMObject> keyValuePair in result)
+            {
+                if (keyValuePair.Value is SystemConnection)
                 {
-                    SystemConnection systemConnection_Destination = (SystemConnection)systemJSAMObject_Destination;
+                    SystemConnection systemConnection_Destination = (SystemConnection)keyValuePair.Value;
                     List<ObjectReference> objectReferences_Source = systemConnection_Destination.ObjectReferences;
                     if (objectReferences_Source != null)
                     {
                         foreach (ObjectReference objectReference_Source in objectReferences_Source)
                         {
-                            System.Guid guid = GetGuid(GetObject(objectReference_Source));
+                            Guid guid = GetGuid(GetObject(objectReference_Source));
                             if (result.TryGetValue(guid, out ISystemJSAMObject systemJSAMObject_Destination_ObjectReference) && systemJSAMObject_Destination_ObjectReference is SAMObject)
                             {
                                 ObjectReference objectReferences_Destionation = new ObjectReference((SAMObject)systemJSAMObject_Destination_ObjectReference);
