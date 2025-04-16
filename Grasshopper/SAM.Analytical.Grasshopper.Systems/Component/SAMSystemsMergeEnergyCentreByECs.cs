@@ -99,6 +99,8 @@ namespace SAM.Analytical.Grasshopper.Systems
                 return;
             }
 
+            systemEnergyCentres = systemEnergyCentres.ConvertAll(x => Core.Query.Clone(x));
+
             systemEnergyCentre = new SystemEnergyCentre(systemEnergyCentres[0].Name);
 
             List<ISystem> systems = new List<ISystem>();
@@ -108,7 +110,7 @@ namespace SAM.Analytical.Grasshopper.Systems
                 systems = new List<ISystem>();
             }
 
-            List<AirSystem> airSystems = systems?.FindAll(x => x is AirSystem).ConvertAll(x => (AirSystem)x);
+            List<AirSystem> airSystems = systems.FindAll(x => x is AirSystem).ConvertAll(x => Core.Query.Clone(x) as AirSystem);
 
             List<SystemPlantRoom> systemPlantRooms = new List<SystemPlantRoom>();
             index = Params.IndexOfInputParam("systemPlantRooms_");
@@ -116,6 +118,8 @@ namespace SAM.Analytical.Grasshopper.Systems
             {
                 systemPlantRooms = new List<SystemPlantRoom>();
             }
+
+            systemPlantRooms = systemPlantRooms.ConvertAll(x => Core.Query.Clone(x) as SystemPlantRoom);
 
             if (systemPlantRooms.Count != 0  && systems.Count != 0 && systemPlantRooms.Count != systems.Count)
             {
