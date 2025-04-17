@@ -64,7 +64,9 @@ namespace SAM.Analytical.Systems
 
                     }
 
-                    systemEnergyCentre.Add(systemPlantRoom);
+                    SystemPlantRoom systemPlantRoom_Temp = systemPlantRoom.Duplicate();
+
+                    systemEnergyCentre.Add(systemPlantRoom_Temp);
                 }
             }
             else if (systemPlantRoomCount == 0)
