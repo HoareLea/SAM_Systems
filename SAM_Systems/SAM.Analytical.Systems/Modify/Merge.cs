@@ -129,6 +129,16 @@ namespace SAM.Analytical.Systems
                         systemPlantRoom_Temp.Remove(airSystem_Temp);
                     }
 
+                    airSystems_Temp = systemPlantRoom_Temp.GetSystemObjects<AirSystem>();
+                    foreach(AirSystem airSystem_Temp in airSystems_Temp)
+                    {
+                        int count = tuple.Item3.FindAll(x => x.Guid == airSystem_Temp.Guid).Count();
+                        for (int i = 1; i < count; i++)
+                        {
+                            systemPlantRoom_Temp.Duplicate(airSystem_Temp);
+                        }
+                    }
+
                     systemPlantRoom_Temp = systemPlantRoom_Temp.Duplicate();
                     systemEnergyCentre.Add(systemPlantRoom_Temp);
                 }
