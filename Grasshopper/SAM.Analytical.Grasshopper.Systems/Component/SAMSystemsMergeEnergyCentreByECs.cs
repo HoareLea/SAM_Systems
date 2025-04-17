@@ -119,11 +119,33 @@ namespace SAM.Analytical.Grasshopper.Systems
                 systemPlantRooms = new List<SystemPlantRoom>();
             }
 
+            List<ISystemJSAMObject> systemJSAMObjects = Check(systemEnergyCentres, airSystems, systemPlantRooms);
+            if(systemJSAMObjects != null && systemJSAMObjects.Count != 0)
+            {
+                foreach(ISystemJSAMObject systemJSAMObject in systemJSAMObjects)
+                {
+                    string type = systemJSAMObject.GetType().Name;
+                    string name = "???";
+                    if(systemJSAMObject is Core.SAMObject)
+                    {
+                        name = ((Core.SAMObject)systemJSAMObject).Name;
+                    }
+
+                    Guid guid = Guid.Empty;
+                    if(systemJSAMObject is Core.ISAMObject)
+                    {
+                        guid = ((Core.ISAMObject)systemJSAMObject).Guid;
+                    }
+
+                    AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, string.Format("{0} (Name: {1}, Guid: {2}) is missing in provided SystemEnergyCentres.", type, name, guid));
+                }
+            }
+
             systemPlantRooms = systemPlantRooms.ConvertAll(x => Core.Query.Clone(x) as SystemPlantRoom);
 
-            if (systemPlantRooms.Count != 0  && airSystems.Count != 0 && systemPlantRooms.Count != airSystems.Count)
+            if (systemPlantRooms.Count != 0 && airSystems.Count != 0 && systemPlantRooms.Count != airSystems.Count)
             {
-                if(!Core.Modify.MatchLength(systemPlantRooms, airSystems))
+                if (!Core.Modify.MatchLength(systemPlantRooms, airSystems))
                 {
                     AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "Invalid number of inputs");
                     return;
@@ -131,7 +153,7 @@ namespace SAM.Analytical.Grasshopper.Systems
             }
 
             Analytical.Systems.Modify.Merge(systemEnergyCentre, systemEnergyCentres, airSystems, systemPlantRooms);
-            
+
             if (index_SystemEnergyCentre != -1)
             {
                 dataAccess.SetData(index_SystemEnergyCentre, systemEnergyCentre);
@@ -155,6 +177,71 @@ namespace SAM.Analytical.Grasshopper.Systems
             {
                 dataAccess.SetDataList(index_SystemAirGroups, airSystemGroups?.ConvertAll(x => new GooSystemGroup(x)));
             }
+        }
+
+        private static List<ISystemJSAMObject> Check(IEnumerable<SystemEnergyCentre> systemEnergyCentres, IEnumerable<AirSystem> airSystems, IEnumerable<SystemPlantRoom> systemPlantRooms)
+        {
+            List<AirSystem> airSystems_Temp = airSystems == null ? new List<AirSystem>() : new List<AirSystem>(airSystems);
+            List<SystemPlantRoom> systemPlantRooms_Temp = systemPlantRooms == null ? new List<SystemPlantRoom>() : new List<SystemPlantRoom>(systemPlantRooms);
+
+            if(systemEnergyCentres != null)
+            {
+                foreach (SystemEnergyCentre systemEnergyCentre in systemEnergyCentres)
+                {
+                    List<SystemPlantRoom> systemPlantRooms_SystemEnergyCentre = systemEnergyCentre.GetSystemPlantRooms();
+                    if (systemPlantRooms_SystemEnergyCentre == null)
+                    {
+                        continue;
+                    }
+
+                    foreach(SystemPlantRoom systemPlantRoom_SystemEnergyCentre in systemPlantRooms_SystemEnergyCentre)
+                    {
+                        int index = systemPlantRooms_Temp.FindIndex(x => x.Guid == systemPlantRoom_SystemEnergyCentre.Guid);
+                        while(index != -1)
+                        {
+                            systemPlantRooms_Temp.RemoveAt(index);
+                            index = systemPlantRooms_Temp.FindIndex(x => x.Guid == systemPlantRoom_SystemEnergyCentre.Guid);
+                        }
+
+                        List<AirSystem> airSystems_SystemEnergyCentre = systemPlantRoom_SystemEnergyCentre.GetSystemObjects<AirSystem>();
+                        if(airSystems_SystemEnergyCentre == null)
+                        {
+                            continue;
+                        }
+
+                        foreach(AirSystem airSystem_SystemEnergyCentre in airSystems_SystemEnergyCentre)
+                        {
+                            index = airSystems_Temp.FindIndex(x => x.Guid == airSystem_SystemEnergyCentre.Guid);
+                            while (index != -1)
+                            {
+                                airSystems_Temp.RemoveAt(index);
+                                index = airSystems_Temp.FindIndex(x => x.Guid == airSystem_SystemEnergyCentre.Guid);
+                            }
+                        }
+
+                    }
+                }
+            }
+
+            List<ISystemJSAMObject> result = new List<ISystemJSAMObject>();
+
+            if (airSystems_Temp != null)
+            {
+                foreach (AirSystem airSystem in airSystems_Temp)
+                {
+                    result.Add(airSystem);
+                }
+            }
+
+            if (systemPlantRooms_Temp != null)
+            {
+                foreach (SystemPlantRoom systemPlantRoom in systemPlantRooms_Temp)
+                {
+                    result.Add(systemPlantRoom);
+                }
+            }
+
+            return result;
         }
     }
 }
