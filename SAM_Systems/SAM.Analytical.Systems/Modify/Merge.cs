@@ -116,9 +116,9 @@ namespace SAM.Analytical.Systems
                     SystemPlantRoom systemPlantRoom_Temp = new SystemPlantRoom(tuple.Item2);
 
                     List<AirSystem> airSystems_Temp = systemPlantRoom_Temp.GetSystemObjects<AirSystem>();
-                    for(int i = airSystems_Temp.Count -1; i >= 0; i++)
+                    for (int i = airSystems_Temp.Count - 1; i >= 0; i--)
                     {
-                        if(tuple.Item3.Find(x => x.Guid == airSystems_Temp[i].Guid) == null)
+                        if (tuple.Item3.Find(x => x.Guid == airSystems_Temp[i].Guid) != null)
                         {
                             airSystems_Temp.RemoveAt(i);
                         }
