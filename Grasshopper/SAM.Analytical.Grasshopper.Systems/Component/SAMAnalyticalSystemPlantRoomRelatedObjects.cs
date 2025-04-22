@@ -88,7 +88,7 @@ namespace SAM.Analytical.Grasshopper.Systems
             index = Params.IndexOfInputParam("_systemObject");
             if (index == -1 || !dataAccess.GetData(index, ref systemObject) || systemObject == null)
             {
-                AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "Invalid data");
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "Null data item");
                 return;
             }
 
