@@ -727,6 +727,15 @@ namespace SAM.Core.Systems
                 systemConnections.ForEach(x => Remove(x, true));
             }
 
+            List<ISystemGroup> systemGroups = systemRelationCluster.GetRelatedObjects<ISystemGroup>(system);
+            if (systemGroups != null && systemGroups.Count != 0)
+            {
+                foreach(ISystemGroup systemGroup in systemGroups)
+                {
+                    systemRelationCluster.RemoveObject(systemGroup);
+                }
+            }
+
             return systemRelationCluster.RemoveObject(system);
         }
 
