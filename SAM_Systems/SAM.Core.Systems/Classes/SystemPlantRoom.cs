@@ -1566,16 +1566,14 @@ namespace SAM.Core.Systems
                 foreach(ISystemJSAMObject systemJSAMObject_Related in systemJSAMObjects_Related)
                 {
                     Guid guid_Related = systemPlantRoom.GetGuid(systemJSAMObject_Related);
-                    if(guids.Contains(guid_Related))
+                    if(!guids.Contains(guid_Related))
                     {
-                        continue;
+                        guids.Add(guid_Related);
+
+                        CopyFrom(systemPlantRoom, guid_Related, guids);
                     }
 
-                    guids.Add(guid_Related);
-
-                    CopyFrom(systemPlantRoom, guid_Related, guids);
-
-                    systemRelationCluster.Add(systemJSAMObject, systemJSAMObject_Related);
+                    systemRelationCluster.AddRelation(systemJSAMObject, systemJSAMObject_Related);
                 }
             }
         }
