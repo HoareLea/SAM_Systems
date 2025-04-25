@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 
 namespace SAM.Core.Systems
@@ -162,8 +163,6 @@ namespace SAM.Core.Systems
                 }
             }
 
-            //TODO: ADD CODE HERE 2025.04.25
-
             foreach(KeyValuePair<Guid, ISystemJSAMObject> keyValuePair in result)
             {
                 if (keyValuePair.Value is SystemConnection)
@@ -174,8 +173,8 @@ namespace SAM.Core.Systems
                     {
                         foreach (ObjectReference objectReference_Source in objectReferences_Source)
                         {
-                            Guid guid = GetGuid(GetObject(objectReference_Source));
-                            if (result.TryGetValue(guid, out ISystemJSAMObject systemJSAMObject_Destination_ObjectReference) && systemJSAMObject_Destination_ObjectReference is SAMObject)
+                            Guid guid_Temp = GetGuid(GetObject(objectReference_Source));
+                            if (result.TryGetValue(guid_Temp, out ISystemJSAMObject systemJSAMObject_Destination_ObjectReference) && systemJSAMObject_Destination_ObjectReference is SAMObject)
                             {
                                 ObjectReference objectReferences_Destionation = new ObjectReference((SAMObject)systemJSAMObject_Destination_ObjectReference);
                                 systemConnection_Destination.Reassign(objectReference_Source, objectReferences_Destionation);
@@ -183,6 +182,27 @@ namespace SAM.Core.Systems
                         }
 
                         AddObject(systemConnection_Destination);
+                    }
+                }
+
+                ISystemJSAMObject systemJSAMObject_Destination = keyValuePair.Value;
+                Guid guid = keyValuePair.Key;
+
+                ISystemJSAMObject systemJSAMObject_Source = GetObject(systemJSAMObject_Destination.GetType(), guid);
+                if (systemJSAMObject_Source == null)
+                {
+                    continue;
+                }
+
+                List<ISystemJSAMObject> systemJSAMObjects_Source_Related = GetRelatedObjects(systemJSAMObject_Source);
+                if(systemJSAMObjects_Source_Related != null)
+                {
+                    foreach(ISystemJSAMObject systemJSAMObject_Source_Related in systemJSAMObjects_Source_Related)
+                    {
+                        if(result.TryGetValue(GetGuid(systemJSAMObject_Source_Related), out ISystemJSAMObject systemJSAMObject))
+                        {
+                            AddRelation(systemJSAMObject_Destination, systemJSAMObject);
+                        }
                     }
                 }
             }
