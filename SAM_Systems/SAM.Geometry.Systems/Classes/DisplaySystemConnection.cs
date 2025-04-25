@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json.Linq;
 using SAM.Core.Systems;
 using SAM.Geometry.Planar;
+using System;
 
 namespace SAM.Geometry.Systems
 {
@@ -38,6 +39,12 @@ namespace SAM.Geometry.Systems
 
         public DisplaySystemConnection(DisplaySystemConnection displaySystemConnection)
             : base(displaySystemConnection)
+        {
+            systemPolyline = displaySystemConnection?.systemPolyline == null ? null : new SystemPolyline(displaySystemConnection.systemPolyline);
+        }
+
+        public DisplaySystemConnection(Guid guid, DisplaySystemConnection displaySystemConnection)
+            : base(guid, displaySystemConnection)
         {
             systemPolyline = displaySystemConnection?.systemPolyline == null ? null : new SystemPolyline(displaySystemConnection.systemPolyline);
         }
@@ -92,6 +99,11 @@ namespace SAM.Geometry.Systems
             }
 
             return result;
+        }
+
+        public override SystemObject Duplicate(Guid? guid = null)
+        {
+            return new DisplaySystemConnection(guid == null ? Guid.NewGuid() : guid.Value, this);
         }
     }
 }
