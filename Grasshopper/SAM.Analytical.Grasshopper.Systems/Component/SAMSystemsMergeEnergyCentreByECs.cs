@@ -18,7 +18,7 @@ namespace SAM.Analytical.Grasshopper.Systems
         /// <summary>
         /// The latest version of this component
         /// </summary>
-        public override string LatestComponentVersion => "1.0.0";
+        public override string LatestComponentVersion => "1.0.1";
 
         /// <summary>
         /// Provides an Icon for the component.
@@ -46,6 +46,8 @@ namespace SAM.Analytical.Grasshopper.Systems
             {
                 List<GH_SAMParam> result = new List<GH_SAMParam>();
                 result.Add(new GH_SAMParam(new GooSystemEnergyCentreParam() { Name = "_systemEnergyCentres", NickName = "_systemEnergyCentres", Description = "SAM SystemEnergyCentres", Access = GH_ParamAccess.list }, ParamVisibility.Binding));
+                result.Add(new GH_SAMParam(new Core.Grasshopper.Systems.GooSystemParam() { Name = "airSystems_", NickName = "airSystems_", Description = "SAM AirSystems", Access = GH_ParamAccess.list, Optional = true }, ParamVisibility.Binding));
+                result.Add(new GH_SAMParam(new GooSystemPlantRoomParam() { Name = "systemPlantRooms_", NickName = "systemPlantRooms_", Description = "SAM SystemPlantRooms", Access = GH_ParamAccess.list, Optional = true }, ParamVisibility.Binding));
 
                 global::Grasshopper.Kernel.Parameters.Param_Boolean @boolean = null;
 
@@ -53,9 +55,6 @@ namespace SAM.Analytical.Grasshopper.Systems
                 @boolean.SetPersistentData(true);
                 result.Add(new GH_SAMParam(@boolean, ParamVisibility.Binding));
 
-                result.Add(new GH_SAMParam(new Core.Grasshopper.Systems.GooSystemParam() { Name = "airSystems_", NickName = "airSystems_", Description = "SAM AirSystems", Access = GH_ParamAccess.list, Optional = true }, ParamVisibility.Binding));
-                result.Add(new GH_SAMParam(new GooSystemPlantRoomParam() { Name = "systemPlantRooms_", NickName = "systemPlantRooms_", Description = "SAM SystemPlantRooms", Access = GH_ParamAccess.list, Optional = true }, ParamVisibility.Binding));
-                
                 return result.ToArray();
             }
         }
@@ -109,7 +108,7 @@ namespace SAM.Analytical.Grasshopper.Systems
 
             bool renameAirSystemGroups = true;
             index = Params.IndexOfInputParam("_renameGroups_");
-            if (index != -1 && dataAccess.GetData(index, ref renameAirSystemGroups))
+            if (index == -1 || !dataAccess.GetData(index, ref renameAirSystemGroups))
             {
                 renameAirSystemGroups = true;
             }
