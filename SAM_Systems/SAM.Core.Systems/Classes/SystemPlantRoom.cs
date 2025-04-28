@@ -59,6 +59,19 @@ namespace SAM.Core.Systems
             return new SystemConnection(new SystemType(system), systemComponent_1, index_1, systemComponent_2, index_2);
         }
 
+        public string Name
+        {
+            get
+            {
+                return name;
+            }
+
+            set
+            {
+                name = value;
+            }
+        }
+
         public bool Add(ISystemSpace systemSpace)
         {
             ISystemSpace systemSpace_Temp = systemSpace?.Clone();

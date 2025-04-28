@@ -176,6 +176,7 @@ namespace SAM.Analytical.Grasshopper.Systems
             if(renameAirSystemGroups)
             {
                 systemEnergyCentre.RenameAirSystemGroups();
+                systemEnergyCentre.RenameSystemPlantRooms();
             }
 
             List<SystemPlantRoom> systemPlantRooms_Temp = systemEnergyCentre?.GetSystemPlantRooms();
