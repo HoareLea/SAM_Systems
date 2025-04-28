@@ -46,8 +46,16 @@ namespace SAM.Analytical.Grasshopper.Systems
             {
                 List<GH_SAMParam> result = new List<GH_SAMParam>();
                 result.Add(new GH_SAMParam(new GooSystemEnergyCentreParam() { Name = "_systemEnergyCentres", NickName = "_systemEnergyCentres", Description = "SAM SystemEnergyCentres", Access = GH_ParamAccess.list }, ParamVisibility.Binding));
+
+                global::Grasshopper.Kernel.Parameters.Param_Boolean @boolean = null;
+
+                @boolean = new global::Grasshopper.Kernel.Parameters.Param_Boolean() { Name = "_renameGroups_", NickName = "_renameGroups_", Description = "Rename groups.", Access = GH_ParamAccess.item };
+                @boolean.SetPersistentData(true);
+                result.Add(new GH_SAMParam(@boolean, ParamVisibility.Binding));
+
                 result.Add(new GH_SAMParam(new Core.Grasshopper.Systems.GooSystemParam() { Name = "airSystems_", NickName = "airSystems_", Description = "SAM AirSystems", Access = GH_ParamAccess.list, Optional = true }, ParamVisibility.Binding));
                 result.Add(new GH_SAMParam(new GooSystemPlantRoomParam() { Name = "systemPlantRooms_", NickName = "systemPlantRooms_", Description = "SAM SystemPlantRooms", Access = GH_ParamAccess.list, Optional = true }, ParamVisibility.Binding));
+                
                 return result.ToArray();
             }
         }
@@ -97,6 +105,13 @@ namespace SAM.Analytical.Grasshopper.Systems
             if (index == -1 || !dataAccess.GetDataList(index, systemEnergyCentres) || systemEnergyCentres == null || systemEnergyCentres.Count == 0)
             {
                 return;
+            }
+
+            bool renameAirSystemGroups = true;
+            index = Params.IndexOfInputParam("_renameGroups_");
+            if (index != -1 && dataAccess.GetData(index, ref renameAirSystemGroups))
+            {
+                renameAirSystemGroups = true;
             }
 
             systemEnergyCentres = systemEnergyCentres.ConvertAll(x => Core.Query.Clone(x));
@@ -157,6 +172,11 @@ namespace SAM.Analytical.Grasshopper.Systems
             if (index_SystemEnergyCentre != -1)
             {
                 dataAccess.SetData(index_SystemEnergyCentre, systemEnergyCentre);
+            }
+
+            if(renameAirSystemGroups)
+            {
+                systemEnergyCentre.RenameAirSystemGroups();
             }
 
             List<SystemPlantRoom> systemPlantRooms_Temp = systemEnergyCentre?.GetSystemPlantRooms();
