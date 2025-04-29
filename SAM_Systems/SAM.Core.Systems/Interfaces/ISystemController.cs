@@ -1,6 +1,4 @@
-﻿using SAM.Core.Systems;
-
-namespace SAM.Analytical.Systems
+﻿namespace SAM.Core.Systems
 {
     public interface ISystemController : ISystemComponent, ISystemControl
     {

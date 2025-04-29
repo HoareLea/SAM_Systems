@@ -2,7 +2,7 @@
 
 namespace SAM.Analytical.Systems
 {
-    public interface IDisplaySystemController : IDisplaySystemObject<SystemGeometryInstance>, ISystemController
+    public interface IDisplaySystemController : IDisplaySystemObject<SystemGeometryInstance>, Core.Systems.ISystemController
     {
     }
 }

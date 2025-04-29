@@ -3,7 +3,7 @@ using SAM.Core.Systems;
 
 namespace SAM.Analytical.Systems
 {
-    public abstract class SystemSensorController : SystemController
+    public abstract class SystemSensorController : SystemController, ISystemSensorController
     {
         private string sensorReference;
 

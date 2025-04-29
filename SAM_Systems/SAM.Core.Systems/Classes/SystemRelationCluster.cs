@@ -287,6 +287,29 @@ namespace SAM.Core.Systems
                             result.AddObject(systemConnection_Destination);
                         }
                     }
+
+                    if(systemJSAMObject_Destination is ISystemSensorController)
+                    {
+                        Guid guid = Guid.Empty;
+                        ISystemJSAMObject systemJSAMObject = null;
+
+                        ISystemSensorController systemSensorController = (ISystemSensorController)systemJSAMObject_Destination;
+                        if(Guid.TryParse(systemSensorController.SensorReference, out guid) && dictionary.TryGetValue(guid, out systemJSAMObject) && systemJSAMObject != null)
+                        {
+                            guid = GetGuid(systemJSAMObject);
+                            systemSensorController.SensorReference = guid.ToString();
+                        }
+
+                        if (systemJSAMObject_Destination is ISystemDifferenceController)
+                        {
+                            ISystemDifferenceController systemDifferenceController = (ISystemDifferenceController)systemJSAMObject_Destination;
+                            if (Guid.TryParse(systemDifferenceController.SecondarySensorReference, out guid) && dictionary.TryGetValue(guid, out systemJSAMObject) && systemJSAMObject != null)
+                            {
+                                guid = GetGuid(systemJSAMObject);
+                                systemDifferenceController.SecondarySensorReference = guid.ToString();
+                            }
+                        }
+                    }
                 }
             }
 

@@ -4,7 +4,7 @@ using System;
 
 namespace SAM.Analytical.Systems
 {
-    public class SystemDifferenceController : SystemNormalController
+    public class SystemDifferenceController : SystemNormalController, ISystemDifferenceController
     {
         private string secondarySensorReference;
 
