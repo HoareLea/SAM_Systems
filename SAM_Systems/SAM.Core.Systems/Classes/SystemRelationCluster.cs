@@ -296,7 +296,7 @@ namespace SAM.Core.Systems
                         ISystemSensorController systemSensorController = (ISystemSensorController)systemJSAMObject_Destination;
                         if(Guid.TryParse(systemSensorController.SensorReference, out guid) && dictionary.TryGetValue(guid, out systemJSAMObject) && systemJSAMObject != null)
                         {
-                            guid = GetGuid(systemJSAMObject);
+                            guid = result.GetGuid(systemJSAMObject);
                             systemSensorController.SensorReference = guid.ToString();
                         }
 
@@ -305,7 +305,7 @@ namespace SAM.Core.Systems
                             ISystemDifferenceController systemDifferenceController = (ISystemDifferenceController)systemJSAMObject_Destination;
                             if (Guid.TryParse(systemDifferenceController.SecondarySensorReference, out guid) && dictionary.TryGetValue(guid, out systemJSAMObject) && systemJSAMObject != null)
                             {
-                                guid = GetGuid(systemJSAMObject);
+                                guid = result.GetGuid(systemJSAMObject);
                                 systemDifferenceController.SecondarySensorReference = guid.ToString();
                             }
                         }
