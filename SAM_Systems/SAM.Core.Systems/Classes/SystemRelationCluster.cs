@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json.Linq;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -165,9 +166,11 @@ namespace SAM.Core.Systems
 
             foreach(KeyValuePair<Guid, ISystemJSAMObject> keyValuePair in result)
             {
-                if (keyValuePair.Value is SystemConnection)
+                ISystemJSAMObject systemJSAMObject_Destination = keyValuePair.Value;
+
+                if (systemJSAMObject_Destination is SystemConnection)
                 {
-                    SystemConnection systemConnection_Destination = (SystemConnection)keyValuePair.Value;
+                    SystemConnection systemConnection_Destination = (SystemConnection)systemJSAMObject_Destination;
                     List<ObjectReference> objectReferences_Source = systemConnection_Destination.ObjectReferences;
                     if (objectReferences_Source != null)
                     {
@@ -185,10 +188,30 @@ namespace SAM.Core.Systems
                     }
                 }
 
-                ISystemJSAMObject systemJSAMObject_Destination = keyValuePair.Value;
-                Guid guid = keyValuePair.Key;
+                if (systemJSAMObject_Destination is ISystemSensorController)
+                {
+                    Guid guid = Guid.Empty;
+                    ISystemJSAMObject systemJSAMObject = null;
 
-                ISystemJSAMObject systemJSAMObject_Source = GetObject(systemJSAMObject_Destination.GetType(), guid);
+                    ISystemSensorController systemSensorController = (ISystemSensorController)systemJSAMObject_Destination;
+                    if (Guid.TryParse(systemSensorController.SensorReference, out guid) && result.TryGetValue(guid, out systemJSAMObject) && systemJSAMObject != null)
+                    {
+                        guid = GetGuid(systemJSAMObject);
+                        systemSensorController.SensorReference = guid.ToString();
+                    }
+
+                    if (systemJSAMObject_Destination is ISystemDifferenceController)
+                    {
+                        ISystemDifferenceController systemDifferenceController = (ISystemDifferenceController)systemJSAMObject_Destination;
+                        if (Guid.TryParse(systemDifferenceController.SecondarySensorReference, out guid) && result.TryGetValue(guid, out systemJSAMObject) && systemJSAMObject != null)
+                        {
+                            guid = GetGuid(systemJSAMObject);
+                            systemDifferenceController.SecondarySensorReference = guid.ToString();
+                        }
+                    }
+                }
+
+                ISystemJSAMObject systemJSAMObject_Source = GetObject(systemJSAMObject_Destination.GetType(), keyValuePair.Key);
                 if (systemJSAMObject_Source == null)
                 {
                     continue;
