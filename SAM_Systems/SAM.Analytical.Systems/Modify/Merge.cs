@@ -233,7 +233,16 @@ namespace SAM.Analytical.Systems
                                 continue;
                             }
 
-                            systemPlantRoom_Destination.Remove(airSystem_Temp);
+                            //List<ISystemJSAMObject> systemJSAMObjects = systemPlantRoom_Destination.GetRelatedObjects(airSystem_Temp);
+                            //if(systemJSAMObjects != null)
+                            //{
+                            //    foreach(ISystemJSAMObject systemJSAMObject in systemJSAMObjects)
+                            //    {
+
+                            //    }
+                            //}
+
+                            systemPlantRoom_Destination.Remove(airSystem_Temp, true);
                         }
                     }
 

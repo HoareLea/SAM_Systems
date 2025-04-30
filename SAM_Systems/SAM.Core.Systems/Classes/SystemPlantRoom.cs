@@ -727,27 +727,54 @@ namespace SAM.Core.Systems
             return systemRelationCluster.RemoveObject(systemComponent);
         }
 
-        public bool Remove(ISystem system)
+        public bool Remove(ISystem system, bool removeSystemComponent = false)
         {
             if(system == null)
             {
                 return false;
             }
 
-            List<ISystemConnection> systemConnections = systemRelationCluster.GetRelatedObjects<ISystemConnection>(system);
-            if (systemConnections != null && systemConnections.Count != 0)
+            List<ISystemJSAMObject> systemJSAMObjects = systemRelationCluster.GetRelatedObjects(system);
+            if(systemJSAMObjects != null)
             {
-                systemConnections.ForEach(x => Remove(x, true));
-            }
-
-            List<ISystemGroup> systemGroups = systemRelationCluster.GetRelatedObjects<ISystemGroup>(system);
-            if (systemGroups != null && systemGroups.Count != 0)
-            {
-                foreach(ISystemGroup systemGroup in systemGroups)
+                foreach(ISystemJSAMObject systemJSAMObject in systemJSAMObjects)
                 {
-                    systemRelationCluster.RemoveObject(systemGroup);
+                    if(systemJSAMObject is ISystemConnection)
+                    {
+                        Remove((ISystemConnection)systemJSAMObject, true);
+                    }
+                    else if(systemJSAMObject is ISystemGroup)
+                    {
+                        systemRelationCluster.RemoveObject((ISystemGroup)systemJSAMObject);
+                    }
+                    else if(removeSystemComponent)
+                    {
+                        if (systemJSAMObject is ISystemComponent)
+                        {
+                            systemRelationCluster.RemoveObject((ISystemComponent)systemJSAMObject);
+                        }
+                        else if (systemJSAMObject is ISystemSensor)
+                        {
+                            systemRelationCluster.RemoveObject((ISystemSensor)systemJSAMObject);
+                        }
+                    }
                 }
             }
+
+            //List<ISystemConnection> systemConnections = systemRelationCluster.GetRelatedObjects<ISystemConnection>(system);
+            //if (systemConnections != null && systemConnections.Count != 0)
+            //{
+            //    systemConnections.ForEach(x => Remove(x, true));
+            //}
+
+            //List<ISystemGroup> systemGroups = systemRelationCluster.GetRelatedObjects<ISystemGroup>(system);
+            //if (systemGroups != null && systemGroups.Count != 0)
+            //{
+            //    foreach(ISystemGroup systemGroup in systemGroups)
+            //    {
+            //        systemRelationCluster.RemoveObject(systemGroup);
+            //    }
+            //}
 
             return systemRelationCluster.RemoveObject(system);
         }
