@@ -751,6 +751,15 @@ namespace SAM.Core.Systems
                     {
                         if (systemJSAMObject is ISystemComponent)
                         {
+                            List<ISystemSpaceComponent> systemSpaceComponents = systemRelationCluster.GetRelatedObjects<ISystemSpaceComponent>(systemJSAMObject);
+                            if (systemSpaceComponents != null && systemSpaceComponents.Count != 0)
+                            {
+                                foreach (ISystemSpaceComponent systemSpaceComponent in systemSpaceComponents)
+                                {
+                                    systemRelationCluster.RemoveObject(systemSpaceComponent);
+                                }
+                            }
+
                             systemRelationCluster.RemoveObject((ISystemComponent)systemJSAMObject);
                         }
                         else if (systemJSAMObject is ISystemSensor)
@@ -1614,6 +1623,24 @@ namespace SAM.Core.Systems
                     }
 
                     systemRelationCluster.AddRelation(systemJSAMObject, systemJSAMObject_Related);
+
+                    List<ISystemSpaceComponent> systemSpaceComponents_Related = systemPlantRoom.GetRelatedObjects<ISystemSpaceComponent>(systemJSAMObject_Related);
+                    if(systemJSAMObjects_Related != null && systemJSAMObjects_Related.Count != 0)
+                    {
+                        foreach(ISystemSpaceComponent systemSpaceComponent_Related in systemSpaceComponents_Related)
+                        {
+                            guid_Related = systemPlantRoom.GetGuid(systemSpaceComponent_Related);
+                            if (!guids.Contains(guid_Related))
+                            {
+                                guids.Add(guid_Related);
+
+                                CopyFrom(systemPlantRoom, guid_Related, guids);
+                            }
+
+                            systemRelationCluster.AddRelation(systemJSAMObject_Related, systemSpaceComponent_Related);
+                        }
+                    }
+
                 }
             }
         }

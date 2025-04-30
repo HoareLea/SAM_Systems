@@ -154,6 +154,28 @@ namespace SAM.Core.Systems
                                 result[guid] = systemJSAMObject_Destination_Related;
                             }
 
+                            List<ISystemSpaceComponent> systemSpaceComponents_Source = GetRelatedObjects<ISystemSpaceComponent>(systemJSAMObject_Source_Related);
+                            if (systemSpaceComponents_Source != null && systemSpaceComponents_Source.Count != 0)
+                            {
+                                for (int i = 0; i < systemSpaceComponents_Source.Count; i++)
+                                {
+                                    SystemObject systemObject_Destination = (systemSpaceComponents_Source[i] as SystemObject)?.Duplicate();
+                                    if (systemObject_Destination == null)
+                                    {
+                                        continue;
+                                    }
+
+                                    if (!AddObject(systemObject_Destination))
+                                    {
+                                        continue;
+                                    }
+
+                                    AddRelation(systemObject_Destination, systemJSAMObject_Destination_Related);
+                                    result[guid] = systemObject_Destination;
+                                }
+
+                            }
+
                         }
 
                         if (systemJSAMObject_Destination_Related != null)
