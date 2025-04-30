@@ -171,7 +171,7 @@ namespace SAM.Core.Systems
                                     }
 
                                     AddRelation(systemObject_Destination, systemJSAMObject_Destination_Related);
-                                    result[guid] = systemObject_Destination;
+                                    result[GetGuid(systemObject_Destination)] = systemObject_Destination;
                                 }
 
                             }
