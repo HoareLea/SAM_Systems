@@ -234,7 +234,7 @@ namespace SAM.Analytical.Systems
                             }
 
                             systemPlantRoom_Destination.Remove(airSystem_Temp, true);
-                        }
+                        }   
                     }
 
                     systemEnergyCentre.Add(systemPlantRoom_Destination);
