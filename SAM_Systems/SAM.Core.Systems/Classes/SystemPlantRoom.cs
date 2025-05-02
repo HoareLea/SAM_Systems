@@ -531,6 +531,26 @@ namespace SAM.Core.Systems
             return systemRelationCluster.AddRelation(systemGroup, systemComponent);
         }
 
+        public bool Connect(ISystemGroup systemGroup, ISystemSensor systemSensor)
+        {
+            if (systemGroup == null || systemSensor == null)
+            {
+                return false;
+            }
+
+            if (!systemRelationCluster.Contains(systemGroup))
+            {
+                Add(systemGroup);
+            }
+
+            if (!systemRelationCluster.Contains(systemSensor))
+            {
+                Add(systemSensor);
+            }
+
+            return systemRelationCluster.AddRelation(systemGroup, systemSensor);
+        }
+
         public bool Connect(ISystemControl systemControl, ISystemConnection systemConnection)
         {
             if (systemControl == null || systemConnection == null)
