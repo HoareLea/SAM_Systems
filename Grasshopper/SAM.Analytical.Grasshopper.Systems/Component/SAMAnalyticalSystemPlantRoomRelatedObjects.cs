@@ -111,7 +111,7 @@ namespace SAM.Analytical.Grasshopper.Systems
             }
 
             List<ISystemJSAMObject> result = type == null ? systemPlantRoom.GetRelatedObjects(systemObject) : systemPlantRoom.GetRelatedObjects(systemObject, type);
-            if (systemObject is LiquidSystem)
+            if (systemObject.GetType() == typeof(LiquidSystem))
             {
                 List<ISystemComponent> systemComponents = systemPlantRoom.GetSystemComponents();
                 if (systemComponents != null)
