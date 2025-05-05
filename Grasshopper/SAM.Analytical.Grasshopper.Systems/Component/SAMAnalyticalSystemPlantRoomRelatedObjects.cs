@@ -124,6 +124,11 @@ namespace SAM.Analytical.Grasshopper.Systems
                             continue;
                         }
 
+                        if(result == null)
+                        {
+                            result = new List<ISystemJSAMObject>();
+                        }
+
                         result.Add(systemComponent);
                     }
                 }
