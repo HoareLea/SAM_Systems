@@ -61,8 +61,8 @@ namespace SAM.Analytical.Grasshopper
             bool hasOutputParameters = Params.Output.Count > 0;
 
             Menu_AppendSeparator(menu);
-            Menu_AppendItem(menu, "Get types", Menu_PopulateOutputParameters, hasInputData, false);
-            Menu_AppendItem(menu, "Remove unconnected types", Menu_RemoveUnconnectedParameters, hasOutputParameters, false);
+            Menu_AppendItem(menu, "Get types", Menu_PopulateOutputParameters, Resources.SAM3_0, hasInputData, false);
+            Menu_AppendItem(menu, "Remove unconnected types", Menu_RemoveUnconnectedParameters, Resources.SAM3_0, hasOutputParameters, false);
 
             base.AppendAdditionalMenuItems(menu);
             Menu_AppendSeparator(menu);
