@@ -27,14 +27,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Remove="Convert\**" />
-    <Compile Remove="Enums\**" />
-    <Compile Remove="Query\**" />
     <EmbeddedResource Remove="Convert\**" />
-    <EmbeddedResource Remove="Enums\**" />
-    <EmbeddedResource Remove="Query\**" />
     <None Remove="Convert\**" />
-    <None Remove="Enums\**" />
-    <None Remove="Query\**" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="SAM.Analytical">
