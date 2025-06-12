@@ -82,6 +82,8 @@ namespace SAM.Analytical.Grasshopper.Systems
             {
                 BakeGeometry_ByType(rhinoDoc, systemPlantRoom, layer);
             }
+
+            Collapse(layer);
         }
 
         public static void BakeGeometry_ByType(this RhinoDoc rhinoDoc, SystemPlantRoom systemPlantRoom, Layer layer = null)

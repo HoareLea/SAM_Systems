@@ -61,7 +61,7 @@ namespace SAM.Analytical.Grasshopper.Systems
                             if(type != null && typeof(SystemController).IsAssignableFrom(type))
                             {
                                 linetypeIndex = UpdateLineType(doc, LineCategory.Control);
-                                linetypePatternScale = 0.5;
+                                //linetypePatternScale = 0.5;
                             }
                         }
                     }
@@ -69,7 +69,7 @@ namespace SAM.Analytical.Grasshopper.Systems
                 else if(systemJSAMObject is SystemSensor)
                 {
                     linetypeIndex = UpdateLineType(doc, LineCategory.Sensor);
-                    linetypePatternScale = 0.1;
+                    //linetypePatternScale = 0.1;
                 }
 
                 SystemObject systemObject = (SystemObject)systemJSAMObject;
