@@ -65,7 +65,7 @@ namespace SAM.Analytical.Grasshopper.Systems
 
         public static void BakeGeometry_ByType(this RhinoDoc rhinoDoc, SystemEnergyCentre systemEnergyCentre)
         {
-            if(systemEnergyCentre == null)
+            if (systemEnergyCentre == null)
             {
                 return;
             }
@@ -82,7 +82,9 @@ namespace SAM.Analytical.Grasshopper.Systems
             {
                 BakeGeometry_ByType(rhinoDoc, systemPlantRoom, layer);
             }
-        }            
+
+            Collapse(layer);
+        }
 
         public static void BakeGeometry_ByType(this RhinoDoc rhinoDoc, SystemPlantRoom systemPlantRoom, Layer layer = null)
         {
@@ -108,7 +110,7 @@ namespace SAM.Analytical.Grasshopper.Systems
             ObjectAttributes objectAttributes = rhinoDoc.CreateDefaultAttributes();
 
             List<ISystem> systems = systemPlantRoom.GetSystems();
-            if(systems != null && systems.Count != 0)
+            if (systems != null && systems.Count != 0)
             {
                 systems.Sort((x, y) => (x as SystemObject).Name.CompareTo((y as SystemObject).Name));
 
@@ -118,7 +120,7 @@ namespace SAM.Analytical.Grasshopper.Systems
 
                 foreach (ISystem system in systems)
                 {
-                    if(!(system is AirSystem) && system.GetType() != typeof(LiquidSystem) )
+                    if (!(system is AirSystem) && system.GetType() != typeof(LiquidSystem))
                     {
                         continue;
                     }
@@ -129,21 +131,21 @@ namespace SAM.Analytical.Grasshopper.Systems
                     layer_System.ParentLayerId = layer_SystemPlantRoom.Id;
 
                     List<ISystemJSAMObject> systemJSAMObjects = systemPlantRoom.GetRelatedObjects<ISystemJSAMObject>(system);
-                    if(systemJSAMObjects == null || systemJSAMObjects.Count == 0)
+                    if (systemJSAMObjects == null || systemJSAMObjects.Count == 0)
                     {
                         continue;
                     }
 
                     Dictionary<string, List<ISystemJSAMObject>> dictionary = new Dictionary<string, List<ISystemJSAMObject>>();
-                    foreach(ISystemJSAMObject systemJSAMObject in systemJSAMObjects)
+                    foreach (ISystemJSAMObject systemJSAMObject in systemJSAMObjects)
                     {
                         string groupName = systemPlantRoom.GetRelatedObjects<AirSystemGroup>(systemJSAMObject)?.FirstOrDefault()?.Name;
-                        if(groupName == null)
+                        if (groupName == null)
                         {
                             groupName = string.Empty;
                         }
 
-                        if(!dictionary.TryGetValue(groupName, out List<ISystemJSAMObject> systemJSAMObjects_Group) || systemJSAMObjects_Group == null)
+                        if (!dictionary.TryGetValue(groupName, out List<ISystemJSAMObject> systemJSAMObjects_Group) || systemJSAMObjects_Group == null)
                         {
                             systemJSAMObjects_Group = new List<ISystemJSAMObject>();
                             dictionary[groupName] = systemJSAMObjects_Group;
@@ -155,7 +157,7 @@ namespace SAM.Analytical.Grasshopper.Systems
                     foreach (KeyValuePair<string, List<ISystemJSAMObject>> keyValuePair in dictionary)
                     {
                         layer_Parent = layer_System;
-                        if(!string.IsNullOrWhiteSpace(keyValuePair.Key))
+                        if (!string.IsNullOrWhiteSpace(keyValuePair.Key))
                         {
                             index = layerTable.Add();
                             layer_Parent = layerTable[index];
@@ -188,7 +190,7 @@ namespace SAM.Analytical.Grasshopper.Systems
 
             List<Guid> guids = new List<Guid>();
 
-            foreach(ISystemJSAMObject systemJSAMObject in systemJSAMObjects)
+            foreach (ISystemJSAMObject systemJSAMObject in systemJSAMObjects)
             {
                 string name = systemJSAMObject?.GetType()?.Name;
                 if (string.IsNullOrEmpty(name))

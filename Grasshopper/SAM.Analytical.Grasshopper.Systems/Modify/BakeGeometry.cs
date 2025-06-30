@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using SAM.Geometry.Systems;
 using SAM.Geometry.Object.Planar;
 using System.Linq;
+using SAM.Analytical.Systems;
 
 
 namespace SAM.Analytical.Grasshopper.Systems
@@ -42,16 +43,52 @@ namespace SAM.Analytical.Grasshopper.Systems
                 return false;
             }
 
-            if(systemJSAMObject is SystemObject)
+            if (systemJSAMObject is SystemObject)
             {
+                int linetypeIndex = -1;
+                double linetypePatternScale = 1;
+
+                if (systemJSAMObject is SystemConnection)
+                {
+                    SystemConnection systemConnection = (SystemConnection)systemJSAMObject;
+
+                    List<Core.ObjectReference> objectReferences = systemConnection.ObjectReferences;
+                    if(objectReferences != null)
+                    {
+                        foreach(Core.ObjectReference objectReference in objectReferences)
+                        {
+                            Type type = Core.Query.Type(objectReference.TypeName, true);
+                            if(type != null && typeof(SystemController).IsAssignableFrom(type))
+                            {
+                                linetypeIndex = UpdateLineType(doc, LineCategory.Control);
+                                //linetypePatternScale = 0.5;
+                            }
+                        }
+                    }
+                }
+                else if(systemJSAMObject is SystemSensor)
+                {
+                    linetypeIndex = UpdateLineType(doc, LineCategory.Sensor);
+                    //linetypePatternScale = 0.1;
+                }
+
                 SystemObject systemObject = (SystemObject)systemJSAMObject;
                 foreach(Guid guid_Temp in guids)
                 {
                     RhinoObject rhinoObject = doc?.Objects?.FindId(guid_Temp);
                     if(rhinoObject != null)
                     {
-                        rhinoObject.Attributes.Name = systemObject.Name;
-                        rhinoObject.Attributes.SetUserString("Description", systemObject.Description);
+                        ObjectAttributes objectAttributes = rhinoObject.Attributes;
+
+                        if (linetypeIndex != -1)
+                        {
+                            objectAttributes.LinetypeSource = ObjectLinetypeSource.LinetypeFromObject;
+                            objectAttributes.LinetypeIndex = linetypeIndex;
+                            objectAttributes.LinetypePatternScale = linetypePatternScale;
+                        }
+
+                        objectAttributes.Name = systemObject.Name;
+                        objectAttributes.SetUserString("Description", systemObject.Description);
                         rhinoObject.CommitChanges();
                     }
                 }
@@ -60,6 +97,7 @@ namespace SAM.Analytical.Grasshopper.Systems
             if (guids.Count == 1)
             {
                 guid = guids[0];
+                doc.Views.Redraw();
                 return result;
             }
 
@@ -75,6 +113,7 @@ namespace SAM.Analytical.Grasshopper.Systems
             }
 
             guid = group.Id;
+            doc.Views.Redraw();
             return result;
         }
     }
