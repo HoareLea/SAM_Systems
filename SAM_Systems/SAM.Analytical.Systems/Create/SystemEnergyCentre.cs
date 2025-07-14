@@ -60,6 +60,56 @@ namespace SAM.Analytical.Systems
                 SystemPlantRoom systemPlantRoom = systemPlantRooms.FirstOrDefault();
                 systemPlantRoom = systemPlantRoom.Clone();
 
+
+                //Copy Analytical Systems Properties
+                SystemEnergyCentre systemEnergyCentre = systemEnergyCentres.Find(x => x.GetSystemPlantRoom(new ObjectReference(systemPlantRoom)) != null);
+                if(systemEnergyCentre != null)
+                {
+                    AnalyticalSystemsProperties analyticalSystemsProperties_Source = systemEnergyCentre.GetValue<AnalyticalSystemsProperties>(SystemEnergyCentreParameter.AnalyticalSystemsProperties);
+                    if(analyticalSystemsProperties_Source != null)
+                    {
+
+                    }
+
+                    AnalyticalSystemsProperties analyticalSystemsProperties_Destination = result.GetValue<AnalyticalSystemsProperties>(SystemEnergyCentreParameter.AnalyticalSystemsProperties);
+                    if (analyticalSystemsProperties_Destination == null)
+                    {
+                        analyticalSystemsProperties_Destination = new AnalyticalSystemsProperties(analyticalSystemsProperties_Source);
+                    }
+                    else
+                    {
+                        List<ISchedule> schedules = analyticalSystemsProperties_Source.Schedules;
+                        if(schedules != null)
+                        {
+                            foreach(ISchedule schedule in schedules)
+                            {
+                                analyticalSystemsProperties_Destination.Add(schedule);
+                            }
+                        }
+
+                        List<FluidType> fluidTypes = analyticalSystemsProperties_Source.FluidTypes;
+                        if (fluidTypes != null)
+                        {
+                            foreach (FluidType fluidType in fluidTypes)
+                            {
+                                analyticalSystemsProperties_Destination.Add(fluidType);
+                            }
+                        }
+
+                        List<DesignCondition> designConditions = analyticalSystemsProperties_Source.DesignConditions;
+                        if (designConditions != null)
+                        {
+                            foreach (DesignCondition designCondition in designConditions)
+                            {
+                                analyticalSystemsProperties_Destination.Add(designCondition);
+                            }
+                        }
+                    }
+
+                    systemEnergyCentre.SetValue(SystemEnergyCentreParameter.AnalyticalSystemsProperties, analyticalSystemsProperties_Destination);
+                }
+
+
                 List<SystemSpace> systemSpaces = systemPlantRoom.GetSystemComponents<SystemSpace>();
                 if (systemSpaces == null || systemSpaces.Count == 0)
                 {

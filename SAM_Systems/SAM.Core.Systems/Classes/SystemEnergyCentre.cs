@@ -140,7 +140,6 @@ namespace SAM.Core.Systems
             }
         }
 
-
         public List<T> GetSystemPlantRooms()
         {
             return systemPlantRooms?.Values.ToList().ConvertAll(x => x?.Clone());
