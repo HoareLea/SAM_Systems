@@ -33,7 +33,32 @@ namespace SAM.Analytical.Systems
             }
 
             result = new SystemSpace(space.Name, area, volume, null, null, null, false, false, false, null, null);
+            if(systemSpace.TryGetValue(AirSystemComponentParameter.GroupIndex, out int groupIndex))
+            {
+                result.SetValue(AirSystemComponentParameter.GroupIndex, groupIndex);
+            }
 
+            CollectionLink collectionLink;
+
+            if (systemSpace.TryGetValue(AirSystemComponentParameter.ElectricalCollection, out collectionLink))
+            {
+                result.SetValue(AirSystemComponentParameter.ElectricalCollection, collectionLink);
+            }
+
+            if (systemSpace.TryGetValue(SystemSpaceParameter.DomesticHotWaterCollection, out collectionLink))
+            {
+                result.SetValue(SystemSpaceParameter.DomesticHotWaterCollection, collectionLink);
+            }
+
+            if (systemSpace.TryGetValue(SystemSpaceParameter.EquipmentElectricalCollection, out collectionLink))
+            {
+                result.SetValue(SystemSpaceParameter.EquipmentElectricalCollection, collectionLink);
+            }
+
+            if (systemSpace.TryGetValue(SystemSpaceParameter.LightingElectricalCollection, out collectionLink))
+            {
+                result.SetValue(SystemSpaceParameter.LightingElectricalCollection, collectionLink);
+            }
 
             if (displaySystemSpace != null)
             {

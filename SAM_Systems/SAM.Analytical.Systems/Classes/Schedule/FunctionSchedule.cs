@@ -21,6 +21,9 @@ namespace SAM.Analytical.Systems
             if (functionSchedule != null)
             {
                 ScheduleFunctionType = functionSchedule.ScheduleFunctionType;
+                Cooling = functionSchedule.Cooling;
+                Heating = functionSchedule.Heating;
+                OccupancySensible = functionSchedule.OccupancySensible;
             }
         }
 
@@ -38,7 +41,7 @@ namespace SAM.Analytical.Systems
         
         public ScheduleFunctionType ScheduleFunctionType { get; set; }
         
-        public virtual bool FromJObject(JObject jObject)
+        public override bool FromJObject(JObject jObject)
         {
             bool result = base.FromJObject(jObject);
             if (!result)
@@ -69,7 +72,7 @@ namespace SAM.Analytical.Systems
             return true;
         }
 
-        public virtual JObject ToJObject()
+        public override JObject ToJObject()
         {
             JObject result = base.ToJObject();
             if(result == null)
