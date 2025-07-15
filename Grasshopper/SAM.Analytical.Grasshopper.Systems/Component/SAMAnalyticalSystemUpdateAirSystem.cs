@@ -84,7 +84,11 @@ namespace SAM.Analytical.Grasshopper.Systems
 
             if(!analyticalModel.TryGetValue(Analytical.Systems.AnalyticalModelParameter.SystemEnergyCentre, out SystemEnergyCentre systemEnergyCentre) || systemEnergyCentre == null)
             {
-                systemEnergyCentre = analyticalModel.SystemEnergyCentre();
+                systemEnergyCentre = analyticalModel.SystemEnergyCentre(out HashSet<string> unavailableSystemTypeNames);
+                if(unavailableSystemTypeNames != null && unavailableSystemTypeNames.Count != 0)
+                {
+                    AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, string.Format("Following system types not defined: {0}", string.Join(", ", unavailableSystemTypeNames)));
+                }
             }
 
             if (systemEnergyCentre == null)

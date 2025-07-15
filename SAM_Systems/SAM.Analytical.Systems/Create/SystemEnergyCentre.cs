@@ -10,7 +10,14 @@ namespace SAM.Analytical.Systems
     {
         public static SystemEnergyCentre SystemEnergyCentre(this AnalyticalModel analyticalModel)
         {
-            if(analyticalModel == null)
+            return SystemEnergyCentre(analyticalModel, out HashSet<string> unavailableSystemTypeNames);
+        }
+
+        public static SystemEnergyCentre SystemEnergyCentre(this AnalyticalModel analyticalModel, out HashSet<string> unavailableSystemTypeNames)
+        {
+            unavailableSystemTypeNames = null;
+
+            if (analyticalModel == null)
             {
                 return null;
             }
@@ -54,6 +61,12 @@ namespace SAM.Analytical.Systems
                 List<SystemPlantRoom> systemPlantRooms = systemEnergyCentres.DefaultSystemPlantRooms(name);
                 if(systemPlantRooms == null || systemPlantRooms.Count == 0)
                 {
+                    if(unavailableSystemTypeNames == null)
+                    {
+                        unavailableSystemTypeNames = new HashSet<string>();
+                    }
+
+                    unavailableSystemTypeNames.Add(name);
                     continue;
                 }
 
