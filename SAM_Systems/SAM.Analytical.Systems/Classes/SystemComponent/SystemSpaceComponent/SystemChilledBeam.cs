@@ -58,7 +58,7 @@ namespace SAM.Analytical.Systems
             }
         }
 
-        public SystemChilledBeam(System.Guid guid, SystemChilledBeam systemChilledBeam)
+        public SystemChilledBeam(Guid guid, SystemChilledBeam systemChilledBeam)
             : base(guid, systemChilledBeam)
         {
             if (systemChilledBeam != null)

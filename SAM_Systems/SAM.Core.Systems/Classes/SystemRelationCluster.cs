@@ -1,8 +1,6 @@
 ﻿using Newtonsoft.Json.Linq;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Data;
 using System.Linq;
 
 namespace SAM.Core.Systems
@@ -36,13 +34,13 @@ namespace SAM.Core.Systems
                 return default(T);
             }
 
-            System.Guid guid = GetGuid(systemJSAMObject);
-            if (guid == System.Guid.Empty)
+            Guid guid = GetGuid(systemJSAMObject);
+            if (guid == Guid.Empty)
             {
                 return default(T);
             }
 
-            Dictionary<System.Guid, ISystemJSAMObject> dictionary = Duplicate(new ISystemJSAMObject[] { systemJSAMObject });
+            Dictionary<Guid, ISystemJSAMObject> dictionary = Duplicate(new ISystemJSAMObject[] { systemJSAMObject });
             if(dictionary  == null || dictionary.Count == 0)
             {
                 return default(T);
@@ -262,12 +260,12 @@ namespace SAM.Core.Systems
             List<ISystemJSAMObject> systemJSAMObjects = GetObjects();
             if (systemJSAMObjects != null)
             {
-                Dictionary<System.Guid, ISystemJSAMObject> dictionary = new Dictionary<System.Guid, ISystemJSAMObject>();
+                Dictionary<Guid, ISystemJSAMObject> dictionary = new Dictionary<Guid, ISystemJSAMObject>();
 
                 for (int i = 0; i < systemJSAMObjects.Count; i++)
                 {
                     ISystemJSAMObject systemJSAMObject = systemJSAMObjects[i];
-                    System.Guid guid = GetGuid(systemJSAMObject);
+                    Guid guid = GetGuid(systemJSAMObject);
 
                     if (systemJSAMObject is SystemObject)
                     {
@@ -286,7 +284,7 @@ namespace SAM.Core.Systems
                     dictionary[guid] = systemJSAMObject;
                 }
 
-                foreach (KeyValuePair<System.Guid, ISystemJSAMObject> keyValuePair in dictionary)
+                foreach (KeyValuePair<Guid, ISystemJSAMObject> keyValuePair in dictionary)
                 {
                     ISystemJSAMObject systemJSAMObject_Destination = keyValuePair.Value;
                     if (systemJSAMObject_Destination == null)
@@ -305,7 +303,7 @@ namespace SAM.Core.Systems
                     {
                         foreach (ISystemJSAMObject systemJSAMObject_Source_Related in systemJSAMObjects_Source_Related)
                         {
-                            System.Guid guid = GetGuid(systemJSAMObject_Source_Related);
+                            Guid guid = GetGuid(systemJSAMObject_Source_Related);
                             if (dictionary.TryGetValue(guid, out ISystemJSAMObject systemJSAMObject_Destination_Related))
                             {
                                 result.AddRelation(systemJSAMObject_Destination, systemJSAMObject_Destination_Related);
@@ -321,7 +319,7 @@ namespace SAM.Core.Systems
                         {
                             foreach (ObjectReference objectReference_Source in objectReferences_Source)
                             {
-                                System.Guid guid = GetGuid(GetObject(objectReference_Source));
+                                Guid guid = GetGuid(GetObject(objectReference_Source));
                                 if (dictionary.TryGetValue(guid, out ISystemJSAMObject systemJSAMObject_Destination_ObjectReference) && systemJSAMObject_Destination_ObjectReference is SAMObject)
                                 {
                                     ObjectReference objectReferences_Destionation = new ObjectReference((SAMObject)systemJSAMObject_Destination_ObjectReference);

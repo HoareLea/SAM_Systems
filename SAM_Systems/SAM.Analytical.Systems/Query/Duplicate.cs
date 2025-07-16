@@ -89,6 +89,45 @@ namespace SAM.Analytical.Systems
                     {
                         systemPlantRoom.Connect((ISystemGroup)systemJSAMObject, result);
                     }
+                    else if(systemJSAMObject is ISystemSpaceComponent)
+                    {
+                        ISystemSpaceComponent systemSpaceComponent = Duplicate(systemPlantRoom, (ISystemSpaceComponent)systemJSAMObject);
+
+                        systemPlantRoom.Connect(systemSpaceComponent, result);
+                    }
+                    else if(systemJSAMObject is ISystemComponent)
+                    {
+                        systemPlantRoom.Connect((ISystemComponent)systemJSAMObject, result);
+                    }
+                    else if (systemJSAMObject is ISystemSensor)
+                    {
+                        systemPlantRoom.Connect((ISystemSensor)systemJSAMObject, result);
+                    }
+                    else
+                    {
+
+                    }
+                }
+            }
+
+            return result;
+        }
+
+        public static ISystemSpaceComponent Duplicate(this SystemPlantRoom systemPlantRoom, ISystemSpaceComponent systemSpaceComponent)
+        {
+            if(systemSpaceComponent == null || systemPlantRoom == null)
+            {
+                return null;
+            }
+
+            ISystemSpaceComponent result = systemPlantRoom.Duplicate(systemSpaceComponent);
+
+            List<ISystemJSAMObject> systemJSAMObjects = systemPlantRoom.GetRelatedObjects(systemSpaceComponent);
+            if(systemJSAMObjects != null)
+            {
+                foreach (ISystemJSAMObject systemJSAMObject in systemJSAMObjects)
+                {
+
                 }
             }
 
