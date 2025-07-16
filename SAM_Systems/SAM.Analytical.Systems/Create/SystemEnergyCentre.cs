@@ -74,10 +74,11 @@ namespace SAM.Analytical.Systems
                 systemPlantRoom = systemPlantRoom.Clone();
 
 
-                //Copy Analytical Systems Properties
+                //Copy properties
                 SystemEnergyCentre systemEnergyCentre = systemEnergyCentres.Find(x => x.GetSystemPlantRoom(new ObjectReference(systemPlantRoom)) != null);
                 if(systemEnergyCentre != null)
                 {
+                    //Copy Analytical Systems Properties
                     AnalyticalSystemsProperties analyticalSystemsProperties_Source = systemEnergyCentre.GetValue<AnalyticalSystemsProperties>(SystemEnergyCentreParameter.AnalyticalSystemsProperties);
                     if(analyticalSystemsProperties_Source != null)
                     {
@@ -117,6 +118,16 @@ namespace SAM.Analytical.Systems
                         }
 
                         result.SetValue(SystemEnergyCentreParameter.AnalyticalSystemsProperties, analyticalSystemsProperties_Destination);
+                    }
+
+                    //Copy SystemEnergySources
+                    List<SystemEnergySource> systemEnergySources = systemEnergyCentre.GetSystemEnergySources();
+                    if(systemEnergySources != null)
+                    {
+                        foreach (SystemEnergySource systemEnergySource in systemEnergySources)
+                        {
+                            result.Add(systemEnergySource);
+                        }
                     }
                 }
 
