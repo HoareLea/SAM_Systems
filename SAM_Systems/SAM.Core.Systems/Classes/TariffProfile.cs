@@ -11,7 +11,7 @@ namespace SAM.Core.Systems
 
         public TariffProfile(TariffProfile tariffProfile)
         {
-            if(tariffProfile != null)
+            if (tariffProfile != null)
             {
                 Description = tariffProfile.Description;
                 FirstDay = tariffProfile.FirstDay;
@@ -73,7 +73,7 @@ namespace SAM.Core.Systems
             JObject result = new JObject();
             result.Add("_type", Core.Query.FullTypeName(this));
 
-            if(Description != null)
+            if (Description != null)
             {
                 result.Add("Description", Description);
             }
@@ -91,3 +91,4 @@ namespace SAM.Core.Systems
         }
     }
 }
+
