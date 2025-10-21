@@ -7,15 +7,17 @@ namespace SAM.Geometry.Systems
 {
     public class DisplaySystemLabel : SystemLabel, IJSAMObject
     {
+        private int height;
+        private LabelDirection labelDirection;
         private Point2D location;
-
-        public DisplaySystemLabel(SystemLabel systemLabel, Point2D location, LabelDirection labelDirection, int height)
+        private int width;
+        public DisplaySystemLabel(SystemLabel systemLabel, Point2D location, LabelDirection labelDirection, int height, int width)
             : base(systemLabel)
         {
             this.location = location == null ? null : new Point2D(location);
             this.labelDirection = labelDirection;
             this.height = height;
-
+            this.width = width;
         }
 
         public DisplaySystemLabel(DisplaySystemLabel displaySystemLabel)
@@ -26,6 +28,7 @@ namespace SAM.Geometry.Systems
                 location = displaySystemLabel.Location == null ? null : new Point2D(displaySystemLabel.Location);
                 labelDirection = displaySystemLabel.labelDirection;
                 height = displaySystemLabel.height;
+                width = displaySystemLabel.width;
             }
         }
 
@@ -59,9 +62,13 @@ namespace SAM.Geometry.Systems
             }
         }
 
-        private int height { get; set; }
-        
-        private LabelDirection labelDirection { get; set; }
+        public int Width
+        {
+            get
+            {
+                return width;
+            }
+        }
         
         public bool FromJObject(JObject jObject)
         {
@@ -86,6 +93,11 @@ namespace SAM.Geometry.Systems
                 height = jObject.Value<int>("Height");
             }
 
+            if (jObject.ContainsKey("Width"))
+            {
+                width = jObject.Value<int>("Width");
+            }
+
             return result;
         }
         
@@ -103,6 +115,8 @@ namespace SAM.Geometry.Systems
             }
 
             result.Add("Height", height);
+
+            result.Add("Width", width);
 
             result.Add("LabelDirection", labelDirection.ToString());
 
