@@ -1,13 +1,20 @@
-﻿using Rhino.DocObjects;
+﻿using Grasshopper.Kernel.Data;
+using Grasshopper.Kernel.Types;
 using Rhino;
-using SAM.Core.Systems;
-using System;
-using System.Collections.Generic;
-using Grasshopper.Kernel.Data;
+using Rhino.Display;
+using Rhino.DocObjects;
 using Rhino.DocObjects.Tables;
 using SAM.Analytical.Systems;
+using SAM.Core.Systems;
+using SAM.Geometry;
+using SAM.Geometry.Object.Planar;
+using SAM.Geometry.Spatial;
+using SAM.Geometry.Systems;
+using System;
+using System.Collections.Generic;
 using System.Linq;
-using Grasshopper.Kernel.Types;
+using static System.Net.Mime.MediaTypeNames;
+using static System.Windows.Forms.DataFormats;
 
 namespace SAM.Analytical.Grasshopper.Systems
 {
@@ -166,6 +173,39 @@ namespace SAM.Analytical.Grasshopper.Systems
                         }
 
                         BakeGeometry_ByType(rhinoDoc, keyValuePair.Value, layer_Parent);
+
+                        //Label display not finished due to lack of text. Only formula availabe under SystemLabel.Text property
+
+                        //foreach(ISystemJSAMObject systemJSAMObject in keyValuePair.Value)
+                        //{
+                        //    List<DisplaySystemLabel> displaySystemLabels = systemPlantRoom.GetRelatedObjects<DisplaySystemLabel>(systemJSAMObject);
+                        //    if(displaySystemLabels == null || displaySystemLabels.Count == 0)
+                        //    {
+                        //        continue;
+                        //    }
+
+                        //    SAM.Geometry.Planar.Point2D point2D = null;
+                        //    if (systemJSAMObject is IDisplaySystemObject displaySystemObject)
+                        //    {
+                        //        List<ISAMGeometry> sAMGeometries = Geometry.Object.Convert.ToSAM_ISAMGeometry(Analytical.Systems.Query.SAMGeometry2Dobject((IDisplaySystemObject)systemJSAMObject));
+                        //    }
+
+                        //    Plane plane = Plane.WorldXZ;
+
+                        //    foreach(DisplaySystemLabel displaySystemLabel in displaySystemLabels)
+                        //    {
+                        //        Point3D location = plane.Convert(displaySystemLabel.Location);
+
+                        //        global::Rhino.Geometry.Plane plane_Rhino = Geometry.Rhino.Convert.ToRhino(new Plane(plane, location));
+
+                        //        Text3d text3d = new(displaySystemLabel.Text, plane_Rhino, displaySystemLabel.Height);
+
+                        //        rhinoDoc.Objects.AddText(text3d);
+                        //    }
+
+                        //}
+
+
                     }
                 }
             }
