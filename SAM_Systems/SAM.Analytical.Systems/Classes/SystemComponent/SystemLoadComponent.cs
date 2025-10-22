@@ -7,7 +7,11 @@ namespace SAM.Analytical.Systems
 {
     public class SystemLoadComponent : SystemComponent, ILiquidSystemComponent
     {
-        public ModifiableValue Load { get; set; }
+        public ModifiableValue Value { get; set; }
+        public LoadComponentValueType Type { get; set; }
+        public double TemperatureDifference { get; set; }
+        public double SpecificHeatCapacity { get; set; }
+        public double Density { get; set; }
 
 
         public SystemLoadComponent(string name)
@@ -21,16 +25,24 @@ namespace SAM.Analytical.Systems
         {
             if(systemLoadComponent != null)
             {
-                Load = systemLoadComponent.Load?.Clone();
+                Value = systemLoadComponent.Value?.Clone();
+                Type = systemLoadComponent.Type;
+                TemperatureDifference = systemLoadComponent.TemperatureDifference;
+                SpecificHeatCapacity = systemLoadComponent.SpecificHeatCapacity;
+                Density = systemLoadComponent.Density;
             }
         }
 
-        public SystemLoadComponent(System.Guid guid, SystemLoadComponent systemLoadComponent)
+        public SystemLoadComponent(Guid guid, SystemLoadComponent systemLoadComponent)
             : base(guid, systemLoadComponent)
         {
             if (systemLoadComponent != null)
             {
-                Load = systemLoadComponent.Load?.Clone();
+                Value = systemLoadComponent.Value?.Clone();
+                Type = systemLoadComponent.Type;
+                TemperatureDifference = systemLoadComponent.TemperatureDifference;
+                SpecificHeatCapacity = systemLoadComponent.SpecificHeatCapacity;
+                Density = systemLoadComponent.Density;
             }
         }
 
@@ -61,9 +73,29 @@ namespace SAM.Analytical.Systems
                 return result;
             }
 
-            if (jObject.ContainsKey("Load"))
+            if (jObject.ContainsKey("Value"))
             {
-                Load = Core.Query.IJSAMObject<ModifiableValue>(jObject.Value<JObject>("Load"));
+                Value = Core.Query.IJSAMObject<ModifiableValue>(jObject.Value<JObject>("Value"));
+            }
+
+            if (jObject.ContainsKey("Type"))
+            {
+                Type = Core.Query.Enum<LoadComponentValueType>(jObject.Value<string>("Type"));
+            }
+
+            if (jObject.ContainsKey("TemperatureDifference"))
+            {
+                TemperatureDifference = jObject.Value<double>("TemperatureDifference");
+            }
+
+            if (jObject.ContainsKey("SpecificHeatCapacity"))
+            {
+                SpecificHeatCapacity = jObject.Value<double>("SpecificHeatCapacity");
+            }
+
+            if (jObject.ContainsKey("Density"))
+            {
+                Density = jObject.Value<double>("Density");
             }
 
             return result;
@@ -77,9 +109,29 @@ namespace SAM.Analytical.Systems
                 return result;
             }
             
-            if (Load != null)
+            if (Value != null)
             {
-                result.Add("Load", Load.ToJObject());
+                result.Add("Value", Value.ToJObject());
+            }
+
+            if (Value != null)
+            {
+                result.Add("Type", Type.ToString());
+            }
+
+            if (!double.IsNaN(TemperatureDifference))
+            {
+                result.Add("TemperatureDifference", TemperatureDifference);
+            }
+
+            if (!double.IsNaN(SpecificHeatCapacity))
+            {
+                result.Add("SpecificHeatCapacity", SpecificHeatCapacity);
+            }
+
+            if (!double.IsNaN(Density))
+            {
+                result.Add("Density", Density);
             }
 
             return result;
