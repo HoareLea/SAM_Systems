@@ -213,6 +213,9 @@ namespace SAM.Analytical.Systems
                 case nameof(DisplaySystemSigLogicalController):
                     return System.Drawing.Color.FromArgb(0, 0, 0); // Black
 
+                case nameof(DisplaySystemFourPipeHeatPump):
+                    return System.Drawing.Color.FromArgb(123, 104, 238); // MediumSlateBlue
+
                 default:
                     throw new System.NotImplementedException($"Color for {type.Name} is not implemented.");
             }
