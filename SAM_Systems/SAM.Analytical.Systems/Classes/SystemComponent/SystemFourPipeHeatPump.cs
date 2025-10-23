@@ -21,7 +21,13 @@ namespace SAM.Analytical.Systems
         public double DesignTemperatureDifference_2 { get; set; }
         public ModifiableValue MotorEfficiency { get; set; }
         public ModifiableValue AncillaryLoad { get; set; }
+        /// <summary>
+        /// Exchange Demand Factor for heating mode
+        /// </summary>
         public double ADFHeatingMode { get; set; }
+        /// <summary>
+        /// Exchange Demand Factor for cooling mode
+        /// </summary>
         public double ADFCoolingMode { get; set; }
 
         public SystemFourPipeHeatPump(string name)

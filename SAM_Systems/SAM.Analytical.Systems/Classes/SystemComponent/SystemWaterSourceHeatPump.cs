@@ -19,7 +19,13 @@ namespace SAM.Analytical.Systems
         public double Capacity { get; set; }
         public double DesignTemperatureDifference { get; set; }
         public double StandbyPower { get; set; }
+        /// <summary>
+        /// Exchange Demand Factor for heating mode
+        /// </summary>
         public double ADFHeatingMode { get; set; }
+        /// <summary>
+        /// Exchange Demand Factor for cooling mode
+        /// </summary>
         public double ADFCoolingMode { get; set; }
         public double PortHeatingPower { get; set; }
         public double PortCoolingPower { get; set; }

@@ -18,9 +18,21 @@ namespace SAM.Analytical.Systems
         public double CoolingCapacityPowerRatio { get; set; }
         public double MaxDemandFanRatio { get; set; }
         public double StandbyPower { get; set; }
+        /// <summary>
+        /// Exchange Demand Factor for heating mode
+        /// </summary>
         public double ADFHeatingMode { get; set; }
+        /// <summary>
+        /// Exchange Demand Factor for cooling mode
+        /// </summary>
         public double ADFCoolingMode { get; set; }
+        /// <summary>
+        /// Consumption per port heating power
+        /// </summary>
         public double PortHeatingPower { get; set; }
+        /// <summary>
+        /// Consumption per port cooling power
+        /// </summary>
         public double PortCoolingPower { get; set; }
         public double WaterPipeLength { get; set; }
         public ModifiableValue AncillaryLoad { get; set; }
