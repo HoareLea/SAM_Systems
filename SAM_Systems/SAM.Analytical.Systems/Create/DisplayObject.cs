@@ -94,6 +94,10 @@ namespace SAM.Analytical.Systems
             {
                 displayObject = new DisplaySystemWaterSourceHeatPump((SystemWaterSourceHeatPump)systemComponent, systemGeometrySymbol, location);
             }
+            else if (systemComponent is SystemFourPipeHeatPump)
+            {
+                displayObject = new DisplaySystemFourPipeHeatPump((SystemFourPipeHeatPump)systemComponent, systemGeometrySymbol, location);
+            }
             else if (systemComponent is SystemAirSourceHeatPump)
             {
                 displayObject = new DisplaySystemAirSourceHeatPump((SystemAirSourceHeatPump)systemComponent, systemGeometrySymbol, location);

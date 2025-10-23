@@ -205,6 +205,9 @@
 
                 case AnalyticalSystemComponentType.SystemLoadComponent:
                     return typeof(SystemLoadComponent);
+
+                case AnalyticalSystemComponentType.SystemFourPipeHeatPump:
+                    return typeof(SystemFourPipeHeatPump);
             }
 
             return null;
