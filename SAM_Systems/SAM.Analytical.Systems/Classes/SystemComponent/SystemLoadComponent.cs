@@ -114,7 +114,7 @@ namespace SAM.Analytical.Systems
                 result.Add("Value", Value.ToJObject());
             }
 
-            if (Value != null)
+            if(Type != LoadComponentValueType.Undefined)
             {
                 result.Add("Type", Type.ToString());
             }

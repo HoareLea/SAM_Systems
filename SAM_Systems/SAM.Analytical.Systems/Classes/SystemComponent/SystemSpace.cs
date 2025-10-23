@@ -19,7 +19,9 @@ namespace SAM.Analytical.Systems
         public DesignConditionSizedFlowValue FlowRate { get; set; }
         public DesignConditionSizedFlowValue FreshAir { get; set; }
 
-        public SystemSpace(string name, double area, double volume, ModifiableValue temperatureSetpoint, ModifiableValue relativeHumiditySetpoint, ModifiableValue pollutantSetpoint, bool displacementVentilation, bool modelInterzoneFlow, bool modelVentilationFlow, DesignConditionSizedFlowValue flowRate, DesignConditionSizedFlowValue freshAir)
+        public double MinimumDesignFlowFraction { get; set; }
+
+        public SystemSpace(string name, double area, double volume, ModifiableValue temperatureSetpoint, ModifiableValue relativeHumiditySetpoint, ModifiableValue pollutantSetpoint, bool displacementVentilation, bool modelInterzoneFlow, bool modelVentilationFlow, DesignConditionSizedFlowValue flowRate, DesignConditionSizedFlowValue freshAir, double minimumDesignFlowFraction)
             : base(name)
         {
             this.area = area;
@@ -32,6 +34,7 @@ namespace SAM.Analytical.Systems
             ModelVentilationFlow = modelVentilationFlow;
             FlowRate = flowRate?.Clone();
             FreshAir = freshAir?.Clone();
+            MinimumDesignFlowFraction = minimumDesignFlowFraction;
         }
 
         public SystemSpace(JObject jObject)
@@ -56,6 +59,7 @@ namespace SAM.Analytical.Systems
                 ModelVentilationFlow = systemSpace.ModelVentilationFlow;
                 FlowRate = systemSpace.FlowRate;
                 FreshAir = systemSpace.FreshAir;
+                MinimumDesignFlowFraction = systemSpace.MinimumDesignFlowFraction;
             }
         }
 
@@ -75,6 +79,7 @@ namespace SAM.Analytical.Systems
                 ModelVentilationFlow = systemSpace.ModelVentilationFlow;
                 FlowRate = systemSpace.FlowRate;
                 FreshAir = systemSpace.FreshAir;
+                MinimumDesignFlowFraction = systemSpace.MinimumDesignFlowFraction;
             }
         }
 
@@ -165,6 +170,11 @@ namespace SAM.Analytical.Systems
                 FreshAir = Core.Query.IJSAMObject<DesignConditionSizedFlowValue>(jObject.Value<JObject>("FreshAir"));
             }
 
+            if (jObject.ContainsKey("MinimumDesignFlowFraction"))
+            {
+                MinimumDesignFlowFraction = jObject.Value<double>("MinimumDesignFlowFraction");
+            }
+
             return true;
         }
 
@@ -215,6 +225,11 @@ namespace SAM.Analytical.Systems
             if (FreshAir != null)
             {
                 result.Add("FreshAir", FreshAir.ToJObject());
+            }
+
+            if (!double.IsNaN(MinimumDesignFlowFraction))
+            {
+                result.Add("MinimumDesignFlowFraction", MinimumDesignFlowFraction);
             }
 
             return result;
