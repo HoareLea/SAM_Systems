@@ -73,6 +73,18 @@ namespace SAM.Analytical.Systems
                 SystemPlantRoom systemPlantRoom = systemPlantRooms.FirstOrDefault();
                 systemPlantRoom = systemPlantRoom.Clone();
 
+                if(result.GetSystemPlantRoom(systemPlantRoom.Name) != null)
+                {
+                    int index = 2;
+                    string name_SystemPlantRoom = string.Format("{0} {1}", systemPlantRoom.Name, index);
+                    while (result.GetSystemPlantRoom(name_SystemPlantRoom) != null)
+                    {
+                        index++;
+                        name_SystemPlantRoom = string.Format("{0} {1}", systemPlantRoom.Name, index);
+                    }
+
+                    systemPlantRoom.Name = name_SystemPlantRoom;
+                }
 
                 //Copy properties
                 SystemEnergyCentre systemEnergyCentre = systemEnergyCentres.Find(x => x.GetSystemPlantRoom(new ObjectReference(systemPlantRoom)) != null);
