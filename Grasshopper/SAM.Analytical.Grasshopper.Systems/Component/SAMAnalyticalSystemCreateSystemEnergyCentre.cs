@@ -33,9 +33,28 @@ namespace SAM.Analytical.Grasshopper.Systems
         /// Initializes a new instance of the SAM_point3D class.
         /// </summary>
         public SAMAnalyticalSystemCreateSystemEnergyCentre()
-          : base("SAMAnalytical.CreateSystemEnergyCentre", "SAMAnalytical.CreateSystemEnergyCentre",
-              "Creates SystemEnergyCentre",
-              "SAM", "Systems")
+          : base(
+                  "SAMAnalytical.CreateSystemEnergyCentre",
+                  "SAMAnalytical.CreateSystemEnergyCentre",
+                  "Creates a SystemEnergyCentre.\n" +
+                  "\n" +
+                  "Each SystemEnergyCentre represents an air system together with its associated plantroom.\n" +
+                  "\n" +
+                  "Legacy workflow:\n" +
+                  "• System definitions are taken from MechanicalSystemTypes.\n" +
+                  "\n" +
+                  "Library workflow:\n" +
+                  "• System definitions are loaded from the local JSON library:\n" +
+                  "  %AppData%\\SAM\\resources\\Analytical\\Systems\\SystemEnergyCentre\n" +
+                  "• Each JSON entry is stored as a complete energy centre (air system + plantroom).\n" +
+                  "\n" +
+                  "If multiple energy centres are created with the same name,\n" +
+                  "duplicate names are automatically renamed by appending 1, 2, 3, etc.\n" +
+                  "\n" +
+                  "To run a simulation, connect the created SystemEnergyCentre to\n" +
+                  "the SAMSystems.CreateTPDByTSDAndSystemEnergyCentre component.",
+                  "SAM",
+                  "Systems")
         {
         }
 
@@ -61,7 +80,7 @@ namespace SAM.Analytical.Grasshopper.Systems
             {
                 List<GH_SAMParam> result = new List<GH_SAMParam>();
                 result.Add(new GH_SAMParam(new GooAnalyticalModelParam() { Name = "analyticalModel", NickName = "analyticalModel", Description = "SAM AnalyticalModel", Access = GH_ParamAccess.item }, ParamVisibility.Binding));
-                result.Add(new GH_SAMParam(new GooSystemEnergyCentreParam() { Name = "systemEnergyCentre", NickName = "systemEnergyCentre", Description = "SAM SystemEnergyCentre", Access = GH_ParamAccess.item }, ParamVisibility.Binding));
+                result.Add(new GH_SAMParam(new GooSystemEnergyCentreParam() { Name = "systemEnergyCentre", NickName = "systemEnergyCentre", Description = "SAM SystemEnergyCentre \n to simulate connect the SAMSystems.CreateTPDByTSDAndSystemEnergyCentre component.", Access = GH_ParamAccess.item }, ParamVisibility.Binding));
                 return result.ToArray();
             }
         }
