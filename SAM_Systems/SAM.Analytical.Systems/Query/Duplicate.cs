@@ -91,7 +91,9 @@ namespace SAM.Analytical.Systems
                     }
                     else if(systemJSAMObject is ISystemSpaceComponent)
                     {
-                        ISystemSpaceComponent systemSpaceComponent = Duplicate(systemPlantRoom, (ISystemSpaceComponent)systemJSAMObject);
+                        //Changed 2026.03.18
+                        ISystemSpaceComponent systemSpaceComponent = ((SystemSpaceComponent)systemJSAMObject).Duplicate() as ISystemSpaceComponent;
+                        //ISystemSpaceComponent systemSpaceComponent = Duplicate(systemPlantRoom, (ISystemSpaceComponent)systemJSAMObject);
 
                         systemPlantRoom.Connect(systemSpaceComponent, result);
                     }
@@ -106,6 +108,23 @@ namespace SAM.Analytical.Systems
                     else
                     {
 
+                    }
+                }
+
+                //Added 2026.03.18
+                if (systemPlantRoom.GetRelatedObjects<ISystemGroup>(result) is List<ISystemGroup> systemGroups && systemGroups.Count != 0)
+                {
+                    List<ISystemSpaceComponent> systemSpaceComponents = systemPlantRoom.GetRelatedObjects<ISystemSpaceComponent>(result);
+                    if(systemSpaceComponents != null && systemSpaceComponents.Count != 0)
+                    {
+                        foreach(ISystemSpaceComponent systemSpaceComponent in systemSpaceComponents)
+                        {
+                            foreach (ISystemGroup systemGroup in systemGroups)
+                            {
+                                systemPlantRoom.Connect(systemGroup, systemSpaceComponent);
+                            }
+
+                        }
                     }
                 }
             }
