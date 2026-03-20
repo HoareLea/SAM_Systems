@@ -78,17 +78,17 @@ namespace SAM.Analytical.Systems
                 result.Add("Description", Description);
             }
 
-            if (double.IsNaN(SpecificHeatCapacity))
+            if (!double.IsNaN(SpecificHeatCapacity))
             {
                 result.Add("SpecificHeatCapacity", SpecificHeatCapacity);
             }
 
-            if (double.IsNaN(Density))
+            if (!double.IsNaN(Density))
             {
                 result.Add("Density", Density);
             }
 
-            if (double.IsNaN(FreezingPoint))
+            if (!double.IsNaN(FreezingPoint))
             {
                 result.Add("FreezingPoint", FreezingPoint);
             }
