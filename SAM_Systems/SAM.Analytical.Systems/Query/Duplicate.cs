@@ -32,8 +32,23 @@ namespace SAM.Analytical.Systems
                 volume = volume_Temp;
             }
 
-            result = new SystemSpace(space.Name, area, volume, null, null, null, false, false, false, null, null, double.NaN);
-            if(systemSpace.TryGetValue(AirSystemComponentParameter.GroupIndex, out int groupIndex))
+            //Changed 2026.03.22
+            //result = new SystemSpace(space.Name, area, volume, null, null, null, false, false, false, null, null, double.NaN);
+            result = new SystemSpace(
+                space.Name, 
+                area, 
+                volume, 
+                systemSpace.TemperatureSetpoint, 
+                systemSpace.RelativeHumiditySetpoint, 
+                systemSpace.PollutantSetpoint, 
+                systemSpace.DisplacementVentilation, 
+                systemSpace.ModelInterzoneFlow, 
+                systemSpace.ModelVentilationFlow, 
+                systemSpace.FlowRate, 
+                systemSpace.FreshAir, 
+                systemSpace.MinimumDesignFlowFraction);
+
+            if (systemSpace.TryGetValue(AirSystemComponentParameter.GroupIndex, out int groupIndex))
             {
                 result.SetValue(AirSystemComponentParameter.GroupIndex, groupIndex);
             }
