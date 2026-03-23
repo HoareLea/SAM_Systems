@@ -28,49 +28,104 @@ namespace SAM.Analytical.Systems
                 return null;
             }
 
-            List<SystemEnergyCentre> systemEnergyCentres = Query.DefaultSystemEnergyCentres(); 
-            if(systemEnergyCentres == null || systemEnergyCentres.Count == 0)
+            List<SystemEnergyCentre> systemEnergyCentres_Default = Query.DefaultSystemEnergyCentres(); 
+            if(systemEnergyCentres_Default == null || systemEnergyCentres_Default.Count == 0)
             {
                 return null;
             }
 
-            List<Tuple<Space, string>> tuples_AnalyticalModel = new List<Tuple<Space, string>>();
+            List<Tuple<Space, SystemTemplate>> tuples_AnalyticalModel = new List<Tuple<Space, SystemTemplate>>();
 
             foreach(Space space in spaces)
             {
                 InternalCondition internalCondition = space?.InternalCondition;
-                if(internalCondition == null || !internalCondition.TryGetValue(InternalConditionParameter.VentilationSystemTypeName, out string systemTypeName) || string.IsNullOrWhiteSpace(systemTypeName))
+                if(internalCondition == null || !internalCondition.TryGetValue(InternalConditionParameter.VentilationSystemTypeName, out string ventilationSystemTypeName) || string.IsNullOrWhiteSpace(ventilationSystemTypeName))
                 {
+                    ventilationSystemTypeName = null;
                     continue;
                 }
 
-                tuples_AnalyticalModel.Add(new Tuple<Space, string>(space, systemTypeName));
+                if (internalCondition == null || !internalCondition.TryGetValue(InternalConditionParameter.HeatingSystemTypeName, out string heatingSystemTypeName) || string.IsNullOrWhiteSpace(heatingSystemTypeName))
+                {
+                    heatingSystemTypeName = null;
+                }
+
+                if (internalCondition == null || !internalCondition.TryGetValue(InternalConditionParameter.CoolingSystemTypeName, out string coolingSystemTypeName) || string.IsNullOrWhiteSpace(coolingSystemTypeName))
+                {
+                    coolingSystemTypeName = null;
+                }
+
+                SystemTemplate systemTemplate = new SystemTemplate()
+                {
+                    Ventilation = ventilationSystemTypeName,
+                    Heating = heatingSystemTypeName,
+                    Cooling = coolingSystemTypeName
+                };
+
+                tuples_AnalyticalModel.Add(new Tuple<Space, SystemTemplate>(space, systemTemplate));
             }
 
             SystemEnergyCentre result = new SystemEnergyCentre(analyticalModel.Name);
 
             while (tuples_AnalyticalModel.Count > 0)
             {
-                Tuple<Space, string> tuple = tuples_AnalyticalModel[0];
+                SystemPlantRoom systemPlantRoom = null;
 
-                List<Tuple<Space, string>> tuples_Temp = tuples_AnalyticalModel.FindAll(x => x.Item2 == tuple.Item2);
+                Tuple<Space, SystemTemplate> tuple = tuples_AnalyticalModel[0];
+
+                List<Tuple<Space, SystemTemplate>> tuples_Temp = tuples_AnalyticalModel.FindAll(x => x.Item2.ToString() == tuple.Item2.ToString());
                 tuples_AnalyticalModel.RemoveAll(x => tuples_Temp.Contains(x));
 
-                string name = tuple.Item2;
+                SystemTemplate systemTemplate = tuple.Item2;
 
-                List<SystemPlantRoom> systemPlantRooms = systemEnergyCentres.DefaultSystemPlantRooms(name);
-                if(systemPlantRooms == null || systemPlantRooms.Count == 0)
+                foreach (SystemEnergyCentre systemEnergyCentre_Default in systemEnergyCentres_Default)
                 {
-                    if(unavailableSystemTypeNames == null)
+                    SystemTemplate systemTemplate_Default = systemEnergyCentre_Default.GetValue<SystemTemplate>(SystemEnergyCentreParameter.SystemTemplate);
+                    if(systemTemplate_Default is null)
+                    {
+                        continue;
+                    }
+
+                    if(!(systemTemplate_Default.Ventilation == systemTemplate.Ventilation || (systemTemplate_Default.IsUnventilated() && systemTemplate.IsUnventilated())))
+                    {
+                        continue;
+                    }
+
+                    if (!(systemTemplate_Default.Heating == systemTemplate.Heating || (systemTemplate_Default.IsUnheated() && systemTemplate.IsUnheated())))
+                    {
+                        continue;
+                    }
+
+                    if (!(systemTemplate_Default.Cooling == systemTemplate.Cooling || (systemTemplate_Default.IsUncooled() && systemTemplate.IsUncooled())))
+                    {
+                        continue;
+                    }
+
+                    systemPlantRoom = systemEnergyCentre_Default.GetSystemPlantRooms()?.FirstOrDefault();
+                    if(systemPlantRoom != null)
+                    {
+                        break;
+                    }
+                }
+
+                if(systemPlantRoom is null)
+                {
+                    List<SystemPlantRoom> systemPlantRooms = systemEnergyCentres_Default.DefaultSystemPlantRooms(tuple.Item2.Ventilation);
+
+                    systemPlantRoom = systemPlantRooms?.FirstOrDefault();
+                }
+
+                if(systemPlantRoom is null)
+                {
+                    if (unavailableSystemTypeNames == null)
                     {
                         unavailableSystemTypeNames = new HashSet<string>();
                     }
 
-                    unavailableSystemTypeNames.Add(name);
+                    unavailableSystemTypeNames.Add(tuple.Item2.ToString());
                     continue;
                 }
 
-                SystemPlantRoom systemPlantRoom = systemPlantRooms.FirstOrDefault();
                 systemPlantRoom = systemPlantRoom.Clone();
 
                 if(result.GetSystemPlantRoom(systemPlantRoom.Name) != null)
@@ -87,7 +142,7 @@ namespace SAM.Analytical.Systems
                 }
 
                 //Copy properties
-                SystemEnergyCentre systemEnergyCentre = systemEnergyCentres.Find(x => x.GetSystemPlantRoom(new ObjectReference(systemPlantRoom)) != null);
+                SystemEnergyCentre systemEnergyCentre = systemEnergyCentres_Default.Find(x => x.GetSystemPlantRoom(new ObjectReference(systemPlantRoom)) != null);
                 if(systemEnergyCentre != null)
                 {
                     //Copy Analytical Systems Properties
