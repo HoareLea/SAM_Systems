@@ -8,12 +8,12 @@ namespace SAM.Analytical.Systems
 {
     public static partial class Create
     {
-        public static SystemEnergyCentre SystemEnergyCentre(this AnalyticalModel analyticalModel)
+        public static SystemEnergyCentre SystemEnergyCentre(this AnalyticalModel analyticalModel, List<SystemEnergyCentre> systemEnergyCentres = null)
         {
-            return SystemEnergyCentre(analyticalModel, out HashSet<string> unavailableSystemTypeNames);
+            return SystemEnergyCentre(analyticalModel, out HashSet<string> unavailableSystemTypeNames, systemEnergyCentres);
         }
 
-        public static SystemEnergyCentre SystemEnergyCentre(this AnalyticalModel analyticalModel, out HashSet<string> unavailableSystemTypeNames)
+        public static SystemEnergyCentre SystemEnergyCentre(this AnalyticalModel analyticalModel, out HashSet<string> unavailableSystemTypeNames, List<SystemEnergyCentre> systemEnergyCentres = null)
         {
             unavailableSystemTypeNames = null;
 
@@ -28,7 +28,12 @@ namespace SAM.Analytical.Systems
                 return null;
             }
 
-            List<SystemEnergyCentre> systemEnergyCentres_Default = Query.DefaultSystemEnergyCentres(); 
+            List<SystemEnergyCentre> systemEnergyCentres_Default = systemEnergyCentres;
+            if(systemEnergyCentres_Default is null || systemEnergyCentres_Default.Count == 0)
+            {
+                systemEnergyCentres_Default = Query.DefaultSystemEnergyCentres();
+            }
+
             if(systemEnergyCentres_Default == null || systemEnergyCentres_Default.Count == 0)
             {
                 return null;

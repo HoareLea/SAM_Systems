@@ -20,7 +20,7 @@ namespace SAM.Analytical.Grasshopper.Systems
         /// <summary>
         /// The latest version of this component
         /// </summary>
-        public override string LatestComponentVersion => "1.0.0";
+        public override string LatestComponentVersion => "1.0.1";
 
         /// <summary>
         /// Provides an Icon for the component.
@@ -60,6 +60,8 @@ namespace SAM.Analytical.Grasshopper.Systems
                 param_Boolean.SetPersistentData(false);
                 result.Add(new GH_SAMParam(param_Boolean, ParamVisibility.Binding));
 
+                result.Add(new GH_SAMParam(new global::Grasshopper.Kernel.Parameters.Param_String() { Name = "_systemEnergyCentresDirectory", NickName = "_systemEnergyCentresDirectory", Description = "SAM SystemEnergyCentres Directory", Access = GH_ParamAccess.item, Optional = true }, ParamVisibility.Voluntary));
+
                 return result.ToArray();
             }
         }
@@ -96,11 +98,23 @@ namespace SAM.Analytical.Grasshopper.Systems
                 return;
             }
 
+            List<SystemEnergyCentre> systemEnergyCentres = [];
+            index = Params.IndexOfInputParam("_systemEnergyCentresDirectory");
+            if (index != -1)
+            {
+                dataAccess.GetDataList(index, systemEnergyCentres);
+            }
+
+            if (systemEnergyCentres.Count == 0)
+            {
+                systemEnergyCentres = null;
+            }
+
             analyticalModel = new AnalyticalModel(analyticalModel);
 
             if(!analyticalModel.TryGetValue(Analytical.Systems.AnalyticalModelParameter.SystemEnergyCentre, out SystemEnergyCentre systemEnergyCentre) || systemEnergyCentre == null)
             {
-                systemEnergyCentre = analyticalModel.SystemEnergyCentre(out HashSet<string> unavailableSystemTypeNames);
+                systemEnergyCentre = analyticalModel.SystemEnergyCentre(out HashSet<string> unavailableSystemTypeNames, systemEnergyCentres);
                 if (unavailableSystemTypeNames != null && unavailableSystemTypeNames.Count != 0)
                 {
                     AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, string.Format("Following system types not defined: {0}", string.Join(", ", unavailableSystemTypeNames)));

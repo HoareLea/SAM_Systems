@@ -47,6 +47,8 @@ namespace SAM.Analytical.Grasshopper.Systems
                 result.Add(new GH_SAMParam(new GooSpaceParam() { Name = "_spaces", NickName = "_spaces", Description = "SAM Analytical Spaces", Access = GH_ParamAccess.list }, ParamVisibility.Binding));
                 result.Add(new GH_SAMParam(new GooSystemObjectParam() { Name = "_airSystem", NickName = "_airSystem", Description = "SAM AirSystem", Access = GH_ParamAccess.item, Optional = false }, ParamVisibility.Binding));
 
+                result.Add(new GH_SAMParam(new global::Grasshopper.Kernel.Parameters.Param_String() { Name = "_systemEnergyCentresDirectory", NickName = "_systemEnergyCentresDirectory", Description = "SAM SystemEnergyCentres Directory", Access = GH_ParamAccess.item, Optional = true }, ParamVisibility.Voluntary));
+
                 return result.ToArray();
             }
         }
@@ -82,9 +84,21 @@ namespace SAM.Analytical.Grasshopper.Systems
                 return;
             }
 
-            if(!analyticalModel.TryGetValue(Analytical.Systems.AnalyticalModelParameter.SystemEnergyCentre, out SystemEnergyCentre systemEnergyCentre) || systemEnergyCentre == null)
+            List<SystemEnergyCentre> systemEnergyCentres = [];
+            index = Params.IndexOfInputParam("_systemEnergyCentresDirectory");
+            if (index != -1)
             {
-                systemEnergyCentre = analyticalModel.SystemEnergyCentre(out HashSet<string> unavailableSystemTypeNames);
+                dataAccess.GetDataList(index, systemEnergyCentres);
+            }
+
+            if (systemEnergyCentres.Count == 0)
+            {
+                systemEnergyCentres = null;
+            }
+
+            if (!analyticalModel.TryGetValue(Analytical.Systems.AnalyticalModelParameter.SystemEnergyCentre, out SystemEnergyCentre systemEnergyCentre) || systemEnergyCentre == null)
+            {
+                systemEnergyCentre = analyticalModel.SystemEnergyCentre(out HashSet<string> unavailableSystemTypeNames, systemEnergyCentres);
                 if(unavailableSystemTypeNames != null && unavailableSystemTypeNames.Count != 0)
                 {
                     AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, string.Format("Following system types not defined: {0}", string.Join(", ", unavailableSystemTypeNames)));
