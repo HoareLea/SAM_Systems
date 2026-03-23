@@ -3,10 +3,15 @@
 
 using Grasshopper.Kernel;
 using SAM.Analytical.Grasshopper.Systems.Properties;
+using SAM.Analytical.Systems;
+using SAM.Core;
 using SAM.Core.Grasshopper;
 using SAM.Core.Systems;
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Reflection;
 
 namespace SAM.Analytical.Grasshopper.Systems
 {
@@ -105,10 +110,31 @@ namespace SAM.Analytical.Grasshopper.Systems
             }
 
             List<SystemEnergyCentre> systemEnergyCentres = [];
+            string directory = null;
             index = Params.IndexOfInputParam("_systemEnergyCentresDirectory");
-            if(index != -1)
+            if (index != -1 && dataAccess.GetData(index, ref directory) && Directory.Exists(directory))
             {
-                dataAccess.GetDataList(index, systemEnergyCentres);
+                if (new DirectoryInfo(directory)?.GetFiles("*.json") is FileInfo[] fileInfos)
+                {
+                    foreach (FileInfo fileInfo in fileInfos)
+                    {
+                        List<SystemEnergyCentre> systemEnergyCentres_File = Core.Convert.ToSAM<SystemEnergyCentre>(fileInfo.FullName);
+                        if (systemEnergyCentres_File == null || systemEnergyCentres_File.Count == 0)
+                        {
+                            continue;
+                        }
+
+                        if (Analytical.Query.TryParse(Path.GetFileNameWithoutExtension(fileInfo.FullName), out SystemTemplate systemTemplate) && systemTemplate != null)
+                        {
+                            foreach (SystemEnergyCentre systemEnergyCentre_Temp in systemEnergyCentres)
+                            {
+                                systemEnergyCentre_Temp.SetValue(SystemEnergyCentreParameter.SystemTemplate, systemTemplate.Clone());
+                            }
+                        }
+
+                        systemEnergyCentres.AddRange(systemEnergyCentres);
+                    }
+                }
             }
 
             if(systemEnergyCentres.Count == 0)
