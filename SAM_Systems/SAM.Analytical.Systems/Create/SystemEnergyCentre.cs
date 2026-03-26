@@ -1,4 +1,5 @@
-﻿using SAM.Core;
+﻿using SAM.Analytical.Enums;
+using SAM.Core;
 using SAM.Core.Systems;
 using System;
 using System.Collections.Generic;
@@ -223,20 +224,79 @@ namespace SAM.Analytical.Systems
                     airSystemGroups.ForEach(x => tuples.Add(new Tuple<string, SystemSpace>(x.Name, systemSpace)));
                 }
 
-                bool single = tuples.ConvertAll(x => x.Item1).FindAll(x => !string.IsNullOrEmpty(x)).Distinct().Count() <= 1;
-                if(single)
-                {
-                    SystemSpace systemSpace = tuples.First().Item2;
+                //2026.03.26 NEW matching system for PartFSpaceData.PartFVentilationType
 
-                    foreach (Space space in tuples_Temp.ConvertAll(x => x.Item1))
+                Dictionary<string, List<Space>> dictionary_Space = new Dictionary<string, List<Space>>();
+                foreach (Space space in tuples_Temp.ConvertAll(x => x.Item1))
+                {
+                    if (space is null)
+                    {
+                        continue;
+                    }
+
+                    string key = string.Empty;
+
+                    PartFSpaceData partFSpaceData = space.GetValue<PartFSpaceData>(SpaceParameter.PartFSpaceData);
+                    if (partFSpaceData != null)
+                    {
+                        key = partFSpaceData.PartFVentilationType.ToString();
+                    }
+
+                    if (!dictionary_Space.TryGetValue(key, out List<Space> spaces_Key))
+                    {
+                        spaces_Key = new List<Space>();
+                        dictionary_Space[key] = spaces_Key;
+                    }
+
+                    spaces_Key.Add(space);
+                }
+
+                Dictionary<string, SystemSpace> dictionary_SystemSpace = new Dictionary<string, SystemSpace>();
+                foreach (Tuple<string, SystemSpace> tuple_Temp in tuples)
+                {
+                    string key = tuple_Temp.Item1 ?? string.Empty;
+
+                    if (Core.Query.TryConvert(key, out PartFVentilationType partFVentilationType))
+                    {
+                        key = partFVentilationType.ToString();
+                    }
+                    else
+                    {
+                        key = string.Empty;
+                    }
+
+                    dictionary_SystemSpace[key] = tuple_Temp.Item2;
+                }
+
+                foreach (KeyValuePair<string, List<Space>> keyValuePair in dictionary_Space)
+                {
+                    if (!dictionary_SystemSpace.TryGetValue(keyValuePair.Key, out SystemSpace systemSpace) || systemSpace is null)
+                    {
+                        continue;
+                    }
+
+                    foreach (Space space in keyValuePair.Value)
                     {
                         systemPlantRoom.Duplicate(systemSpace, space);
                     }
                 }
-                else
-                {
-                    throw new NotImplementedException();
-                }
+
+                //2026.03.26 Old approach below
+
+                //bool single = tuples.ConvertAll(x => x.Item1).FindAll(x => !string.IsNullOrEmpty(x)).Distinct().Count() <= 1;
+                //if(single)
+                //{
+                //    SystemSpace systemSpace = tuples.First().Item2;
+
+                //    foreach (Space space in tuples_Temp.ConvertAll(x => x.Item1))
+                //    {
+                //        systemPlantRoom.Duplicate(systemSpace, space);
+                //    }
+                //}
+                //else
+                //{
+                //    throw new NotImplementedException();
+                //}
 
                 tuples.ForEach(x => systemPlantRoom.Remove(x.Item2));
 
