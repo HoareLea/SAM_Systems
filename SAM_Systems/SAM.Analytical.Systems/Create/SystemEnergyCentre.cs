@@ -272,6 +272,14 @@ namespace SAM.Analytical.Systems
                 {
                     if (!dictionary_SystemSpace.TryGetValue(keyValuePair.Key, out SystemSpace systemSpace) || systemSpace is null)
                     {
+                        if (!dictionary_SystemSpace.TryGetValue(string.Empty, out systemSpace) || systemSpace is null)
+                        {
+                            continue;
+                        }
+                    }
+
+                    if (!dictionary_SystemSpace.TryGetValue(keyValuePair.Key, out systemSpace) || systemSpace is null)
+                    {
                         continue;
                     }
 
