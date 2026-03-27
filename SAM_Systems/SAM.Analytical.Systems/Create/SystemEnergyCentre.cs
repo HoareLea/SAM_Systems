@@ -278,7 +278,7 @@ namespace SAM.Analytical.Systems
                         }
                     }
 
-                    if (!dictionary_SystemSpace.TryGetValue(keyValuePair.Key, out systemSpace) || systemSpace is null)
+                    if (systemSpace is null)
                     {
                         continue;
                     }
