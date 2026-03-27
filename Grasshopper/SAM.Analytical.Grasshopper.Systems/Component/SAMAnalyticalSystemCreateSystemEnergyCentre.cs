@@ -126,13 +126,13 @@ namespace SAM.Analytical.Grasshopper.Systems
 
                         if (Analytical.Query.TryParse(Path.GetFileNameWithoutExtension(fileInfo.FullName), out SystemTemplate systemTemplate) && systemTemplate != null)
                         {
-                            foreach (SystemEnergyCentre systemEnergyCentre_Temp in systemEnergyCentres)
+                            foreach (SystemEnergyCentre systemEnergyCentre_Temp in systemEnergyCentres_File)
                             {
                                 systemEnergyCentre_Temp.SetValue(SystemEnergyCentreParameter.SystemTemplate, systemTemplate.Clone());
                             }
                         }
 
-                        systemEnergyCentres.AddRange(systemEnergyCentres);
+                        systemEnergyCentres.AddRange(systemEnergyCentres_File);
                     }
                 }
             }
