@@ -1,8 +1,10 @@
-﻿using Grasshopper.Kernel;
+﻿// SPDX-License-Identifier: LGPL-3.0-or-later
+// Copyright (c) 2020–2026 Michal Dengusiak & Jakub Ziolkowski and contributors
+
+using Grasshopper.Kernel;
 using SAM.Analytical.Grasshopper.Systems.Properties;
 using SAM.Core;
 using SAM.Core.Grasshopper;
-using SAM.Core.Grasshopper.Systems;
 using SAM.Core.Systems;
 using System;
 using System.Collections.Generic;
@@ -15,7 +17,7 @@ namespace SAM.Analytical.Grasshopper.Systems
         /// <summary>
         /// Gets the unique ID for this component. Do not change this ID after release.
         /// </summary>
-        public override Guid ComponentGuid => new Guid("32b7d078-f950-4e41-8b19-b93de65c6b01");
+        public override Guid ComponentGuid => new ("32b7d078-f950-4e41-8b19-b93de65c6b01");
 
         /// <summary>
         /// The latest version of this component
@@ -46,13 +48,13 @@ namespace SAM.Analytical.Grasshopper.Systems
         {
             get
             {
-                List<GH_SAMParam> result = new List<GH_SAMParam>();
+                List<GH_SAMParam> result = [];
                 result.Add(new GH_SAMParam(new GooSystemPlantRoomParam() { Name = "_systemPlantRoom", NickName = "_systemPlantRoom", Description = "SystemPlantRoom", Access = GH_ParamAccess.item }, ParamVisibility.Binding));
                 result.Add(new GH_SAMParam(new GooSystemComponentParam() { Name = "_systemComponent", NickName = "_systemComponent", Description = "System Component", Access = GH_ParamAccess.item }, ParamVisibility.Binding));
                 result.Add(new GH_SAMParam(new Core.Grasshopper.Systems.GooSystemParam() { Name = "_system_", NickName = "_system_", Description = "System", Optional = true, Access = GH_ParamAccess.item }, ParamVisibility.Binding));
                 result.Add(new GH_SAMParam(new global::Grasshopper.Kernel.Parameters.Param_String() { Name = "direction_", NickName = "direction_", Description = "Flow Direction", Access = GH_ParamAccess.item, Optional = true }, ParamVisibility.Binding));
 
-                return result.ToArray();
+                return [.. result];
             }
         }
 
@@ -63,9 +65,9 @@ namespace SAM.Analytical.Grasshopper.Systems
         {
             get
             {
-                List<GH_SAMParam> result = new List<GH_SAMParam>();
+                List<GH_SAMParam> result = [];
                 result.Add(new GH_SAMParam(new GooSystemComponentParam() { Name = "systemComponents", NickName = "systemComponents", Description = "System Components", Access = GH_ParamAccess.list }, ParamVisibility.Binding));
-                return result.ToArray();
+                return [.. result];
             }
         }
 
@@ -128,7 +130,7 @@ namespace SAM.Analytical.Grasshopper.Systems
             List<ISystemComponent> systemComponents = null;
             if(direction == null || !direction.HasValue)
             {
-                systemComponents = new List<ISystemComponent>();
+                systemComponents = [];
                 systemPlantRoom.GetOrderedSystemComponents(systemComponent, system, Direction.In).ForEach(x => systemComponents.Add(x));
                 systemComponents.Reverse();
                 systemComponents.Add(systemComponent);
