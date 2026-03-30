@@ -19,7 +19,7 @@ namespace SAM.Analytical.Systems
 
         public double HoursBeforePurgingTank { get; set; }
 
-        public string ScheduleName { get; set; }
+        public new string ScheduleName { get; set; }
 
         public SystemDirectEvaporativeCooler(string name)
             : base(name)

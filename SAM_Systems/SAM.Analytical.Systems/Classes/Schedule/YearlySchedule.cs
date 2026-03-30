@@ -45,7 +45,7 @@ namespace SAM.Analytical.Systems
         {
             get
             {
-                return values == null ? null : values.ToArray();
+                return values?.ToArray();
             }
 
             set
@@ -76,7 +76,7 @@ namespace SAM.Analytical.Systems
             }
         }
 
-        public virtual bool FromJObject(JObject jObject)
+        public override bool FromJObject(JObject jObject)
         {
             bool result = base.FromJObject(jObject);
             if(!result )
@@ -98,7 +98,7 @@ namespace SAM.Analytical.Systems
             return true;
         }
 
-        public virtual JObject ToJObject()
+        public override JObject ToJObject()
         {
             JObject result = base.ToJObject();
             if(result == null)

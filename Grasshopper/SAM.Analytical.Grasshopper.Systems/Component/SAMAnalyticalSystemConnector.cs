@@ -100,7 +100,7 @@ namespace SAM.Analytical.Grasshopper.Systems
 
             index = Params.IndexOfInputParam("_location");
             global::Rhino.Geometry.Point3d point3d = new Rhino.Geometry.Point3d();
-            if (index == -1 || !dataAccess.GetData(index, ref point3d) || point3d == null)
+            if (index == -1 || !dataAccess.GetData(index, ref point3d) || !point3d.IsValid)
             {
                 AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "Invalid data");
                 return;

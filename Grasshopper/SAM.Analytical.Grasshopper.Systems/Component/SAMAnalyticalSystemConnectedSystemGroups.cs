@@ -75,8 +75,6 @@ namespace SAM.Analytical.Grasshopper.Systems
         {
             int index = -1;
 
-            string text = null;
-
             index = Params.IndexOfInputParam("_systemPlantRoom");
             SystemPlantRoom systemPlantRoom = null;
             if (index == -1 || !dataAccess.GetData(index, ref systemPlantRoom) || systemPlantRoom == null)

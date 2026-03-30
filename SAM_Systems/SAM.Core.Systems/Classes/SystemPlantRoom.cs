@@ -39,7 +39,7 @@ namespace SAM.Core.Systems
 
         }
 
-        public string Name
+        public new string Name
         {
             get
             {
@@ -976,8 +976,7 @@ namespace SAM.Core.Systems
             List<ISystemJSAMObject> result = new List<ISystemJSAMObject>();
             foreach (ISystemJSAMObject @object in objects)
             {
-                ISystemJSAMObject systemObject_Temp = @object?.Clone() as ISystemJSAMObject;
-                if (systemObject_Temp == null)
+                if (!(@object?.Clone() is ISystemJSAMObject systemObject_Temp))
                 {
                     continue;
                 }
@@ -1031,7 +1030,7 @@ namespace SAM.Core.Systems
             Guid guid = systemRelationCluster.GetGuid(systemComponent);
 
             bool valid = false;
-            for (int i = result.Count - 1; i >= 0; i++)
+            for (int i = result.Count - 1; i >= 0; i--)
             {
                 Guid guid_Temp = systemRelationCluster.GetGuid(result[i]);
                 if (guid != guid_Temp)

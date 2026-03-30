@@ -70,7 +70,7 @@ namespace SAM.Geometry.Systems
             }
         }
         
-        public bool FromJObject(JObject jObject)
+        public new bool FromJObject(JObject jObject)
         {
             bool result = base.FromJObject(jObject);
             if(!result)
@@ -101,7 +101,7 @@ namespace SAM.Geometry.Systems
             return result;
         }
         
-        public JObject ToJObject()
+        public new JObject ToJObject()
         {
             JObject result = base.ToJObject();
             if(result == null)
