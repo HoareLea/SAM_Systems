@@ -1,9 +1,11 @@
-﻿using Grasshopper.Kernel;
+﻿// SPDX-License-Identifier: LGPL-3.0-or-later
+// Copyright (c) 2020–2026 Michal Dengusiak & Jakub Ziolkowski and contributors
+
+using Grasshopper.Kernel;
 using SAM.Analytical.Grasshopper.Systems.Properties;
 using SAM.Analytical.Systems;
 using SAM.Core;
 using SAM.Core.Grasshopper;
-using SAM.Core.Grasshopper.Systems;
 using SAM.Core.Systems;
 using System;
 using System.Collections.Generic;
