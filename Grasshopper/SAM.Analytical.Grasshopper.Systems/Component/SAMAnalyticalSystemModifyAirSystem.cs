@@ -1,11 +1,15 @@
-﻿using Grasshopper.Kernel;
+﻿// SPDX-License-Identifier: LGPL-3.0-or-later
+// Copyright (c) 2020–2026 Michal Dengusiak & Jakub Ziolkowski and contributors
+
+using Grasshopper.Kernel;
 using SAM.Analytical.Grasshopper.Systems.Properties;
 using SAM.Analytical.Systems;
+using SAM.Core;
 using SAM.Core.Grasshopper;
-using SAM.Core.Grasshopper.Systems;
 using SAM.Core.Systems;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 
 namespace SAM.Analytical.Grasshopper.Systems
@@ -20,7 +24,7 @@ namespace SAM.Analytical.Grasshopper.Systems
         /// <summary>
         /// The latest version of this component
         /// </summary>
-        public override string LatestComponentVersion => "1.0.0";
+        public override string LatestComponentVersion => "1.0.1";
 
         /// <summary>
         /// Provides an Icon for the component.
@@ -60,6 +64,8 @@ namespace SAM.Analytical.Grasshopper.Systems
                 param_Boolean.SetPersistentData(false);
                 result.Add(new GH_SAMParam(param_Boolean, ParamVisibility.Binding));
 
+                result.Add(new GH_SAMParam(new global::Grasshopper.Kernel.Parameters.Param_String() { Name = "_systemEnergyCentresDirectory", NickName = "_systemEnergyCentresDirectory", Description = "SAM SystemEnergyCentres Directory", Access = GH_ParamAccess.item, Optional = true }, ParamVisibility.Voluntary));
+
                 return result.ToArray();
             }
         }
@@ -96,11 +102,44 @@ namespace SAM.Analytical.Grasshopper.Systems
                 return;
             }
 
+            List<SystemEnergyCentre> systemEnergyCentres = [];
+            string directory = null;
+            index = Params.IndexOfInputParam("_systemEnergyCentresDirectory");
+            if (index != -1 && dataAccess.GetData(index, ref directory) && Directory.Exists(directory))
+            {
+                if (new DirectoryInfo(directory)?.GetFiles("*.json") is FileInfo[] fileInfos)
+                {
+                    foreach (FileInfo fileInfo in fileInfos)
+                    {
+                        List<SystemEnergyCentre> systemEnergyCentres_File = Core.Convert.ToSAM<SystemEnergyCentre>(fileInfo.FullName);
+                        if (systemEnergyCentres_File == null || systemEnergyCentres_File.Count == 0)
+                        {
+                            continue;
+                        }
+
+                        if (Analytical.Query.TryParse(Path.GetFileNameWithoutExtension(fileInfo.FullName), out SystemTemplate systemTemplate) && systemTemplate != null)
+                        {
+                            foreach (SystemEnergyCentre systemEnergyCentre_Temp in systemEnergyCentres)
+                            {
+                                systemEnergyCentre_Temp.SetValue(SystemEnergyCentreParameter.SystemTemplate, systemTemplate.Clone());
+                            }
+                        }
+
+                        systemEnergyCentres.AddRange(systemEnergyCentres);
+                    }
+                }
+            }
+
+            if (systemEnergyCentres.Count == 0)
+            {
+                systemEnergyCentres = null;
+            }
+
             analyticalModel = new AnalyticalModel(analyticalModel);
 
             if(!analyticalModel.TryGetValue(Analytical.Systems.AnalyticalModelParameter.SystemEnergyCentre, out SystemEnergyCentre systemEnergyCentre) || systemEnergyCentre == null)
             {
-                systemEnergyCentre = analyticalModel.SystemEnergyCentre(out HashSet<string> unavailableSystemTypeNames);
+                systemEnergyCentre = analyticalModel.SystemEnergyCentre(out HashSet<string> unavailableSystemTypeNames, systemEnergyCentres);
                 if (unavailableSystemTypeNames != null && unavailableSystemTypeNames.Count != 0)
                 {
                     AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, string.Format("Following system types not defined: {0}", string.Join(", ", unavailableSystemTypeNames)));

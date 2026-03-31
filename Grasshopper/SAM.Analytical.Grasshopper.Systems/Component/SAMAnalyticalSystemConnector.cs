@@ -1,4 +1,7 @@
-﻿using Grasshopper.Kernel;
+﻿// SPDX-License-Identifier: LGPL-3.0-or-later
+// Copyright (c) 2020–2026 Michal Dengusiak & Jakub Ziolkowski and contributors
+
+using Grasshopper.Kernel;
 using SAM.Analytical.Grasshopper.Systems.Properties;
 using SAM.Analytical.Systems;
 using SAM.Core;
@@ -18,7 +21,7 @@ namespace SAM.Analytical.Grasshopper.Systems
         /// <summary>
         /// Gets the unique ID for this component. Do not change this ID after release.
         /// </summary>
-        public override Guid ComponentGuid => new Guid("81ad840f-1382-4091-9f6e-7c15affc2384");
+        public override Guid ComponentGuid => new ("81ad840f-1382-4091-9f6e-7c15affc2384");
 
         /// <summary>
         /// The latest version of this component
@@ -49,13 +52,13 @@ namespace SAM.Analytical.Grasshopper.Systems
         {
             get
             {
-                List<GH_SAMParam> result = new List<GH_SAMParam>();
+                List<GH_SAMParam> result = [];
                 result.Add(new GH_SAMParam(new global::Grasshopper.Kernel.Parameters.Param_String() { Name = "_analyticalSystemType", NickName = "_analyticalSystemType", Description = "Analytical System Type", Access = GH_ParamAccess.item }, ParamVisibility.Binding));
                 result.Add(new GH_SAMParam(new global::Grasshopper.Kernel.Parameters.Param_Point() { Name = "_location", NickName = "_location", Description = "Location", Access = GH_ParamAccess.item }, ParamVisibility.Binding));
                 result.Add(new GH_SAMParam(new global::Grasshopper.Kernel.Parameters.Param_String() { Name = "direction_", NickName = "direction_", Description = "Direction", Access = GH_ParamAccess.item, Optional = true }, ParamVisibility.Binding));
                 result.Add(new GH_SAMParam(new global::Grasshopper.Kernel.Parameters.Param_Integer() { Name = "connectionIndex_", NickName = "connectionIndex_", Description = "Connection Index", Access = GH_ParamAccess.item, Optional = true }, ParamVisibility.Binding));
 
-                return result.ToArray();
+                return [.. result];
             }
         }
 
@@ -66,9 +69,9 @@ namespace SAM.Analytical.Grasshopper.Systems
         {
             get
             {
-                List<GH_SAMParam> result = new List<GH_SAMParam>();
+                List<GH_SAMParam> result = [];
                 result.Add(new GH_SAMParam(new GooSystemObjectParam() { Name = "systemConnector", NickName = "systemConnector", Description = "System Connector", Access = GH_ParamAccess.item }, ParamVisibility.Binding));
-                return result.ToArray();
+                return [.. result];
             }
         }
 
@@ -100,7 +103,7 @@ namespace SAM.Analytical.Grasshopper.Systems
 
             index = Params.IndexOfInputParam("_location");
             global::Rhino.Geometry.Point3d point3d = new Rhino.Geometry.Point3d();
-            if (index == -1 || !dataAccess.GetData(index, ref point3d) || point3d == null)
+            if (index == -1 || !dataAccess.GetData(index, ref point3d) || !point3d.IsValid)
             {
                 AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "Invalid data");
                 return;
@@ -127,7 +130,7 @@ namespace SAM.Analytical.Grasshopper.Systems
                 }
             }
 
-            DisplaySystemConnector displaySystemConnector = new DisplaySystemConnector(new SystemConnector(systemType, direction, connectionIndex), location);
+            DisplaySystemConnector displaySystemConnector = new (new SystemConnector(systemType, direction, connectionIndex), location);
 
             index = Params.IndexOfOutputParam("systemConnector");
             if (index != -1)

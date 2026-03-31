@@ -1,9 +1,17 @@
-﻿using Grasshopper.Kernel;
+﻿// SPDX-License-Identifier: LGPL-3.0-or-later
+// Copyright (c) 2020–2026 Michal Dengusiak & Jakub Ziolkowski and contributors
+
+using Grasshopper.Kernel;
 using SAM.Analytical.Grasshopper.Systems.Properties;
+using SAM.Analytical.Systems;
+using SAM.Core;
 using SAM.Core.Grasshopper;
 using SAM.Core.Systems;
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Reflection;
 
 namespace SAM.Analytical.Grasshopper.Systems
 {
@@ -17,7 +25,7 @@ namespace SAM.Analytical.Grasshopper.Systems
         /// <summary>
         /// The latest version of this component
         /// </summary>
-        public override string LatestComponentVersion => "1.0.0";
+        public override string LatestComponentVersion => "1.0.3";
 
         /// <summary>
         /// Provides an Icon for the component.
@@ -30,9 +38,28 @@ namespace SAM.Analytical.Grasshopper.Systems
         /// Initializes a new instance of the SAM_point3D class.
         /// </summary>
         public SAMAnalyticalSystemCreateSystemEnergyCentre()
-          : base("SAMAnalytical.CreateSystemEnergyCentre", "SAMAnalytical.CreateSystemEnergyCentre",
-              "Creates SystemEnergyCentre",
-              "SAM", "Systems")
+          : base(
+                  "SAMAnalytical.CreateSystemEnergyCentre",
+                  "SAMAnalytical.CreateSystemEnergyCentre",
+                  "Creates a SystemEnergyCentre.\n" +
+                  "\n" +
+                  "Each SystemEnergyCentre represents an air system together with its associated plantroom.\n" +
+                  "\n" +
+                  "Legacy workflow:\n" +
+                  "• System definitions are taken from MechanicalSystemTypes.\n" +
+                  "\n" +
+                  "Library workflow:\n" +
+                  "• System definitions are loaded from the local JSON library:\n" +
+                  "  %AppData%\\SAM\\resources\\Analytical\\Systems\\SystemEnergyCentre\n" +
+                  "• Each JSON entry is stored as a complete energy centre (air system + plantroom).\n" +
+                  "\n" +
+                  "If multiple energy centres are created with the same name,\n" +
+                  "duplicate names are automatically renamed by appending 1, 2, 3, etc.\n" +
+                  "\n" +
+                  "To run a simulation, connect the created SystemEnergyCentre to\n" +
+                  "the SAMSystems.CreateTPDByTSDAndSystemEnergyCentre component.",
+                  "SAM",
+                  "Systems")
         {
         }
 
@@ -45,6 +72,7 @@ namespace SAM.Analytical.Grasshopper.Systems
             {
                 List<GH_SAMParam> result = new List<GH_SAMParam>();
                 result.Add(new GH_SAMParam(new GooAnalyticalModelParam() { Name = "_analyticalModel", NickName = "_analyticalModel", Description = "SAM AnalyticalModel", Access = GH_ParamAccess.item }, ParamVisibility.Binding));
+                result.Add(new GH_SAMParam(new global::Grasshopper.Kernel.Parameters.Param_String() { Name = "_systemEnergyCentresDirectory", NickName = "_systemEnergyCentresDirectory", Description = "SAM SystemEnergyCentres Directory", Access = GH_ParamAccess.item, Optional = true }, ParamVisibility.Voluntary));
                 return result.ToArray();
             }
         }
@@ -58,7 +86,7 @@ namespace SAM.Analytical.Grasshopper.Systems
             {
                 List<GH_SAMParam> result = new List<GH_SAMParam>();
                 result.Add(new GH_SAMParam(new GooAnalyticalModelParam() { Name = "analyticalModel", NickName = "analyticalModel", Description = "SAM AnalyticalModel", Access = GH_ParamAccess.item }, ParamVisibility.Binding));
-                result.Add(new GH_SAMParam(new GooSystemEnergyCentreParam() { Name = "systemEnergyCentre", NickName = "systemEnergyCentre", Description = "SAM SystemEnergyCentre", Access = GH_ParamAccess.item }, ParamVisibility.Binding));
+                result.Add(new GH_SAMParam(new GooSystemEnergyCentreParam() { Name = "systemEnergyCentre", NickName = "systemEnergyCentre", Description = "SAM SystemEnergyCentre \n to simulate connect the SAMSystems.CreateTPDByTSDAndSystemEnergyCentre component.", Access = GH_ParamAccess.item }, ParamVisibility.Binding));
                 return result.ToArray();
             }
         }
@@ -81,9 +109,42 @@ namespace SAM.Analytical.Grasshopper.Systems
                 return;
             }
 
+            List<SystemEnergyCentre> systemEnergyCentres = [];
+            string directory = null;
+            index = Params.IndexOfInputParam("_systemEnergyCentresDirectory");
+            if (index != -1 && dataAccess.GetData(index, ref directory) && Directory.Exists(directory))
+            {
+                if (new DirectoryInfo(directory)?.GetFiles("*.json") is FileInfo[] fileInfos)
+                {
+                    foreach (FileInfo fileInfo in fileInfos)
+                    {
+                        List<SystemEnergyCentre> systemEnergyCentres_File = Core.Convert.ToSAM<SystemEnergyCentre>(fileInfo.FullName);
+                        if (systemEnergyCentres_File == null || systemEnergyCentres_File.Count == 0)
+                        {
+                            continue;
+                        }
+
+                        if (Analytical.Query.TryParse(Path.GetFileNameWithoutExtension(fileInfo.FullName), out SystemTemplate systemTemplate) && systemTemplate != null)
+                        {
+                            foreach (SystemEnergyCentre systemEnergyCentre_Temp in systemEnergyCentres_File)
+                            {
+                                systemEnergyCentre_Temp.SetValue(SystemEnergyCentreParameter.SystemTemplate, systemTemplate.Clone());
+                            }
+                        }
+
+                        systemEnergyCentres.AddRange(systemEnergyCentres_File);
+                    }
+                }
+            }
+
+            if(systemEnergyCentres.Count == 0)
+            {
+                systemEnergyCentres = null;
+            }
+
             analyticalModel = new AnalyticalModel(analyticalModel);
 
-            SystemEnergyCentre systemEnergyCentre = Analytical.Systems.Create.SystemEnergyCentre(analyticalModel, out HashSet<string> unavailableSystemTypeNames);
+            SystemEnergyCentre systemEnergyCentre = Analytical.Systems.Create.SystemEnergyCentre(analyticalModel, out HashSet<string> unavailableSystemTypeNames, systemEnergyCentres);
             if (unavailableSystemTypeNames != null && unavailableSystemTypeNames.Count != 0)
             {
                 AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, string.Format("Following system types not defined: {0}", string.Join(", ", unavailableSystemTypeNames)));

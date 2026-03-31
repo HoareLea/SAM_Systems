@@ -1,4 +1,7 @@
-﻿using Newtonsoft.Json.Linq;
+﻿// SPDX-License-Identifier: LGPL-3.0-or-later
+// Copyright (c) 2020–2026 Michal Dengusiak & Jakub Ziolkowski and contributors
+
+using Newtonsoft.Json.Linq;
 using SAM.Core;
 using SAM.Core.Systems;
 using SAM.Geometry.Planar;
@@ -11,6 +14,7 @@ namespace SAM.Geometry.Systems
         private LabelDirection labelDirection;
         private Point2D location;
         private int width;
+
         public DisplaySystemLabel(SystemLabel systemLabel, Point2D location, LabelDirection labelDirection, int height, int width)
             : base(systemLabel)
         {
@@ -70,7 +74,7 @@ namespace SAM.Geometry.Systems
             }
         }
         
-        public bool FromJObject(JObject jObject)
+        public new bool FromJObject(JObject jObject)
         {
             bool result = base.FromJObject(jObject);
             if(!result)
@@ -101,7 +105,7 @@ namespace SAM.Geometry.Systems
             return result;
         }
         
-        public JObject ToJObject()
+        public new JObject ToJObject()
         {
             JObject result = base.ToJObject();
             if(result == null)

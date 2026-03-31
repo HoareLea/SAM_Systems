@@ -1,4 +1,7 @@
-﻿using Grasshopper.Kernel;
+﻿// SPDX-License-Identifier: LGPL-3.0-or-later
+// Copyright (c) 2020–2026 Michal Dengusiak & Jakub Ziolkowski and contributors
+
+using Grasshopper.Kernel;
 using Grasshopper.Kernel.Types;
 using Rhino;
 using Rhino.DocObjects;
@@ -137,7 +140,14 @@ namespace SAM.Analytical.Grasshopper.Systems
         public bool IsBakeCapable => true;
 
         public GooSystemObjectParam()
-            : base(typeof(ISystemObject).Name, typeof(ISystemObject).Name, typeof(ISystemObject).FullName.Replace(".", " "), "Params", "SAM")
+            : base(
+                typeof(ISystemObject).Name,               // Name (unchanged)
+                typeof(ISystemObject).Name,               // Nickname (unchanged)
+                "Represents a SAM system element used for visualisation in Rhino. " +
+                "Connect directly from SystemObjects, or more commonly from SystemPlantRoom.RelatedObjects. " +
+                "Allows inspection and transfer of system elements within the workflow.",
+                "Params",
+                "SAM")
         {
         }
 

@@ -1,4 +1,8 @@
-﻿using SAM.Core.Systems;
+﻿// SPDX-License-Identifier: LGPL-3.0-or-later
+// Copyright (c) 2020–2026 Michal Dengusiak & Jakub Ziolkowski and contributors
+
+using SAM.Core;
+using SAM.Core.Systems;
 using System.Collections.Generic;
 using System.IO;
 
@@ -26,8 +30,15 @@ namespace SAM.Analytical.Systems
                     continue;
                 }
 
-                result.AddRange(systemEnergyCentres);
+                if(Analytical.Query.TryParse(Path.GetFileNameWithoutExtension(fileInfo.FullName), out SystemTemplate systemTemplate) && systemTemplate != null)
+                {
+                    foreach(SystemEnergyCentre systemEnergyCentre in systemEnergyCentres)
+                    {
+                        systemEnergyCentre.SetValue(SystemEnergyCentreParameter.SystemTemplate, systemTemplate.Clone());
+                    }
+                }
 
+                result.AddRange(systemEnergyCentres);
             }
 
             return result;

@@ -1,8 +1,10 @@
-﻿using Grasshopper.Kernel;
+﻿// SPDX-License-Identifier: LGPL-3.0-or-later
+// Copyright (c) 2020–2026 Michal Dengusiak & Jakub Ziolkowski and contributors
+
+using Grasshopper.Kernel;
 using SAM.Analytical.Grasshopper.Systems.Properties;
 using SAM.Analytical.Systems;
 using SAM.Core.Grasshopper;
-using SAM.Core.Grasshopper.Systems;
 using SAM.Core.Systems;
 using System;
 using System.Collections.Generic;
@@ -14,7 +16,7 @@ namespace SAM.Analytical.Grasshopper.Systems
         /// <summary>
         /// Gets the unique ID for this component. Do not change this ID after release.
         /// </summary>
-        public override Guid ComponentGuid => new Guid("8341425d-783f-49ad-a8db-d5269d128800");
+        public override Guid ComponentGuid => new ("8341425d-783f-49ad-a8db-d5269d128800");
 
         /// <summary>
         /// The latest version of this component
@@ -45,11 +47,11 @@ namespace SAM.Analytical.Grasshopper.Systems
         {
             get
             {
-                List<GH_SAMParam> result = new List<GH_SAMParam>();
+                List<GH_SAMParam> result = [];
                 result.Add(new GH_SAMParam(new GooSystemPlantRoomParam() { Name = "_systemPlantRoom", NickName = "_systemPlantRoom", Description = "SystemPlantRoom", Access = GH_ParamAccess.item }, ParamVisibility.Binding));
                 result.Add(new GH_SAMParam(new GooSystemObjectParam() { Name = "_systemController", NickName = "_systemController", Description = "System Controller", Access = GH_ParamAccess.item}, ParamVisibility.Binding));
 
-                return result.ToArray();
+                return [.. result];
             }
         }
 
@@ -60,9 +62,9 @@ namespace SAM.Analytical.Grasshopper.Systems
         {
             get
             {
-                List<GH_SAMParam> result = new List<GH_SAMParam>();
+                List<GH_SAMParam> result = [];
                 result.Add(new GH_SAMParam(new GooSystemObjectParam() { Name = "systemSensor", NickName = "systemSensor", Description = "System Sensor", Access = GH_ParamAccess.item }, ParamVisibility.Binding));
-                return result.ToArray();
+                return [.. result];
             }
         }
 
@@ -75,8 +77,6 @@ namespace SAM.Analytical.Grasshopper.Systems
         protected override void SolveInstance(IGH_DataAccess dataAccess)
         {
             int index = -1;
-
-            string text = null;
 
             SystemPlantRoom systemPlantRoom = null;
             index = Params.IndexOfInputParam("_systemPlantRoom");

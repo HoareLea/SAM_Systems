@@ -1,4 +1,7 @@
-﻿using System.ComponentModel;
+﻿// SPDX-License-Identifier: LGPL-3.0-or-later
+// Copyright (c) 2020–2026 Michal Dengusiak & Jakub Ziolkowski and contributors
+
+using System.ComponentModel;
 using SAM.Core.Attributes;
 using SAM.Core.Systems;
 
@@ -12,5 +15,6 @@ namespace SAM.Analytical.Systems
         [ParameterProperties("Annual Cost", "Annual Cost"), ParameterValue(Core.ParameterType.Double)] AnnualCost,
         [ParameterProperties("Annual Unmet Hours", "Annual Unmet Hours [h]"), ParameterValue(Core.ParameterType.Double)] AnnualUnmetHours,
         [ParameterProperties("Analytical Systems Properties", "Analytical Systems Properties"), SAMObjectParameterValue(typeof(AnalyticalSystemsProperties))] AnalyticalSystemsProperties,
+        [ParameterProperties("System Template", "System Template"), SAMObjectParameterValue(typeof(SystemTemplate))] SystemTemplate,
     }
 }
