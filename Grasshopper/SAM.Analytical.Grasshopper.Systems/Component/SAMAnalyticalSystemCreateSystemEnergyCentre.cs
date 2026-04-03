@@ -150,6 +150,13 @@ namespace SAM.Analytical.Grasshopper.Systems
                 AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, string.Format("Following system types not defined: {0}", string.Join(", ", unavailableSystemTypeNames)));
             }
 
+            Log log = Analytical.Systems.Create.Log(systemEnergyCentre);
+            if (log is not null)
+            {
+                log.ToList().FindAll(x => x.LogRecordType == LogRecordType.Warning).ForEach(x => AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, x.ToString()));
+                log.ToList().FindAll(x => x.LogRecordType == LogRecordType.Error).ForEach(x => AddRuntimeMessage(GH_RuntimeMessageLevel.Error, x.ToString()));
+            }
+
             if (systemEnergyCentre != null)
             {
                 analyticalModel.SetValue(Analytical.Systems.AnalyticalModelParameter.SystemEnergyCentre, systemEnergyCentre);
