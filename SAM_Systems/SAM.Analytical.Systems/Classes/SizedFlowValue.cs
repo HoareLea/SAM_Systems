@@ -38,6 +38,11 @@ namespace SAM.Analytical.Systems
             {
                 return value;
             }
+
+            set
+            {
+                this.value = value;
+            }
         }
 
         public double SizeFranction

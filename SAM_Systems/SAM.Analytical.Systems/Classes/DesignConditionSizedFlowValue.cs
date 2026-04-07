@@ -77,6 +77,11 @@ namespace SAM.Analytical.Systems
             {
                 return sizingType;
             }
+
+            set
+            {
+                sizingType = value;
+            }
         }
         
         public override bool FromJObject(JObject jObject)
