@@ -1,7 +1,6 @@
 ﻿using SAM.Core.Systems;
 using System;
 using System.Collections.Generic;
-using static SAM.Analytical.Systems.ActiveSetting;
 
 namespace SAM.Analytical.Systems
 {
