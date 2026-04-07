@@ -22,7 +22,7 @@ namespace SAM.Analytical.Systems
             }
 
             List<SystemPlantRoom> systemPlantRooms = systemEnergyCentre.GetSystemPlantRooms();
-            if(systemPlantRooms != null && systemPlantRooms.Count == 0)
+            if(systemPlantRooms != null && systemPlantRooms.Count != 0)
             {
                 foreach (SystemPlantRoom systemPlantRoom in systemPlantRooms)
                 {

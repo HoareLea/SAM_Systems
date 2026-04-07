@@ -77,7 +77,7 @@ namespace SAM.Analytical.Grasshopper.Systems
                         Optional = true 
                     }, ParamVisibility.Voluntary),
                     
-                    new GH_SAMParam(new GooSpaceParam() 
+                    new GH_SAMParam(new Param_String() 
                     { 
                         Name = "spaceNames_", 
                         NickName = "spaceNames_", 
@@ -211,7 +211,7 @@ namespace SAM.Analytical.Grasshopper.Systems
             }
 
             List<string> spacesNames = [];
-            index = Params.IndexOfInputParam("_spaceNames");
+            index = Params.IndexOfInputParam("spaceNames_");
             if (index == -1 || !dataAccess.GetDataList(index, spacesNames) || spacesNames is null)
             {
                 AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "Invalid data");
