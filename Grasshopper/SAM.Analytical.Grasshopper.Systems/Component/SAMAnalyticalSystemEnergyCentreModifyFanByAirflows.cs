@@ -9,28 +9,12 @@ using SAM.Core.Grasshopper;
 using SAM.Core.Systems;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 
 namespace SAM.Analytical.Grasshopper.Systems
 {
     public class SAMAnalyticalSystemEnergyCentreModifyFanByAirflows : GH_SAMVariableOutputParameterComponent
     {
-        /// <summary>
-        /// Gets the unique ID for this component. Do not change this ID after release.
-        /// </summary>
-        public override Guid ComponentGuid => new Guid("53ff901d-4a76-4b3e-b9e1-6ca0c9d4b04d");
-
-        /// <summary>
-        /// The latest version of this component
-        /// </summary>
-        public override string LatestComponentVersion => "1.0.0";
-
-        /// <summary>
-        /// Provides an Icon for the component.
-        /// </summary>
-        protected override System.Drawing.Bitmap Icon => Resources.SAM_Small;
-
         /// <summary>
         /// Initializes a new instance of the SAM_point3D class.
         /// </summary>
@@ -41,6 +25,20 @@ namespace SAM.Analytical.Grasshopper.Systems
         {
         }
 
+        /// <summary>
+        /// Gets the unique ID for this component. Do not change this ID after release.
+        /// </summary>
+        public override Guid ComponentGuid => new ("53ff901d-4a76-4b3e-b9e1-6ca0c9d4b04d");
+
+        /// <summary>
+        /// The latest version of this component
+        /// </summary>
+        public override string LatestComponentVersion => "1.0.1";
+
+        /// <summary>
+        /// Provides an Icon for the component.
+        /// </summary>
+        protected override System.Drawing.Bitmap Icon => Resources.SAM_Small;
         /// <summary>
         /// Registers all the input parameters for this component.
         /// </summary>
@@ -163,7 +161,7 @@ namespace SAM.Analytical.Grasshopper.Systems
         /// </param>
         protected override void SolveInstance(IGH_DataAccess dataAccess)
         {
-            int index_successful = Params.IndexOfOutputParam("successful");
+            int index_successful = Params.IndexOfOutputParam("Successful");
             if (index_successful != -1)
             {
                 dataAccess.SetData(index_successful, false);
