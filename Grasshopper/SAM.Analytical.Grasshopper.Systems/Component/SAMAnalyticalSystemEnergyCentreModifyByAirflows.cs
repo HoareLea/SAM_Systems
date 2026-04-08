@@ -3,6 +3,7 @@
 
 using Grasshopper.Kernel;
 using Grasshopper.Kernel.Parameters;
+using Grasshopper.Kernel.Types;
 using SAM.Analytical.Grasshopper.Systems.Properties;
 using SAM.Analytical.Systems;
 using SAM.Core;
@@ -25,7 +26,7 @@ namespace SAM.Analytical.Grasshopper.Systems
         /// <summary>
         /// The latest version of this component.
         /// </summary>
-        public override string LatestComponentVersion => "1.0.1";
+        public override string LatestComponentVersion => "1.0.2";
 
         /// <summary>
         /// Provides an icon for the component.
@@ -77,7 +78,7 @@ namespace SAM.Analytical.Grasshopper.Systems
                         Optional = true
                     }, ParamVisibility.Voluntary),
 
-                    new GH_SAMParam(new Param_String()
+                    new GH_SAMParam(new Param_GenericObject()
                     {
                         Name = "spaceNames_",
                         NickName = "spaceNames_",
@@ -220,9 +221,36 @@ namespace SAM.Analytical.Grasshopper.Systems
                 return;
             }
 
-            List<string> spacesNames = [];
+
+            List<GH_ObjectWrapper> gH_ObjectWrappers = [];
+
             index = Params.IndexOfInputParam("spaceNames_");
-            if (index == -1 || !dataAccess.GetDataList(index, spacesNames) || spacesNames is null)
+            if (index == -1 || !dataAccess.GetDataList(index, gH_ObjectWrappers) || gH_ObjectWrappers is null)
+            {
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "Invalid data");
+                return;
+            }
+
+            List<string> spacesNames = [];
+            foreach(GH_ObjectWrapper gH_ObjectWrapper in gH_ObjectWrappers)
+            {
+                object @object = gH_ObjectWrapper.Value;
+                if (@object is IGH_Goo)
+                {
+                    @object = (@object as dynamic).Value;
+                }
+
+                if (@object is string name)
+                {
+                    spacesNames.Add(name);
+                }
+                else if(@object is Space space)
+                {
+                    spacesNames.Add(space.Name);
+                }
+            }
+
+            if(spacesNames is null || spacesNames.Count == 0)
             {
                 AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "Invalid data");
                 return;
