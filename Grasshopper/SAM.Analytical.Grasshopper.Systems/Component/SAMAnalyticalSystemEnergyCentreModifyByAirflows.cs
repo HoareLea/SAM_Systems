@@ -23,21 +23,21 @@ namespace SAM.Analytical.Grasshopper.Systems
         public override Guid ComponentGuid => new Guid("31a4c1d3-6cef-4c5b-a9b1-46684c947ea9");
 
         /// <summary>
-        /// The latest version of this component
+        /// The latest version of this component.
         /// </summary>
-        public override string LatestComponentVersion => "1.0.0";
+        public override string LatestComponentVersion => "1.0.1";
 
         /// <summary>
-        /// Provides an Icon for the component.
+        /// Provides an icon for the component.
         /// </summary>
         protected override System.Drawing.Bitmap Icon => Resources.SAM_Small;
 
         /// <summary>
-        /// Initializes a new instance of the SAM_point3D class.
+        /// Initialises a new instance of the SystemEnergyCentre.ModifyByAirflows component.
         /// </summary>
         public SAMAnalyticalSystemEnergyCentreModifyByAirflows()
           : base("SystemEnergyCentre.ModifyByAirflows", "SystemEnergyCentre.ModifyByAirflows",
-              "Modify SystemEnergyCentre By Airflows",
+              "Updates airflow and fresh air settings for spaces in a SystemEnergyCentre.\n\nUse this component to modify airflow and fresh air values for spaces identified by name.\n\nIf systemEnergyCentre_ is not supplied, the component uses the SystemEnergyCentre stored in _analyticalModel. The component runs only when _run is true.",
               "SAM", "Systems")
         {
         }
@@ -53,44 +53,43 @@ namespace SAM.Analytical.Grasshopper.Systems
                 {
                     Name = "_run",
                     NickName = "_run",
-                    Description = "Set to true to run the update. If false, the component does nothing.",
+                    Description = "Set to true to run the update.\nIf false, the component does nothing.",
                     Access = GH_ParamAccess.item
                 };
                 param_Boolean.SetPersistentData(false);
 
                 List<GH_SAMParam> result =
                 [
-                    new GH_SAMParam(new GooAnalyticalModelParam() 
-                    { 
-                        Name = "_analyticalModel", 
-                        NickName = "_analyticalModel", 
-                        Description = "SAM AnalyticalModel", 
-                        Access = GH_ParamAccess.item 
+                    new GH_SAMParam(new GooAnalyticalModelParam()
+                    {
+                        Name = "_analyticalModel",
+                        NickName = "_analyticalModel",
+                        Description = "Base SAM AnalyticalModel.\nUsed to read or update the SystemEnergyCentre.",
+                        Access = GH_ParamAccess.item
                     }, ParamVisibility.Binding),
-                    
-                    new GH_SAMParam(new GooSystemEnergyCentreParam() 
-                    { 
-                        Name = "systemEnergyCentre_", 
-                        NickName = "systemEnergyCentre_", 
-                        Description = "SAM SystemEnergyCentre", 
-                        Access = GH_ParamAccess.item, 
-                        Optional = true 
-                    }, ParamVisibility.Voluntary),
-                    
-                    new GH_SAMParam(new Param_String() 
-                    { 
-                        Name = "spaceNames_", 
-                        NickName = "spaceNames_", 
-                        Description = "Space names", 
-                        Access = GH_ParamAccess.list,
+
+                    new GH_SAMParam(new GooSystemEnergyCentreParam()
+                    {
+                        Name = "systemEnergyCentre_",
+                        NickName = "systemEnergyCentre_",
+                        Description = "Optional SystemEnergyCentre to update.\nIf not supplied, the component uses the SystemEnergyCentre stored in _analyticalModel.",
+                        Access = GH_ParamAccess.item,
                         Optional = true
+                    }, ParamVisibility.Voluntary),
+
+                    new GH_SAMParam(new Param_String()
+                    {
+                        Name = "spaceNames_",
+                        NickName = "spaceNames_",
+                        Description = "Names of the spaces to update in the SystemEnergyCentre.",
+                        Access = GH_ParamAccess.list
                     }, ParamVisibility.Binding),
 
                     new GH_SAMParam(new Param_Number()
                     {
                         Name = "_airflowFlowRates",
                         NickName = "_airflowFlowRates",
-                        Description = "Airflow flow rates for the listed spaces [l/s]. Used when _airflowModifies = 1.",
+                        Description = "Airflow flow rates for the listed spaces [l/s].\nUsed when _airflowModifies = 1.",
                         Access = GH_ParamAccess.list,
                         Optional = true
                     }, ParamVisibility.Binding),
@@ -99,7 +98,7 @@ namespace SAM.Analytical.Grasshopper.Systems
                     {
                         Name = "_airflowModifies",
                         NickName = "_airflowModifies",
-                        Description = "Airflow update mode for each space: 0 = do not change, 1 = set value, 2 = reset.\nDefault is 0.",
+                        Description = "Defines how airflow is handled for each space.\nDefault is 0.\n0 = do not change\n1 = set value from _airflowFlowRates\n2 = reset.",
                         Access = GH_ParamAccess.list,
                         Optional = true
                     }, ParamVisibility.Binding),
@@ -108,7 +107,7 @@ namespace SAM.Analytical.Grasshopper.Systems
                     {
                         Name = "_airflowFreshAirRates",
                         NickName = "_airflowFreshAirRates",
-                        Description = "Fresh air flow rates for the listed spaces [l/s]. Used when _airflowFreshAirModifies = 1.",
+                        Description = "Fresh air flow rates for the listed spaces [l/s].\nUsed when _airflowFreshAirModifies = 1.",
                         Access = GH_ParamAccess.list,
                         Optional = true
                     }, ParamVisibility.Binding),
@@ -117,13 +116,12 @@ namespace SAM.Analytical.Grasshopper.Systems
                     {
                         Name = "_airflowFreshAirModifies",
                         NickName = "_airflowFreshAirModifies",
-                        Description = "Fresh air update mode for each space: 0 = do not change, 1 = set value, 2 = reset.\nDefault is 0.",
+                        Description = "Defines how fresh air is handled for each space.\nDefault is 0.\n0 = do not change\n1 = set value from _airflowFreshAirRates\n2 = reset.",
                         Access = GH_ParamAccess.list,
                         Optional = true
                     }, ParamVisibility.Binding),
 
                     new GH_SAMParam(param_Boolean)
-
                 ];
 
                 return [.. result];
@@ -143,7 +141,7 @@ namespace SAM.Analytical.Grasshopper.Systems
                     {
                         Name = "AnalyticalModel",
                         NickName = "AnalyticalModel",
-                        Description = "SAM AnalyticalModel",
+                        Description = "Updated SAM AnalyticalModel with the modified SystemEnergyCentre.",
                         Access = GH_ParamAccess.item
                     }, ParamVisibility.Binding),
 
@@ -151,7 +149,7 @@ namespace SAM.Analytical.Grasshopper.Systems
                     {
                         Name = "SystemEnergyCentre",
                         NickName = "SystemEnergyCentre",
-                        Description = "SystemEnergyCentre",
+                        Description = "Updated SystemEnergyCentre containing the modified space airflow values.",
                         Access = GH_ParamAccess.item
                     }, ParamVisibility.Binding),
 
@@ -206,17 +204,17 @@ namespace SAM.Analytical.Grasshopper.Systems
 
             index = Params.IndexOfInputParam("systemEnergyCentre_");
             SystemEnergyCentre systemEnergyCentre = null;
-            if(index != -1)
+            if (index != -1)
             {
                 dataAccess.GetData(index, ref systemEnergyCentre);
             }
 
-            if(systemEnergyCentre is null)
+            if (systemEnergyCentre is null)
             {
                 systemEnergyCentre = analyticalModel.GetValue<SystemEnergyCentre>(Analytical.Systems.AnalyticalModelParameter.SystemEnergyCentre);
             }
 
-            if(systemEnergyCentre is null)
+            if (systemEnergyCentre is null)
             {
                 AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "Invalid data");
                 return;
@@ -285,7 +283,7 @@ namespace SAM.Analytical.Grasshopper.Systems
 
                     int code;
 
-                    //Air Flow
+                    // Air Flow
                     code = 0;
                     if (airflows_Code.Count != 0)
                     {
@@ -302,7 +300,7 @@ namespace SAM.Analytical.Grasshopper.Systems
                         airflow = double.NaN;
                     }
 
-                    //Fresh Air
+                    // Fresh Air
                     code = 0;
                     if (freshAirs_Code.Count != 0)
                     {
@@ -325,7 +323,7 @@ namespace SAM.Analytical.Grasshopper.Systems
                 spaceNames_Updated = Analytical.Systems.Modify.UpdateSpaceAirflows(systemEnergyCentre, dictionary);
             }
 
-            if(spaceNames_Updated != null && spaceNames_Updated.Count != 0)
+            if (spaceNames_Updated != null && spaceNames_Updated.Count != 0)
             {
                 analyticalModel = new AnalyticalModel(analyticalModel, new AdjacencyCluster(analyticalModel.AdjacencyCluster, true));
                 analyticalModel.SetValue(Analytical.Systems.AnalyticalModelParameter.SystemEnergyCentre, systemEnergyCentre);
