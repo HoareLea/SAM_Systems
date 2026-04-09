@@ -211,7 +211,11 @@ namespace SAM.Analytical.Systems
                         }
 
                         Core.Query.Filter(spaces_Temp, out List<Space> spaces_In, out List<Space> spaces_Out, x => x?.Guid != null && guids.Contains(x.Guid));
-                        tuples_System.Add(new Tuple<VentilationSystem, List<Space>>(ventilationSystem, spaces_In));
+                        if(spaces_In != null && spaces_In.Count != 0)
+                        {
+                            tuples_System.Add(new Tuple<VentilationSystem, List<Space>>(ventilationSystem, spaces_In));
+                        }
+                        
                         spaces_Temp = spaces_Out;
                     }
 
@@ -223,7 +227,14 @@ namespace SAM.Analytical.Systems
 
                 foreach (Tuple<VentilationSystem, List<Space>> tuple_System in tuples_System)
                 {
-                    SystemPlantRoom systemPlantRoom = systemPlantRoom_Template.Clone();
+                    if(tuple_System.Item2 is null ||tuple_System.Item2.Count == 0)
+                    {
+                        continue;
+                    }
+
+                    SystemPlantRoom systemPlantRoom = systemPlantRoom_Template.Duplicate();
+                    // SystemPlantRoom systemPlantRoom = systemPlantRoom_Template.Clone();
+                    // systemPlantRoom = new SystemPlantRoom(Guid.NewGuid(), systemPlantRoom);
 
                     if (result.GetSystemPlantRoom(systemPlantRoom.Name) != null)
                     {
