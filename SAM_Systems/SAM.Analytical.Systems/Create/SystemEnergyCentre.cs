@@ -360,5 +360,36 @@ namespace SAM.Analytical.Systems
             return result;
 
         }
+
+        public static SystemEnergyCentre SystemEnergyCentre(this AnalyticalModel analyticalModel, string zoneCategoryName, out HashSet<string> unavailableSystemTypeNames, List<SystemEnergyCentre> systemEnergyCentres = null)
+        {
+            unavailableSystemTypeNames = null;
+
+            AdjacencyCluster adjacencyCluster = analyticalModel?.AdjacencyCluster;
+            if(adjacencyCluster is null)
+            {
+                return null;
+            }
+
+
+            List<Space> spaces = adjacencyCluster.GetSpaces();
+            if (spaces == null)
+            {
+                return null;
+            }
+
+            List<SystemEnergyCentre> systemEnergyCentres_Default = systemEnergyCentres;
+            if (systemEnergyCentres_Default is null || systemEnergyCentres_Default.Count == 0)
+            {
+                systemEnergyCentres_Default = Query.DefaultSystemEnergyCentres();
+            }
+
+            if (systemEnergyCentres_Default == null || systemEnergyCentres_Default.Count == 0)
+            {
+                return null;
+            }
+
+            throw new System.NotImplementedException();
+        }
     }
 }
