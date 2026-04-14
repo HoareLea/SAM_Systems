@@ -6,7 +6,7 @@ namespace SAM.Analytical.Systems
 {
     public static partial class Modify
     {
-        private static AirSystem Copy(this SystemPlantRoom systemPlantRoom_Source, SystemPlantRoom systemPlantRoom_Destination, AirSystem airSystem)
+        public static AirSystem Copy(this SystemPlantRoom systemPlantRoom_Source, SystemPlantRoom systemPlantRoom_Destination, AirSystem airSystem)
         {
             if (systemPlantRoom_Source == null || airSystem == null || systemPlantRoom_Destination == null || airSystem == null)
             {

@@ -3,23 +3,21 @@
 
 using Grasshopper.Kernel;
 using SAM.Analytical.Grasshopper.Systems.Properties;
-using SAM.Analytical.Systems;
 using SAM.Core;
 using SAM.Core.Grasshopper;
 using SAM.Core.Systems;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 
 namespace SAM.Analytical.Grasshopper.Systems
 {
-    public class SAMAnalyticalSystemCreateSystemEnergyCentreByZone : GH_SAMVariableOutputParameterComponent
+    public class SAMAnalyticalSystemCreateSystemEnergyCentreByVentilationSystems : GH_SAMVariableOutputParameterComponent
     {
         /// <summary>
         /// Gets the unique ID for this component. Do not change this ID after release.
         /// </summary>
-        public override Guid ComponentGuid => new ("d1744572-c4a7-4170-adf0-958efec8250f");
+        public override Guid ComponentGuid => new ("168d4a90-00c3-424e-b4ec-d97437bac56b");
 
         /// <summary>
         /// The latest version of this component
@@ -36,10 +34,10 @@ namespace SAM.Analytical.Grasshopper.Systems
         /// <summary>
         /// Initializes a new instance of the SAM_point3D class.
         /// </summary>
-        public SAMAnalyticalSystemCreateSystemEnergyCentreByZone()
+        public SAMAnalyticalSystemCreateSystemEnergyCentreByVentilationSystems()
           : base(
-                  "SAMAnalytical.CreateSystemEnergyCentreByZone",
-                  "SAMAnalytical.CreateSystemEnergyCentreByZone",
+                  "SAMAnalytical.CreateSystemEnergyCentreByVentilationSystems",
+                  "SAMAnalytical.CreateSystemEnergyCentreByVentilationSystems",
                   "",
                   "SAM",
                   "Systems")
@@ -56,8 +54,7 @@ namespace SAM.Analytical.Grasshopper.Systems
                 List<GH_SAMParam> result =
                 [
                     new GH_SAMParam(new GooAnalyticalModelParam() { Name = "_analyticalModel", NickName = "_analyticalModel", Description = "SAM AnalyticalModel", Access = GH_ParamAccess.item }, ParamVisibility.Binding),
-                    new GH_SAMParam(new global::Grasshopper.Kernel.Parameters.Param_String() { Name = "_zoneCategoryName", NickName = "_zoneCategoryName", Description = "Zone Category Name", Access = GH_ParamAccess.item }, ParamVisibility.Binding),
-                    new GH_SAMParam(new global::Grasshopper.Kernel.Parameters.Param_String() { Name = "_systemEnergyCentresDirectory", NickName = "_systemEnergyCentresDirectory", Description = "SAM SystemEnergyCentres Directory", Access = GH_ParamAccess.item, Optional = true }, ParamVisibility.Voluntary),
+                    new GH_SAMParam(new GooSystemEnergyCentreParam() { Name = "_systemEnergyCentre", NickName = "_systemEnergyCentre", Description = "SAM SystemEnergyCentre", Access = GH_ParamAccess.item, Optional = true }, ParamVisibility.Voluntary),
                 ];
                 return [.. result];
             }
@@ -97,50 +94,17 @@ namespace SAM.Analytical.Grasshopper.Systems
                 return;
             }
 
-            string zoneCategoryName = null;
-            index = Params.IndexOfInputParam("_zoneCategoryName");
-            if (index == -1 || !dataAccess.GetData(index, ref zoneCategoryName) || string.IsNullOrEmpty(zoneCategoryName))
+            SystemEnergyCentre systemEnergyCentre = null;
+            index = Params.IndexOfInputParam("_systemEnergyCentre");
+            if (index == -1 || !dataAccess.GetData(index, ref systemEnergyCentre) || systemEnergyCentre == null)
             {
                 AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "Invalid data");
                 return;
             }
 
-            List<SystemEnergyCentre> systemEnergyCentres = [];
-            string directory = null;
-            index = Params.IndexOfInputParam("_systemEnergyCentresDirectory");
-            if (index != -1 && dataAccess.GetData(index, ref directory) && Directory.Exists(directory))
-            {
-                if (new DirectoryInfo(directory)?.GetFiles("*.json") is FileInfo[] fileInfos)
-                {
-                    foreach (FileInfo fileInfo in fileInfos)
-                    {
-                        List<SystemEnergyCentre> systemEnergyCentres_File = Core.Convert.ToSAM<SystemEnergyCentre>(fileInfo.FullName);
-                        if (systemEnergyCentres_File == null || systemEnergyCentres_File.Count == 0)
-                        {
-                            continue;
-                        }
-
-                        if (Analytical.Query.TryParse(Path.GetFileNameWithoutExtension(fileInfo.FullName), out SystemTemplate systemTemplate) && systemTemplate != null)
-                        {
-                            foreach (SystemEnergyCentre systemEnergyCentre_Temp in systemEnergyCentres_File)
-                            {
-                                systemEnergyCentre_Temp.SetValue(SystemEnergyCentreParameter.SystemTemplate, systemTemplate.Clone());
-                            }
-                        }
-
-                        systemEnergyCentres.AddRange(systemEnergyCentres_File);
-                    }
-                }
-            }
-
-            if(systemEnergyCentres.Count == 0)
-            {
-                systemEnergyCentres = null;
-            }
-
             analyticalModel = new AnalyticalModel(analyticalModel);
 
-            SystemEnergyCentre systemEnergyCentre = Analytical.Systems.Create.SystemEnergyCentre(analyticalModel, zoneCategoryName, out HashSet<string> unavailableSystemTypeNames, systemEnergyCentres);
+            systemEnergyCentre = Analytical.Systems.Create.SystemEnergyCentreByVentilationSystems(analyticalModel, out HashSet<string> unavailableSystemTypeNames, systemEnergyCentre);
             if (unavailableSystemTypeNames != null && unavailableSystemTypeNames.Count != 0)
             {
                 AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, string.Format("Following system types not defined: {0}", string.Join(", ", unavailableSystemTypeNames)));

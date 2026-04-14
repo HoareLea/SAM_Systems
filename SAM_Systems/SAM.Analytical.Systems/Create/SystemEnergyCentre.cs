@@ -6,6 +6,8 @@ using SAM.Core;
 using SAM.Core.Systems;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
 using System.Linq;
 
 namespace SAM.Analytical.Systems
@@ -139,57 +141,7 @@ namespace SAM.Analytical.Systems
                 SystemEnergyCentre systemEnergyCentre = systemEnergyCentres_Default.Find(x => x.GetSystemPlantRoom(new ObjectReference(systemPlantRoom_Template)) != null);
                 if (systemEnergyCentre != null)
                 {
-                    //Copy Analytical Systems Properties
-                    AnalyticalSystemsProperties analyticalSystemsProperties_Source = systemEnergyCentre.GetValue<AnalyticalSystemsProperties>(SystemEnergyCentreParameter.AnalyticalSystemsProperties);
-                    if (analyticalSystemsProperties_Source != null)
-                    {
-                        AnalyticalSystemsProperties analyticalSystemsProperties_Destination = result.GetValue<AnalyticalSystemsProperties>(SystemEnergyCentreParameter.AnalyticalSystemsProperties);
-                        if (analyticalSystemsProperties_Destination == null)
-                        {
-                            analyticalSystemsProperties_Destination = new AnalyticalSystemsProperties(analyticalSystemsProperties_Source);
-                        }
-                        else
-                        {
-                            List<ISchedule> schedules = analyticalSystemsProperties_Source.Schedules;
-                            if (schedules != null)
-                            {
-                                foreach (ISchedule schedule in schedules)
-                                {
-                                    analyticalSystemsProperties_Destination.Add(schedule);
-                                }
-                            }
-
-                            List<FluidType> fluidTypes = analyticalSystemsProperties_Source.FluidTypes;
-                            if (fluidTypes != null)
-                            {
-                                foreach (FluidType fluidType in fluidTypes)
-                                {
-                                    analyticalSystemsProperties_Destination.Add(fluidType);
-                                }
-                            }
-
-                            List<DesignCondition> designConditions = analyticalSystemsProperties_Source.DesignConditions;
-                            if (designConditions != null)
-                            {
-                                foreach (DesignCondition designCondition in designConditions)
-                                {
-                                    analyticalSystemsProperties_Destination.Add(designCondition);
-                                }
-                            }
-                        }
-
-                        result.SetValue(SystemEnergyCentreParameter.AnalyticalSystemsProperties, analyticalSystemsProperties_Destination);
-                    }
-
-                    //Copy SystemEnergySources
-                    List<SystemEnergySource> systemEnergySources = systemEnergyCentre.GetSystemEnergySources();
-                    if (systemEnergySources != null)
-                    {
-                        foreach (SystemEnergySource systemEnergySource in systemEnergySources)
-                        {
-                            result.Add(systemEnergySource);
-                        }
-                    }
+                    Modify.CopyProperties(systemEnergyCentre, result);
                 }
 
                 List<Tuple<VentilationSystem, List<Space>>> tuples_System = new List<Tuple<VentilationSystem, List<Space>>>();
@@ -361,9 +313,16 @@ namespace SAM.Analytical.Systems
 
         }
 
-        public static SystemEnergyCentre SystemEnergyCentre(this AnalyticalModel analyticalModel, string zoneCategoryName, out HashSet<string> unavailableSystemTypeNames, List<SystemEnergyCentre> systemEnergyCentres = null)
+        public static SystemEnergyCentre SystemEnergyCentreByVentilationSystems(this AnalyticalModel analyticalModel, out HashSet<string> unavailableSystemTypeNames, SystemEnergyCentre systemEnergyCentre)
         {
             unavailableSystemTypeNames = null;
+
+            if (systemEnergyCentre is null)
+            {
+                return null;
+            }
+
+            SystemEnergyCentre result = systemEnergyCentre.Duplicate();
 
             AdjacencyCluster adjacencyCluster = analyticalModel?.AdjacencyCluster;
             if(adjacencyCluster is null)
@@ -371,25 +330,125 @@ namespace SAM.Analytical.Systems
                 return null;
             }
 
-
-            List<Space> spaces = adjacencyCluster.GetSpaces();
-            if (spaces == null)
+            List<VentilationSystem> ventilationSystems = adjacencyCluster.GetMechanicalSystems<VentilationSystem>();
+            if(ventilationSystems is null || ventilationSystems.Count == 0)
             {
                 return null;
             }
 
-            List<SystemEnergyCentre> systemEnergyCentres_Default = systemEnergyCentres;
-            if (systemEnergyCentres_Default is null || systemEnergyCentres_Default.Count == 0)
+            List<Tuple<VentilationSystem, List<Space>>> tuples = new List<Tuple<VentilationSystem, List<Space>>>();
+            HashSet<string> ventilationSystemTypeNames = new HashSet<string>();
+            foreach(VentilationSystem ventilationSystem in ventilationSystems)
             {
-                systemEnergyCentres_Default = Query.DefaultSystemEnergyCentres();
+                string typeName = ventilationSystem?.Type?.Name;
+                if(string.IsNullOrWhiteSpace(typeName))
+                {
+                    continue;
+                }
+
+                List<Space> spaces = adjacencyCluster.GetRelatedObjects<Space>(ventilationSystem);
+                if(spaces == null || spaces.Count == 0)
+                {
+                    continue;
+                }
+
+                ventilationSystemTypeNames.Add(typeName);
+                tuples.Add(new Tuple<VentilationSystem, List<Space>>(ventilationSystem, spaces));
             }
 
-            if (systemEnergyCentres_Default == null || systemEnergyCentres_Default.Count == 0)
+            if(ventilationSystemTypeNames is null || ventilationSystemTypeNames.Count == 0)
             {
                 return null;
             }
 
-            throw new System.NotImplementedException();
+            List<SystemPlantRoom> systemPlantRooms = result.GetSystemPlantRooms();
+            if (systemPlantRooms is null || systemPlantRooms.Count == 0)
+            {
+                return null;
+            }
+
+            foreach (SystemPlantRoom systemPlantRoom in systemPlantRooms)
+            {
+                List<AirSystem> airSystems = systemPlantRoom.GetSystems<AirSystem>();
+                if(airSystems != null)
+                {
+                    for (int i = airSystems.Count - 1; i >= 0; i--)
+                    {
+                        if (airSystems[i].Name == null || !ventilationSystemTypeNames.Contains(airSystems[i].Name))
+                        {
+                            systemPlantRoom.Remove(airSystems[i], true);
+                            airSystems.RemoveAt(i);
+                        }
+                    }
+                }
+
+                if (airSystems is null || airSystems.Count == 0)
+                {
+                    result.Remove(systemPlantRoom);
+                    continue;
+                }
+            }
+
+            systemPlantRooms = result.GetSystemPlantRooms();
+            if (systemPlantRooms is null || systemPlantRooms.Count == 0)
+            {
+                return null;
+            }
+
+            unavailableSystemTypeNames = new HashSet<string>();
+
+            while (tuples.Count > 0)
+            {
+                string typeName = tuples[0].Item1.Type.Name;
+
+                List<Tuple<VentilationSystem, List<Space>>> tuples_Temp = tuples.FindAll(x => x.Item1.Type.Name == typeName);
+                tuples_Temp.ForEach(x => tuples.Remove(x));
+
+                SystemPlantRoom systemPlantRoom_Template = null;
+
+                foreach (SystemPlantRoom systemPlantRoom_Temp in systemPlantRooms)
+                {
+                    AirSystem airSystem_VentilationSystem = systemPlantRoom_Temp.GetSystems<AirSystem>()?.Find(x => x.Name == typeName);
+                    if (airSystem_VentilationSystem != null)
+                    {
+                        systemPlantRoom_Template = systemPlantRoom_Temp; 
+                        break;
+                    }
+                }
+
+                if(systemPlantRoom_Template is null)
+                {
+                    unavailableSystemTypeNames.Add(typeName);
+                    continue;
+                }
+
+                SystemPlantRoom systemPlantRoom = systemPlantRoom_Template;
+
+                List<AirSystem> airSystems = new List<AirSystem>();
+                foreach (Tuple<VentilationSystem, List<Space>> tuple in tuples_Temp)
+                {
+                    systemPlantRoom_Template = systemPlantRoom.Duplicate();
+
+                    AirSystem airSystem_Template = systemPlantRoom_Template.GetSystems<AirSystem>()?.Find(x => x.Name == typeName);
+                    if(airSystem_Template is null)
+                    {
+                        break;
+                    }
+
+                    AirSystem airSystem = Modify.Copy(systemPlantRoom_Template, systemPlantRoom, airSystem_Template);
+                    if(airSystem != null)
+                    {
+                        airSystems.Add(airSystem);
+                    }
+                }
+
+                if(airSystems.Count != 0)
+                {
+                    result.Add(systemPlantRoom);
+                }
+            }
+
+            return result;
         }
     }
 }
