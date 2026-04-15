@@ -361,6 +361,12 @@ namespace SAM.Analytical.Systems
                 return null;
             }
 
+            unavailableSystemTypeNames = new HashSet<string>();
+            foreach (string ventilationSystemTypeName in ventilationSystemTypeNames)
+            {
+                unavailableSystemTypeNames.Add(ventilationSystemTypeName);
+            }
+
             List<SystemPlantRoom> systemPlantRooms = result.GetSystemPlantRooms();
             if (systemPlantRooms is null || systemPlantRooms.Count == 0)
             {
@@ -395,8 +401,6 @@ namespace SAM.Analytical.Systems
                 return null;
             }
 
-            unavailableSystemTypeNames = new HashSet<string>();
-
             while (tuples.Count > 0)
             {
                 string typeName = tuples[0].Item1.Type.Name;
@@ -418,9 +422,11 @@ namespace SAM.Analytical.Systems
 
                 if(systemPlantRoom_Template is null)
                 {
-                    unavailableSystemTypeNames.Add(typeName);
+
                     continue;
                 }
+
+                unavailableSystemTypeNames.Remove(typeName);
 
                 SystemPlantRoom systemPlantRoom = systemPlantRoom_Template;
 
