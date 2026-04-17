@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using static SAM.Analytical.Name;
 
 namespace SAM.Analytical.Systems
 {
@@ -431,6 +432,7 @@ namespace SAM.Analytical.Systems
                 SystemPlantRoom systemPlantRoom = systemPlantRoom_Template;
 
                 List<AirSystem> airSystems = new List<AirSystem>();
+                bool added = false;
                 foreach (Tuple<VentilationSystem, List<Space>> tuple in tuples_Temp)
                 {
                     systemPlantRoom_Template = systemPlantRoom.Duplicate();
@@ -441,10 +443,54 @@ namespace SAM.Analytical.Systems
                         break;
                     }
 
+                    List<ISystemComponent> systemComponents = new List<ISystemComponent>();
+
                     AirSystem airSystem = Modify.Copy(systemPlantRoom_Template, systemPlantRoom, airSystem_Template);
+
+                    List<AirSystemGroup> airSystemGroups = systemPlantRoom.GetRelatedObjects<AirSystemGroup>(airSystem);
+                    //if(airSystemGroups != null && airSystemGroups.Count > 0)
+                    //{
+                    //    foreach(AirSystemGroup airSystemGroup in airSystemGroups)
+                    //    {
+                    //        List<SystemSpace> systemSpaces = systemPlantRoom.GetRelatedObjects<SystemSpace>(airSystemGroup);
+                    //        if(systemSpaces != null && systemSpaces.Count > 1)
+                    //        {
+                    //            List<IAirSystemComponent> airSystemComponents = systemPlantRoom.GetRelatedObjects<IAirSystemComponent>(airSystemGroup);
+                    //            if (airSystemComponents != null && airSystemComponents.Count > 1)
+                    //            {
+                    //                foreach(IAirSystemComponent airSystemComponent in airSystemComponents)
+                    //                {
+                    //                    if((airSystemComponent as SAMObject)?.GetValue<int>(AirSystemComponentParameter.GroupIndex) is int groupIndex)
+                    //                    {
+                    //                        if(groupIndex != 0)
+                    //                        {
+                    //                            systemPlantRoom.Remove(airSystemComponent);
+                    //                        }
+                    //                    }
+                    //                }
+                    //            }
+                    //        }
+                    //    }
+                    //}
+                    airSystem = Modify.UpdateAirSystem(systemPlantRoom, airSystem, tuple.Item2);
+
+                    //AirSystem airSystem = Modify.UpdateAirSystem(systemPlantRoom, systemPlantRoom_Template, airSystem_Template, tuple.Item2);
                     if(airSystem != null)
                     {
+                        airSystem.Name = tuple.Item1.FullName;
+                        systemPlantRoom.Add(airSystem);
+
                         airSystems.Add(airSystem);
+                        added = true;
+                    }
+                }
+
+                if(added)
+                {
+                    AirSystem airSystem = systemPlantRoom.GetSystems<AirSystem>()?.Find(x => x.Name == typeName);
+                    if (airSystem != null)
+                    {
+                        systemPlantRoom.Remove(airSystem, true);
                     }
                 }
 

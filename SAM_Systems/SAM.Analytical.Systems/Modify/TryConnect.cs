@@ -106,6 +106,48 @@ namespace SAM.Analytical.Systems
                 return systemPlantRoom.Connect((ISystemConnection)systemJSAMObject_2, (ISystemComponent)systemJSAMObject_1);
             }
 
+            if (systemJSAMObject_1 is ISystemSensor && systemJSAMObject_2 is ISystem)
+            {
+                return systemPlantRoom.Connect((ISystemSensor)systemJSAMObject_1, (ISystem)systemJSAMObject_2);
+            }
+
+            if (systemJSAMObject_1 is ISystem && systemJSAMObject_2 is ISystemSensor)
+            {
+                return systemPlantRoom.Connect((ISystemSensor)systemJSAMObject_2, (ISystem)systemJSAMObject_1);
+            }
+
+            if (systemJSAMObject_1 is ISystemSensor && systemJSAMObject_2 is ISystemCollection)
+            {
+                return systemPlantRoom.Connect((ISystemSensor)systemJSAMObject_1, (ISystemCollection)systemJSAMObject_2);
+            }
+
+            if (systemJSAMObject_1 is ISystemCollection && systemJSAMObject_2 is ISystemSensor)
+            {
+                return systemPlantRoom.Connect((ISystemSensor)systemJSAMObject_2, (ISystemCollection)systemJSAMObject_1);
+            }
+
+            if (systemJSAMObject_1 is ISystemSensor && systemJSAMObject_2 is ISystemController)
+            {
+                return systemPlantRoom.Connect((ISystemSensor)systemJSAMObject_1, (ISystemController)systemJSAMObject_2);
+            }
+
+            if (systemJSAMObject_1 is ISystemController && systemJSAMObject_2 is ISystemSensor)
+            {
+                return systemPlantRoom.Connect((ISystemSensor)systemJSAMObject_2, (ISystemController)systemJSAMObject_1);
+            }
+
+            if (systemJSAMObject_1 is ISystemSensor && systemJSAMObject_2 is ISystemConnection)
+            {
+                return systemPlantRoom.Connect((ISystemSensor)systemJSAMObject_1, (ISystemConnection)systemJSAMObject_2);
+            }
+
+            if (systemJSAMObject_1 is ISystemConnection && systemJSAMObject_2 is ISystemSensor)
+            {
+                return systemPlantRoom.Connect((ISystemSensor)systemJSAMObject_2, (ISystemConnection)systemJSAMObject_1);
+            }
+
+            throw new System.NotImplementedException();
+
             return false;
         }
     }
