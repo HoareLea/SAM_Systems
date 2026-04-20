@@ -12,7 +12,7 @@ using System.Linq;
 
 namespace SAM.Analytical.Grasshopper.Systems
 {
-    public class SAMAnalyticalSystemCreateSystemEnergyCentreByVentilationSystems : GH_SAMVariableOutputParameterComponent
+    public class SAMAnalyticalSystemCreateSystemEnergyCentreByMechanicalSystems : GH_SAMVariableOutputParameterComponent
     {
         /// <summary>
         /// Gets the unique ID for this component. Do not change this ID after release.
@@ -22,7 +22,7 @@ namespace SAM.Analytical.Grasshopper.Systems
         /// <summary>
         /// The latest version of this component
         /// </summary>
-        public override string LatestComponentVersion => "1.0.0";
+        public override string LatestComponentVersion => "1.0.1";
 
         /// <summary>
         /// Provides an Icon for the component.
@@ -34,10 +34,10 @@ namespace SAM.Analytical.Grasshopper.Systems
         /// <summary>
         /// Initializes a new instance of the SAM_point3D class.
         /// </summary>
-        public SAMAnalyticalSystemCreateSystemEnergyCentreByVentilationSystems()
+        public SAMAnalyticalSystemCreateSystemEnergyCentreByMechanicalSystems()
           : base(
-                  "SAMAnalytical.CreateSystemEnergyCentreByVentilationSystems",
-                  "SAMAnalytical.CreateSystemEnergyCentreByVentilationSystems",
+                  "SAMAnalytical.CreateSystemEnergyCentreByMechanicalSystems",
+                  "SAMAnalytical.CreateSystemEnergyCentreByMechanicalSystems",
                   "",
                   "SAM",
                   "Systems")
@@ -104,7 +104,7 @@ namespace SAM.Analytical.Grasshopper.Systems
 
             analyticalModel = new AnalyticalModel(analyticalModel);
 
-            systemEnergyCentre = Analytical.Systems.Create.SystemEnergyCentreByVentilationSystems(analyticalModel, out HashSet<string> unavailableSystemTypeNames, systemEnergyCentre);
+            systemEnergyCentre = Analytical.Systems.Create.SystemEnergyCentreByMechanicalSystems(analyticalModel, out HashSet<string> unavailableSystemTypeNames, systemEnergyCentre);
             if (unavailableSystemTypeNames != null && unavailableSystemTypeNames.Count != 0)
             {
                 AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, string.Format("Following system types not defined: {0}", string.Join(", ", unavailableSystemTypeNames)));

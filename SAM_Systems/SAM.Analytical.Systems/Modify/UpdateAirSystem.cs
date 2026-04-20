@@ -2,12 +2,13 @@
 using SAM.Core.Systems;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace SAM.Analytical.Systems
 {
     public static partial class Modify
     {
-        public static AirSystem UpdateAirSystem(this SystemEnergyCentre systemEnergyCentre, AirSystem airSystem, IEnumerable<Space> spaces)
+        public static AirSystem UpdateAirSystem(this SystemEnergyCentre systemEnergyCentre, AirSystem airSystem, IEnumerable<Space> spaces, bool updateSystemSpaceComponent = false, AdjacencyCluster adjacencyCluster = null)
         {
             if (systemEnergyCentre == null || airSystem == null || spaces == null)
             {
@@ -19,11 +20,11 @@ namespace SAM.Analytical.Systems
                 return null;
             }
 
-            return UpdateAirSystem(systemPlantRoom, airSystem, spaces);
+            return UpdateAirSystem(systemPlantRoom, airSystem, spaces, updateSystemSpaceComponent, adjacencyCluster);
 
         }
 
-        public static AirSystem UpdateAirSystem(this SystemPlantRoom systemPlantRoom, AirSystem airSystem, IEnumerable<Space> spaces)
+        public static AirSystem UpdateAirSystem(this SystemPlantRoom systemPlantRoom, AirSystem airSystem, IEnumerable<Space> spaces, bool updateSystemSpaceComponent = false, AdjacencyCluster adjacencyCluster = null)
         {
             if (systemPlantRoom == null || airSystem == null || spaces == null)
             {
@@ -116,6 +117,110 @@ namespace SAM.Analytical.Systems
                 foreach (Space space in keyValuePair.Value)
                 {
                     systemPlantRoom.Duplicate(systemSpace, space);
+                    if(updateSystemSpaceComponent)
+                    {
+                        List<ISystemSpaceComponent> systemSpaceComponents = systemPlantRoom.GetRelatedObjects<ISystemSpaceComponent>(systemSpace);
+                        if (systemSpaceComponents != null || systemSpaceComponents.Count != 0)
+                        {
+                            systemSpaceComponents.ForEach(x => systemPlantRoom.Remove(x));
+                        }
+
+                        ISystemSpaceComponent systemSpaceComponent_Heating = null;
+
+
+                        HeatingSystemType heatingSystemType = adjacencyCluster?.GetRelatedObjects<Analytical.HeatingSystem>(space)?.FirstOrDefault()?.Type as HeatingSystemType;
+                        if (heatingSystemType != null)
+                        {
+                            string typeName = heatingSystemType.Name;
+                            if (typeName == "RAD")
+                            {
+                                systemSpaceComponent_Heating = new SystemRadiator(typeName);
+                            }
+                            else if (typeName == "CHB")
+                            {
+                                systemSpaceComponent_Heating = new SystemChilledBeam(typeName);
+                            }
+                            else if (typeName == "FCU")
+                            {
+                                systemSpaceComponent_Heating = new SystemFanCoilUnit(typeName);
+                            }
+                            else if (typeName == "RP")
+                            {
+                                systemSpaceComponent_Heating = new SystemChilledBeam(typeName);
+                            }
+                            else if (typeName == "TRH")
+                            {
+                                systemSpaceComponent_Heating = new SystemRadiator(typeName);
+                            }
+                            else if (typeName == "UFH")
+                            {
+                                systemSpaceComponent_Heating = new SystemRadiator(typeName);
+                            }
+                            else if (typeName == "VRV")
+                            {
+                                systemSpaceComponent_Heating = new SystemDXCoilUnit(typeName);
+                            }
+                        }
+
+                        ISystemSpaceComponent systemSpaceComponent_Cooling = null;
+
+                        CoolingSystemType coolingSystemType = adjacencyCluster?.GetRelatedObjects<Analytical.CoolingSystem>(space)?.FirstOrDefault()?.Type as CoolingSystemType;
+                        if (coolingSystemType != null)
+                        {
+                            string typeName = coolingSystemType.Name;
+                            if (typeName == "CHB")
+                            {
+                                systemSpaceComponent_Cooling = new SystemChilledBeam(typeName);
+                            }
+                            else if (typeName == "FCU")
+                            {
+                                systemSpaceComponent_Cooling = new SystemFanCoilUnit(typeName);
+                            }
+                            else if (typeName == "RP")
+                            {
+                                systemSpaceComponent_Cooling = new SystemChilledBeam(typeName);
+                            }
+                            else if (typeName == "TRC")
+                            {
+                                systemSpaceComponent_Cooling = new SystemChilledBeam(typeName);
+                            }
+                            else if (typeName == "UFC")
+                            {
+                                systemSpaceComponent_Cooling = new SystemChilledBeam(typeName);
+                            }
+                        }
+
+                        if (systemSpaceComponent_Heating != null)
+                        {
+                            systemPlantRoom.Connect(systemSpaceComponent_Heating, systemSpace);
+
+                            //List<ISystemJSAMObject> systemJSAMObjects = systemPlantRoom.GetRelatedObjects<ISystemJSAMObject>(systemSpace);
+                            //if(systemJSAMObjects != null)
+                            //{
+                            //    foreach(ISystemJSAMObject systemJSAMObject in systemJSAMObjects)
+                            //    {
+                            //        TryConnect(systemPlantRoom, systemJSAMObject, systemSpaceComponent);
+                            //    }
+                            //}
+                        }
+
+                        if (systemSpaceComponent_Cooling.GetType() != systemSpaceComponent_Heating.GetType())
+                        {
+                            if (systemSpaceComponent_Cooling != null)
+                            {
+                                systemPlantRoom.Connect(systemSpaceComponent_Cooling, systemSpace);
+
+                                //List<ISystemJSAMObject> systemJSAMObjects = systemPlantRoom.GetRelatedObjects<ISystemJSAMObject>(systemSpace);
+                                //if(systemJSAMObjects != null)
+                                //{
+                                //    foreach(ISystemJSAMObject systemJSAMObject in systemJSAMObjects)
+                                //    {
+                                //        TryConnect(systemPlantRoom, systemJSAMObject, systemSpaceComponent);
+                                //    }
+                                //}
+                            }
+                        }
+                    }
                 }
             }
 
@@ -125,7 +230,7 @@ namespace SAM.Analytical.Systems
 
         }
 
-        public static AirSystem UpdateAirSystem(this SystemPlantRoom systemPlantRoom_Destination, SystemPlantRoom systemPlantRoom_Source, AirSystem airSystem_Source, IEnumerable<Space> spaces)
+        public static AirSystem UpdateAirSystem(this SystemPlantRoom systemPlantRoom_Destination, SystemPlantRoom systemPlantRoom_Source, AirSystem airSystem_Source, IEnumerable<Space> spaces, bool updateSystemSpaceComponent = false, AdjacencyCluster adjacencyCluster = null)
         {
             if(systemPlantRoom_Destination == null || systemPlantRoom_Source == null || airSystem_Source == null)
             {
@@ -144,7 +249,7 @@ namespace SAM.Analytical.Systems
                 return null;
             }
 
-            airSystem = UpdateAirSystem(systemPlantRoom_Destination, airSystem, spaces);
+            airSystem = UpdateAirSystem(systemPlantRoom_Destination, airSystem, spaces, updateSystemSpaceComponent, adjacencyCluster);
 
             return guids == null || guids.Count == 0 ? null : airSystem;
         }

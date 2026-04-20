@@ -314,7 +314,7 @@ namespace SAM.Analytical.Systems
 
         }
 
-        public static SystemEnergyCentre SystemEnergyCentreByVentilationSystems(this AnalyticalModel analyticalModel, out HashSet<string> unavailableSystemTypeNames, SystemEnergyCentre systemEnergyCentre)
+        public static SystemEnergyCentre SystemEnergyCentreByMechanicalSystems(this AnalyticalModel analyticalModel, out HashSet<string> unavailableSystemTypeNames, SystemEnergyCentre systemEnergyCentre)
         {
             unavailableSystemTypeNames = null;
 
@@ -472,7 +472,7 @@ namespace SAM.Analytical.Systems
                     //        }
                     //    }
                     //}
-                    airSystem = Modify.UpdateAirSystem(systemPlantRoom, airSystem, tuple.Item2);
+                    airSystem = Modify.UpdateAirSystem(systemPlantRoom, airSystem, tuple.Item2, true, adjacencyCluster);
 
                     //AirSystem airSystem = Modify.UpdateAirSystem(systemPlantRoom, systemPlantRoom_Template, airSystem_Template, tuple.Item2);
                     if(airSystem != null)
