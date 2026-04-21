@@ -114,25 +114,28 @@ namespace SAM.Analytical.Systems
                     continue;
                 }
 
+                if (updateSystemSpaceComponent)
+                {
+                    List<ISystemSpaceComponent> systemSpaceComponents = systemPlantRoom.GetRelatedObjects<ISystemSpaceComponent>(systemSpace);
+                    if (systemSpaceComponents != null || systemSpaceComponents.Count != 0)
+                    {
+                        systemSpaceComponents.ForEach(x => systemPlantRoom.Remove(x));
+                    }
+                }
+
                 foreach (Space space in keyValuePair.Value)
                 {
-                    systemPlantRoom.Duplicate(systemSpace, space);
+                    SystemSpace systemSpace_Space = systemPlantRoom.Duplicate(systemSpace, space);
                     if(updateSystemSpaceComponent)
                     {
-                        List<ISystemSpaceComponent> systemSpaceComponents = systemPlantRoom.GetRelatedObjects<ISystemSpaceComponent>(systemSpace);
-                        if (systemSpaceComponents != null || systemSpaceComponents.Count != 0)
-                        {
-                            systemSpaceComponents.ForEach(x => systemPlantRoom.Remove(x));
-                        }
-
-                        systemSpaceComponents = Create.SystemSpaceComponents(adjacencyCluster, space);
+                        List<ISystemSpaceComponent> systemSpaceComponents = Create.SystemSpaceComponents(adjacencyCluster, space);
                         if(systemSpaceComponents != null && systemSpaceComponents.Count != 0)
                         {
                             foreach(ISystemSpaceComponent systemSpaceComponent in systemSpaceComponents)
                             {
                                 systemPlantRoom.SetDefaultValues(systemSpaceComponent);
 
-                                systemPlantRoom.Connect(systemSpaceComponent, systemSpace);
+                                systemPlantRoom.Connect(systemSpaceComponent, systemSpace_Space);
                             }
                         }
                     }
