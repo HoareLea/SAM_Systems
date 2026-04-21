@@ -63,7 +63,7 @@ namespace SAM.Analytical.Systems
                 RefrigerantSystemCollection refrigerantSystemCollection = systemPlantRoom.GetSystemComponents<RefrigerantSystemCollection>().FirstOrDefault();
                 if (refrigerantSystemCollection != null)
                 {
-                    systemDXCoilUnit.SetValue(SystemDXCoilParameter.RefrigerantCollection, new CollectionLink(CollectionType.Refrigerant, refrigerantSystemCollection.Name));
+                    systemDXCoilUnit.SetValue(SystemDXCoilUnitParameter.RefrigerantCollection, new CollectionLink(CollectionType.Refrigerant, refrigerantSystemCollection.Name));
                 }
 
                 ElectricalSystemCollection electricalSystemCollection = systemPlantRoom.GetSystemComponents<ElectricalSystemCollection>().FirstOrDefault();
