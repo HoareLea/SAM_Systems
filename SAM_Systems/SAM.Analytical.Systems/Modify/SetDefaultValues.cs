@@ -1,7 +1,4 @@
-﻿using SAM.Core;
-using SAM.Core.Systems;
-using System;
-using System.Collections.Generic;
+﻿using SAM.Core.Systems;
 using System.Linq;
 
 namespace SAM.Analytical.Systems
@@ -22,6 +19,8 @@ namespace SAM.Analytical.Systems
                 {
                     systemRadiator.SetValue(SystemRadiatorParameter.HeatingCollection, new CollectionLink(CollectionType.Heating, heatingSystemCollection.Name));
                 }
+
+                systemRadiator.Duty = new DesignConditionSizableValue(1, 1.25, new string[] { "Annual Design Condition" }) { SizingType = SizingType.Sized, SizeMethod = SizeMethod.Sized };
             }
             else if (systemSpaceComponent is SystemChilledBeam systemChilledBeam)
             {
