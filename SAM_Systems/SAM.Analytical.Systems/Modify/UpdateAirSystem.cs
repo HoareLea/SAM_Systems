@@ -125,99 +125,14 @@ namespace SAM.Analytical.Systems
                             systemSpaceComponents.ForEach(x => systemPlantRoom.Remove(x));
                         }
 
-                        ISystemSpaceComponent systemSpaceComponent_Heating = null;
-
-
-                        HeatingSystemType heatingSystemType = adjacencyCluster?.GetRelatedObjects<Analytical.HeatingSystem>(space)?.FirstOrDefault()?.Type as HeatingSystemType;
-                        if (heatingSystemType != null)
+                        systemSpaceComponents = Create.SystemSpaceComponents(adjacencyCluster, space);
+                        if(systemSpaceComponents != null && systemSpaceComponents.Count != 0)
                         {
-                            string typeName = heatingSystemType.Name;
-                            if (typeName == "RAD")
+                            foreach(ISystemSpaceComponent systemSpaceComponent in systemSpaceComponents)
                             {
-                                systemSpaceComponent_Heating = new SystemRadiator(typeName);
-                            }
-                            else if (typeName == "CHB")
-                            {
-                                systemSpaceComponent_Heating = new SystemChilledBeam(typeName);
-                            }
-                            else if (typeName == "FCU")
-                            {
-                                systemSpaceComponent_Heating = new SystemFanCoilUnit(typeName);
-                            }
-                            else if (typeName == "RP")
-                            {
-                                systemSpaceComponent_Heating = new SystemChilledBeam(typeName);
-                            }
-                            else if (typeName == "TRH")
-                            {
-                                systemSpaceComponent_Heating = new SystemRadiator(typeName);
-                            }
-                            else if (typeName == "UFH")
-                            {
-                                systemSpaceComponent_Heating = new SystemRadiator(typeName);
-                            }
-                            else if (typeName == "VRV")
-                            {
-                                systemSpaceComponent_Heating = new SystemDXCoilUnit(typeName);
-                            }
-                        }
+                                systemPlantRoom.SetDefaultValues(systemSpaceComponent);
 
-                        ISystemSpaceComponent systemSpaceComponent_Cooling = null;
-
-                        CoolingSystemType coolingSystemType = adjacencyCluster?.GetRelatedObjects<Analytical.CoolingSystem>(space)?.FirstOrDefault()?.Type as CoolingSystemType;
-                        if (coolingSystemType != null)
-                        {
-                            string typeName = coolingSystemType.Name;
-                            if (typeName == "CHB")
-                            {
-                                systemSpaceComponent_Cooling = new SystemChilledBeam(typeName);
-                            }
-                            else if (typeName == "FCU")
-                            {
-                                systemSpaceComponent_Cooling = new SystemFanCoilUnit(typeName);
-                            }
-                            else if (typeName == "RP")
-                            {
-                                systemSpaceComponent_Cooling = new SystemChilledBeam(typeName);
-                            }
-                            else if (typeName == "TRC")
-                            {
-                                systemSpaceComponent_Cooling = new SystemChilledBeam(typeName);
-                            }
-                            else if (typeName == "UFC")
-                            {
-                                systemSpaceComponent_Cooling = new SystemChilledBeam(typeName);
-                            }
-                        }
-
-                        if (systemSpaceComponent_Heating != null)
-                        {
-                            systemPlantRoom.Connect(systemSpaceComponent_Heating, systemSpace);
-
-                            //List<ISystemJSAMObject> systemJSAMObjects = systemPlantRoom.GetRelatedObjects<ISystemJSAMObject>(systemSpace);
-                            //if(systemJSAMObjects != null)
-                            //{
-                            //    foreach(ISystemJSAMObject systemJSAMObject in systemJSAMObjects)
-                            //    {
-                            //        TryConnect(systemPlantRoom, systemJSAMObject, systemSpaceComponent);
-                            //    }
-                            //}
-                        }
-
-                        if (systemSpaceComponent_Cooling.GetType() != systemSpaceComponent_Heating.GetType())
-                        {
-                            if (systemSpaceComponent_Cooling != null)
-                            {
-                                systemPlantRoom.Connect(systemSpaceComponent_Cooling, systemSpace);
-
-                                //List<ISystemJSAMObject> systemJSAMObjects = systemPlantRoom.GetRelatedObjects<ISystemJSAMObject>(systemSpace);
-                                //if(systemJSAMObjects != null)
-                                //{
-                                //    foreach(ISystemJSAMObject systemJSAMObject in systemJSAMObjects)
-                                //    {
-                                //        TryConnect(systemPlantRoom, systemJSAMObject, systemSpaceComponent);
-                                //    }
-                                //}
+                                systemPlantRoom.Connect(systemSpaceComponent, systemSpace);
                             }
                         }
                     }
