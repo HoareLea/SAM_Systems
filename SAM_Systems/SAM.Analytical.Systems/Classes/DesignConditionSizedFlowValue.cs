@@ -45,6 +45,11 @@ namespace SAM.Analytical.Systems
             {
                 return designConditionNames == null ? null : new HashSet<string>(designConditionNames);
             }
+
+            set
+            {
+                designConditionNames = value is null ? null : new HashSet<string>(value);
+            }
         }
 
         public SizedFlowMethod SizedFlowMethod
