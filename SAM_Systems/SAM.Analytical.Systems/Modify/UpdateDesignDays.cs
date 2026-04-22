@@ -72,7 +72,6 @@ namespace SAM.Analytical.Systems
                 return sizableValue;
             });
 
-
             foreach(SystemPlantRoom systemPlantRoom in systemPlantRooms)
             {
                 List<ISystemSpaceComponent> systemSpaceComponents = systemPlantRoom.GetSystemComponents<ISystemSpaceComponent>();
@@ -86,6 +85,8 @@ namespace SAM.Analytical.Systems
                         }
                     }
                 }
+
+                systemEnergyCentre.Add(systemPlantRoom);
             }
         }
     }
