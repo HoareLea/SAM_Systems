@@ -128,13 +128,11 @@ namespace SAM.Analytical.Systems
                     SystemSpace systemSpace_Space = systemPlantRoom.Duplicate(systemSpace, space);
                     if(updateSystemSpaceComponent)
                     {
-                        List<ISystemSpaceComponent> systemSpaceComponents = Create.SystemSpaceComponents(adjacencyCluster, space);
+                        List<ISystemSpaceComponent> systemSpaceComponents = Create.SystemSpaceComponents(adjacencyCluster, space, systemPlantRoom);
                         if(systemSpaceComponents != null && systemSpaceComponents.Count != 0)
                         {
                             foreach(ISystemSpaceComponent systemSpaceComponent in systemSpaceComponents)
                             {
-                                systemPlantRoom.SetDefaultValues(systemSpaceComponent);
-
                                 systemPlantRoom.Connect(systemSpaceComponent, systemSpace_Space);
                             }
                         }
