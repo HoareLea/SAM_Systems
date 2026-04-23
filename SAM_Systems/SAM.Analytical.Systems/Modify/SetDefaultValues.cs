@@ -1,4 +1,5 @@
-﻿using SAM.Core.Systems;
+﻿using SAM.Core;
+using SAM.Core.Systems;
 using System.Linq;
 
 namespace SAM.Analytical.Systems
@@ -58,7 +59,6 @@ namespace SAM.Analytical.Systems
             }
             else if (systemSpaceComponent is SystemDXCoilUnit systemDXCoilUnit)
             {
-
                 RefrigerantSystemCollection refrigerantSystemCollection = systemPlantRoom.GetSystemComponents<RefrigerantSystemCollection>().FirstOrDefault();
                 if (refrigerantSystemCollection != null)
                 {
@@ -70,6 +70,14 @@ namespace SAM.Analytical.Systems
                 {
                     systemDXCoilUnit.SetValue(SystemDXCoilUnitParameter.ElectricalCollection, new CollectionLink(CollectionType.Electrical, electricalSystemCollection.Name));
                 }
+
+                systemDXCoilUnit.HeatingDuty = new DesignConditionSizableValue(1, 1.25, new string[] { "Annual Design Condition" }) { SizingType = SizingType.Sized, SizeMethod = SizeMethod.Sized };
+                systemDXCoilUnit.CoolingDuty = new DesignConditionSizableValue(1, 1.15, new string[] { "Annual Design Condition" }) { SizingType = SizingType.Sized, SizeMethod = SizeMethod.Sized };
+                systemDXCoilUnit.BypassFactor = new ModifiableValue(0.1);
+                systemDXCoilUnit.OverallEfficiency = new ModifiableValue(0.25);
+                systemDXCoilUnit.HeatGainFactor = 1.0;
+               // systemDXCoilUnit.PartLoad = new ModifiableValue();
+                systemDXCoilUnit.Pressure = 100;
             }
         }
     }
