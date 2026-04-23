@@ -70,6 +70,10 @@ namespace SAM.Analytical.Systems
                 {
                     systemSpaceComponent_Cooling = new SystemChilledBeam(typeName);
                 }
+                else if (typeName == "VRV")
+                {
+                    systemSpaceComponent_Cooling = new SystemDXCoilUnit(typeName);
+                }
             }
 
             List<ISystemSpaceComponent> result = new List<ISystemSpaceComponent>();
