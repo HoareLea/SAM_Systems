@@ -1,5 +1,6 @@
 ﻿using SAM.Core;
 using SAM.Core.Systems;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace SAM.Analytical.Systems
@@ -76,7 +77,26 @@ namespace SAM.Analytical.Systems
                 systemDXCoilUnit.BypassFactor = new ModifiableValue(0.1);
                 systemDXCoilUnit.OverallEfficiency = new ModifiableValue(0.25);
                 systemDXCoilUnit.HeatGainFactor = 1.0;
-               // systemDXCoilUnit.PartLoad = new ModifiableValue();
+
+                TableModifier tableModifier = new TableModifier(ArithmeticOperator.Modulus, new List<string>() { "tpdProfileDataVariablePartload" });
+                Dictionary<int, double> dictionary = new Dictionary<int, double>
+                {
+                    { 0, 0 },
+                    { 10, 3 },
+                    { 20, 7 },
+                    { 30, 13 },
+                    { 40, 21 },
+                    { 50, 30 },
+                    { 60, 41 },
+                    { 70, 54 },
+                    { 80, 68 },
+                    { 90, 83 },
+                    { 100, 100 }
+                };
+
+                tableModifier.AddValues(dictionary);
+
+                systemDXCoilUnit.PartLoad = new ModifiableValue(tableModifier, 1);
                 systemDXCoilUnit.Pressure = 100;
             }
         }
