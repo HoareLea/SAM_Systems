@@ -1,9 +1,7 @@
 ﻿using SAM.Core;
 using SAM.Core.Systems;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using static SAM.Analytical.Systems.ActiveSetting;
 
 namespace SAM.Analytical.Systems
 {
@@ -120,6 +118,29 @@ namespace SAM.Analytical.Systems
 
                 systemChilledBeam.Heating = chilledBeam_Heating;
 
+                if (chilledBeam_Heating)
+                {
+                    systemChilledBeam.HeatingDuty = new DesignConditionSizableValue(1, 1.25, new string[] { "Annual Design Condition" }) { SizingType = SizingType.Sized, SizeMethod = SizeMethod.Sized };
+                }
+                else
+                {
+                    systemChilledBeam.HeatingDuty = new SizableValue() { SizingType = SizingType.Value };
+                }
+
+                if (chilledBeam_Cooling)
+                {
+                    systemChilledBeam.CoolingDuty = new DesignConditionSizableValue(1, 1.15, new string[] { "Annual Design Condition" }) { SizingType = SizingType.Sized, SizeMethod = SizeMethod.Sized };
+                }
+                else
+                {
+                    systemChilledBeam.CoolingDuty = new SizableValue() { SizingType = SizingType.Value };
+                }
+
+                systemChilledBeam.BypassFactor = 0.0;
+
+                systemChilledBeam.DesignFlowRate = new DesignConditionSizedFlowValue(1, 1, SizingType.Sized, 8, 8, SizedFlowMethod.TemperatureDifference, new string[] { "Annual Design Condition" });
+                systemChilledBeam.DesignFlowType = FlowRateType.Sized;
+
                 result.Add(systemChilledBeam);
             }
 
@@ -145,6 +166,36 @@ namespace SAM.Analytical.Systems
                     systemFanCoilUnit.SetValue(SystemFanCoilUnitParameter.ElectricalCollection, new CollectionLink(CollectionType.Electrical, electricalSystemCollection.Name));
                 }
 
+                if (fanCoilUnit_Heating)
+                {
+                    systemFanCoilUnit.HeatingDuty = new DesignConditionSizableValue(1, 1.25, new string[] { "Annual Design Condition" }) { SizingType = SizingType.Sized, SizeMethod = SizeMethod.Sized };
+                }
+                else
+                {
+                    systemFanCoilUnit.HeatingDuty = new SizableValue() { SizingType = SizingType.Value };
+                }
+
+                if (fanCoilUnit_Cooling)
+                {
+                    systemFanCoilUnit.CoolingDuty = new DesignConditionSizableValue(1, 1.15, new string[] { "Annual Design Condition" }) { SizingType = SizingType.Sized, SizeMethod = SizeMethod.Sized };
+                }
+                else
+                {
+                    systemFanCoilUnit.CoolingDuty = new SizableValue() { SizingType = SizingType.Value };
+                }
+
+                systemFanCoilUnit.BypassFactor = 0.1;
+
+                systemFanCoilUnit.DesignFlowRate = new DesignConditionSizedFlowValue(1, 1, SizingType.Sized, 8, 8, SizedFlowMethod.TemperatureDifference, new string[] { "Annual Design Condition" });
+                systemFanCoilUnit.DesignFlowType = FlowRateType.Sized;
+
+                systemFanCoilUnit.OverallEfficiency = new ModifiableValue(0.25);
+                systemFanCoilUnit.HeatGainFactor = 1.0;
+
+
+                //systemFanCoilUnit.PartLoad = ???
+                systemFanCoilUnit.Pressure = 100;
+
                 result.Add(systemFanCoilUnit);
             }
 
@@ -166,13 +217,20 @@ namespace SAM.Analytical.Systems
 
                 if(dXCoilUnit_Heating)
                 {
-
                     systemDXCoilUnit.HeatingDuty = new DesignConditionSizableValue(1, 1.25, new string[] { "Annual Design Condition" }) { SizingType = SizingType.Sized, SizeMethod = SizeMethod.Sized };
                 }
+                else
+                {
+                    systemDXCoilUnit.HeatingDuty = new SizableValue() { SizingType = SizingType.Value};
+                }
 
-                if(dXCoilUnit_Cooling)
+                if (dXCoilUnit_Cooling)
                 {
                     systemDXCoilUnit.CoolingDuty = new DesignConditionSizableValue(1, 1.15, new string[] { "Annual Design Condition" }) { SizingType = SizingType.Sized, SizeMethod = SizeMethod.Sized };
+                }
+                else
+                {
+                    systemDXCoilUnit.CoolingDuty = new SizableValue() { SizingType = SizingType.Value };
                 }
 
                 systemDXCoilUnit.BypassFactor = new ModifiableValue(0.1);
