@@ -136,12 +136,12 @@ namespace SAM.Analytical.Systems
 
                         if (systemSpaceComponent is SystemFanCoilUnit systemFanCoilUnit)
                         {
-                            if (heatingSystem?.Type?.Name is string name_Heating && name_Heating == "FCU")
+                            if (heatingSystem?.Type?.Name is string name_Heating && (name_Heating == "FCU" || name_Heating == "CHB"))
                             {
                                 systemFanCoilUnit.HeatingDuty = update.Invoke(systemFanCoilUnit.HeatingDuty, names_Heating);
                             }
 
-                            if (coolingSystem?.Type?.Name is string name_Cooling && name_Cooling == "FCU")
+                            if (coolingSystem?.Type?.Name is string name_Cooling && (name_Cooling == "FCU" || name_Cooling == "CHB"))
                             {
                                 systemFanCoilUnit.CoolingDuty = update.Invoke(systemFanCoilUnit.CoolingDuty, names_Cooling);
                             }
@@ -160,7 +160,7 @@ namespace SAM.Analytical.Systems
                             }
                         }
 
-
+                        systemPlantRoom.Add(systemSpaceComponent);
                     }
                 }
 
