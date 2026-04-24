@@ -193,7 +193,31 @@ namespace SAM.Analytical.Systems
                 systemFanCoilUnit.HeatGainFactor = 1.0;
 
 
-                //systemFanCoilUnit.PartLoad = ???
+                TableModifier tableModifier = new TableModifier(ArithmeticOperator.Modulus, new List<string>() { "tpdProfileDataVariablePartload", "value" });
+                Dictionary<double, double> dictionary = new Dictionary<double, double>
+                {
+                    { 0, 0 },
+                    { 10, 3 },
+                    { 20, 7 },
+                    { 30, 13 },
+                    { 40, 21 },
+                    { 50, 30 },
+                    { 60, 41 },
+                    { 70, 54 },
+                    { 80, 68 },
+                    { 90, 83 },
+                    { 100, 100 }
+                };
+
+                foreach (KeyValuePair<double, double> keyValuePair in dictionary)
+                {
+                    Dictionary<string, double> dictionary_Temp = new Dictionary<string, double>();
+                    dictionary_Temp["tpdProfileDataVariablePartload"] = keyValuePair.Key;
+                    dictionary_Temp["value"] = keyValuePair.Value;
+                    tableModifier.AddValues(dictionary_Temp);
+                }
+
+                systemFanCoilUnit.PartLoad = new ModifiableValue(tableModifier, 0);
                 systemFanCoilUnit.Pressure = 100;
 
                 result.Add(systemFanCoilUnit);
@@ -237,25 +261,31 @@ namespace SAM.Analytical.Systems
                 systemDXCoilUnit.OverallEfficiency = new ModifiableValue(0.25);
                 systemDXCoilUnit.HeatGainFactor = 1.0;
 
-                TableModifier tableModifier = new TableModifier(ArithmeticOperator.Modulus, new List<string>() { "tpdProfileDataVariablePartload" });
-                Dictionary<int, double> dictionary = new Dictionary<int, double>
+                TableModifier tableModifier = new TableModifier(ArithmeticOperator.Modulus, new List<string>() { "tpdProfileDataVariablePartload", "value" });
+                Dictionary<double, double> dictionary = new Dictionary<double, double>
                 {
                     { 0, 0 },
-                    { 10, 3 },
-                    { 20, 7 },
-                    { 30, 13 },
-                    { 40, 21 },
-                    { 50, 30 },
-                    { 60, 41 },
-                    { 70, 54 },
-                    { 80, 68 },
-                    { 90, 83 },
+                    { 10, 1 },
+                    { 20, 4 },
+                    { 30, 8 },
+                    { 40, 14 },
+                    { 50, 22 },
+                    { 60, 32 },
+                    { 70, 45 },
+                    { 80, 60 },
+                    { 90, 78 },
                     { 100, 100 }
                 };
 
-                tableModifier.AddValues(dictionary);
+                foreach(KeyValuePair<double, double> keyValuePair in dictionary)
+                {
+                    Dictionary<string, double> dictionary_Temp = new Dictionary<string, double>();
+                    dictionary_Temp["tpdProfileDataVariablePartload"] = keyValuePair.Key;
+                    dictionary_Temp["value"] = keyValuePair.Value;
+                    tableModifier.AddValues(dictionary_Temp);
+                }
 
-                systemDXCoilUnit.PartLoad = new ModifiableValue(tableModifier, 1);
+                systemDXCoilUnit.PartLoad = new ModifiableValue(tableModifier, 0);
                 systemDXCoilUnit.Pressure = 100;
 
                 result.Add(systemDXCoilUnit);
