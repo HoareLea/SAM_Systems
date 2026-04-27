@@ -137,7 +137,7 @@ namespace SAM.Analytical.Systems
                         if (systemSpaceComponent is SystemChilledBeam systemChilledBeam)
                         {
                             List<string> names_All = new List<string>();
-                            if (heatingSystem?.Type?.Name is string name_Heating && (name_Heating == "CHB" || name_Heating == "RP"))
+                            if (heatingSystem?.Type?.Name is string name_Heating && (name_Heating == "CHB" || name_Heating == "RP" || name_Heating == "UFC"))
                             {
                                 systemChilledBeam.HeatingDuty = update_SizableValue.Invoke(systemChilledBeam.HeatingDuty, names_Heating);
                                 names_All.AddRange(names_Heating);
@@ -154,28 +154,38 @@ namespace SAM.Analytical.Systems
 
                         if (systemSpaceComponent is SystemFanCoilUnit systemFanCoilUnit)
                         {
+                            List<string> names_All = new List<string>();
                             if (heatingSystem?.Type?.Name is string name_Heating && (name_Heating == "FCU" || name_Heating == "CHB"))
                             {
                                 systemFanCoilUnit.HeatingDuty = update_SizableValue.Invoke(systemFanCoilUnit.HeatingDuty, names_Heating);
+                                names_All.AddRange(names_Heating);
                             }
 
                             if (coolingSystem?.Type?.Name is string name_Cooling && (name_Cooling == "FCU" || name_Cooling == "CHB"))
                             {
                                 systemFanCoilUnit.CoolingDuty = update_SizableValue.Invoke(systemFanCoilUnit.CoolingDuty, names_Cooling);
+                                names_All.AddRange(names_Cooling);
                             }
+
+                            systemFanCoilUnit.DesignFlowRate = update_SizedFlowValue.Invoke(systemFanCoilUnit.DesignFlowRate, names_All);
                         }
 
                         if (systemSpaceComponent is SystemDXCoilUnit systemDXCoilUnit)
                         {
+                            List<string> names_All = new List<string>();
                             if (heatingSystem?.Type?.Name is string name_Heating && name_Heating == "VRV")
                             {
                                 systemDXCoilUnit.HeatingDuty = update_SizableValue.Invoke(systemDXCoilUnit.HeatingDuty, names_Heating);
+                                names_All.AddRange(names_Heating);
                             }
 
                             if (coolingSystem?.Type?.Name is string name_Cooling && name_Cooling == "VRV")
                             {
                                 systemDXCoilUnit.CoolingDuty = update_SizableValue.Invoke(systemDXCoilUnit.CoolingDuty, names_Cooling);
+                                names_All.AddRange(names_Cooling);
                             }
+
+                            systemDXCoilUnit.DesignFlowRate = update_SizedFlowValue.Invoke(systemDXCoilUnit.DesignFlowRate, names_All);
                         }
 
                         systemPlantRoom.Add(systemSpaceComponent);
