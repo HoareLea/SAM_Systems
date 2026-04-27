@@ -288,6 +288,11 @@ namespace SAM.Analytical.Systems
                 systemDXCoilUnit.PartLoad = new ModifiableValue(tableModifier, 0);
                 systemDXCoilUnit.Pressure = 100;
 
+                systemDXCoilUnit.BypassFactor = 0.0;
+
+                systemDXCoilUnit.DesignFlowRate = new DesignConditionSizedFlowValue(1, 1, SizingType.Sized, 8, 8, SizedFlowMethod.TemperatureDifference, new string[] { "Annual Design Condition" });
+                systemDXCoilUnit.DesignFlowType = FlowRateType.Sized;
+
                 result.Add(systemDXCoilUnit);
             }
 
