@@ -236,6 +236,8 @@ namespace SAM.Analytical.Grasshopper.Systems
                 }
             }
 
+            bool updated_SystemEnergyCentre = false;
+
             if (systemFans != null && systemFans.Count > 0)
             {
                 for (int i = 0; i < systemFans.Count; i++)
@@ -284,8 +286,6 @@ namespace SAM.Analytical.Grasshopper.Systems
 
                     systemFans[i] = systemFan;
                 }
-
-                bool updated_SystemEnergyCentre = false;
 
                 List<SystemPlantRoom> systemPlantRooms = systemEnergyCentre.GetSystemPlantRooms();
                 if (systemPlantRooms != null && systemPlantRooms.Count != 0)
@@ -340,7 +340,7 @@ namespace SAM.Analytical.Grasshopper.Systems
 
             if (index_successful != -1)
             {
-                dataAccess.SetData(index_successful, systemFans != null && systemFans.Count != 0);
+                dataAccess.SetData(index_successful, updated_SystemEnergyCentre);
             }
         }
     }

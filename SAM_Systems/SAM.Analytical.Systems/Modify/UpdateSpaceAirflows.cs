@@ -1,4 +1,7 @@
-﻿using SAM.Core.Systems;
+﻿// SPDX-License-Identifier: LGPL-3.0-or-later
+// Copyright (c) 2020–2026 Michal Dengusiak & Jakub Ziolkowski and contributors
+
+using SAM.Core.Systems;
 using System;
 using System.Collections.Generic;
 
@@ -43,39 +46,45 @@ namespace SAM.Analytical.Systems
                         if (airFlow != null && airFlow.HasValue)
                         {
                             DesignConditionSizedFlowValue designConditionSizedFlowValue = systemSpace.FlowRate;
-                            designConditionSizedFlowValue.SizingType = SizingType.None;
-
-                            if (!double.IsNaN(airFlow.Value))
-                            {
-                                designConditionSizedFlowValue.SizingType = SizingType.Value;
-                                designConditionSizedFlowValue.Value = airFlow.Value;
-                            }
-                            else
+                            if(designConditionSizedFlowValue != null)
                             {
                                 designConditionSizedFlowValue.SizingType = SizingType.None;
-                            }
 
-                            systemSpace.FlowRate = designConditionSizedFlowValue;
-                            changed = true;
+                                if (!double.IsNaN(airFlow.Value))
+                                {
+                                    designConditionSizedFlowValue.SizingType = SizingType.Value;
+                                    designConditionSizedFlowValue.Value = airFlow.Value;
+                                }
+                                else
+                                {
+                                    designConditionSizedFlowValue.SizingType = SizingType.None;
+                                }
+
+                                systemSpace.FlowRate = designConditionSizedFlowValue;
+                                changed = true;
+                            }
                         }
 
                         if (freshAirFlow != null && freshAirFlow.HasValue)
                         {
                             DesignConditionSizedFlowValue designConditionSizedFlowValue = systemSpace.FreshAir;
-                            designConditionSizedFlowValue.SizingType = SizingType.None;
-
-                            if (!double.IsNaN(freshAirFlow.Value))
-                            {
-                                designConditionSizedFlowValue.SizingType = SizingType.Value;
-                                designConditionSizedFlowValue.Value = freshAirFlow.Value;
-                            }
-                            else
+                            if(designConditionSizedFlowValue != null)
                             {
                                 designConditionSizedFlowValue.SizingType = SizingType.None;
-                            }
 
-                            systemSpace.FreshAir = designConditionSizedFlowValue;
-                            changed = true;
+                                if (!double.IsNaN(freshAirFlow.Value))
+                                {
+                                    designConditionSizedFlowValue.SizingType = SizingType.Value;
+                                    designConditionSizedFlowValue.Value = freshAirFlow.Value;
+                                }
+                                else
+                                {
+                                    designConditionSizedFlowValue.SizingType = SizingType.None;
+                                }
+
+                                systemSpace.FreshAir = designConditionSizedFlowValue;
+                                changed = true;
+                            }
                         }
 
                         if (changed)

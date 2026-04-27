@@ -294,7 +294,7 @@ namespace SAM.Analytical.Grasshopper.Systems
 
             List<string> spaceNames_Updated = [];
 
-            if (!((airflows is null || airflows.Count == 0) && (freshAirs is null || freshAirs.Count == 0)))
+            if (!(freshAirs is null || freshAirs.Count == 0))
             {
                 Dictionary<string, Tuple<double?, double?>> dictionary = [];
                 for (int i = 0; i < spacesNames.Count; i++)
@@ -315,7 +315,7 @@ namespace SAM.Analytical.Grasshopper.Systems
                     }
 
                     double? airflow = null;
-                    if (code == 1 && airflows.Count != 0)
+                    if (code == 1 && airflows is not null && airflows.Count != 0)
                     {
                         airflow = airflows[Core.Query.Clamp(i, 0, airflows.Count - 1)];
                     }
