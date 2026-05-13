@@ -17,12 +17,12 @@ namespace SAM.Analytical.Grasshopper.Systems
         /// <summary>
         /// Gets the unique ID for this component. Do not change this ID after release.
         /// </summary>
-        public override Guid ComponentGuid => new ("31a4c1d3-6cef-4c5b-a9b1-46684c947ea9");
+        public override Guid ComponentGuid => new("31a4c1d3-6cef-4c5b-a9b1-46684c947ea9");
 
         /// <summary>
         /// The latest version of this component.
         /// </summary>
-        public override string LatestComponentVersion => "1.0.2";
+        public override string LatestComponentVersion => "1.0.3";
 
         /// <summary>
         /// Provides an icon for the component.
@@ -34,7 +34,21 @@ namespace SAM.Analytical.Grasshopper.Systems
         /// </summary>
         public SAMAnalyticalSystemEnergyCentreModifyByAirflows()
           : base("SystemEnergyCentre.ModifyByAirflows", "SystemEnergyCentre.ModifyByAirflows",
-              "Updates airflow and fresh air settings for spaces in a SystemEnergyCentre.\n\nUse this component to modify airflow and fresh air values for spaces identified by name.\n\nIf systemEnergyCentre_ is not supplied, the component uses the SystemEnergyCentre stored in _analyticalModel. The component runs only when _run is true.",
+              "Updates airflow and fresh air settings for spaces in a SystemEnergyCentre.\n\n" +
+              "Use this component to modify airflow and fresh air values for spaces identified by name.\n\n" +
+              "Each space is handled independently using the *Modifies inputs:\n" +
+              "  0 = do not change (existing value is preserved)\n" +
+              "  1 = set value from the corresponding flow rate input\n" +
+              "  2 = reset (clears the value in SAM)\n\n" +
+              "Note on option 2 vs Tas export:\n" +
+              "In SAM/Grasshopper, a reset space will report its airflow as 0 when queried. However, when the model is exported to a Tas TPD file the entry is written with sizingType = None, so Tas displays None (undefined) rather than 0.\n" +
+              "If you want Tas to display an explicit zero, do not use 2 — instead use 1 with a flow rate of 0. That writes sizingType = Value with value = 0, which Tas displays as 0.\n\n" +
+              "Summary of Tas TPD behaviour:\n" +
+              "  Modify = 0           -> Tas value unchanged\n" +
+              "  Modify = 1, rate > 0 -> sizingType = Value, displays the rate\n" +
+              "  Modify = 1, rate = 0 -> sizingType = Value, displays 0\n" +
+              "  Modify = 2           -> sizingType = None, displays None\n\n" +
+              "If systemEnergyCentre_ is not supplied, the component uses the SystemEnergyCentre stored in _analyticalModel. The component runs only when _run is true.",
               "SAM", "Systems")
         {
         }
@@ -53,6 +67,7 @@ namespace SAM.Analytical.Grasshopper.Systems
                     Description = "Set to true to run the update.\nIf false, the component does nothing.",
                     Access = GH_ParamAccess.item
                 };
+
                 param_Boolean.SetPersistentData(false);
 
                 List<GH_SAMParam> result =
@@ -95,7 +110,11 @@ namespace SAM.Analytical.Grasshopper.Systems
                     {
                         Name = "_airflowModifies",
                         NickName = "_airflowModifies",
-                        Description = "Defines how airflow is handled for each space.\nDefault is 0.\n0 = do not change\n1 = set value from _airflowFlowRates\n2 = reset.",
+                        Description = "Defines how airflow is handled for each space.\nDefault is 0.\n" +
+                                      "0 = do not change\n" +
+                                      "1 = set value from _airflowFlowRates\n" +
+                                      "2 = reset (SAM reports the value as 0; on Tas TPD export this is written as sizingType = None, so Tas displays None — not 0).\n\n" +
+                                      "To make Tas display 0, use 1 with a flow rate of 0 instead of using 2.",
                         Access = GH_ParamAccess.list,
                         Optional = true
                     }, ParamVisibility.Binding),
@@ -113,14 +132,17 @@ namespace SAM.Analytical.Grasshopper.Systems
                     {
                         Name = "_airflowFreshAirModifies",
                         NickName = "_airflowFreshAirModifies",
-                        Description = "Defines how fresh air is handled for each space.\nDefault is 0.\n0 = do not change\n1 = set value from _airflowFreshAirRates\n2 = reset.",
+                        Description = "Defines how fresh air is handled for each space.\nDefault is 0.\n" +
+                                      "0 = do not change\n" +
+                                      "1 = set value from _airflowFreshAirRates\n" +
+                                      "2 = reset (SAM reports the value as 0; on Tas TPD export this is written as sizingType = None, so Tas displays None — not 0).\n\n" +
+                                      "To make Tas display 0, use 1 with a flow rate of 0 instead of using 2.",
                         Access = GH_ParamAccess.list,
                         Optional = true
                     }, ParamVisibility.Binding),
 
                     new GH_SAMParam(param_Boolean)
                 ];
-
                 return [.. result];
             }
         }
@@ -228,7 +250,7 @@ namespace SAM.Analytical.Grasshopper.Systems
             }
 
             List<string> spacesNames = [];
-            foreach(GH_ObjectWrapper gH_ObjectWrapper in gH_ObjectWrappers)
+            foreach (GH_ObjectWrapper gH_ObjectWrapper in gH_ObjectWrappers)
             {
                 object @object = gH_ObjectWrapper.Value;
                 if (@object is IGH_Goo)
@@ -240,13 +262,13 @@ namespace SAM.Analytical.Grasshopper.Systems
                 {
                     spacesNames.Add(name);
                 }
-                else if(@object is Space space)
+                else if (@object is Space space)
                 {
                     spacesNames.Add(space.Name);
                 }
             }
 
-            if(spacesNames is null || spacesNames.Count == 0)
+            if (spacesNames is null || spacesNames.Count == 0)
             {
                 AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "Invalid data");
                 return;
@@ -294,64 +316,75 @@ namespace SAM.Analytical.Grasshopper.Systems
 
             List<string> spaceNames_Updated = [];
 
-            if (!(freshAirs is null || freshAirs.Count == 0))
+            if (airflows is null)
             {
-                Dictionary<string, Tuple<double?, double?>> dictionary = [];
-                for (int i = 0; i < spacesNames.Count; i++)
+                airflows = [];
+            }
+
+            if (airflows_Code is null)
+            {
+                airflows_Code = [];
+            }
+
+            if (freshAirs is null)
+            {
+                freshAirs = [];
+            }
+
+            if (freshAirs_Code is null)
+            {
+                freshAirs_Code = [];
+            }
+
+            Dictionary<string, Tuple<double?, double?>> dictionary = [];
+            for (int i = 0; i < spacesNames.Count; i++)
+            {
+                string name = spacesNames[i];
+                if (name == null)
                 {
-                    string name = spacesNames[i];
-                    if (name == null)
-                    {
-                        continue;
-                    }
-
-                    int code;
-
-                    // Air Flow
-                    code = 0;
-                    if (airflows_Code.Count != 0)
-                    {
-                        code = System.Convert.ToInt32(airflows_Code[Core.Query.Clamp(i, 0, airflows_Code.Count - 1)]);
-                    }
-
-                    double? airflow = null;
-                    if (code == 1 && airflows is not null && airflows.Count != 0)
-                    {
-                        airflow = airflows[Core.Query.Clamp(i, 0, airflows.Count - 1)];
-                    }
-                    else if (code == 2)
-                    {
-                        airflow = double.NaN;
-                    }
-
-                    // Fresh Air
-                    code = 0;
-                    if (freshAirs_Code.Count != 0)
-                    {
-                        code = System.Convert.ToInt32(freshAirs_Code[Core.Query.Clamp(i, 0, freshAirs_Code.Count - 1)]);
-                    }
-
-                    double? freshAir = null;
-                    if (code == 1 && freshAirs.Count != 0)
-                    {
-                        freshAir = freshAirs[Core.Query.Clamp(i, 0, freshAirs.Count - 1)];
-                    }
-                    else if (code == 2)
-                    {
-                        freshAir = double.NaN;
-                    }
-
-                    dictionary[spacesNames[i]] = new Tuple<double?, double?>(airflow, freshAir);
+                    continue;
                 }
 
-                spaceNames_Updated = Analytical.Systems.Modify.UpdateSpaceAirflows(systemEnergyCentre, dictionary);
+                int code;
+
+                // Air Flow
+                code = 0;
+                if (airflows_Code.Count != 0)
+                {
+                    code = System.Convert.ToInt32(airflows_Code[Core.Query.Clamp(i, 0, airflows_Code.Count - 1)]);
+                }
+
+                double? airflow = null;
+                if (code == 1 && airflows is not null && airflows.Count != 0)
+                {
+                    airflow = airflows[Core.Query.Clamp(i, 0, airflows.Count - 1)];
+                }
+                else if (code == 2)
+                {
+                    airflow = double.NaN;
+                }
+
+                // Fresh Air
+                code = 0;
+                if (freshAirs_Code.Count != 0)
+                {
+                    code = System.Convert.ToInt32(freshAirs_Code[Core.Query.Clamp(i, 0, freshAirs_Code.Count - 1)]);
+                }
+
+                double? freshAir = null;
+                if (code == 1 && freshAirs.Count != 0)
+                {
+                    freshAir = freshAirs[Core.Query.Clamp(i, 0, freshAirs.Count - 1)];
+                }
+                else if (code == 2)
+                {
+                    freshAir = double.NaN;
+                }
+
+                dictionary[spacesNames[i]] = new Tuple<double?, double?>(airflow, freshAir);
             }
 
-            if (spaceNames_Updated != null && spaceNames_Updated.Count != 0)
-            {
-                analyticalModel = new AnalyticalModel(analyticalModel, new AdjacencyCluster(analyticalModel.AdjacencyCluster, true));
-                analyticalModel.SetValue(Analytical.Systems.AnalyticalModelParameter.SystemEnergyCentre, systemEnergyCentre);
-            }
+            spaceNames_Updated = Analytical.Systems.Modify.UpdateSpaceAirflows(systemEnergyCentre, dictionary);
 
             index = Params.IndexOfOutputParam("AnalyticalModel");
             if (index != -1)

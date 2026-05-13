@@ -55,9 +55,10 @@ namespace SAM.Analytical.Systems
                                     designConditionSizedFlowValue.SizingType = SizingType.Value;
                                     designConditionSizedFlowValue.Value = airFlow.Value;
                                 }
-                                else
+                                else // if the value set 2 and SizingType to None 
                                 {
                                     designConditionSizedFlowValue.SizingType = SizingType.None;
+                                    designConditionSizedFlowValue.Value = 0;
                                 }
 
                                 systemSpace.FlowRate = designConditionSizedFlowValue;
@@ -80,6 +81,7 @@ namespace SAM.Analytical.Systems
                                 else
                                 {
                                     designConditionSizedFlowValue.SizingType = SizingType.None;
+                                    designConditionSizedFlowValue.Value = 0;
                                 }
 
                                 systemSpace.FreshAir = designConditionSizedFlowValue;
