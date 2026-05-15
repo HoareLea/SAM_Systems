@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using System.Text.Json.Nodes;
 using SAM.Core.Systems;
 using System;
 
@@ -38,7 +38,7 @@ namespace SAM.Analytical.Systems
             }
         }
 
-        public SystemLiquidPassthroughController(JObject jObject)
+        public SystemLiquidPassthroughController(JsonObject jObject)
             : base(jObject)
         {
 
@@ -64,9 +64,9 @@ namespace SAM.Analytical.Systems
             }
         }
 
-        public override bool FromJObject(JObject jObject)
+        public override bool FromJsonObject(JsonObject jObject)
         {
-            bool result = base.FromJObject(jObject);
+            bool result = base.FromJsonObject(jObject);
             if (!result)
             {
                 return result;
@@ -74,15 +74,15 @@ namespace SAM.Analytical.Systems
 
             if (jObject.ContainsKey("LiquidNormalControllerDataType"))
             {
-                Core.Query.TryGetEnum(jObject.Value<string>("LiquidNormalControllerDataType"), out liquidNormalControllerDataType);
+                Core.Query.TryGetEnum(jObject["LiquidNormalControllerDataType"]?.GetValue<string>() ?? null, out liquidNormalControllerDataType);
             }
 
             return true;
         }
 
-        public override JObject ToJObject()
+        public override JsonObject ToJsonObject()
         {
-            JObject result = base.ToJObject();
+            JsonObject result = base.ToJsonObject();
             if (result == null)
             {
                 return null;

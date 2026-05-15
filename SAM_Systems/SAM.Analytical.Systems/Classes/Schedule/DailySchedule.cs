@@ -1,7 +1,7 @@
 ﻿// SPDX-License-Identifier: LGPL-3.0-or-later
 // Copyright (c) 2020–2026 Michal Dengusiak & Jakub Ziolkowski and contributors
 
-using Newtonsoft.Json.Linq;
+using System.Text.Json.Nodes;
 using System.Collections.Generic;
 
 namespace SAM.Analytical.Systems
@@ -39,7 +39,7 @@ namespace SAM.Analytical.Systems
             }
         }
 
-        public DailySchedule(JObject jObject)
+        public DailySchedule(JsonObject jObject)
             :base(jObject)
         {
 
@@ -78,9 +78,9 @@ namespace SAM.Analytical.Systems
             }
         }
 
-        public override bool FromJObject(JObject jObject)
+        public override bool FromJsonObject(JsonObject jObject)
         {
-            bool result = base.FromJObject(jObject);
+            bool result = base.FromJsonObject(jObject);
             if(!result )
             {
                 return result;
@@ -90,9 +90,14 @@ namespace SAM.Analytical.Systems
             {
                 dictionary = new Dictionary<string, ScheduleDay>();
 
-                JArray jArray = jObject.Value<JArray>("ScheduleDays");
-                foreach(JObject jObject_ScheduleDay in jArray)
+                JsonArray jArray = jObject["ScheduleDays"] as JsonArray;
+                foreach(JsonNode jsonNode in jArray)
                 {
+                    if (!(jsonNode is JsonObject jObject_ScheduleDay))
+                    {
+                        continue;
+                    }
+
                     ScheduleDay scheduleDay = new ScheduleDay(jObject_ScheduleDay);
                     dictionary[scheduleDay.Name] = scheduleDay;
                 }
@@ -101,9 +106,15 @@ namespace SAM.Analytical.Systems
             if(jObject.ContainsKey("ScheduleDayNames"))
             {
                 scheduleDayNames = new List<string>();
-                JArray jArray = jObject.Value<JArray>("ScheduleDayNames");
-                foreach (string scheduleDayName in jArray)
+                JsonArray jArray = jObject["ScheduleDayNames"] as JsonArray;
+                foreach (JsonNode jsonNode in jArray)
                 {
+                    string scheduleDayName = jsonNode?.GetValue<string>();
+                    if(scheduleDayName == null)
+                    {
+                        continue;
+                    }
+
                     scheduleDayNames.Add(scheduleDayName);
                 }
             }
@@ -111,9 +122,9 @@ namespace SAM.Analytical.Systems
             return true;
         }
 
-        public override JObject ToJObject()
+        public override JsonObject ToJsonObject()
         {
-            JObject result = base.ToJObject();
+            JsonObject result = base.ToJsonObject();
             if(result == null)
             {
                 return result;
@@ -121,10 +132,10 @@ namespace SAM.Analytical.Systems
 
             if(dictionary != null)
             {
-                JArray jArray = new JArray();
+                JsonArray jArray = new JsonArray();
                 foreach (ScheduleDay scheduleDay in dictionary.Values)
                 {
-                    jArray.Add(scheduleDay.ToJObject());
+                    jArray.Add(scheduleDay.ToJsonObject());
                 }
 
                 result.Add("ScheduleDays", jArray);
@@ -132,7 +143,7 @@ namespace SAM.Analytical.Systems
 
             if(scheduleDayNames != null)
             {
-                JArray jArray = new JArray();
+                JsonArray jArray = new JsonArray();
                 scheduleDayNames.ForEach(x => jArray.Add(x));
                 result.Add("ScheduleDayNames", jArray);
             }

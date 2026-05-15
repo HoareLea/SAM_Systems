@@ -1,7 +1,7 @@
 ﻿// SPDX-License-Identifier: LGPL-3.0-or-later
 // Copyright (c) 2020–2026 Michal Dengusiak & Jakub Ziolkowski and contributors
 
-using Newtonsoft.Json.Linq;
+using System.Text.Json.Nodes;
 using SAM.Core;
 using SAM.Core.Systems;
 using SAM.Geometry.Planar;
@@ -36,7 +36,7 @@ namespace SAM.Geometry.Systems
             }
         }
 
-        public DisplaySystemLabel(JObject jObject)
+        public DisplaySystemLabel(JsonObject jObject)
             : base(jObject)
         {
 
@@ -74,9 +74,9 @@ namespace SAM.Geometry.Systems
             }
         }
         
-        public new bool FromJObject(JObject jObject)
+        public new bool FromJsonObject(JsonObject jObject)
         {
-            bool result = base.FromJObject(jObject);
+            bool result = base.FromJsonObject(jObject);
             if(!result)
             {
                 return result;
@@ -84,30 +84,30 @@ namespace SAM.Geometry.Systems
 
             if(jObject.ContainsKey("Location"))
             {
-                location = new Point2D(jObject.Value<JObject>("Location"));
+                location = new Point2D(jObject["Location"] as JsonObject);
             }
 
             if (jObject.ContainsKey("LabelDirection"))
             {
-                labelDirection = Core.Query.Enum<LabelDirection>(jObject.Value<string>("LabelDirection"));
+                labelDirection = Core.Query.Enum<LabelDirection>(jObject["LabelDirection"]?.GetValue<string>() ?? null);
             }
 
             if (jObject.ContainsKey("Height"))
             {
-                height = jObject.Value<int>("Height");
+                height = jObject["Height"]?.GetValue<int>() ?? default(int);
             }
 
             if (jObject.ContainsKey("Width"))
             {
-                width = jObject.Value<int>("Width");
+                width = jObject["Width"]?.GetValue<int>() ?? default(int);
             }
 
             return result;
         }
         
-        public new JObject ToJObject()
+        public new JsonObject ToJsonObject()
         {
-            JObject result = base.ToJObject();
+            JsonObject result = base.ToJsonObject();
             if(result == null)
             {
                 return null;
@@ -115,7 +115,7 @@ namespace SAM.Geometry.Systems
 
             if(Location != null)
             {
-                result.Add("Location", location.ToJObject());
+                result.Add("Location", location.ToJsonObject());
             }
 
             result.Add("Height", height);

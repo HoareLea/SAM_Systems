@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using System.Text.Json.Nodes;
 using SAM.Core;
 using SAM.Core.Systems;
 using System;
@@ -68,7 +68,7 @@ namespace SAM.Analytical.Systems
             }
         }
 
-        public SystemFan(JObject jObject)
+        public SystemFan(JsonObject jObject)
             : base(jObject)
         {
 
@@ -88,9 +88,9 @@ namespace SAM.Analytical.Systems
             }
         }
 
-        public override bool FromJObject(JObject jObject)
+        public override bool FromJsonObject(JsonObject jObject)
         {
-            bool result = base.FromJObject(jObject);
+            bool result = base.FromJsonObject(jObject);
             if (!result)
             {
                 return result;
@@ -98,70 +98,70 @@ namespace SAM.Analytical.Systems
 
             if (jObject.ContainsKey("OverallEfficiency"))
             {
-                OverallEfficiency = Core.Query.IJSAMObject<ModifiableValue>(jObject.Value<JObject>("OverallEfficiency"));
+                OverallEfficiency = Core.Query.IJSAMObject<ModifiableValue>(jObject["OverallEfficiency"] as JsonObject);
             }
 
             if (jObject.ContainsKey("HeatGainFactor"))
             {
-                HeatGainFactor = jObject.Value<double>("HeatGainFactor");
+                HeatGainFactor = jObject["HeatGainFactor"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("Pressure"))
             {
-                Pressure = jObject.Value<double>("Pressure");
+                Pressure = jObject["Pressure"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("DesignFlowRate"))
             {
-                DesignFlowRate = Core.Query.IJSAMObject<SizedFlowValue>(jObject.Value<JObject>("DesignFlowRate"));
+                DesignFlowRate = Core.Query.IJSAMObject<SizedFlowValue>(jObject["DesignFlowRate"] as JsonObject);
             }
 
             if (jObject.ContainsKey("DesignFlowType"))
             {
-                DesignFlowType = Core.Query.Enum<FlowRateType>(jObject.Value<string>("DesignFlowType"));
+                DesignFlowType = Core.Query.Enum<FlowRateType>(jObject["DesignFlowType"]?.GetValue<string>() ?? null);
             }
 
             if (jObject.ContainsKey("MinimumFlowRate"))
             {
-                MinimumFlowRate = Core.Query.IJSAMObject<SizedFlowValue>(jObject.Value<JObject>("MinimumFlowRate"));
+                MinimumFlowRate = Core.Query.IJSAMObject<SizedFlowValue>(jObject["MinimumFlowRate"] as JsonObject);
             }
 
             if (jObject.ContainsKey("MinimumFlowType"))
             {
-                MinimumFlowType = Core.Query.Enum<FlowRateType>(jObject.Value<string>("MinimumFlowType"));
+                MinimumFlowType = Core.Query.Enum<FlowRateType>(jObject["MinimumFlowType"]?.GetValue<string>() ?? null);
             }
 
             if (jObject.ContainsKey("MinimumFlowFraction"))
             {
-                MinimumFlowFraction = jObject.Value<double>("MinimumFlowFraction");
+                MinimumFlowFraction = jObject["MinimumFlowFraction"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("Capacity"))
             {
-                Capacity = jObject.Value<double>("Capacity");
+                Capacity = jObject["Capacity"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("FanControlType"))
             {
-                FanControlType = Core.Query.Enum<FanControlType>(jObject.Value<string>("FanControlType"));
+                FanControlType = Core.Query.Enum<FanControlType>(jObject["FanControlType"]?.GetValue<string>() ?? null);
             }
 
             if (jObject.ContainsKey("PartLoad"))
             {
-                PartLoad = Core.Query.IJSAMObject<ModifiableValue>(jObject.Value<JObject>("PartLoad"));
+                PartLoad = Core.Query.IJSAMObject<ModifiableValue>(jObject["PartLoad"] as JsonObject);
             }
 
             if (jObject.ContainsKey("ScheduleName"))
             {
-                ScheduleName = jObject.Value<string>("ScheduleName");
+                ScheduleName = jObject["ScheduleName"]?.GetValue<string>() ?? null;
             }
 
             return result;
         }
 
-        public override JObject ToJObject()
+        public override JsonObject ToJsonObject()
         {
-            JObject result = base.ToJObject();
+            JsonObject result = base.ToJsonObject();
             if (result == null)
             {
                 return null;
@@ -169,7 +169,7 @@ namespace SAM.Analytical.Systems
 
             if (OverallEfficiency != null)
             {
-                result.Add("OverallEfficiency", OverallEfficiency.ToJObject());
+                result.Add("OverallEfficiency", OverallEfficiency.ToJsonObject());
             }
 
             if (!double.IsNaN(HeatGainFactor))
@@ -184,14 +184,14 @@ namespace SAM.Analytical.Systems
 
             if (DesignFlowRate != null)
             {
-                result.Add("DesignFlowRate", DesignFlowRate.ToJObject());
+                result.Add("DesignFlowRate", DesignFlowRate.ToJsonObject());
             }
 
             result.Add("DesignFlowType", DesignFlowType.ToString());
 
             if (MinimumFlowRate != null)
             {
-                result.Add("MinimumFlowRate", MinimumFlowRate.ToJObject());
+                result.Add("MinimumFlowRate", MinimumFlowRate.ToJsonObject());
             }
 
             result.Add("MinimumFlowType", MinimumFlowType.ToString());
@@ -210,7 +210,7 @@ namespace SAM.Analytical.Systems
 
             if (PartLoad != null)
             {
-                result.Add("PartLoad", PartLoad.ToJObject());
+                result.Add("PartLoad", PartLoad.ToJsonObject());
             }
 
             if (ScheduleName != null)

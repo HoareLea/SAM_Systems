@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using System.Text.Json.Nodes;
 using System;
 
 namespace SAM.Core.Systems
@@ -12,9 +12,9 @@ namespace SAM.Core.Systems
             typeName = systemType?.typeName;
         }
 
-        public SystemType(JObject jObject)
+        public SystemType(JsonObject jObject)
         {
-            FromJObject(jObject);
+            FromJsonObject(jObject);
         }
 
         public SystemType(ISystem system)
@@ -106,7 +106,7 @@ namespace SAM.Core.Systems
             return ((SystemType)obj).typeName == typeName;
         }
 
-        public bool FromJObject(JObject jObject)
+        public bool FromJsonObject(JsonObject jObject)
         {
             if(jObject == null)
             {
@@ -115,7 +115,7 @@ namespace SAM.Core.Systems
 
             if(jObject.ContainsKey("TypeName"))
             {
-                typeName = jObject.Value<string>("TypeName");
+                typeName = jObject["TypeName"]?.GetValue<string>() ?? null;
             }
 
             return true;
@@ -131,9 +131,9 @@ namespace SAM.Core.Systems
             return typeName.GetHashCode();
         }
 
-        public JObject ToJObject()
+        public JsonObject ToJsonObject()
         {
-            JObject result = new JObject();
+            JsonObject result = new JsonObject();
             result.Add("_type", Core.Query.FullTypeName((IJSAMObject)this));
 
             if (!string.IsNullOrWhiteSpace(typeName))

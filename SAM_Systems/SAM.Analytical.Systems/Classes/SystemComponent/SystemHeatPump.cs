@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using System.Text.Json.Nodes;
 using SAM.Core.Systems;
 
 namespace SAM.Analytical.Systems
@@ -23,20 +23,20 @@ namespace SAM.Analytical.Systems
 
         }
 
-        public SystemHeatPump(JObject jObject)
+        public SystemHeatPump(JsonObject jObject)
             : base(jObject)
         {
 
         }
 
-        public override bool FromJObject(JObject jObject)
+        public override bool FromJsonObject(JsonObject jObject)
         {
-            return base.FromJObject(jObject);
+            return base.FromJsonObject(jObject);
         }
 
-        public override JObject ToJObject()
+        public override JsonObject ToJsonObject()
         {
-            return base.ToJObject();
+            return base.ToJsonObject();
         }
     }
 }

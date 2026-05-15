@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using System.Text.Json.Nodes;
 using SAM.Core;
 using SAM.Core.Systems;
 using System.Collections.Generic;
@@ -30,9 +30,9 @@ namespace SAM.Geometry.Systems
             }
         }
 
-        public SystemGeometrySymbolManager(JObject jObject)
+        public SystemGeometrySymbolManager(JsonObject jObject)
         {
-            FromJObject(jObject);
+            FromJsonObject(jObject);
         }
 
         public bool Add<T>(SystemGeometrySymbol systemGeometrySymbol) where T: ISystemObject
@@ -76,7 +76,7 @@ namespace SAM.Geometry.Systems
             return true;
         }
 
-        public bool FromJObject(JObject jObject)
+        public bool FromJsonObject(JsonObject jObject)
         {
             if(jObject == null)
             {
@@ -85,13 +85,18 @@ namespace SAM.Geometry.Systems
 
             if(jObject.ContainsKey("SystemGeometrySymbols"))
             {
-                JArray jArray = jObject.Value<JArray>("SystemGeometrySymbols");
+                JsonArray jArray = jObject["SystemGeometrySymbols"] as JsonArray;
                 if(jArray != null)
                 {
                     dictionary = new Dictionary<string, SystemGeometrySymbol>();
-                    foreach(JArray jArray_Temp in jArray)
+                    foreach(JsonNode jsonNode in jArray)
                     {
-                        dictionary[(string)jArray_Temp[0]] = new SystemGeometrySymbol(jArray_Temp[1] as JObject);
+                        if (!(jsonNode is JsonArray jArray_Temp))
+                        {
+                            continue;
+                        }
+
+                        dictionary[jArray_Temp[0]?.GetValue<string>()] = new SystemGeometrySymbol(jArray_Temp[1] as JsonObject);
                     }
                 }
             }
@@ -158,19 +163,19 @@ namespace SAM.Geometry.Systems
             return result;
         }
 
-        public JObject ToJObject()
+        public JsonObject ToJsonObject()
         {
-            JObject jObject = new JObject();
+            JsonObject jObject = new JsonObject();
             jObject.Add("_type", Core.Query.FullTypeName(this));
 
             if(dictionary != null)
             {
-                JArray jArray = new JArray();
+                JsonArray jArray = new JsonArray();
                 foreach(KeyValuePair<string, SystemGeometrySymbol> keyValuePair in dictionary)
                 {
-                    JArray jArray_Temp = new JArray();
+                    JsonArray jArray_Temp = new JsonArray();
                     jArray_Temp.Add(keyValuePair.Key);
-                    jArray_Temp.Add(keyValuePair.Value.ToJObject());
+                    jArray_Temp.Add(keyValuePair.Value.ToJsonObject());
                     jArray.Add(jArray_Temp);
                 }
 

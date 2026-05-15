@@ -1,5 +1,5 @@
 ﻿using SAM.Geometry.Object.Planar;
-using Newtonsoft.Json.Linq;
+using System.Text.Json.Nodes;
 using SAM.Geometry.Planar;
 using System.Collections.Generic;
 
@@ -12,7 +12,7 @@ namespace SAM.Geometry.Systems
         {
         }
 
-        public SystemPolygon(JObject jObject)
+        public SystemPolygon(JsonObject jObject)
             : base(jObject)
         {
         }

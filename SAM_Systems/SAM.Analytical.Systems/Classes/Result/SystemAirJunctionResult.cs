@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using System.Text.Json.Nodes;
 using SAM.Core;
 using SAM.Core.Systems;
 using System.Collections.Generic;
@@ -12,10 +12,10 @@ namespace SAM.Analytical.Systems
         {
         }
 
-        public SystemLiquidJunctionResult(JObject jObject)
+        public SystemLiquidJunctionResult(JsonObject jObject)
             : base(jObject)
         {
-            FromJObject(jObject);
+            FromJsonObject(jObject);
         }
 
         public SystemLiquidJunctionResult(SystemLiquidJunctionResult systemLiquidJunctionResult)

@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using System.Text.Json.Nodes;
 using SAM.Core;
 using SAM.Core.Systems;
 
@@ -32,15 +32,15 @@ namespace SAM.Analytical.Systems
             }
         }
 
-        public SystemChiller(JObject jObject)
+        public SystemChiller(JsonObject jObject)
             : base(jObject)
         {
 
         }
 
-        public override bool FromJObject(JObject jObject)
+        public override bool FromJsonObject(JsonObject jObject)
         {
-            bool result = base.FromJObject(jObject);
+            bool result = base.FromJsonObject(jObject);
             if(!result)
             {
                 return result;
@@ -48,15 +48,15 @@ namespace SAM.Analytical.Systems
 
             if (jObject.ContainsKey("Duty"))
             {
-                Duty = Core.Query.IJSAMObject<SizableValue>(jObject.Value<JObject>("Duty"));
+                Duty = Core.Query.IJSAMObject<SizableValue>(jObject["Duty"] as JsonObject);
             }
 
             return result;
         }
 
-        public override JObject ToJObject()
+        public override JsonObject ToJsonObject()
         {
-            JObject result = base.ToJObject();
+            JsonObject result = base.ToJsonObject();
             if(result == null)
             {
                 return result;
@@ -64,7 +64,7 @@ namespace SAM.Analytical.Systems
 
             if (Duty != null)
             {
-                result.Add("Duty", Duty.ToJObject());
+                result.Add("Duty", Duty.ToJsonObject());
             }
 
             return result;

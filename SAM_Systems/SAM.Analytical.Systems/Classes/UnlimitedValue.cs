@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json.Linq;
-
+﻿using System.Text.Json.Nodes;
 namespace SAM.Analytical.Systems
 {
     public class UnlimitedValue : ISizableValue
@@ -12,14 +11,14 @@ namespace SAM.Analytical.Systems
         {
         }
 
-        public UnlimitedValue(JObject jObject)
+        public UnlimitedValue(JsonObject jObject)
         {
-            FromJObject(jObject);
+            FromJsonObject(jObject);
         }
 
         public SizingType SizingType => SizingType.None;
         
-        public virtual bool FromJObject(JObject jObject)
+        public virtual bool FromJsonObject(JsonObject jObject)
         {
             if (jObject == null)
             {
@@ -29,9 +28,9 @@ namespace SAM.Analytical.Systems
             return true;
         }
 
-        public virtual JObject ToJObject()
+        public virtual JsonObject ToJsonObject()
         {
-            JObject result = new JObject();
+            JsonObject result = new JsonObject();
             result.Add("_type", Core.Query.FullTypeName(this));
 
             return result;

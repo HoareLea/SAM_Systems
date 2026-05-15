@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using System.Text.Json.Nodes;
 using SAM.Core.Systems;
 using System.Collections.Generic;
 
@@ -16,7 +16,7 @@ namespace SAM.Geometry.Systems
 
         }
 
-        public DisplaySystemConnectorManager(JObject jObject)
+        public DisplaySystemConnectorManager(JsonObject jObject)
             : base(jObject)
         {
 

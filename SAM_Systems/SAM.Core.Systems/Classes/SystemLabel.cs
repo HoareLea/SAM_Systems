@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using System.Text.Json.Nodes;
 using System;
 
 namespace SAM.Core.Systems
@@ -15,9 +15,9 @@ namespace SAM.Core.Systems
             }
         }
 
-        public SystemLabel(JObject jObject)
+        public SystemLabel(JsonObject jObject)
         {
-            FromJObject(jObject);
+            FromJsonObject(jObject);
         }
 
         public SystemLabel()
@@ -39,7 +39,7 @@ namespace SAM.Core.Systems
         
         public string Text { get; set; }
         
-        public bool FromJObject(JObject jObject)
+        public bool FromJsonObject(JsonObject jObject)
         {
             if (jObject == null)
             {
@@ -48,22 +48,22 @@ namespace SAM.Core.Systems
 
             if (jObject.ContainsKey("Text"))
             {
-                Text = jObject.Value<string>("Text");
+                Text = jObject["Text"]?.GetValue<string>() ?? null;
             }
 
             Guid = Core.Query.Guid(jObject);
 
             if (jObject.ContainsKey("Name"))
             {
-                Name = jObject.Value<string>("Name");
+                Name = jObject["Name"]?.GetValue<string>() ?? null;
             }
 
             return true;
         }
 
-        public JObject ToJObject()
+        public JsonObject ToJsonObject()
         {
-            JObject result = new JObject();
+            JsonObject result = new JsonObject();
             result.Add("_type", Core.Query.FullTypeName(this));
 
             if (Text != null)

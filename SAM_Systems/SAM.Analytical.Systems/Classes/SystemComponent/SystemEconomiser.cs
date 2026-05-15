@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using System.Text.Json.Nodes;
 using SAM.Core;
 using SAM.Core.Systems;
 using System;
@@ -58,7 +58,7 @@ namespace SAM.Analytical.Systems
             }
         }
 
-        public SystemEconomiser(JObject jObject)
+        public SystemEconomiser(JsonObject jObject)
             : base(jObject)
         {
 
@@ -78,9 +78,9 @@ namespace SAM.Analytical.Systems
             }
         }
 
-        public override bool FromJObject(JObject jObject)
+        public override bool FromJsonObject(JsonObject jObject)
         {
-            bool result = base.FromJObject(jObject);
+            bool result = base.FromJsonObject(jObject);
             if (!result)
             {
                 return result;
@@ -88,55 +88,55 @@ namespace SAM.Analytical.Systems
 
             if (jObject.ContainsKey("Capacity"))
             {
-                Capacity = jObject.Value<double>("Capacity");
+                Capacity = jObject["Capacity"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("DesignFlowRate"))
             {
-                DesignFlowRate = Core.Query.IJSAMObject<SizedFlowValue>(jObject.Value<JObject>("DesignFlowRate"));
+                DesignFlowRate = Core.Query.IJSAMObject<SizedFlowValue>(jObject["DesignFlowRate"] as JsonObject);
             }
 
             if (jObject.ContainsKey("DesignFlowType"))
             {
-                DesignFlowType = Core.Query.Enum<FlowRateType>(jObject.Value<string>("DesignFlowType"));
+                DesignFlowType = Core.Query.Enum<FlowRateType>(jObject["DesignFlowType"]?.GetValue<string>() ?? null);
             }
 
             if (jObject.ContainsKey("Setpoint"))
             {
-                Setpoint = Core.Query.IJSAMObject<ModifiableValue>(jObject.Value<JObject>("Setpoint"));
+                Setpoint = Core.Query.IJSAMObject<ModifiableValue>(jObject["Setpoint"] as JsonObject);
             }
 
             if (jObject.ContainsKey("MinFreshAirRate"))
             {
-                MinFreshAirRate = Core.Query.IJSAMObject<SizedFlowValue>(jObject.Value<JObject>("MinFreshAirRate"));
+                MinFreshAirRate = Core.Query.IJSAMObject<SizedFlowValue>(jObject["MinFreshAirRate"] as JsonObject);
             }
 
             if (jObject.ContainsKey("MinFreshAirType"))
             {
-                MinFreshAirType = Core.Query.Enum<FlowRateType>(jObject.Value<string>("MinFreshAirType"));
+                MinFreshAirType = Core.Query.Enum<FlowRateType>(jObject["MinFreshAirType"]?.GetValue<string>() ?? null);
             }
 
             if (jObject.ContainsKey("ScheduleMode"))
             {
-                ScheduleMode = Core.Query.Enum<ScheduleMode>(jObject.Value<string>("ScheduleMode"));
+                ScheduleMode = Core.Query.Enum<ScheduleMode>(jObject["ScheduleMode"]?.GetValue<string>() ?? null);
             }
 
             if (jObject.ContainsKey("ScheduleName"))
             {
-                ScheduleName = jObject.Value<string>("ScheduleName");
+                ScheduleName = jObject["ScheduleName"]?.GetValue<string>() ?? null;
             }
 
             if (jObject.ContainsKey("DesignPressureDrop"))
             {
-                DesignPressureDrop = jObject.Value<double>("DesignPressureDrop");
+                DesignPressureDrop = jObject["DesignPressureDrop"]?.GetValue<double>() ?? default(double);
             }
 
             return result;
         }
 
-        public override JObject ToJObject()
+        public override JsonObject ToJsonObject()
         {
-            JObject result = base.ToJObject();
+            JsonObject result = base.ToJsonObject();
             if (result == null)
             {
                 return null;
@@ -149,19 +149,19 @@ namespace SAM.Analytical.Systems
 
             if (DesignFlowRate != null)
             {
-                result.Add("DesignFlowRate", DesignFlowRate.ToJObject());
+                result.Add("DesignFlowRate", DesignFlowRate.ToJsonObject());
             }
 
             result.Add("DesignFlowType", DesignFlowType.ToString());
 
             if (Setpoint != null)
             {
-                result.Add("Setpoint", Setpoint.ToJObject());
+                result.Add("Setpoint", Setpoint.ToJsonObject());
             }
 
             if (MinFreshAirRate != null)
             {
-                result.Add("MinFreshAirRate", MinFreshAirRate.ToJObject());
+                result.Add("MinFreshAirRate", MinFreshAirRate.ToJsonObject());
             }
 
             result.Add("MinFreshAirType", MinFreshAirType.ToString());

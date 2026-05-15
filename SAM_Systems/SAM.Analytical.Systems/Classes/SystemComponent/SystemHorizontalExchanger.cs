@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using System.Text.Json.Nodes;
 using SAM.Core.Systems;
 using System;
 
@@ -68,7 +68,7 @@ namespace SAM.Analytical.Systems
             }
         }
 
-        public SystemHorizontalExchanger(JObject jObject)
+        public SystemHorizontalExchanger(JsonObject jObject)
             : base(jObject)
         {
 
@@ -87,9 +87,9 @@ namespace SAM.Analytical.Systems
             }
         }
 
-        public override bool FromJObject(JObject jObject)
+        public override bool FromJsonObject(JsonObject jObject)
         {
-            bool result = base.FromJObject(jObject);
+            bool result = base.FromJsonObject(jObject);
             if (!result)
             {
                 return result;
@@ -97,71 +97,71 @@ namespace SAM.Analytical.Systems
 
             if (jObject.ContainsKey("DesignPressureDrop"))
             {
-                DesignPressureDrop = jObject.Value<double>("DesignPressureDrop");
+                DesignPressureDrop = jObject["DesignPressureDrop"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("Capacity"))
             {
-                Capacity = jObject.Value<double>("Capacity");
+                Capacity = jObject["Capacity"]?.GetValue<double>() ?? default(double);
             }
 
 
             if (jObject.ContainsKey("GroundDensity"))
             {
-                GroundDensity = jObject.Value<double>("GroundDensity");
+                GroundDensity = jObject["GroundDensity"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("GroundHeatCapacity"))
             {
-                GroundHeatCapacity = jObject.Value<double>("GroundHeatCapacity");
+                GroundHeatCapacity = jObject["GroundHeatCapacity"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("GroundConductivity"))
             {
-                GroundConductivity = jObject.Value<double>("GroundConductivity");
+                GroundConductivity = jObject["GroundConductivity"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("GroundSolarReflectance"))
             {
-                GroundSolarReflectance = jObject.Value<double>("GroundSolarReflectance");
+                GroundSolarReflectance = jObject["GroundSolarReflectance"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("InsidePipeDiameter"))
             {
-                InsidePipeDiameter = jObject.Value<double>("InsidePipeDiameter");
+                InsidePipeDiameter = jObject["InsidePipeDiameter"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("OutsidePipeDiameter"))
             {
-                OutsidePipeDiameter = jObject.Value<double>("OutsidePipeDiameter");
+                OutsidePipeDiameter = jObject["OutsidePipeDiameter"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("PipeConductivity"))
             {
-                PipeConductivity = jObject.Value<double>("PipeConductivity");
+                PipeConductivity = jObject["PipeConductivity"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("PipeLength"))
             {
-                PipeLength = jObject.Value<double>("PipeLength");
+                PipeLength = jObject["PipeLength"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("PipeSeparation"))
             {
-                PipeSeparation = jObject.Value<double>("PipeSeparation");
+                PipeSeparation = jObject["PipeSeparation"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("PipeDepth"))
             {
-                PipeDepth = jObject.Value<double>("PipeDepth");
+                PipeDepth = jObject["PipeDepth"]?.GetValue<double>() ?? default(double);
             }
 
             return result;
         }
 
-        public override JObject ToJObject()
+        public override JsonObject ToJsonObject()
         {
-            JObject result = base.ToJObject();
+            JsonObject result = base.ToJsonObject();
             if (result == null)
             {
                 return result;

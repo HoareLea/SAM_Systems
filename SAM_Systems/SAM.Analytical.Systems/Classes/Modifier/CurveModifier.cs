@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using System.Text.Json.Nodes;
 using SAM.Core;
 using System.Linq;
 
@@ -28,7 +28,7 @@ namespace SAM.Analytical.Systems
             }
         }
 
-        public CurveModifier(JObject jObject)
+        public CurveModifier(JsonObject jObject)
             : base(jObject)
         {
 
@@ -47,9 +47,9 @@ namespace SAM.Analytical.Systems
             throw new System.NotImplementedException();
         }
 
-        public override bool FromJObject(JObject jObject)
+        public override bool FromJsonObject(JsonObject jObject)
         {
-            bool result = base.FromJObject(jObject);
+            bool result = base.FromJsonObject(jObject);
             if (!result)
             {
                 return result;
@@ -57,17 +57,17 @@ namespace SAM.Analytical.Systems
 
             if (jObject.ContainsKey("CurveModifierType"))
             {
-                CurveModifierType = Core.Query.Enum<CurveModifierType>(jObject.Value<string>("CurveModifierType"));
+                CurveModifierType = Core.Query.Enum<CurveModifierType>(jObject["CurveModifierType"]?.GetValue<string>() ?? null);
             }
 
             if (jObject.ContainsKey("Name"))
             {
-                Name = jObject.Value<string>("Name");
+                Name = jObject["Name"]?.GetValue<string>() ?? null;
             }
 
             if (jObject.ContainsKey("CurveModifierVariableTypes"))
             {
-                JArray jArray = jObject.Value<JArray>("CurveModifierVariableTypes");
+                JsonArray jArray = jObject["CurveModifierVariableTypes"] as JsonArray;
 
                 CurveModifierVariableTypes = new CurveModifierVariableType[jArray.Count];
 
@@ -81,7 +81,7 @@ namespace SAM.Analytical.Systems
 
             if (jObject.ContainsKey("Parameters"))
             {
-                JArray jArray = jObject.Value<JArray>("Parameters");
+                JsonArray jArray = jObject["Parameters"] as JsonArray;
 
                 Parameters = new double[jArray.Count];
 
@@ -101,9 +101,9 @@ namespace SAM.Analytical.Systems
             throw new System.NotImplementedException();
         }
 
-        public override JObject ToJObject()
+        public override JsonObject ToJsonObject()
         {
-            JObject result = base.ToJObject();
+            JsonObject result = base.ToJsonObject();
             if (result == null)
             {
                 return null;
@@ -118,7 +118,7 @@ namespace SAM.Analytical.Systems
 
             if(CurveModifierVariableTypes != null)
             {
-                JArray jArray = new JArray();
+                JsonArray jArray = new JsonArray();
                 foreach(CurveModifierVariableType curveModifierVariableType in CurveModifierVariableTypes)
                 {
                     jArray.Add(curveModifierVariableType.ToString());
@@ -129,7 +129,7 @@ namespace SAM.Analytical.Systems
 
             if(Parameters != null)
             {
-                JArray jArray = new JArray();
+                JsonArray jArray = new JsonArray();
                 foreach (double value in Parameters)
                 {
                     jArray.Add(value);

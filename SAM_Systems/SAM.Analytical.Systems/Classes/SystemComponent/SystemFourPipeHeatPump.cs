@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using System.Text.Json.Nodes;
 using SAM.Core;
 using SAM.Core.Systems;
 using System;
@@ -90,7 +90,7 @@ namespace SAM.Analytical.Systems
             }
         }
 
-        public SystemFourPipeHeatPump(JObject jObject)
+        public SystemFourPipeHeatPump(JsonObject jObject)
             : base(jObject)
         {
 
@@ -112,9 +112,9 @@ namespace SAM.Analytical.Systems
             }
         }
 
-        public override bool FromJObject(JObject jObject)
+        public override bool FromJsonObject(JsonObject jObject)
         {
-            bool result = base.FromJObject(jObject);
+            bool result = base.FromJsonObject(jObject);
             if (!result)
             {
                 return result;
@@ -122,90 +122,90 @@ namespace SAM.Analytical.Systems
 
             if (jObject.ContainsKey("HeatingSetpoint"))
             {
-                HeatingSetpoint = Core.Query.IJSAMObject<ModifiableValue>(jObject.Value<JObject>("HeatingSetpoint"));
+                HeatingSetpoint = Core.Query.IJSAMObject<ModifiableValue>(jObject["HeatingSetpoint"] as JsonObject);
             }
 
             if (jObject.ContainsKey("CoolingSetpoint"))
             {
-                CoolingSetpoint = Core.Query.IJSAMObject<ModifiableValue>(jObject.Value<JObject>("CoolingSetpoint"));
+                CoolingSetpoint = Core.Query.IJSAMObject<ModifiableValue>(jObject["CoolingSetpoint"] as JsonObject);
             }
 
             if (jObject.ContainsKey("HeatingEfficiency"))
             {
-                HeatingEfficiency = Core.Query.IJSAMObject<ModifiableValue>(jObject.Value<JObject>("HeatingEfficiency"));
+                HeatingEfficiency = Core.Query.IJSAMObject<ModifiableValue>(jObject["HeatingEfficiency"] as JsonObject);
             }
 
             if (jObject.ContainsKey("CoolingEfficiency"))
             {
-                CoolingEfficiency = Core.Query.IJSAMObject<ModifiableValue>(jObject.Value<JObject>("CoolingEfficiency"));
+                CoolingEfficiency = Core.Query.IJSAMObject<ModifiableValue>(jObject["CoolingEfficiency"] as JsonObject);
             }
 
             if (jObject.ContainsKey("HeatingDuty"))
             {
-                HeatingDuty = Core.Query.IJSAMObject<ISizableValue>(jObject.Value<JObject>("HeatingDuty"));
+                HeatingDuty = Core.Query.IJSAMObject<ISizableValue>(jObject["HeatingDuty"] as JsonObject);
             }
 
             if (jObject.ContainsKey("CoolingDuty"))
             {
-                CoolingDuty = Core.Query.IJSAMObject<ISizableValue>(jObject.Value<JObject>("CoolingDuty"));
+                CoolingDuty = Core.Query.IJSAMObject<ISizableValue>(jObject["CoolingDuty"] as JsonObject);
             }
 
             if (jObject.ContainsKey("DesignPressureDrop_1"))
             {
-                DesignPressureDrop_1 = jObject.Value<double>("DesignPressureDrop_1");
+                DesignPressureDrop_1 = jObject["DesignPressureDrop_1"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("Capacity_1"))
             {
-                Capacity_1 = jObject.Value<double>("Capacity_1");
+                Capacity_1 = jObject["Capacity_1"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("DesignTemperatureDifference_1"))
             {
-                DesignTemperatureDifference_1 = jObject.Value<double>("DesignTemperatureDifference_1");
+                DesignTemperatureDifference_1 = jObject["DesignTemperatureDifference_1"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("DesignPressureDrop_2"))
             {
-                DesignPressureDrop_2 = jObject.Value<double>("DesignPressureDrop_2");
+                DesignPressureDrop_2 = jObject["DesignPressureDrop_2"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("Capacity_2"))
             {
-                Capacity_2 = jObject.Value<double>("Capacity_2");
+                Capacity_2 = jObject["Capacity_2"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("DesignTemperatureDifference_2"))
             {
-                DesignTemperatureDifference_2 = jObject.Value<double>("DesignTemperatureDifference_2");
+                DesignTemperatureDifference_2 = jObject["DesignTemperatureDifference_2"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("MotorEfficiency"))
             {
-                MotorEfficiency = Core.Query.IJSAMObject<ModifiableValue>(jObject.Value<JObject>("MotorEfficiency"));
+                MotorEfficiency = Core.Query.IJSAMObject<ModifiableValue>(jObject["MotorEfficiency"] as JsonObject);
             }
 
             if (jObject.ContainsKey("AncillaryLoad"))
             {
-                AncillaryLoad = Core.Query.IJSAMObject<ModifiableValue>(jObject.Value<JObject>("AncillaryLoad"));
+                AncillaryLoad = Core.Query.IJSAMObject<ModifiableValue>(jObject["AncillaryLoad"] as JsonObject);
             }
 
             if (jObject.ContainsKey("ADFHeatingMode"))
             {
-                ADFHeatingMode = jObject.Value<double>("ADFHeatingMode");
+                ADFHeatingMode = jObject["ADFHeatingMode"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("ADFCoolingMode"))
             {
-                ADFCoolingMode = jObject.Value<double>("ADFCoolingMode");
+                ADFCoolingMode = jObject["ADFCoolingMode"]?.GetValue<double>() ?? default(double);
             }
 
             return result;
         }
 
-        public override JObject ToJObject()
+        public override JsonObject ToJsonObject()
         {
-            JObject result = base.ToJObject();
+            JsonObject result = base.ToJsonObject();
             if (result == null)
             {
                 return result;
@@ -213,32 +213,32 @@ namespace SAM.Analytical.Systems
 
             if (HeatingSetpoint != null)
             {
-                result.Add("HeatingSetpoint", HeatingSetpoint.ToJObject());
+                result.Add("HeatingSetpoint", HeatingSetpoint.ToJsonObject());
             }
 
             if (CoolingSetpoint != null)
             {
-                result.Add("CoolingSetpoint", CoolingSetpoint.ToJObject());
+                result.Add("CoolingSetpoint", CoolingSetpoint.ToJsonObject());
             }
 
             if (HeatingEfficiency != null)
             {
-                result.Add("HeatingEfficiency", HeatingEfficiency.ToJObject());
+                result.Add("HeatingEfficiency", HeatingEfficiency.ToJsonObject());
             }
 
             if (CoolingEfficiency != null)
             {
-                result.Add("CoolingEfficiency", CoolingEfficiency.ToJObject());
+                result.Add("CoolingEfficiency", CoolingEfficiency.ToJsonObject());
             }
 
             if (HeatingDuty != null)
             {
-                result.Add("HeatingDuty", HeatingDuty.ToJObject());
+                result.Add("HeatingDuty", HeatingDuty.ToJsonObject());
             }
 
             if (CoolingDuty != null)
             {
-                result.Add("CoolingDuty", CoolingDuty.ToJObject());
+                result.Add("CoolingDuty", CoolingDuty.ToJsonObject());
             }
 
             if (!double.IsNaN(DesignPressureDrop_1))
@@ -273,12 +273,12 @@ namespace SAM.Analytical.Systems
 
             if (MotorEfficiency != null)
             {
-                result.Add("MotorEfficiency", MotorEfficiency.ToJObject());
+                result.Add("MotorEfficiency", MotorEfficiency.ToJsonObject());
             }
 
             if (AncillaryLoad != null)
             {
-                result.Add("AncillaryLoad", AncillaryLoad.ToJObject());
+                result.Add("AncillaryLoad", AncillaryLoad.ToJsonObject());
             }
 
             if (!double.IsNaN(ADFHeatingMode))

@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using System.Text.Json.Nodes;
 using SAM.Core;
 using SAM.Core.Systems;
 using System;
@@ -45,15 +45,15 @@ namespace SAM.Analytical.Systems
             }
         }
 
-        public SystemMultiBoilerItem(JObject jObject)
+        public SystemMultiBoilerItem(JsonObject jObject)
             : base(jObject)
         {
 
         }
 
-        public override bool FromJObject(JObject jObject)
+        public override bool FromJsonObject(JsonObject jObject)
         {
-            bool result = base.FromJObject(jObject);
+            bool result = base.FromJsonObject(jObject);
             if (!result)
             {
                 return result;
@@ -61,30 +61,30 @@ namespace SAM.Analytical.Systems
 
             if (jObject.ContainsKey("Efficiency"))
             {
-                Efficiency = Core.Query.IJSAMObject<ModifiableValue>(jObject.Value<JObject>("Efficiency"));
+                Efficiency = Core.Query.IJSAMObject<ModifiableValue>(jObject["Efficiency"] as JsonObject);
             }
 
             if (jObject.ContainsKey("Percentage"))
             {
-                Percentage = jObject.Value<double>("Percentage");
+                Percentage = jObject["Percentage"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("Threshold"))
             {
-                Threshold = jObject.Value<double>("Threshold");
+                Threshold = jObject["Threshold"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("AncillaryLoad"))
             {
-                AncillaryLoad = Core.Query.IJSAMObject<ModifiableValue>(jObject.Value<JObject>("AncillaryLoad"));
+                AncillaryLoad = Core.Query.IJSAMObject<ModifiableValue>(jObject["AncillaryLoad"] as JsonObject);
             }
 
             return true;
         }
 
-        public override JObject ToJObject()
+        public override JsonObject ToJsonObject()
         {
-            JObject result = base.ToJObject();
+            JsonObject result = base.ToJsonObject();
             if (result == null)
             {
                 return null;
@@ -92,7 +92,7 @@ namespace SAM.Analytical.Systems
 
             if (Efficiency != null)
             {
-                result.Add("Efficiency", Efficiency.ToJObject());
+                result.Add("Efficiency", Efficiency.ToJsonObject());
             }
 
             if (!double.IsNaN(Percentage))
@@ -107,7 +107,7 @@ namespace SAM.Analytical.Systems
 
             if (AncillaryLoad != null)
             {
-                result.Add("AncillaryLoad", AncillaryLoad.ToJObject());
+                result.Add("AncillaryLoad", AncillaryLoad.ToJsonObject());
             }
 
             return result;

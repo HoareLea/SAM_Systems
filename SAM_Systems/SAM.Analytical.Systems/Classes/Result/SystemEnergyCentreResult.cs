@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using System.Text.Json.Nodes;
 using SAM.Core;
 using SAM.Core.Systems;
 using System.Collections.Generic;
@@ -12,10 +12,10 @@ namespace SAM.Analytical.Systems
         
         public SystemEnergyCentreDataType SystemEnergyCentreDataType { private set; get; }
 
-        public SystemEnergyCentreResult(JObject jObject)
+        public SystemEnergyCentreResult(JsonObject jObject)
             : base(jObject)
         {
-            FromJObject(jObject);
+            FromJsonObject(jObject);
         }
 
         public SystemEnergyCentreResult(SystemEnergyCentreResult systemEnergyCentreResult)
@@ -43,9 +43,9 @@ namespace SAM.Analytical.Systems
             }
         }
 
-        public override bool FromJObject(JObject jObject)
+        public override bool FromJsonObject(JsonObject jObject)
         {
-            bool result = base.FromJObject(jObject);
+            bool result = base.FromJsonObject(jObject);
             if (!result)
             {
                 return result;
@@ -53,17 +53,22 @@ namespace SAM.Analytical.Systems
 
             if (jObject.ContainsKey("SystemEnergyCentreDataType"))
             {
-                SystemEnergyCentreDataType = Core.Query.Enum<SystemEnergyCentreDataType>(jObject.Value<string>("SystemEnergyCentreDataType"));
+                SystemEnergyCentreDataType = Core.Query.Enum<SystemEnergyCentreDataType>(jObject["SystemEnergyCentreDataType"]?.GetValue<string>() ?? null);
             }
 
             if (jObject.ContainsKey("SystemEnergyCentreValues"))
             {
-                JArray jArray = jObject.Value<JArray>("SystemEnergyCentreValues");
+                JsonArray jArray = jObject["SystemEnergyCentreValues"] as JsonArray;
                 if(jArray != null)
                 {
                     systemEnergyCentreValues = new List<SystemEnergyCentreValues>();
-                    foreach(JObject jObject_SystemEnergyCentreValues in jArray)
+                    foreach(JsonNode jsonNode in jArray)
                     {
+                        if (!(jsonNode is JsonObject jObject_SystemEnergyCentreValues))
+                        {
+                            continue;
+                        }
+
                         systemEnergyCentreValues.Add(new SystemEnergyCentreValues(jObject_SystemEnergyCentreValues));
                     }
 
@@ -73,9 +78,9 @@ namespace SAM.Analytical.Systems
             return result;
         }
 
-        public override JObject ToJObject()
+        public override JsonObject ToJsonObject()
         {
-            JObject jObject = base.ToJObject();
+            JsonObject jObject = base.ToJsonObject();
             if (jObject == null)
             {
                 return null;
@@ -85,10 +90,10 @@ namespace SAM.Analytical.Systems
 
             if(systemEnergyCentreValues != null)
             {
-                JArray jArray = new JArray();
+                JsonArray jArray = new JsonArray();
                 foreach(SystemEnergyCentreValues systemEnergyCentreGroup in systemEnergyCentreValues)
                 {
-                    jArray.Add(systemEnergyCentreGroup.ToJObject());
+                    jArray.Add(systemEnergyCentreGroup.ToJsonObject());
                 }
 
                 jObject.Add("SystemEnergyCentreValues", jArray);

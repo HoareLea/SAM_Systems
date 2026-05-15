@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using System.Text.Json.Nodes;
 using SAM.Core;
 using SAM.Core.Systems;
 using System;
@@ -87,7 +87,7 @@ namespace SAM.Analytical.Systems
             }
         }
 
-        public SystemSlinkyCoil(JObject jObject)
+        public SystemSlinkyCoil(JsonObject jObject)
             : base(jObject)
         {
 
@@ -106,9 +106,9 @@ namespace SAM.Analytical.Systems
             }
         }
 
-        public override bool FromJObject(JObject jObject)
+        public override bool FromJsonObject(JsonObject jObject)
         {
-            bool result = base.FromJObject(jObject);
+            bool result = base.FromJsonObject(jObject);
             if (!result)
             {
                 return result;
@@ -116,106 +116,106 @@ namespace SAM.Analytical.Systems
 
             if (jObject.ContainsKey("DesignPressureDrop"))
             {
-                DesignPressureDrop = jObject.Value<double>("DesignPressureDrop");
+                DesignPressureDrop = jObject["DesignPressureDrop"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("Capacity"))
             {
-                Capacity = jObject.Value<double>("Capacity");
+                Capacity = jObject["Capacity"]?.GetValue<double>() ?? default(double);
             }
 
 
             if (jObject.ContainsKey("GroundDensity"))
             {
-                GroundDensity = jObject.Value<double>("GroundDensity");
+                GroundDensity = jObject["GroundDensity"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("GroundHeatCapacity"))
             {
-                GroundHeatCapacity = jObject.Value<double>("GroundHeatCapacity");
+                GroundHeatCapacity = jObject["GroundHeatCapacity"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("GroundConductivity"))
             {
-                GroundConductivity = jObject.Value<double>("GroundConductivity");
+                GroundConductivity = jObject["GroundConductivity"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("GroundSolarReflectance"))
             {
-                GroundSolarReflectance = jObject.Value<double>("GroundSolarReflectance");
+                GroundSolarReflectance = jObject["GroundSolarReflectance"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("InsidePipeDiameter"))
             {
-                InsidePipeDiameter = jObject.Value<double>("InsidePipeDiameter");
+                InsidePipeDiameter = jObject["InsidePipeDiameter"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("OutsidePipeDiameter"))
             {
-                OutsidePipeDiameter = jObject.Value<double>("OutsidePipeDiameter"); 
+                OutsidePipeDiameter = jObject["OutsidePipeDiameter"]?.GetValue<double>() ?? default(double); 
             }
 
             if (jObject.ContainsKey("PipeConductivity"))
             {
-                PipeConductivity = jObject.Value<double>("PipeConductivity");
+                PipeConductivity = jObject["PipeConductivity"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("LoopPitch"))
             {
-                LoopPitch = jObject.Value<double>("LoopPitch");
+                LoopPitch = jObject["LoopPitch"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("LoopWidth"))
             {
-                LoopWidth = jObject.Value<double>("LoopWidth");
+                LoopWidth = jObject["LoopWidth"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("LoopHeight"))
             {
-                LoopHeight = jObject.Value<double>("LoopHeight");
+                LoopHeight = jObject["LoopHeight"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("IsUprightCoil"))
             {
-                IsUprightCoil = jObject.Value<bool>("IsUprightCoil");
+                IsUprightCoil = jObject["IsUprightCoil"]?.GetValue<bool>() ?? default(bool);
             }
 
             if (jObject.ContainsKey("FillDensity"))
             {
-                FillDensity = jObject.Value<double>("FillDensity");
+                FillDensity = jObject["FillDensity"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("FillHeatCapacity"))
             {
-                FillHeatCapacity = jObject.Value<double>("FillHeatCapacity");
+                FillHeatCapacity = jObject["FillHeatCapacity"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("FillConductivity"))
             {
-                FillConductivity = jObject.Value<double>("FillConductivity");
+                FillConductivity = jObject["FillConductivity"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("TrenchLength"))
             {
-                TrenchLength = jObject.Value<double>("TrenchLength");
+                TrenchLength = jObject["TrenchLength"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("TrenchDepth"))
             {
-                TrenchDepth = jObject.Value<double>("TrenchDepth");
+                TrenchDepth = jObject["TrenchDepth"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("TrenchWidth"))
             {
-                TrenchWidth = jObject.Value<double>("TrenchWidth");
+                TrenchWidth = jObject["TrenchWidth"]?.GetValue<double>() ?? default(double);
             }
 
             return result;
         }
 
-        public override JObject ToJObject()
+        public override JsonObject ToJsonObject()
         {
-            JObject result = base.ToJObject();
+            JsonObject result = base.ToJsonObject();
             if (result == null)
             {
                 return result;

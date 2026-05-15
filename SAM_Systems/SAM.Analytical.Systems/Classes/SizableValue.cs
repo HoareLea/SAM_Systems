@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using System.Text.Json.Nodes;
 using SAM.Core;
 
 namespace SAM.Analytical.Systems
@@ -36,12 +36,12 @@ namespace SAM.Analytical.Systems
             }
         }
 
-        public SizableValue(JObject jObject)
+        public SizableValue(JsonObject jObject)
         {
-            FromJObject(jObject);
+            FromJsonObject(jObject);
         }
 
-        public virtual bool FromJObject(JObject jObject)
+        public virtual bool FromJsonObject(JsonObject jObject)
         {
             if (jObject == null)
             {
@@ -50,30 +50,30 @@ namespace SAM.Analytical.Systems
 
             if (jObject.ContainsKey("SizingType"))
             {
-                SizingType = Core.Query.Enum<SizingType>(jObject.Value<string>("SizingType"));
+                SizingType = Core.Query.Enum<SizingType>(jObject["SizingType"]?.GetValue<string>() ?? null);
             }
 
             if (jObject.ContainsKey("SizeFraction"))
             {
-                SizeFraction = jObject.Value<double>("SizeFraction");
+                SizeFraction = jObject["SizeFraction"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("SizeMethod"))
             {
-                SizeMethod = Core.Query.Enum<SizeMethod>(jObject.Value<string>("SizeMethod"));
+                SizeMethod = Core.Query.Enum<SizeMethod>(jObject["SizeMethod"]?.GetValue<string>() ?? null);
             }
 
             if (jObject.ContainsKey("ModifiableValue"))
             {
-                ModifiableValue = Core.Query.IJSAMObject<ModifiableValue>(jObject.Value<JObject>("ModifiableValue"));
+                ModifiableValue = Core.Query.IJSAMObject<ModifiableValue>(jObject["ModifiableValue"] as JsonObject);
             }
 
             return true;
         }
 
-        public virtual JObject ToJObject()
+        public virtual JsonObject ToJsonObject()
         {
-            JObject result = new JObject();
+            JsonObject result = new JsonObject();
             result.Add("_type", Core.Query.FullTypeName(this));
 
             result.Add("SizingType", SizingType.ToString());
@@ -87,7 +87,7 @@ namespace SAM.Analytical.Systems
 
             if (ModifiableValue != null)
             {
-                result.Add("ModifiableValue", ModifiableValue.ToJObject());
+                result.Add("ModifiableValue", ModifiableValue.ToJsonObject());
             }
 
             return result;

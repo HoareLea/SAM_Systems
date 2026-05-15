@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using System.Text.Json.Nodes;
 using SAM.Core;
 using SAM.Core.Systems;
 using System;
@@ -116,7 +116,7 @@ namespace SAM.Analytical.Systems
             }
         }
 
-        public SystemDryCooler(JObject jObject)
+        public SystemDryCooler(JsonObject jObject)
             : base(jObject)
         {
 
@@ -135,9 +135,9 @@ namespace SAM.Analytical.Systems
             }
         }
 
-        public override bool FromJObject(JObject jObject)
+        public override bool FromJsonObject(JsonObject jObject)
         {
-            bool result = base.FromJObject(jObject);
+            bool result = base.FromJsonObject(jObject);
             if (!result)
             {
                 return result;
@@ -145,150 +145,150 @@ namespace SAM.Analytical.Systems
 
             if (jObject.ContainsKey("Capacity"))
             {
-                Capacity = jObject.Value<double>("Capacity");
+                Capacity = jObject["Capacity"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("DesignPressureDrop"))
             {
-                DesignPressureDrop = jObject.Value<double>("DesignPressureDrop");
+                DesignPressureDrop = jObject["DesignPressureDrop"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("CoolingSetpoint"))
             {
-                CoolingSetpoint = Core.Query.IJSAMObject<ModifiableValue>(jObject.Value<JObject>("CoolingSetpoint"));
+                CoolingSetpoint = Core.Query.IJSAMObject<ModifiableValue>(jObject["CoolingSetpoint"] as JsonObject);
             }
 
             if (jObject.ContainsKey("MaxFlowRate"))
             {
-                MaxFlowRate = Core.Query.IJSAMObject<SizableValue>(jObject.Value<JObject>("MaxFlowRate"));
+                MaxFlowRate = Core.Query.IJSAMObject<SizableValue>(jObject["MaxFlowRate"] as JsonObject);
             }
 
             if (jObject.ContainsKey("FanSFP"))
             {
-                FanSFP = Core.Query.IJSAMObject<ModifiableValue>(jObject.Value<JObject>("FanSFP"));
+                FanSFP = Core.Query.IJSAMObject<ModifiableValue>(jObject["FanSFP"] as JsonObject);
             }
 
             if (jObject.ContainsKey("DryCoolerExchangerCalculationMethod"))
             {
-                DryCoolerExchangerCalculationMethod = Core.Query.Enum<ExchangerCalculationMethod>(jObject.Value<string>("DryCoolerExchangerCalculationMethod"));
+                DryCoolerExchangerCalculationMethod = Core.Query.Enum<ExchangerCalculationMethod>(jObject["DryCoolerExchangerCalculationMethod"]?.GetValue<string>() ?? null);
             }
 
             if (jObject.ContainsKey("Efficiency"))
             {
-                Efficiency = Core.Query.IJSAMObject<ModifiableValue>(jObject.Value<JObject>("Efficiency"));
+                Efficiency = Core.Query.IJSAMObject<ModifiableValue>(jObject["Efficiency"] as JsonObject);
             }
 
             if (jObject.ContainsKey("HeatTransferSurfaceArea"))
             {
-                HeatTransferSurfaceArea = jObject.Value<double>("HeatTransferSurfaceArea");
+                HeatTransferSurfaceArea = jObject["HeatTransferSurfaceArea"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("HeatTransferCoefficient"))
             {
-                HeatTransferCoefficient = jObject.Value<double>("HeatTransferCoefficient");
+                HeatTransferCoefficient = jObject["HeatTransferCoefficient"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("ExchangerType"))
             {
-                ExchangerType = Core.Query.Enum<ExchangerType>(jObject.Value<string>("ExchangerType"));
+                ExchangerType = Core.Query.Enum<ExchangerType>(jObject["ExchangerType"]?.GetValue<string>() ?? null);
             }
 
             if (jObject.ContainsKey("AllowHeating"))
             {
-                AllowHeating = jObject.Value<bool>("AllowHeating");
+                AllowHeating = jObject["AllowHeating"]?.GetValue<bool>() ?? default(bool);
             }
 
             if (jObject.ContainsKey("HeatingSetpoint"))
             {
-                HeatingSetpoint = Core.Query.IJSAMObject<ModifiableValue>(jObject.Value<JObject>("HeatingSetpoint"));
+                HeatingSetpoint = Core.Query.IJSAMObject<ModifiableValue>(jObject["HeatingSetpoint"] as JsonObject);
             }
 
             if (jObject.ContainsKey("MinSetpointTemperatureDifferenceCooling"))
             {
-                MinSetpointTemperatureDifferenceCooling = jObject.Value<double>("MinSetpointTemperatureDifferenceCooling");
+                MinSetpointTemperatureDifferenceCooling = jObject["MinSetpointTemperatureDifferenceCooling"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("MinSetpointTemperatureDifferenceHeating"))
             {
-                MinSetpointTemperatureDifferenceHeating = jObject.Value<double>("MinSetpointTemperatureDifferenceHeating");
+                MinSetpointTemperatureDifferenceHeating = jObject["MinSetpointTemperatureDifferenceHeating"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("HasPreCooling"))
             {
-                HasPreCooling = jObject.Value<bool>("HasPreCooling");
+                HasPreCooling = jObject["HasPreCooling"]?.GetValue<bool>() ?? default(bool);
             }
 
             if (jObject.ContainsKey("PreCoolingEffectiveness"))
             {
-                PreCoolingEffectiveness = Core.Query.IJSAMObject<ModifiableValue>(jObject.Value<JObject>("PreCoolingEffectiveness"));
+                PreCoolingEffectiveness = Core.Query.IJSAMObject<ModifiableValue>(jObject["PreCoolingEffectiveness"] as JsonObject);
             }
 
             if (jObject.ContainsKey("AncillaryLoad"))
             {
-                AncillaryLoad = Core.Query.IJSAMObject<ModifiableValue>(jObject.Value<JObject>("AncillaryLoad"));
+                AncillaryLoad = Core.Query.IJSAMObject<ModifiableValue>(jObject["AncillaryLoad"] as JsonObject);
             }
 
             if (jObject.ContainsKey("PreCoolingWaterFlowCapacity"))
             {
-                PreCoolingWaterFlowCapacity = Core.Query.IJSAMObject<SizableValue>(jObject.Value<JObject>("HeatPreCoolingWaterFlowCapacityingSetpoint"));
+                PreCoolingWaterFlowCapacity = Core.Query.IJSAMObject<SizableValue>(jObject["HeatPreCoolingWaterFlowCapacityingSetpoint"] as JsonObject);
             }
 
             if (jObject.ContainsKey("MinAirFlowRate"))
             {
-                MinAirFlowRate = jObject.Value<double>("MinAirFlowRate");
+                MinAirFlowRate = jObject["MinAirFlowRate"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("MinAirFlowRatio"))
             {
-                MinAirFlowRatio = jObject.Value<double>("MinAirFlowRatio");
+                MinAirFlowRatio = jObject["MinAirFlowRatio"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("VariableFans"))
             {
-                VariableFans = jObject.Value<bool>("VariableFans");
+                VariableFans = jObject["VariableFans"]?.GetValue<bool>() ?? default(bool);
             }
 
             if (jObject.ContainsKey("ExternalDryBulbTemperature"))
             {
-                ExternalDryBulbTemperature = jObject.Value<double>("ExternalDryBulbTemperature");
+                ExternalDryBulbTemperature = jObject["ExternalDryBulbTemperature"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("ExternalDryBulbTemperatureSizingType"))
             {
-                ExternalDryBulbTemperatureSizingType = Core.Query.Enum<TemperatureSizingType>(jObject.Value<string>("ExternalDryBulbTemperatureSizingType"));
+                ExternalDryBulbTemperatureSizingType = Core.Query.Enum<TemperatureSizingType>(jObject["ExternalDryBulbTemperatureSizingType"]?.GetValue<string>() ?? null);
             }
 
             if (jObject.ContainsKey("LimitingDryBulbTemperature"))
             {
-                LimitingDryBulbTemperature = jObject.Value<double>("LimitingDryBulbTemperature");
+                LimitingDryBulbTemperature = jObject["LimitingDryBulbTemperature"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("DesignRange"))
             {
-                DesignRange = jObject.Value<double>("DesignRange");
+                DesignRange = jObject["DesignRange"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("DesignWaterFlowRate"))
             {
-                DesignWaterFlowRate = jObject.Value<double>("DesignWaterFlowRate");
+                DesignWaterFlowRate = jObject["DesignWaterFlowRate"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("DesignWaterFlowRateSizingType"))
             {
-                DesignWaterFlowRateSizingType = Core.Query.Enum<DesignWaterFlowRateSizingType>(jObject.Value<string>("DesignWaterFlowRateSizingType"));
+                DesignWaterFlowRateSizingType = Core.Query.Enum<DesignWaterFlowRateSizingType>(jObject["DesignWaterFlowRateSizingType"]?.GetValue<string>() ?? null);
             }
 
             if (jObject.ContainsKey("ScheduleName"))
             {
-                ScheduleName = jObject.Value<string>("ScheduleName");
+                ScheduleName = jObject["ScheduleName"]?.GetValue<string>() ?? null;
             }
 
             return result;
         }
 
-        public override JObject ToJObject()
+        public override JsonObject ToJsonObject()
         {
-            JObject result = base.ToJObject();
+            JsonObject result = base.ToJsonObject();
             if (result == null)
             {
                 return result;
@@ -306,24 +306,24 @@ namespace SAM.Analytical.Systems
 
             if (CoolingSetpoint != null)
             {
-                result.Add("CoolingSetpoint", CoolingSetpoint.ToJObject());
+                result.Add("CoolingSetpoint", CoolingSetpoint.ToJsonObject());
             }
 
             if (MaxFlowRate != null)
             {
-                result.Add("MaxFlowRate", MaxFlowRate.ToJObject());
+                result.Add("MaxFlowRate", MaxFlowRate.ToJsonObject());
             }
 
             if (FanSFP != null)
             {
-                result.Add("FanSFP", FanSFP.ToJObject());
+                result.Add("FanSFP", FanSFP.ToJsonObject());
             }
 
             result.Add("DryCoolerExchangerCalculationMethod", DryCoolerExchangerCalculationMethod.ToString());
 
             if (Efficiency != null)
             {
-                result.Add("Efficiency", Efficiency.ToJObject());
+                result.Add("Efficiency", Efficiency.ToJsonObject());
             }
 
             if (!double.IsNaN(HeatTransferSurfaceArea))
@@ -342,7 +342,7 @@ namespace SAM.Analytical.Systems
 
             if (HeatingSetpoint != null)
             {
-                result.Add("HeatingSetpoint", HeatingSetpoint.ToJObject());
+                result.Add("HeatingSetpoint", HeatingSetpoint.ToJsonObject());
             }
 
             if (!double.IsNaN(MinSetpointTemperatureDifferenceCooling))
@@ -359,17 +359,17 @@ namespace SAM.Analytical.Systems
 
             if (PreCoolingEffectiveness != null)
             {
-                result.Add("PreCoolingEffectiveness", PreCoolingEffectiveness.ToJObject());
+                result.Add("PreCoolingEffectiveness", PreCoolingEffectiveness.ToJsonObject());
             }
 
             if (AncillaryLoad != null)
             {
-                result.Add("AncillaryLoad", AncillaryLoad.ToJObject());
+                result.Add("AncillaryLoad", AncillaryLoad.ToJsonObject());
             }
 
             if (PreCoolingWaterFlowCapacity != null)
             {
-                result.Add("PreCoolingWaterFlowCapacity", PreCoolingWaterFlowCapacity.ToJObject());
+                result.Add("PreCoolingWaterFlowCapacity", PreCoolingWaterFlowCapacity.ToJsonObject());
             }
 
             if (!double.IsNaN(MinAirFlowRate))

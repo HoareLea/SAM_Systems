@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using System.Text.Json.Nodes;
 using SAM.Core;
 using SAM.Core.Systems;
 using System;
@@ -37,10 +37,10 @@ namespace SAM.Analytical.Systems
             MinimumDesignFlowFraction = minimumDesignFlowFraction;
         }
 
-        public SystemSpace(JObject jObject)
+        public SystemSpace(JsonObject jObject)
             : base(jObject)
         {
-            FromJObject(jObject);
+            FromJsonObject(jObject);
         }
 
         public SystemSpace(SystemSpace systemSpace)
@@ -112,9 +112,9 @@ namespace SAM.Analytical.Systems
             }
         }
 
-        public override bool FromJObject(JObject jObject)
+        public override bool FromJsonObject(JsonObject jObject)
         {
-            bool result = base.FromJObject(jObject);
+            bool result = base.FromJsonObject(jObject);
             if (!result)
             {
                 return result;
@@ -122,65 +122,65 @@ namespace SAM.Analytical.Systems
 
             if (jObject.ContainsKey("Area"))
             {
-                area = jObject.Value<double>("Area");
+                area = jObject["Area"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("Volume"))
             {
-                volume = jObject.Value<double>("Volume");
+                volume = jObject["Volume"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("TemperatureSetpoint"))
             {
-                TemperatureSetpoint = Core.Query.IJSAMObject<ModifiableValue>(jObject.Value<JObject>("TemperatureSetpoint"));
+                TemperatureSetpoint = Core.Query.IJSAMObject<ModifiableValue>(jObject["TemperatureSetpoint"] as JsonObject);
             }
 
             if (jObject.ContainsKey("RelativeHumiditySetpoint"))
             {
-                RelativeHumiditySetpoint = Core.Query.IJSAMObject<ModifiableValue>(jObject.Value<JObject>("RelativeHumiditySetpoint"));
+                RelativeHumiditySetpoint = Core.Query.IJSAMObject<ModifiableValue>(jObject["RelativeHumiditySetpoint"] as JsonObject);
             }
 
             if (jObject.ContainsKey("PollutantSetpoint"))
             {
-                PollutantSetpoint = Core.Query.IJSAMObject<ModifiableValue>(jObject.Value<JObject>("PollutantSetpoint"));
+                PollutantSetpoint = Core.Query.IJSAMObject<ModifiableValue>(jObject["PollutantSetpoint"] as JsonObject);
             }
 
             if (jObject.ContainsKey("DisplacementVentilation"))
             {
-                DisplacementVentilation = jObject.Value<bool>("DisplacementVentilation");
+                DisplacementVentilation = jObject["DisplacementVentilation"]?.GetValue<bool>() ?? default(bool);
             }
 
             if (jObject.ContainsKey("ModelInterzoneFlow"))
             {
-                ModelInterzoneFlow = jObject.Value<bool>("ModelInterzoneFlow");
+                ModelInterzoneFlow = jObject["ModelInterzoneFlow"]?.GetValue<bool>() ?? default(bool);
             }
 
             if (jObject.ContainsKey("ModelVentilationFlow"))
             {
-                ModelVentilationFlow = jObject.Value<bool>("ModelVentilationFlow");
+                ModelVentilationFlow = jObject["ModelVentilationFlow"]?.GetValue<bool>() ?? default(bool);
             }
 
             if (jObject.ContainsKey("FlowRate"))
             {
-                FlowRate = Core.Query.IJSAMObject<DesignConditionSizedFlowValue>(jObject.Value<JObject>("FlowRate"));
+                FlowRate = Core.Query.IJSAMObject<DesignConditionSizedFlowValue>(jObject["FlowRate"] as JsonObject);
             }
 
             if (jObject.ContainsKey("FreshAir"))
             {
-                FreshAir = Core.Query.IJSAMObject<DesignConditionSizedFlowValue>(jObject.Value<JObject>("FreshAir"));
+                FreshAir = Core.Query.IJSAMObject<DesignConditionSizedFlowValue>(jObject["FreshAir"] as JsonObject);
             }
 
             if (jObject.ContainsKey("MinimumDesignFlowFraction"))
             {
-                MinimumDesignFlowFraction = jObject.Value<double>("MinimumDesignFlowFraction");
+                MinimumDesignFlowFraction = jObject["MinimumDesignFlowFraction"]?.GetValue<double>() ?? default(double);
             }
 
             return true;
         }
 
-        public override JObject ToJObject()
+        public override JsonObject ToJsonObject()
         {
-            JObject result = base.ToJObject();
+            JsonObject result = base.ToJsonObject();
             if (result == null)
             {
                 return null;
@@ -198,17 +198,17 @@ namespace SAM.Analytical.Systems
 
             if(TemperatureSetpoint != null)
             {
-                result.Add("TemperatureSetpoint", TemperatureSetpoint.ToJObject());
+                result.Add("TemperatureSetpoint", TemperatureSetpoint.ToJsonObject());
             }
 
             if (RelativeHumiditySetpoint != null)
             {
-                result.Add("RelativeHumiditySetpoint", RelativeHumiditySetpoint.ToJObject());
+                result.Add("RelativeHumiditySetpoint", RelativeHumiditySetpoint.ToJsonObject());
             }
 
             if (PollutantSetpoint != null)
             {
-                result.Add("PollutantSetpoint", PollutantSetpoint.ToJObject());
+                result.Add("PollutantSetpoint", PollutantSetpoint.ToJsonObject());
             }
 
             result.Add("DisplacementVentilation", DisplacementVentilation);
@@ -219,12 +219,12 @@ namespace SAM.Analytical.Systems
 
             if (FlowRate != null)
             {
-                result.Add("FlowRate", FlowRate.ToJObject());
+                result.Add("FlowRate", FlowRate.ToJsonObject());
             }
 
             if (FreshAir != null)
             {
-                result.Add("FreshAir", FreshAir.ToJObject());
+                result.Add("FreshAir", FreshAir.ToJsonObject());
             }
 
             if (!double.IsNaN(MinimumDesignFlowFraction))

@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using System.Text.Json.Nodes;
 using SAM.Core;
 using SAM.Core.Systems;
 using System.Collections.Generic;
@@ -17,10 +17,10 @@ namespace SAM.Analytical.Systems
         {
         }
 
-        public SystemRadiatorResult(JObject jObject)
+        public SystemRadiatorResult(JsonObject jObject)
             : base(jObject)
         {
-            FromJObject(jObject);
+            FromJsonObject(jObject);
         }
 
         public SystemRadiatorResult(SystemRadiatorResult systemRadiatorResult)

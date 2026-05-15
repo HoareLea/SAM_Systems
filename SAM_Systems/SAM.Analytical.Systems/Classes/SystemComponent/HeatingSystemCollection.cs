@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using System.Text.Json.Nodes;
 using SAM.Core;
 using SAM.Core.Systems;
 using System;
@@ -25,7 +25,7 @@ namespace SAM.Analytical.Systems
         {
         }
 
-        public HeatingSystemCollection(JObject jObject)
+        public HeatingSystemCollection(JsonObject jObject)
             : base(jObject)
         {
 
@@ -61,9 +61,9 @@ namespace SAM.Analytical.Systems
             }
         }
 
-        public override bool FromJObject(JObject jObject)
+        public override bool FromJsonObject(JsonObject jObject)
         {
-            bool result = base.FromJObject(jObject);
+            bool result = base.FromJsonObject(jObject);
             if (!result)
             {
                 return result;
@@ -71,45 +71,45 @@ namespace SAM.Analytical.Systems
 
             if(jObject.ContainsKey("MinimumReturnTemperature"))
             {
-                MinimumReturnTemperature = jObject.Value<double>("MinimumReturnTemperature");
+                MinimumReturnTemperature = jObject["MinimumReturnTemperature"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("VariableFlowCapacity"))
             {
-                VariableFlowCapacity = jObject.Value<bool>("VariableFlowCapacity");
+                VariableFlowCapacity = jObject["VariableFlowCapacity"]?.GetValue<bool>() ?? default(bool);
             }
 
             if (jObject.ContainsKey("PeakDemand"))
             {
-                PeakDemand = jObject.Value<double>("PeakDemand");
+                PeakDemand = jObject["PeakDemand"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("SizeFraction"))
             {
-                SizeFraction = jObject.Value<double>("SizeFraction");
+                SizeFraction = jObject["SizeFraction"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("Distribution"))
             {
-                Distribution = Core.Query.IJSAMObject<Distribution>(jObject.Value<JObject>("Distribution"));
+                Distribution = Core.Query.IJSAMObject<Distribution>(jObject["Distribution"] as JsonObject);
             }
 
             if (jObject.ContainsKey("DesignPressureDrop"))
             {
-                DesignPressureDrop = jObject.Value<double>("DesignPressureDrop");
+                DesignPressureDrop = jObject["DesignPressureDrop"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("DesignTemperatureDifference"))
             {
-                DesignTemperatureDifference = jObject.Value<double>("DesignTemperatureDifference");
+                DesignTemperatureDifference = jObject["DesignTemperatureDifference"]?.GetValue<double>() ?? default(double);
             }
 
             return true;
         }
 
-        public override JObject ToJObject()
+        public override JsonObject ToJsonObject()
         {
-            JObject result = base.ToJObject();
+            JsonObject result = base.ToJsonObject();
             if (result == null)
             {
                 return null;
@@ -134,7 +134,7 @@ namespace SAM.Analytical.Systems
 
             if (Distribution != null)
             {
-                result.Add("Distribution", Distribution.ToJObject());
+                result.Add("Distribution", Distribution.ToJsonObject());
             }
 
             if (!double.IsNaN(DesignPressureDrop))

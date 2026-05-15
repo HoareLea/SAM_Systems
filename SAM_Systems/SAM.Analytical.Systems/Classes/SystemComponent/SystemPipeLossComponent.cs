@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using System.Text.Json.Nodes;
 using SAM.Core;
 using SAM.Core.Systems;
 using System;
@@ -79,7 +79,7 @@ namespace SAM.Analytical.Systems
 
         }
 
-        public SystemPipeLossComponent(JObject jObject)
+        public SystemPipeLossComponent(JsonObject jObject)
             : base(jObject)
         {
 
@@ -97,9 +97,9 @@ namespace SAM.Analytical.Systems
             }
         }
 
-        public override bool FromJObject(JObject jObject)
+        public override bool FromJsonObject(JsonObject jObject)
         {
-            bool result = base.FromJObject(jObject);
+            bool result = base.FromJsonObject(jObject);
             if(!result)
             {
                 return result;
@@ -107,80 +107,80 @@ namespace SAM.Analytical.Systems
 
             if(jObject.ContainsKey("DesignPressureDrop"))
             {
-                DesignPressureDrop = jObject.Value<double>("DesignPressureDrop");
+                DesignPressureDrop = jObject["DesignPressureDrop"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("Capacity"))
             {
-                Capacity = jObject.Value<double>("Capacity");
+                Capacity = jObject["Capacity"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("Length"))
             {
-                Length = jObject.Value<double>("Length");
+                Length = jObject["Length"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("InsidePipeDiameter"))
             {
-                InsidePipeDiameter = jObject.Value<double>("InsidePipeDiameter");
+                InsidePipeDiameter = jObject["InsidePipeDiameter"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("OutsidePipeDiameter"))
             {
-                OutsidePipeDiameter = jObject.Value<double>("OutsidePipeDiameter");
+                OutsidePipeDiameter = jObject["OutsidePipeDiameter"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("PipeConductivity"))
             {
-                PipeConductivity = jObject.Value<double>("PipeConductivity");
+                PipeConductivity = jObject["PipeConductivity"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("InsulationThickness"))
             {
-                InsulationThickness = jObject.Value<double>("InsulationThickness");
+                InsulationThickness = jObject["InsulationThickness"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("InsulationConductivity"))
             {
-                InsulationConductivity = jObject.Value<double>("InsulationConductivity");
+                InsulationConductivity = jObject["InsulationConductivity"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("AmbientTemperature"))
             {
-                AmbientTemperature = Core.Query.IJSAMObject<ModifiableValue>(jObject.Value<JObject>("AmbientTemperature"));
+                AmbientTemperature = Core.Query.IJSAMObject<ModifiableValue>(jObject["AmbientTemperature"] as JsonObject);
             }
 
             if (jObject.ContainsKey("IsUnderground"))
             {
-                IsUnderground = jObject.Value<bool>("IsUnderground");
+                IsUnderground = jObject["IsUnderground"]?.GetValue<bool>() ?? default(bool);
             }
 
             if (jObject.ContainsKey("GroundConductivity"))
             {
-                GroundConductivity = jObject.Value<double>("GroundConductivity");
+                GroundConductivity = jObject["GroundConductivity"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("GroundHeatCapacity"))
             {
-                GroundHeatCapacity = jObject.Value<double>("GroundHeatCapacity");
+                GroundHeatCapacity = jObject["GroundHeatCapacity"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("GroundDensity"))
             {
-                GroundDensity = jObject.Value<double>("GroundDensity");
+                GroundDensity = jObject["GroundDensity"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("GroundTemperature"))
             {
-                GroundTemperature = jObject.Value<double>("GroundTemperature");
+                GroundTemperature = jObject["GroundTemperature"]?.GetValue<double>() ?? default(double);
             }
 
             return result;
         }
 
-        public override JObject ToJObject()
+        public override JsonObject ToJsonObject()
         {
-            JObject result = base.ToJObject();
+            JsonObject result = base.ToJsonObject();
             if(result == null)
             {
                 return result;
@@ -228,7 +228,7 @@ namespace SAM.Analytical.Systems
 
             if(AmbientTemperature != null)
             {
-                result.Add("AmbientTemperature", AmbientTemperature.ToJObject());
+                result.Add("AmbientTemperature", AmbientTemperature.ToJsonObject());
             }
 
             result.Add("IsUnderground", IsUnderground);

@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using System.Text.Json.Nodes;
 using SAM.Core.Systems;
 using SAM.Geometry.Planar;
 using SAM.Geometry.Systems;
@@ -32,7 +32,7 @@ namespace SAM.Analytical.Systems
             systemPolygon = new SystemPolygon(boundingBox2D?.GetPoints());
         }
 
-        public DisplayAirSystemGroup(JObject jObject)
+        public DisplayAirSystemGroup(JsonObject jObject)
             : base(jObject)
         {
 
@@ -71,9 +71,9 @@ namespace SAM.Analytical.Systems
             return true;
         }
 
-        public override bool FromJObject(JObject jObject)
+        public override bool FromJsonObject(JsonObject jObject)
         {
-            bool result = base.FromJObject(jObject);
+            bool result = base.FromJsonObject(jObject);
             if (!result)
             {
                 return result;
@@ -81,15 +81,15 @@ namespace SAM.Analytical.Systems
 
             if (jObject.ContainsKey("SystemPolygon"))
             {
-                systemPolygon = new SystemPolygon(jObject.Value<JObject>("SystemPolygon"));
+                systemPolygon = new SystemPolygon(jObject["SystemPolygon"] as JsonObject);
             }
 
             return result;
         }
 
-        public override JObject ToJObject()
+        public override JsonObject ToJsonObject()
         {
-            JObject result = base.ToJObject();
+            JsonObject result = base.ToJsonObject();
             if (result == null)
             {
                 return result;
@@ -97,7 +97,7 @@ namespace SAM.Analytical.Systems
 
             if (systemPolygon != null)
             {
-                result.Add("SystemPolygon", systemPolygon.ToJObject());
+                result.Add("SystemPolygon", systemPolygon.ToJsonObject());
             }
 
             return result;

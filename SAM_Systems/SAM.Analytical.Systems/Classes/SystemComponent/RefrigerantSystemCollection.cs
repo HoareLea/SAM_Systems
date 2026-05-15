@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using System.Text.Json.Nodes;
 using SAM.Core;
 using SAM.Core.Systems;
 using System;
@@ -19,7 +19,7 @@ namespace SAM.Analytical.Systems
         {
         }
 
-        public RefrigerantSystemCollection(JObject jObject)
+        public RefrigerantSystemCollection(JsonObject jObject)
             : base(jObject)
         {
 
@@ -43,9 +43,9 @@ namespace SAM.Analytical.Systems
             }
         }
 
-        public override bool FromJObject(JObject jObject)
+        public override bool FromJsonObject(JsonObject jObject)
         {
-            bool result = base.FromJObject(jObject);
+            bool result = base.FromJsonObject(jObject);
             if (!result)
             {
                 return result;
@@ -53,15 +53,15 @@ namespace SAM.Analytical.Systems
 
             if(jObject.ContainsKey("PipeLength"))
             {
-                PipeLength = Core.Query.IJSAMObject<ModifiableValue>(jObject.Value<JObject>("PipeLength"));
+                PipeLength = Core.Query.IJSAMObject<ModifiableValue>(jObject["PipeLength"] as JsonObject);
             }
 
             return true;
         }
 
-        public override JObject ToJObject()
+        public override JsonObject ToJsonObject()
         {
-            JObject result = base.ToJObject();
+            JsonObject result = base.ToJsonObject();
             if (result == null)
             {
                 return null;
@@ -69,7 +69,7 @@ namespace SAM.Analytical.Systems
 
             if(PipeLength != null)
             {
-                result.Add("PipeLength", PipeLength.ToJObject());
+                result.Add("PipeLength", PipeLength.ToJsonObject());
             }
 
             return result;

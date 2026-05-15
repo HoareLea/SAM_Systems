@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using System.Text.Json.Nodes;
 using SAM.Core.Systems;
 using System;
 
@@ -44,7 +44,7 @@ namespace SAM.Analytical.Systems
             }
         }
 
-        public SystemDifferenceController(JObject jObject)
+        public SystemDifferenceController(JsonObject jObject)
             : base(jObject)
         {
 
@@ -63,9 +63,9 @@ namespace SAM.Analytical.Systems
             }
         }
 
-        public override bool FromJObject(JObject jObject)
+        public override bool FromJsonObject(JsonObject jObject)
         {
-            bool result = base.FromJObject(jObject);
+            bool result = base.FromJsonObject(jObject);
             if (!result)
             {
                 return result;
@@ -73,15 +73,15 @@ namespace SAM.Analytical.Systems
 
             if(jObject.ContainsKey("SecondarySensorReference"))
             {
-                secondarySensorReference = jObject.Value<string>("SecondarySensorReference");
+                secondarySensorReference = jObject["SecondarySensorReference"]?.GetValue<string>() ?? null;
             }
 
             return true;
         }
 
-        public override JObject ToJObject()
+        public override JsonObject ToJsonObject()
         {
-            JObject result = base.ToJObject();
+            JsonObject result = base.ToJsonObject();
             if (result == null)
             {
                 return null;

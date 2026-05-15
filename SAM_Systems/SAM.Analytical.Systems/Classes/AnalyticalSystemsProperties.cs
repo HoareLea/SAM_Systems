@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using System.Text.Json.Nodes;
 using SAM.Core;
 using System.Collections.Generic;
 using System.Linq;
@@ -49,9 +49,9 @@ namespace SAM.Analytical.Systems
             }
         }
 
-        public AnalyticalSystemsProperties(JObject jObject)
+        public AnalyticalSystemsProperties(JsonObject jObject)
         {
-            FromJObject(jObject);
+            FromJsonObject(jObject);
         }
 
         public List<ISchedule> Schedules
@@ -171,7 +171,7 @@ namespace SAM.Analytical.Systems
             return fluidType;
         }
 
-        public virtual bool FromJObject(JObject jObject)
+        public virtual bool FromJsonObject(JsonObject jObject)
         {
             if (jObject == null)
             {
@@ -180,13 +180,18 @@ namespace SAM.Analytical.Systems
 
             if (jObject.ContainsKey("Schedules"))
             {
-                JArray jArray = jObject.Value<JArray>("Schedules");
+                JsonArray jArray = jObject["Schedules"] as JsonArray;
                 if (jArray != null)
                 {
                     schedules = new Dictionary<string, ISchedule>();
 
-                    foreach (JObject jObject_Schedule in jArray)
+                    foreach (JsonNode jsonNode in jArray)
                     {
+                        if (!(jsonNode is JsonObject jObject_Schedule))
+                        {
+                            continue;
+                        }
+
                         ISchedule schedule = Core.Query.IJSAMObject<ISchedule>(jObject_Schedule);
                         if (schedule == null)
                         {
@@ -199,13 +204,18 @@ namespace SAM.Analytical.Systems
 
             if (jObject.ContainsKey("FluidTypes"))
             {
-                JArray jArray = jObject.Value<JArray>("FluidTypes");
+                JsonArray jArray = jObject["FluidTypes"] as JsonArray;
                 if (jArray != null)
                 {
                     fluidTypes = new Dictionary<string, FluidType>();
 
-                    foreach (JObject jObject_FluidType in jArray)
+                    foreach (JsonNode jsonNode in jArray)
                     {
+                        if (!(jsonNode is JsonObject jObject_FluidType))
+                        {
+                            continue;
+                        }
+
                         FluidType fluidType = Core.Query.IJSAMObject<FluidType>(jObject_FluidType);
                         if (fluidType == null)
                         {
@@ -219,13 +229,18 @@ namespace SAM.Analytical.Systems
 
             if (jObject.ContainsKey("DesignConditions"))
             {
-                JArray jArray = jObject.Value<JArray>("DesignConditions");
+                JsonArray jArray = jObject["DesignConditions"] as JsonArray;
                 if (jArray != null)
                 {
                     designConditions = new Dictionary<string, DesignCondition>();
 
-                    foreach (JObject jObject_DesignConditions in jArray)
+                    foreach (JsonNode jsonNode in jArray)
                     {
+                        if (!(jsonNode is JsonObject jObject_DesignConditions))
+                        {
+                            continue;
+                        }
+
                         DesignCondition designCondition = Core.Query.IJSAMObject<DesignCondition>(jObject_DesignConditions);
                         if (designCondition == null)
                         {
@@ -240,17 +255,17 @@ namespace SAM.Analytical.Systems
             return true;
         }
 
-        public virtual JObject ToJObject()
+        public virtual JsonObject ToJsonObject()
         {
-            JObject result = new JObject();
+            JsonObject result = new JsonObject();
             result.Add("_type", Core.Query.FullTypeName(this));
 
             if (schedules != null)
             {
-                JArray jArray = new JArray();
+                JsonArray jArray = new JsonArray();
                 foreach (ISchedule schedule in schedules.Values)
                 {
-                    jArray.Add(schedule.ToJObject());
+                    jArray.Add(schedule.ToJsonObject());
                 }
 
                 result.Add("Schedules", jArray);
@@ -258,10 +273,10 @@ namespace SAM.Analytical.Systems
 
             if (fluidTypes != null)
             {
-                JArray jArray = new JArray();
+                JsonArray jArray = new JsonArray();
                 foreach (FluidType fluidType in fluidTypes.Values)
                 {
-                    jArray.Add(fluidType.ToJObject());
+                    jArray.Add(fluidType.ToJsonObject());
                 }
 
                 result.Add("FluidTypes", jArray);
@@ -269,10 +284,10 @@ namespace SAM.Analytical.Systems
 
             if (designConditions != null)
             {
-                JArray jArray = new JArray();
+                JsonArray jArray = new JsonArray();
                 foreach (DesignCondition designCondition in designConditions.Values)
                 {
-                    jArray.Add(designCondition.ToJObject());
+                    jArray.Add(designCondition.ToJsonObject());
                 }
 
                 result.Add("DesignConditions", jArray);

@@ -1,7 +1,7 @@
 ﻿// SPDX-License-Identifier: LGPL-3.0-or-later
 // Copyright (c) 2020–2026 Michal Dengusiak & Jakub Ziolkowski and contributors
 
-using Newtonsoft.Json.Linq;
+using System.Text.Json.Nodes;
 using System.Linq;
 
 namespace SAM.Analytical.Systems
@@ -38,7 +38,7 @@ namespace SAM.Analytical.Systems
             }
         }
 
-        public YearlySchedule(JObject jObject)
+        public YearlySchedule(JsonObject jObject)
             :base(jObject)
         {
 
@@ -79,9 +79,9 @@ namespace SAM.Analytical.Systems
             }
         }
 
-        public override bool FromJObject(JObject jObject)
+        public override bool FromJsonObject(JsonObject jObject)
         {
-            bool result = base.FromJObject(jObject);
+            bool result = base.FromJsonObject(jObject);
             if(!result )
             {
                 return result;
@@ -90,7 +90,7 @@ namespace SAM.Analytical.Systems
             if (jObject.ContainsKey("Values"))
             {
                 values = new double[8760];
-                JArray jArray = jObject.Value<JArray>("Values");
+                JsonArray jArray = jObject["Values"] as JsonArray;
                 int count = jArray.Count;
                 for (int i = 0; i < 8760; i++)
                 {
@@ -101,9 +101,9 @@ namespace SAM.Analytical.Systems
             return true;
         }
 
-        public override JObject ToJObject()
+        public override JsonObject ToJsonObject()
         {
-            JObject result = base.ToJObject();
+            JsonObject result = base.ToJsonObject();
             if(result == null)
             {
                 return result;
@@ -111,7 +111,7 @@ namespace SAM.Analytical.Systems
 
             if (values != null)
             {
-                JArray jArray = new JArray();
+                JsonArray jArray = new JsonArray();
                 for (int i = 0; i < values.Length; i++)
                 {
                     jArray.Add(values[i]);

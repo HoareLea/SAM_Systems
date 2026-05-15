@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using System.Text.Json.Nodes;
 using SAM.Core;
 using SAM.Core.Systems;
 using System;
@@ -85,7 +85,7 @@ namespace SAM.Analytical.Systems
             }
         }
 
-        public SystemWaterSourceChiller(JObject jObject)
+        public SystemWaterSourceChiller(JsonObject jObject)
             : base(jObject)
         {
 
@@ -106,9 +106,9 @@ namespace SAM.Analytical.Systems
             }
         }
 
-        public override bool FromJObject(JObject jObject)
+        public override bool FromJsonObject(JsonObject jObject)
         {
-            bool result = base.FromJObject(jObject);
+            bool result = base.FromJsonObject(jObject);
             if (!result)
             {
                 return result;
@@ -116,100 +116,100 @@ namespace SAM.Analytical.Systems
 
             if (jObject.ContainsKey("Setpoint"))
             {
-                Setpoint = Core.Query.IJSAMObject<ModifiableValue>(jObject.Value<JObject>("Setpoint"));
+                Setpoint = Core.Query.IJSAMObject<ModifiableValue>(jObject["Setpoint"] as JsonObject);
             }
 
             if (jObject.ContainsKey("Efficiency"))
             {
-                Efficiency = Core.Query.IJSAMObject<ModifiableValue>(jObject.Value<JObject>("Efficiency"));
+                Efficiency = Core.Query.IJSAMObject<ModifiableValue>(jObject["Efficiency"] as JsonObject);
             }
 
             if (jObject.ContainsKey("Capacity1"))
             {
-                Capacity1 = jObject.Value<double>("Capacity1");
+                Capacity1 = jObject["Capacity1"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("DesignPressureDrop1"))
             {
-                DesignPressureDrop1 = jObject.Value<double>("DesignPressureDrop1");
+                DesignPressureDrop1 = jObject["DesignPressureDrop1"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("DesignTemperatureDifference1"))
             {
-                DesignTemperatureDifference1 = jObject.Value<double>("DesignTemperatureDifference1");
+                DesignTemperatureDifference1 = jObject["DesignTemperatureDifference1"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("Capacity2"))
             {
-                Capacity2 = jObject.Value<double>("Capacity2");
+                Capacity2 = jObject["Capacity2"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("DesignPressureDrop2"))
             {
-                DesignPressureDrop2 = jObject.Value<double>("DesignPressureDrop2");
+                DesignPressureDrop2 = jObject["DesignPressureDrop2"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("DesignTemperatureDifference2"))
             {
-                DesignTemperatureDifference2 = jObject.Value<double>("DesignTemperatureDifference2");
+                DesignTemperatureDifference2 = jObject["DesignTemperatureDifference2"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("LossesInSizing"))
             {
-                LossesInSizing = jObject.Value<bool>("LossesInSizing");
+                LossesInSizing = jObject["LossesInSizing"]?.GetValue<bool>() ?? default(bool);
             }
 
             if (jObject.ContainsKey("MotorEfficiency"))
             {
-                MotorEfficiency = Core.Query.IJSAMObject<ModifiableValue>(jObject.Value<JObject>("MotorEfficiency"));
+                MotorEfficiency = Core.Query.IJSAMObject<ModifiableValue>(jObject["MotorEfficiency"] as JsonObject);
             }
 
             if (jObject.ContainsKey("ExchangerCalculationMethod"))
             {
-                ExchangerCalculationMethod = Core.Query.Enum<ExchangerCalculationMethod>(jObject.Value<string>("ExchangerCalculationMethod"));
+                ExchangerCalculationMethod = Core.Query.Enum<ExchangerCalculationMethod>(jObject["ExchangerCalculationMethod"]?.GetValue<string>() ?? null);
             }
 
             if (jObject.ContainsKey("ExchangerEfficiency"))
             {
-                ExchangerEfficiency = Core.Query.IJSAMObject<ModifiableValue>(jObject.Value<JObject>("ExchangerEfficiency"));
+                ExchangerEfficiency = Core.Query.IJSAMObject<ModifiableValue>(jObject["ExchangerEfficiency"] as JsonObject);
             }
 
             if (jObject.ContainsKey("ExchangerType"))
             {
-                ExchangerType = Core.Query.Enum<ExchangerType>(jObject.Value<string>("ExchangerType"));
+                ExchangerType = Core.Query.Enum<ExchangerType>(jObject["ExchangerType"]?.GetValue<string>() ?? null);
             }
 
             if (jObject.ContainsKey("HeatTransferSurfaceArea"))
             {
-                HeatTransferSurfaceArea = jObject.Value<double>("HeatTransferSurfaceArea");
+                HeatTransferSurfaceArea = jObject["HeatTransferSurfaceArea"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("HeatTransferCoefficient"))
             {
-                HeatTransferCoefficient = jObject.Value<double>("HeatTransferCoefficient");
+                HeatTransferCoefficient = jObject["HeatTransferCoefficient"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("AncillaryLoad"))
             {
-                AncillaryLoad = Core.Query.IJSAMObject<ModifiableValue>(jObject.Value<JObject>("AncillaryLoad"));
+                AncillaryLoad = Core.Query.IJSAMObject<ModifiableValue>(jObject["AncillaryLoad"] as JsonObject);
             }
 
             if (jObject.ContainsKey("FreeCoolingType"))
             {
-                FreeCoolingType = Core.Query.Enum<FreeCoolingType>(jObject.Value<string>("FreeCoolingType"));
+                FreeCoolingType = Core.Query.Enum<FreeCoolingType>(jObject["FreeCoolingType"]?.GetValue<string>() ?? null);
             }
 
             if (jObject.ContainsKey("ScheduleName"))
             {
-                ScheduleName = jObject.Value<string>("ScheduleName");
+                ScheduleName = jObject["ScheduleName"]?.GetValue<string>() ?? null;
             }
 
             return result;
         }
 
-        public override JObject ToJObject()
+        public override JsonObject ToJsonObject()
         {
-            JObject result = base.ToJObject();
+            JsonObject result = base.ToJsonObject();
             if(result == null)
             {
                 return result;
@@ -217,12 +217,12 @@ namespace SAM.Analytical.Systems
 
             if(Setpoint != null)
             {
-                result.Add("Setpoint", Setpoint.ToJObject());
+                result.Add("Setpoint", Setpoint.ToJsonObject());
             }
 
             if (Efficiency != null)
             {
-                result.Add("Efficiency", Efficiency.ToJObject());
+                result.Add("Efficiency", Efficiency.ToJsonObject());
             }
 
             if (!double.IsNaN(Capacity1))
@@ -259,14 +259,14 @@ namespace SAM.Analytical.Systems
 
             if (MotorEfficiency != null)
             {
-                result.Add("MotorEfficiency", MotorEfficiency.ToJObject());
+                result.Add("MotorEfficiency", MotorEfficiency.ToJsonObject());
             }
 
             result.Add("ExchangerCalculationMethod", ExchangerCalculationMethod.ToString());
 
             if (ExchangerEfficiency != null)
             {
-                result.Add("ExchangerEfficiency", ExchangerEfficiency.ToJObject());
+                result.Add("ExchangerEfficiency", ExchangerEfficiency.ToJsonObject());
             }
 
             result.Add("ExchangerType", ExchangerType.ToString());
@@ -283,7 +283,7 @@ namespace SAM.Analytical.Systems
 
             if (AncillaryLoad != null)
             {
-                result.Add("AncillaryLoad", AncillaryLoad.ToJObject());
+                result.Add("AncillaryLoad", AncillaryLoad.ToJsonObject());
             }
 
             result.Add("FreeCoolingType", FreeCoolingType.ToString());

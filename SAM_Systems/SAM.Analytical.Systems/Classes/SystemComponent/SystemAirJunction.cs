@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using System.Text.Json.Nodes;
 using SAM.Core.Systems;
 using System;
 
@@ -24,7 +24,7 @@ namespace SAM.Analytical.Systems
 
         }
 
-        public SystemAirJunction(JObject jObject)
+        public SystemAirJunction(JsonObject jObject)
             : base(jObject)
         {
 
@@ -36,14 +36,14 @@ namespace SAM.Analytical.Systems
 
         }
 
-        public override bool FromJObject(JObject jObject)
+        public override bool FromJsonObject(JsonObject jObject)
         {
-            return base.FromJObject(jObject);
+            return base.FromJsonObject(jObject);
         }
 
-        public override JObject ToJObject()
+        public override JsonObject ToJsonObject()
         {
-            return base.ToJObject();
+            return base.ToJsonObject();
         }
 
         public override SystemObject Duplicate(Guid? guid = null)

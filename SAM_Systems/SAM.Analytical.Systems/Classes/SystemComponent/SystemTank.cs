@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using System.Text.Json.Nodes;
 using SAM.Core;
 using SAM.Core.Systems;
 using System;
@@ -81,7 +81,7 @@ namespace SAM.Analytical.Systems
             }
         }
 
-        public SystemTank(JObject jObject)
+        public SystemTank(JsonObject jObject)
             : base(jObject)
         {
 
@@ -104,9 +104,9 @@ namespace SAM.Analytical.Systems
             }
         }
 
-        public override bool FromJObject(JObject jObject)
+        public override bool FromJsonObject(JsonObject jObject)
         {
-            bool result = base.FromJObject(jObject);
+            bool result = base.FromJsonObject(jObject);
             if (!result)
             {
                 return result;
@@ -114,95 +114,95 @@ namespace SAM.Analytical.Systems
 
             if(jObject.ContainsKey("InsulationConductivity"))
             {
-                InsulationConductivity = jObject.Value<double>("InsulationConductivity");
+                InsulationConductivity = jObject["InsulationConductivity"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("InsulationThickness"))
             {
-                InsulationThickness = jObject.Value<double>("InsulationThickness");
+                InsulationThickness = jObject["InsulationThickness"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("Volume"))
             {
-                Volume = jObject.Value<double>("Volume");
+                Volume = jObject["Volume"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("HeatExchangeEfficiency1"))
             {
-                HeatExchangeEfficiency1 = jObject.Value<double>("HeatExchangeEfficiency1");
+                HeatExchangeEfficiency1 = jObject["HeatExchangeEfficiency1"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("HeatExchangeEfficiency2"))
             {
-                HeatExchangeEfficiency2 = jObject.Value<double>("HeatExchangeEfficiency2");
+                HeatExchangeEfficiency2 = jObject["HeatExchangeEfficiency2"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("Height"))
             {
-                Height = jObject.Value<double>("Height");
+                Height = jObject["Height"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("AmbientTemperature"))
             {
-                AmbientTemperature = Core.Query.IJSAMObject<ModifiableValue>(jObject.Value<JObject>("AmbientTemperature"));
+                AmbientTemperature = Core.Query.IJSAMObject<ModifiableValue>(jObject["AmbientTemperature"] as JsonObject);
             }
 
             if (jObject.ContainsKey("Setpoint"))
             {
-                Setpoint = Core.Query.IJSAMObject<ModifiableValue>(jObject.Value<JObject>("Setpoint"));
+                Setpoint = Core.Query.IJSAMObject<ModifiableValue>(jObject["Setpoint"] as JsonObject);
             }
 
             if (jObject.ContainsKey("Capacity1"))
             {
-                Capacity1 = jObject.Value<double>("Capacity1");
+                Capacity1 = jObject["Capacity1"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("Capacity2"))
             {
-                Capacity2 = jObject.Value<double>("Capacity2");
+                Capacity2 = jObject["Capacity2"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("Capacity3"))
             {
-                Capacity3 = jObject.Value<double>("Capacity3");
+                Capacity3 = jObject["Capacity3"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("DesignPressureDrop1"))
             {
-                DesignPressureDrop1 = jObject.Value<double>("DesignPressureDrop1");
+                DesignPressureDrop1 = jObject["DesignPressureDrop1"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("DesignPressureDrop2"))
             {
-                DesignPressureDrop2 = jObject.Value<double>("DesignPressureDrop2");
+                DesignPressureDrop2 = jObject["DesignPressureDrop2"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("DesignPressureDrop3"))
             {
-                DesignPressureDrop3 = jObject.Value<double>("DesignPressureDrop3");
+                DesignPressureDrop3 = jObject["DesignPressureDrop3"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("DefinedHeatLossRate"))
             {
-                DefinedHeatLossRate = jObject.Value<double>("DefinedHeatLossRate");
+                DefinedHeatLossRate = jObject["DefinedHeatLossRate"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("UseDefinedHeatLoss"))
             {
-                UseDefinedHeatLoss = jObject.Value<bool>("UseDefinedHeatLoss");
+                UseDefinedHeatLoss = jObject["UseDefinedHeatLoss"]?.GetValue<bool>() ?? default(bool);
             }
 
             if (jObject.ContainsKey("SetpointMode"))
             {
-                SetpointMode = Core.Query.Enum<SetpointMode>(jObject.Value<string>("SetpointMode"));
+                SetpointMode = Core.Query.Enum<SetpointMode>(jObject["SetpointMode"]?.GetValue<string>() ?? null);
             }
 
             return result;
         }
 
-        public override JObject ToJObject()
+        public override JsonObject ToJsonObject()
         {
-            JObject result = base.ToJObject();
+            JsonObject result = base.ToJsonObject();
             if(result == null)
             {
                 return result;
@@ -240,12 +240,12 @@ namespace SAM.Analytical.Systems
 
             if(AmbientTemperature != null)
             {
-                result.Add("AmbientTemperature", AmbientTemperature.ToJObject());
+                result.Add("AmbientTemperature", AmbientTemperature.ToJsonObject());
             }
 
             if (Setpoint != null)
             {
-                result.Add("Setpoint", Setpoint.ToJObject());
+                result.Add("Setpoint", Setpoint.ToJsonObject());
             }
 
             if (!double.IsNaN(Capacity1))

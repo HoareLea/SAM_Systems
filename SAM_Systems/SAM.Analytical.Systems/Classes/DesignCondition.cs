@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using System.Text.Json.Nodes;
 using SAM.Core.Systems;
 
 namespace SAM.Analytical.Systems
@@ -72,12 +72,12 @@ namespace SAM.Analytical.Systems
             }
         }
 
-        public DesignCondition(JObject jObject)
+        public DesignCondition(JsonObject jObject)
         {
-            FromJObject(jObject);
+            FromJsonObject(jObject);
         }
 
-        public virtual bool FromJObject(JObject jObject)
+        public virtual bool FromJsonObject(JsonObject jObject)
         {
             if (jObject == null)
             {
@@ -86,35 +86,35 @@ namespace SAM.Analytical.Systems
 
             if (jObject.ContainsKey("Name"))
             {
-                name = jObject.Value<string>("Name");
+                name = jObject["Name"]?.GetValue<string>() ?? null;
             }
 
             if (jObject.ContainsKey("Description"))
             {
-                description = jObject.Value<string>("Description");
+                description = jObject["Description"]?.GetValue<string>() ?? null;
             }
 
             if (jObject.ContainsKey("PrecondHours"))
             {
-                precondHours = jObject.Value<int>("PrecondHours");
+                precondHours = jObject["PrecondHours"]?.GetValue<int>() ?? default(int);
             }
 
             if (jObject.ContainsKey("StartHour"))
             {
-                startHour = jObject.Value<int>("StartHour");
+                startHour = jObject["StartHour"]?.GetValue<int>() ?? default(int);
             }
 
             if (jObject.ContainsKey("EndHour"))
             {
-                endHour = jObject.Value<int>("EndHour");
+                endHour = jObject["EndHour"]?.GetValue<int>() ?? default(int);
             }
 
             return true;
         }
 
-        public virtual JObject ToJObject()
+        public virtual JsonObject ToJsonObject()
         {
-            JObject result = new JObject();
+            JsonObject result = new JsonObject();
             result.Add("_type", Core.Query.FullTypeName(this));
 
             if(name != null)

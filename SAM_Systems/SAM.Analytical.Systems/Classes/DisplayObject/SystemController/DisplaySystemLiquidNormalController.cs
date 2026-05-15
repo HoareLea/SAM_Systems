@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using System.Text.Json.Nodes;
 using SAM.Core.Systems;
 using SAM.Geometry.Planar;
 using SAM.Geometry.Systems;
@@ -45,7 +45,7 @@ namespace SAM.Analytical.Systems
             systemGeometryInstance = displaySystemLiquidNormalController?.systemGeometryInstance == null ? null : new SystemGeometryInstance(displaySystemLiquidNormalController?.systemGeometryInstance);
         }
 
-        public DisplaySystemLiquidNormalController(JObject jObject)
+        public DisplaySystemLiquidNormalController(JsonObject jObject)
             : base(jObject)
         {
 
@@ -71,9 +71,9 @@ namespace SAM.Analytical.Systems
             return systemGeometryInstance.Transform(transform2D);
         }
 
-        public override bool FromJObject(JObject jObject)
+        public override bool FromJsonObject(JsonObject jObject)
         {
-            bool result = base.FromJObject(jObject);
+            bool result = base.FromJsonObject(jObject);
             if (!result)
             {
                 return result;
@@ -81,15 +81,15 @@ namespace SAM.Analytical.Systems
 
             if (jObject.ContainsKey("SystemGeometryInstance"))
             {
-                systemGeometryInstance = new SystemGeometryInstance(jObject.Value<JObject>("SystemGeometryInstance"));
+                systemGeometryInstance = new SystemGeometryInstance(jObject["SystemGeometryInstance"] as JsonObject);
             }
 
             return result;
         }
 
-        public override JObject ToJObject()
+        public override JsonObject ToJsonObject()
         {
-            JObject result = base.ToJObject();
+            JsonObject result = base.ToJsonObject();
             if (result == null)
             {
                 return result;
@@ -97,7 +97,7 @@ namespace SAM.Analytical.Systems
 
             if (systemGeometryInstance != null)
             {
-                result.Add("SystemGeometryInstance", systemGeometryInstance.ToJObject());
+                result.Add("SystemGeometryInstance", systemGeometryInstance.ToJsonObject());
             }
 
             return result;

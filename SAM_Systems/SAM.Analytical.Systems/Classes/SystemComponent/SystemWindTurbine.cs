@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using System.Text.Json.Nodes;
 using SAM.Core;
 using SAM.Core.Systems;
 using System;
@@ -49,7 +49,7 @@ namespace SAM.Analytical.Systems
             }
         }
 
-        public SystemWindTurbine(JObject jObject)
+        public SystemWindTurbine(JsonObject jObject)
             : base(jObject)
         {
 
@@ -68,9 +68,9 @@ namespace SAM.Analytical.Systems
             }
         }
 
-        public override bool FromJObject(JObject jObject)
+        public override bool FromJsonObject(JsonObject jObject)
         {
-            bool result = base.FromJObject(jObject);
+            bool result = base.FromJsonObject(jObject);
             if (!result)
             {
                 return result;
@@ -78,40 +78,40 @@ namespace SAM.Analytical.Systems
 
             if (jObject.ContainsKey("HubHeight"))
             {
-                HubHeight = jObject.Value<double>("HubHeight");
+                HubHeight = jObject["HubHeight"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("Area"))
             {
-                Area = jObject.Value<double>("Area");
+                Area = jObject["Area"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("MinSpeed"))
             {
-                MinSpeed = jObject.Value<double>("MinSpeed");
+                MinSpeed = jObject["MinSpeed"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("CutOffSpeed"))
             {
-                CutOffSpeed = jObject.Value<double>("CutOffSpeed");
+                CutOffSpeed = jObject["CutOffSpeed"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("Multiplicity"))
             {
-                Multiplicity = jObject.Value<int>("Multiplicity");
+                Multiplicity = jObject["Multiplicity"]?.GetValue<int>() ?? default(int);
             }
 
             if (jObject.ContainsKey("Efficiency"))
             {
-                Efficiency = Core.Query.IJSAMObject<ModifiableValue>(jObject.Value<JObject>("Efficiency"));
+                Efficiency = Core.Query.IJSAMObject<ModifiableValue>(jObject["Efficiency"] as JsonObject);
             }
 
             return result;
         }
 
-        public override JObject ToJObject()
+        public override JsonObject ToJsonObject()
         {
-            JObject result = base.ToJObject();
+            JsonObject result = base.ToJsonObject();
             if (result == null)
             {
                 return result;
@@ -141,7 +141,7 @@ namespace SAM.Analytical.Systems
             
             if (Efficiency != null)
             {
-                result.Add("Efficiency", Efficiency.ToJObject());
+                result.Add("Efficiency", Efficiency.ToJsonObject());
             }
 
             return result;

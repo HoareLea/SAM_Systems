@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using System.Text.Json.Nodes;
 using System;
 
 namespace SAM.Core.Systems
@@ -17,7 +17,7 @@ namespace SAM.Core.Systems
 
         }
 
-        public SystemJunction(JObject jObject)
+        public SystemJunction(JsonObject jObject)
             : base(jObject)
         {
 
@@ -55,7 +55,7 @@ namespace SAM.Core.Systems
 
         }
 
-        public SystemJunction(JObject jObject)
+        public SystemJunction(JsonObject jObject)
             : base(jObject)
         {
 
@@ -85,14 +85,14 @@ namespace SAM.Core.Systems
             }
         }
 
-        public override bool FromJObject(JObject jObject)
+        public override bool FromJsonObject(JsonObject jObject)
         {
-            return base.FromJObject(jObject);
+            return base.FromJsonObject(jObject);
         }
 
-        public override JObject ToJObject()
+        public override JsonObject ToJsonObject()
         {
-            return base.ToJObject();
+            return base.ToJsonObject();
         }
     }
 }

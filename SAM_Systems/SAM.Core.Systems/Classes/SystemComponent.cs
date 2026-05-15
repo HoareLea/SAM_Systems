@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using System.Text.Json.Nodes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +19,7 @@ namespace SAM.Core.Systems
 
         }
 
-        public SystemComponent(JObject jObject)
+        public SystemComponent(JsonObject jObject)
             : base(jObject)
         {
 
@@ -39,14 +39,14 @@ namespace SAM.Core.Systems
 
         public abstract SystemConnectorManager SystemConnectorManager { get; }
 
-        public override bool FromJObject(JObject jObject)
+        public override bool FromJsonObject(JsonObject jObject)
         {
-            return base.FromJObject(jObject);
+            return base.FromJsonObject(jObject);
         }
 
-        public override JObject ToJObject()
+        public override JsonObject ToJsonObject()
         {
-            return base.ToJObject();
+            return base.ToJsonObject();
         }
 
         public virtual List<SystemConnector> GetSystemConnectors(SystemPlantRoom systemPlantRoom, ConnectorStatus connectorStatus)

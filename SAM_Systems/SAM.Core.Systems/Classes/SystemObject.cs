@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using System.Text.Json.Nodes;
 using System;
 
 namespace SAM.Core.Systems
@@ -32,7 +32,7 @@ namespace SAM.Core.Systems
             Description = systemObject?.Description;
         }
 
-        public SystemObject(JObject jObject)
+        public SystemObject(JsonObject jObject)
             : base(jObject)
         {
 
@@ -50,9 +50,9 @@ namespace SAM.Core.Systems
 
         }
 
-        public override bool FromJObject(JObject jObject)
+        public override bool FromJsonObject(JsonObject jObject)
         {
-            bool result = base.FromJObject(jObject);
+            bool result = base.FromJsonObject(jObject);
             if (!result)
             {
                 return result;
@@ -60,15 +60,15 @@ namespace SAM.Core.Systems
 
             if (jObject.ContainsKey("Description"))
             {
-                Description = jObject.Value<string>("Description");
+                Description = jObject["Description"]?.GetValue<string>() ?? null;
             }
 
             return result;
         }
 
-        public override JObject ToJObject()
+        public override JsonObject ToJsonObject()
         {
-            JObject result = base.ToJObject();
+            JsonObject result = base.ToJsonObject();
             if (result == null)
             {
                 return result;

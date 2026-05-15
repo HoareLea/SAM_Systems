@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json.Linq;
-
+﻿using System.Text.Json.Nodes;
 namespace SAM.Analytical.Systems
 {
     public abstract class SystemSetpointController : SystemSensorController
@@ -53,7 +52,7 @@ namespace SAM.Analytical.Systems
             }
         }
 
-        public SystemSetpointController(JObject jObject)
+        public SystemSetpointController(JsonObject jObject)
             : base(jObject)
         {
 
@@ -75,9 +74,9 @@ namespace SAM.Analytical.Systems
             }
         }
 
-        public override bool FromJObject(JObject jObject)
+        public override bool FromJsonObject(JsonObject jObject)
         {
-            bool result = base.FromJObject(jObject);
+            bool result = base.FromJsonObject(jObject);
             if (!result)
             {
                 return result;
@@ -85,20 +84,20 @@ namespace SAM.Analytical.Systems
 
             if (jObject.ContainsKey("Setpoint"))
             {
-                setpoint = Core.Query.IJSAMObject<ISetpoint>(jObject.Value<JObject>("Setpoint"));
+                setpoint = Core.Query.IJSAMObject<ISetpoint>(jObject["Setpoint"] as JsonObject);
             }
 
             if (jObject.ContainsKey("Setback"))
             {
-                setback = Core.Query.IJSAMObject<ISetback>(jObject.Value<JObject>("Setback"));
+                setback = Core.Query.IJSAMObject<ISetback>(jObject["Setback"] as JsonObject);
             }
 
             return true;
         }
 
-        public override JObject ToJObject()
+        public override JsonObject ToJsonObject()
         {
-            JObject result = base.ToJObject();
+            JsonObject result = base.ToJsonObject();
             if (result == null)
             {
                 return null;
@@ -106,12 +105,12 @@ namespace SAM.Analytical.Systems
 
             if (setpoint != null)
             {
-                result.Add("Setpoint", setpoint.ToJObject());
+                result.Add("Setpoint", setpoint.ToJsonObject());
             }
 
             if (setback != null)
             {
-                result.Add("Setback", setback.ToJObject());
+                result.Add("Setback", setback.ToJsonObject());
             }
 
             return result;

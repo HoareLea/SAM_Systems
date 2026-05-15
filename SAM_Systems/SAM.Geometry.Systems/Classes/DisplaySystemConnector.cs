@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using System.Text.Json.Nodes;
 using SAM.Core.Systems;
 using SAM.Geometry.Planar;
 
@@ -23,15 +23,15 @@ namespace SAM.Geometry.Systems
             }
         }
 
-        public DisplaySystemConnector(JObject jObject)
+        public DisplaySystemConnector(JsonObject jObject)
             :base(jObject)
         {
 
         }
 
-        public override bool FromJObject(JObject jObject)
+        public override bool FromJsonObject(JsonObject jObject)
         {
-            bool result = base.FromJObject(jObject);
+            bool result = base.FromJsonObject(jObject);
             if(!result)
             {
                 return result;
@@ -39,7 +39,7 @@ namespace SAM.Geometry.Systems
 
             if(jObject.ContainsKey("Location"))
             {
-                location = new Point2D(jObject.Value<JObject>("Location"));
+                location = new Point2D(jObject["Location"] as JsonObject);
             }
 
             return result;
@@ -53,9 +53,9 @@ namespace SAM.Geometry.Systems
             }
         }
 
-        public override JObject ToJObject()
+        public override JsonObject ToJsonObject()
         {
-            JObject result = base.ToJObject();
+            JsonObject result = base.ToJsonObject();
             if(result == null)
             {
                 return null;
@@ -63,7 +63,7 @@ namespace SAM.Geometry.Systems
 
             if(Location != null)
             {
-                result.Add("Location", location.ToJObject());
+                result.Add("Location", location.ToJsonObject());
             }
 
             return result;

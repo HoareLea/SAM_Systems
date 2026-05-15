@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using System.Text.Json.Nodes;
 using SAM.Core;
 using SAM.Core.Systems;
 using System;
@@ -46,7 +46,7 @@ namespace SAM.Analytical.Systems
             }
         }
 
-        public SystemLoadComponent(JObject jObject)
+        public SystemLoadComponent(JsonObject jObject)
             : base(jObject)
         {
 
@@ -65,9 +65,9 @@ namespace SAM.Analytical.Systems
             }
         }
 
-        public override bool FromJObject(JObject jObject)
+        public override bool FromJsonObject(JsonObject jObject)
         {
-            bool result = base.FromJObject(jObject);
+            bool result = base.FromJsonObject(jObject);
             if (!result)
             {
                 return result;
@@ -75,35 +75,35 @@ namespace SAM.Analytical.Systems
 
             if (jObject.ContainsKey("Value"))
             {
-                Value = Core.Query.IJSAMObject<ModifiableValue>(jObject.Value<JObject>("Value"));
+                Value = Core.Query.IJSAMObject<ModifiableValue>(jObject["Value"] as JsonObject);
             }
 
             if (jObject.ContainsKey("Type"))
             {
-                Type = Core.Query.Enum<LoadComponentValueType>(jObject.Value<string>("Type"));
+                Type = Core.Query.Enum<LoadComponentValueType>(jObject["Type"]?.GetValue<string>() ?? null);
             }
 
             if (jObject.ContainsKey("TemperatureDifference"))
             {
-                TemperatureDifference = jObject.Value<double>("TemperatureDifference");
+                TemperatureDifference = jObject["TemperatureDifference"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("SpecificHeatCapacity"))
             {
-                SpecificHeatCapacity = jObject.Value<double>("SpecificHeatCapacity");
+                SpecificHeatCapacity = jObject["SpecificHeatCapacity"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("Density"))
             {
-                Density = jObject.Value<double>("Density");
+                Density = jObject["Density"]?.GetValue<double>() ?? default(double);
             }
 
             return result;
         }
 
-        public override JObject ToJObject()
+        public override JsonObject ToJsonObject()
         {
-            JObject result = base.ToJObject();
+            JsonObject result = base.ToJsonObject();
             if (result == null)
             {
                 return result;
@@ -111,7 +111,7 @@ namespace SAM.Analytical.Systems
             
             if (Value != null)
             {
-                result.Add("Value", Value.ToJObject());
+                result.Add("Value", Value.ToJsonObject());
             }
 
             if(Type != LoadComponentValueType.Undefined)

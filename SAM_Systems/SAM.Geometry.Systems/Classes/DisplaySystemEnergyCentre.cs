@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using System.Text.Json.Nodes;
 using SAM.Core.Systems;
 
 namespace SAM.Geometry.Systems
@@ -11,7 +11,7 @@ namespace SAM.Geometry.Systems
 
         }
 
-        public DisplaySystemEnergyCentre(JObject jObject)
+        public DisplaySystemEnergyCentre(JsonObject jObject)
             : base(jObject)
         {
 

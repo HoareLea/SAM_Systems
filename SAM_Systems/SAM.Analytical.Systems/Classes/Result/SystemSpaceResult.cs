@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using System.Text.Json.Nodes;
 using SAM.Core;
 using SAM.Core.Systems;
 using System.Collections.Generic;
@@ -10,10 +10,10 @@ namespace SAM.Analytical.Systems
         private double area;
         private double volume;
 
-        public SystemSpaceResult(JObject jObject)
+        public SystemSpaceResult(JsonObject jObject)
             : base(jObject)
         {
-            FromJObject(jObject);
+            FromJsonObject(jObject);
         }
 
         public SystemSpaceResult(SystemSpaceResult spaceSystemResult)
@@ -49,9 +49,9 @@ namespace SAM.Analytical.Systems
             }
         }
 
-        public override bool FromJObject(JObject jObject)
+        public override bool FromJsonObject(JsonObject jObject)
         {
-            bool result = base.FromJObject(jObject);
+            bool result = base.FromJsonObject(jObject);
             if (!result)
             {
                 return result;
@@ -59,20 +59,20 @@ namespace SAM.Analytical.Systems
 
             if (jObject.ContainsKey("Area"))
             {
-                area = jObject.Value<double>("Area");
+                area = jObject["Area"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("Volume"))
             {
-                volume = jObject.Value<double>("Volume");
+                volume = jObject["Volume"]?.GetValue<double>() ?? default(double);
             }
 
             return result;
         }
 
-        public override JObject ToJObject()
+        public override JsonObject ToJsonObject()
         {
-            JObject jObject = base.ToJObject();
+            JsonObject jObject = base.ToJsonObject();
             if (jObject == null)
             {
                 return null;
