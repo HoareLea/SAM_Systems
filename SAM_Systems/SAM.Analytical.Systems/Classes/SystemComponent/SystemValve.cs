@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json.Linq;
+﻿// SPDX-License-Identifier: LGPL-3.0-or-later
+// Copyright (c) 2020–2026 Michal Dengusiak & Jakub Ziolkowski and contributors
+using System.Text.Json.Nodes;
 using SAM.Core.Systems;
 using System;
 
@@ -45,7 +47,7 @@ namespace SAM.Analytical.Systems
             }
         }
 
-        public SystemValve(JObject jObject)
+        public SystemValve(JsonObject jObject)
             : base(jObject)
         {
 
@@ -64,9 +66,9 @@ namespace SAM.Analytical.Systems
             }
         }
 
-        public override bool FromJObject(JObject jObject)
+        public override bool FromJsonObject(JsonObject jObject)
         {
-            bool result = base.FromJObject(jObject);
+            bool result = base.FromJsonObject(jObject);
             if (!result)
             {
                 return result;
@@ -74,35 +76,35 @@ namespace SAM.Analytical.Systems
 
             if(jObject.ContainsKey("Capacity"))
             {
-                Capacity = jObject.Value<double>("Capacity");
+                Capacity = jObject["Capacity"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("DesignCapacitySignal"))
             {
-                DesignCapacitySignal = jObject.Value<double>("DesignCapacitySignal");
+                DesignCapacitySignal = jObject["DesignCapacitySignal"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("DesignFlowRate"))
             {
-                DesignFlowRate = jObject.Value<double>("DesignFlowRate");
+                DesignFlowRate = jObject["DesignFlowRate"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("DesignPressureDrop"))
             {
-                DesignPressureDrop = jObject.Value<double>("DesignPressureDrop");
+                DesignPressureDrop = jObject["DesignPressureDrop"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("ScheduleName"))
             {
-                ScheduleName = jObject.Value<string>("ScheduleName");
+                ScheduleName = jObject["ScheduleName"]?.GetValue<string>() ?? null;
             }
 
             return result;
         }
 
-        public override JObject ToJObject()
+        public override JsonObject ToJsonObject()
         {
-            JObject result = base.ToJObject();
+            JsonObject result = base.ToJsonObject();
             if(result == null)
             {
                 return result;

@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json.Linq;
+﻿// SPDX-License-Identifier: LGPL-3.0-or-later
+// Copyright (c) 2020–2026 Michal Dengusiak & Jakub Ziolkowski and contributors
+using System.Text.Json.Nodes;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -8,10 +10,10 @@ namespace SAM.Core.Systems
     {
         private Dictionary<string, IndexedDoubles> dictionary;
 
-        public SystemIndexedDoublesResult(JObject jObject)
+        public SystemIndexedDoublesResult(JsonObject jObject)
             : base(jObject)
         {
-            FromJObject(jObject);
+            FromJsonObject(jObject);
         }
 
         public SystemIndexedDoublesResult(SystemIndexedDoublesResult systemIndexedDoublesResult)
@@ -105,9 +107,9 @@ namespace SAM.Core.Systems
             return dictionary != null && dictionary.ContainsKey(@enum.Description());
         }
 
-        public override bool FromJObject(JObject jObject)
+        public override bool FromJsonObject(JsonObject jObject)
         {
-            bool result = base.FromJObject(jObject);
+            bool result = base.FromJsonObject(jObject);
             if (!result)
             {
                 return result;
@@ -115,24 +117,29 @@ namespace SAM.Core.Systems
 
             if (jObject.ContainsKey("Data"))
             {
-                JArray jArray = jObject.Value<JArray>("Data");
+                JsonArray jArray = jObject["Data"] as JsonArray;
                 if (jArray != null)
                 {
                     dictionary = new Dictionary<string, IndexedDoubles>();
-                    foreach (JArray jArray_Temp in jArray)
+                    foreach (JsonNode jsonNode in jArray)
                     {
+                        if (!(jsonNode is JsonArray jArray_Temp))
+                        {
+                            continue;
+                        }
+
                         if (jArray_Temp == null || jArray_Temp.Count != 2)
                         {
                             continue;
                         }
 
-                        string uniqueId = (string)jArray_Temp[0];
+                        string uniqueId = jArray_Temp[0]?.GetValue<string>();
                         if (uniqueId == null)
                         {
                             continue;
                         }
 
-                        JObject jObject_Temp = jArray_Temp[1] is JObject ? (JObject)jArray_Temp[1] : null;
+                        JsonObject jObject_Temp = jArray_Temp[1] is JsonObject ? (JsonObject)jArray_Temp[1] : null;
 
                         dictionary[uniqueId] = new IndexedDoubles(jObject_Temp);
                     }
@@ -142,9 +149,9 @@ namespace SAM.Core.Systems
             return result;
         }
 
-        public override JObject ToJObject()
+        public override JsonObject ToJsonObject()
         {
-            JObject jObject = base.ToJObject();
+            JsonObject jObject = base.ToJsonObject();
             if (jObject == null)
             {
                 return null;
@@ -152,7 +159,7 @@ namespace SAM.Core.Systems
 
             if (dictionary != null)
             {
-                JArray jArray = new JArray();
+                JsonArray jArray = new JsonArray();
                 foreach (KeyValuePair<string, IndexedDoubles> keyValuePair in dictionary)
                 {
                     if (keyValuePair.Key == null)
@@ -160,7 +167,7 @@ namespace SAM.Core.Systems
                         continue;
                     }
 
-                    jArray.Add(new JArray(keyValuePair.Key, keyValuePair.Value?.ToJObject()));
+                    jArray.Add(new JsonArray(keyValuePair.Key, keyValuePair.Value?.ToJsonObject()));
                 }
                 jObject.Add("Data", jArray);
             }

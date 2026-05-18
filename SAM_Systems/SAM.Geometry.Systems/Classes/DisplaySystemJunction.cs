@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json.Linq;
+﻿// SPDX-License-Identifier: LGPL-3.0-or-later
+// Copyright (c) 2020–2026 Michal Dengusiak & Jakub Ziolkowski and contributors
+using System.Text.Json.Nodes;
 using SAM.Core.Systems;
 using SAM.Geometry.Planar;
 
@@ -30,7 +32,7 @@ namespace SAM.Geometry.Systems
             systemGeometryInstance = displaySystemJunction?.systemGeometryInstance == null ? null : new SystemGeometryInstance(displaySystemJunction?.systemGeometryInstance);
         }
 
-        public DisplaySystemJunction(JObject jObject)
+        public DisplaySystemJunction(JsonObject jObject)
             : base(jObject)
         {
 
@@ -46,9 +48,9 @@ namespace SAM.Geometry.Systems
             return systemGeometryInstance.Move(vector2D);
         }
 
-        public override bool FromJObject(JObject jObject)
+        public override bool FromJsonObject(JsonObject jObject)
         {
-            bool result = base.FromJObject(jObject);
+            bool result = base.FromJsonObject(jObject);
             if(!result)
             {
                 return result;
@@ -56,15 +58,15 @@ namespace SAM.Geometry.Systems
 
             if(jObject.ContainsKey("SystemGeometryInstance"))
             {
-                systemGeometryInstance = new SystemGeometryInstance(jObject.Value<JObject>("SystemGeometryInstance"));
+                systemGeometryInstance = new SystemGeometryInstance(jObject["SystemGeometryInstance"] as JsonObject);
             }
 
             return result;
         }
 
-        public override JObject ToJObject()
+        public override JsonObject ToJsonObject()
         {
-            JObject result = base.ToJObject();
+            JsonObject result = base.ToJsonObject();
             if(result == null)
             {
                 return result;
@@ -72,7 +74,7 @@ namespace SAM.Geometry.Systems
 
             if (systemGeometryInstance != null)
             {
-                result.Add("SystemGeometryInstance", systemGeometryInstance.ToJObject());
+                result.Add("SystemGeometryInstance", systemGeometryInstance.ToJsonObject());
             }
 
             return result;

@@ -1,8 +1,7 @@
 ﻿// SPDX-License-Identifier: LGPL-3.0-or-later
 // Copyright (c) 2020–2026 Michal Dengusiak & Jakub Ziolkowski and contributors
 
-using Newtonsoft.Json.Linq;
-
+using System.Text.Json.Nodes;
 namespace SAM.Analytical.Systems
 {
     public class SetpointSetback : Setback
@@ -29,7 +28,7 @@ namespace SAM.Analytical.Systems
             }
         }
 
-        public SetpointSetback(JObject jObject)
+        public SetpointSetback(JsonObject jObject)
             : base(jObject)
         {
 
@@ -43,9 +42,9 @@ namespace SAM.Analytical.Systems
             }
         }
 
-        public override bool FromJObject(JObject jObject)
+        public override bool FromJsonObject(JsonObject jObject)
         {
-            bool result = base.FromJObject(jObject);
+            bool result = base.FromJsonObject(jObject);
             if (!result)
             {
                 return result;
@@ -53,15 +52,15 @@ namespace SAM.Analytical.Systems
 
             if (jObject.ContainsKey("Setpoint"))
             {
-                setpoint = Core.Query.IJSAMObject<ISetpoint>(jObject.Value<JObject>("Setpoint"));
+                setpoint = Core.Query.IJSAMObject<ISetpoint>(jObject["Setpoint"] as JsonObject);
             }
 
             return true;
         }
 
-        public override JObject ToJObject()
+        public override JsonObject ToJsonObject()
         {
-            JObject result = base.ToJObject();
+            JsonObject result = base.ToJsonObject();
             if (result == null)
             {
                 return null;
@@ -69,7 +68,7 @@ namespace SAM.Analytical.Systems
 
             if (setpoint != null)
             {
-                result.Add("Setpoint", setpoint.ToJObject());
+                result.Add("Setpoint", setpoint.ToJsonObject());
             }
 
             return result;

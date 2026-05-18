@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json.Linq;
+﻿// SPDX-License-Identifier: LGPL-3.0-or-later
+// Copyright (c) 2020–2026 Michal Dengusiak & Jakub Ziolkowski and contributors
+using System.Text.Json.Nodes;
 using SAM.Core;
 using SAM.Core.Systems;
 using System;
@@ -57,7 +59,7 @@ namespace SAM.Analytical.Systems
             }
         }
 
-        public SystemSurfaceWaterExchanger(JObject jObject)
+        public SystemSurfaceWaterExchanger(JsonObject jObject)
             : base(jObject)
         {
 
@@ -76,9 +78,9 @@ namespace SAM.Analytical.Systems
             }
         }
 
-        public override bool FromJObject(JObject jObject)
+        public override bool FromJsonObject(JsonObject jObject)
         {
-            bool result = base.FromJObject(jObject);
+            bool result = base.FromJsonObject(jObject);
             if (!result)
             {
                 return result;
@@ -86,50 +88,50 @@ namespace SAM.Analytical.Systems
 
             if (jObject.ContainsKey("Capacity"))
             {
-                Capacity = jObject.Value<double>("Capacity");
+                Capacity = jObject["Capacity"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("DesignPressureDrop"))
             {
-                DesignPressureDrop = jObject.Value<double>("DesignPressureDrop");
+                DesignPressureDrop = jObject["DesignPressureDrop"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("Efficiency"))
             {
-                Efficiency = Core.Query.IJSAMObject<ModifiableValue>(jObject.Value<JObject>("Efficiency"));
+                Efficiency = Core.Query.IJSAMObject<ModifiableValue>(jObject["Efficiency"] as JsonObject);
             }
 
             if (jObject.ContainsKey("PondVolume"))
             {
-                PondVolume = jObject.Value<double>("PondVolume");
+                PondVolume = jObject["PondVolume"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("PondSurfaceArea"))
             {
-                PondSurfaceArea = jObject.Value<double>("PondSurfaceArea");
+                PondSurfaceArea = jObject["PondSurfaceArea"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("PondPerimeter"))
             {
-                PondPerimeter = jObject.Value<double>("PondPerimeter");
+                PondPerimeter = jObject["PondPerimeter"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("GroundConductivity"))
             {
-                GroundConductivity = jObject.Value<double>("GroundConductivity");
+                GroundConductivity = jObject["GroundConductivity"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("WaterTableDepth"))
             {
-                WaterTableDepth = jObject.Value<double>("WaterTableDepth");
+                WaterTableDepth = jObject["WaterTableDepth"]?.GetValue<double>() ?? default(double);
             }
 
             return result;
         }
 
-        public override JObject ToJObject()
+        public override JsonObject ToJsonObject()
         {
-            JObject result = base.ToJObject();
+            JsonObject result = base.ToJsonObject();
             if (result == null)
             {
                 return result;
@@ -147,7 +149,7 @@ namespace SAM.Analytical.Systems
 
             if (Efficiency != null)
             {
-                result.Add("Efficiency", Efficiency.ToJObject());
+                result.Add("Efficiency", Efficiency.ToJsonObject());
             }
 
             if (!double.IsNaN(PondVolume))

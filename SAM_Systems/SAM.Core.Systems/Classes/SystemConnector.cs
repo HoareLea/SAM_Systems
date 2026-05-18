@@ -1,5 +1,6 @@
-﻿using Newtonsoft.Json.Linq;
-
+﻿// SPDX-License-Identifier: LGPL-3.0-or-later
+// Copyright (c) 2020–2026 Michal Dengusiak & Jakub Ziolkowski and contributors
+using System.Text.Json.Nodes;
 namespace SAM.Core.Systems
 {
     public class SystemConnector: ISystemJSAMObject
@@ -44,9 +45,9 @@ namespace SAM.Core.Systems
             this.systemType = systemType;
         }
 
-        public SystemConnector(JObject jObject)
+        public SystemConnector(JsonObject jObject)
         {
-            FromJObject(jObject);
+            FromJsonObject(jObject);
         }
 
         public SystemConnector(SystemConnector systemConnector)
@@ -108,7 +109,7 @@ namespace SAM.Core.Systems
             return this.systemType.IsValid(systemType);
         }
 
-        public virtual bool FromJObject(JObject jObject)
+        public virtual bool FromJsonObject(JsonObject jObject)
         {
             if(jObject == null)
             {
@@ -117,30 +118,30 @@ namespace SAM.Core.Systems
 
             if(jObject.ContainsKey("SystemType"))
             {
-                systemType = new SystemType(jObject.Value<JObject>("SystemType"));
+                systemType = new SystemType(jObject["SystemType"] as JsonObject);
             }
 
             if (jObject.ContainsKey("Direction"))
             {
-                direction = Core.Query.Enum<Direction>(jObject.Value<string>("Direction"));
+                direction = Core.Query.Enum<Direction>(jObject["Direction"]?.GetValue<string>() ?? null);
             }
 
             if(jObject.ContainsKey("ConnectionIndex"))
             {
-                connectionIndex = jObject.Value<int>("ConnectionIndex");
+                connectionIndex = jObject["ConnectionIndex"]?.GetValue<int>() ?? default(int);
             }
 
             return true;
         }
 
-        public virtual JObject ToJObject()
+        public virtual JsonObject ToJsonObject()
         {
-            JObject result = new JObject();
+            JsonObject result = new JsonObject();
             result.Add("_type", Core.Query.FullTypeName(this));
 
             if(systemType != null)
             {
-                result.Add("SystemType", systemType.ToJObject());
+                result.Add("SystemType", systemType.ToJsonObject());
             }
 
             result.Add("Direction", direction.ToString());

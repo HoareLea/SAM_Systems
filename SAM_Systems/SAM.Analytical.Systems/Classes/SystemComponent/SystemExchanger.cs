@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json.Linq;
+﻿// SPDX-License-Identifier: LGPL-3.0-or-later
+// Copyright (c) 2020–2026 Michal Dengusiak & Jakub Ziolkowski and contributors
+using System.Text.Json.Nodes;
 using SAM.Analytical.Systems.Interfaces;
 using SAM.Core;
 using SAM.Core.Systems;
@@ -79,7 +81,7 @@ namespace SAM.Analytical.Systems
             }
         }
 
-        public SystemExchanger(JObject jObject)
+        public SystemExchanger(JsonObject jObject)
             : base(jObject)
         {
 
@@ -100,9 +102,9 @@ namespace SAM.Analytical.Systems
             }
         }
 
-        public override bool FromJObject(JObject jObject)
+        public override bool FromJsonObject(JsonObject jObject)
         {
-            bool result = base.FromJObject(jObject);
+            bool result = base.FromJsonObject(jObject);
             if (!result)
             {
                 return result;
@@ -110,80 +112,80 @@ namespace SAM.Analytical.Systems
 
             if (jObject.ContainsKey("ExchangerCalculationMethod"))
             {
-                ExchangerCalculationMethod = Core.Query.Enum<ExchangerCalculationMethod>(jObject.Value<string>("ExchangerCalculationMethod"));
+                ExchangerCalculationMethod = Core.Query.Enum<ExchangerCalculationMethod>(jObject["ExchangerCalculationMethod"]?.GetValue<string>() ?? null);
             }
 
             if (jObject.ContainsKey("ExchangerType"))
             {
-                ExchangerType = Core.Query.Enum<ExchangerType>(jObject.Value<string>("ExchangerType"));
+                ExchangerType = Core.Query.Enum<ExchangerType>(jObject["ExchangerType"]?.GetValue<string>() ?? null);
             }
 
             if (jObject.ContainsKey("SensibleEfficiency"))
             {
-                SensibleEfficiency = Core.Query.IJSAMObject<ModifiableValue>(jObject.Value<JObject>("SensibleEfficiency"));
+                SensibleEfficiency = Core.Query.IJSAMObject<ModifiableValue>(jObject["SensibleEfficiency"] as JsonObject);
             }
 
             if (jObject.ContainsKey("HeatTransferSurfaceArea"))
             {
-                HeatTransferSurfaceArea = jObject.Value<double>("HeatTransferSurfaceArea");
+                HeatTransferSurfaceArea = jObject["HeatTransferSurfaceArea"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("ExchangerLatentType"))
             {
-                ExchangerLatentType = Core.Query.Enum<ExchangerLatentType>(jObject.Value<string>("ExchangerLatentType"));
+                ExchangerLatentType = Core.Query.Enum<ExchangerLatentType>(jObject["ExchangerLatentType"]?.GetValue<string>() ?? null);
             }
 
             if (jObject.ContainsKey("LatentEfficiency"))
             {
-                LatentEfficiency = Core.Query.IJSAMObject<ModifiableValue>(jObject.Value<JObject>("LatentEfficiency"));
+                LatentEfficiency = Core.Query.IJSAMObject<ModifiableValue>(jObject["LatentEfficiency"] as JsonObject);
             }
 
             if (jObject.ContainsKey("SetpointMode"))
             {
-                SetpointMode = Core.Query.Enum<SetpointMode>(jObject.Value<string>("SetpointMode"));
+                SetpointMode = Core.Query.Enum<SetpointMode>(jObject["SetpointMode"]?.GetValue<string>() ?? null);
             }
 
             if (jObject.ContainsKey("Setpoint"))
             {
-                Setpoint = Core.Query.IJSAMObject<ModifiableValue>(jObject.Value<JObject>("Setpoint"));
+                Setpoint = Core.Query.IJSAMObject<ModifiableValue>(jObject["Setpoint"] as JsonObject);
             }
 
             if (jObject.ContainsKey("ElectricalLoad"))
             {
-                ElectricalLoad = Core.Query.IJSAMObject<ModifiableValue>(jObject.Value<JObject>("ElectricalLoad"));
+                ElectricalLoad = Core.Query.IJSAMObject<ModifiableValue>(jObject["ElectricalLoad"] as JsonObject);
             }
 
             if (jObject.ContainsKey("Duty"))
             {
-                Duty = Core.Query.IJSAMObject<SizableValue>(jObject.Value<JObject>("Duty"));
+                Duty = Core.Query.IJSAMObject<SizableValue>(jObject["Duty"] as JsonObject);
             }
 
             if (jObject.ContainsKey("BypassFactor"))
             {
-                BypassFactor = Core.Query.IJSAMObject<ModifiableValue>(jObject.Value<JObject>("BypassFactor"));
+                BypassFactor = Core.Query.IJSAMObject<ModifiableValue>(jObject["BypassFactor"] as JsonObject);
             }
 
             if (jObject.ContainsKey("HeatingOnly"))
             {
-                HeatingOnly = jObject.Value<bool>("HeatingOnly");
+                HeatingOnly = jObject["HeatingOnly"]?.GetValue<bool>() ?? default(bool);
             }
 
             if (jObject.ContainsKey("AdjustForOptimiser"))
             {
-                AdjustForOptimiser = jObject.Value<bool>("AdjustForOptimiser");
+                AdjustForOptimiser = jObject["AdjustForOptimiser"]?.GetValue<bool>() ?? default(bool);
             }
 
             if (jObject.ContainsKey("ScheduleName"))
             {
-                ScheduleName = jObject.Value<string>("ScheduleName");
+                ScheduleName = jObject["ScheduleName"]?.GetValue<string>() ?? null;
             }
 
             return true;
         }
 
-        public override JObject ToJObject()
+        public override JsonObject ToJsonObject()
         {
-            JObject result = base.ToJObject();
+            JsonObject result = base.ToJsonObject();
             if (result == null)
             {
                 return null;
@@ -195,7 +197,7 @@ namespace SAM.Analytical.Systems
 
             if (SensibleEfficiency != null)
             {
-                result.Add("SensibleEfficiency", SensibleEfficiency.ToJObject());
+                result.Add("SensibleEfficiency", SensibleEfficiency.ToJsonObject());
             }
 
             if (double.IsNaN(HeatTransferSurfaceArea))
@@ -212,29 +214,29 @@ namespace SAM.Analytical.Systems
 
             if (LatentEfficiency != null)
             {
-                result.Add("LatentEfficiency", LatentEfficiency.ToJObject());
+                result.Add("LatentEfficiency", LatentEfficiency.ToJsonObject());
             }
 
             result.Add("SetpointMode", SetpointMode.ToString());
 
             if (Setpoint != null)
             {
-                result.Add("Setpoint", Setpoint.ToJObject());
+                result.Add("Setpoint", Setpoint.ToJsonObject());
             }
 
             if (ElectricalLoad != null)
             {
-                result.Add("ElectricalLoad", ElectricalLoad.ToJObject());
+                result.Add("ElectricalLoad", ElectricalLoad.ToJsonObject());
             }
 
             if (Duty != null)
             {
-                result.Add("Duty", Duty.ToJObject());
+                result.Add("Duty", Duty.ToJsonObject());
             }
 
             if (BypassFactor != null)
             {
-                result.Add("BypassFactor", BypassFactor.ToJObject());
+                result.Add("BypassFactor", BypassFactor.ToJsonObject());
             }
 
             result.Add("HeatingOnly", HeatingOnly);

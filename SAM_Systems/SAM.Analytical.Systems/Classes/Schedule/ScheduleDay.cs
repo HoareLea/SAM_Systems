@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json.Linq;
+﻿// SPDX-License-Identifier: LGPL-3.0-or-later
+// Copyright (c) 2020–2026 Michal Dengusiak & Jakub Ziolkowski and contributors
+using System.Text.Json.Nodes;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -37,9 +39,9 @@ namespace SAM.Analytical.Systems
             }
         }
 
-        public ScheduleDay(JObject jObject)
+        public ScheduleDay(JsonObject jObject)
         {
-            FromJObject(jObject);
+            FromJsonObject(jObject);
         }
 
         public string Name
@@ -72,7 +74,7 @@ namespace SAM.Analytical.Systems
             }
         }
 
-        public virtual bool FromJObject(JObject jObject)
+        public virtual bool FromJsonObject(JsonObject jObject)
         {
             if (jObject == null)
             {
@@ -81,13 +83,13 @@ namespace SAM.Analytical.Systems
 
             if(jObject.ContainsKey("Name"))
             {
-                name = jObject.Value<string>("Name");
+                name = jObject["Name"]?.GetValue<string>() ?? null;
             }
 
             if(jObject.ContainsKey("Values"))
             {
                 values = new double[24];
-                JArray jArray = jObject.Value<JArray>("Values");
+                JsonArray jArray = jObject["Values"] as JsonArray;
                 int count = jArray.Count;
                 for (int i = 0; i < 24; i++)
                 {
@@ -98,9 +100,9 @@ namespace SAM.Analytical.Systems
             return true;
         }
 
-        public virtual JObject ToJObject()
+        public virtual JsonObject ToJsonObject()
         {
-            JObject result = new JObject();
+            JsonObject result = new JsonObject();
             result.Add("_type", Core.Query.FullTypeName(this));
 
             if(name != null)
@@ -110,7 +112,7 @@ namespace SAM.Analytical.Systems
 
             if(values != null)
             {
-                JArray jArray = new JArray();
+                JsonArray jArray = new JsonArray();
                 for (int i = 0; i < values.Length; i++)
                 {
                     jArray.Add(values[i]);

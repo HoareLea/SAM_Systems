@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json.Linq;
+﻿// SPDX-License-Identifier: LGPL-3.0-or-later
+// Copyright (c) 2020–2026 Michal Dengusiak & Jakub Ziolkowski and contributors
+using System.Text.Json.Nodes;
 using System;
 using System.Collections.Generic;
 
@@ -51,7 +53,7 @@ namespace SAM.Core.Systems
             }
         }
 
-        public SystemConnection(JObject jObject)
+        public SystemConnection(JsonObject jObject)
             : base(jObject)
         {
 
@@ -152,9 +154,9 @@ namespace SAM.Core.Systems
             return true;
         }
 
-        public override bool FromJObject(JObject jObject)
+        public override bool FromJsonObject(JsonObject jObject)
         {
-            bool result = base.FromJObject(jObject);
+            bool result = base.FromJsonObject(jObject);
             if(!result)
             {
                 return result;
@@ -162,23 +164,28 @@ namespace SAM.Core.Systems
 
             if(jObject.ContainsKey("SystemType"))
             {
-                systemType = new SystemType(jObject.Value<JObject>("SystemType"));
+                systemType = new SystemType(jObject["SystemType"] as JsonObject);
             }
 
             if(jObject.ContainsKey("ObjectReferences"))
             {
-                JArray jArray = jObject.Value<JArray>("ObjectReferences");
+                JsonArray jArray = jObject["ObjectReferences"] as JsonArray;
                 if(jArray != null)
                 {
                     dictionary = new Dictionary<ObjectReference, int>();
-                    foreach(JArray jArray_ObjectReference in jArray)
+                    foreach(JsonNode jsonNode in jArray)
                     {
+                        if (!(jsonNode is JsonArray jArray_ObjectReference))
+                        {
+                            continue;
+                        }
+
                         if(jArray_ObjectReference == null || jArray.Count == 0)
                         {
                             continue;
                         }
 
-                        JObject jObject_ObjectReference = jArray_ObjectReference[0]?.Value<JObject>(); 
+                        JsonObject jObject_ObjectReference = jArray_ObjectReference[0] as JsonObject; 
                         if(jObject_ObjectReference == null)
                         {
                             continue;
@@ -188,7 +195,7 @@ namespace SAM.Core.Systems
                         int index = -1;
                         if(jArray_ObjectReference.Count > 1)
                         {
-                            index = jArray_ObjectReference[1].Value<int>();
+                            index = jArray_ObjectReference[1]?.GetValue<int>() ?? default(int);
                         }
 
                         if(index == -1)
@@ -206,9 +213,9 @@ namespace SAM.Core.Systems
             return result;
         }
 
-        public override JObject ToJObject()
+        public override JsonObject ToJsonObject()
         {
-            JObject result = base.ToJObject();
+            JsonObject result = base.ToJsonObject();
             if(result == null)
             {
                 return result;
@@ -216,15 +223,15 @@ namespace SAM.Core.Systems
 
             if(systemType != null)
             {
-                result.Add("SystemType", systemType.ToJObject());
+                result.Add("SystemType", systemType.ToJsonObject());
             }
 
             if(dictionary != null)
             {
-                JArray jArray = new JArray();
+                JsonArray jArray = new JsonArray();
                 foreach(KeyValuePair<ObjectReference, int> keyValuePair in dictionary)
                 {
-                    JArray jArray_ObjectReference = new JArray() { keyValuePair.Key.ToJObject(), keyValuePair.Value };
+                    JsonArray jArray_ObjectReference = new JsonArray() { keyValuePair.Key.ToJsonObject(), keyValuePair.Value };
                     jArray.Add(jArray_ObjectReference);
                 }
 

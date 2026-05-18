@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json.Linq;
+﻿// SPDX-License-Identifier: LGPL-3.0-or-later
+// Copyright (c) 2020–2026 Michal Dengusiak & Jakub Ziolkowski and contributors
+using System.Text.Json.Nodes;
 using SAM.Core;
 using SAM.Core.Systems;
 using System;
@@ -58,7 +60,7 @@ namespace SAM.Analytical.Systems
             }
         }
 
-        public SystemDXCoil(JObject jObject)
+        public SystemDXCoil(JsonObject jObject)
             : base(jObject)
         {
 
@@ -80,9 +82,9 @@ namespace SAM.Analytical.Systems
             }
         }
 
-        public override bool FromJObject(JObject jObject)
+        public override bool FromJsonObject(JsonObject jObject)
         {
-            bool result = base.FromJObject(jObject);
+            bool result = base.FromJsonObject(jObject);
             if (!result)
             {
                 return result;
@@ -90,50 +92,50 @@ namespace SAM.Analytical.Systems
 
             if (jObject.ContainsKey("CoolingSetpoint"))
             {
-                CoolingSetpoint = Core.Query.IJSAMObject<ModifiableValue>(jObject.Value<JObject>("CoolingSetpoint"));
+                CoolingSetpoint = Core.Query.IJSAMObject<ModifiableValue>(jObject["CoolingSetpoint"] as JsonObject);
             }
 
             if (jObject.ContainsKey("HeatingSetpoint"))
             {
-                HeatingSetpoint = Core.Query.IJSAMObject<ModifiableValue>(jObject.Value<JObject>("HeatingSetpoint"));
+                HeatingSetpoint = Core.Query.IJSAMObject<ModifiableValue>(jObject["HeatingSetpoint"] as JsonObject);
             }
 
             if (jObject.ContainsKey("MinOffcoilTemperature"))
             {
-                MinOffcoilTemperature = Core.Query.IJSAMObject<ModifiableValue>(jObject.Value<JObject>("MinOffcoilTemperature"));
+                MinOffcoilTemperature = Core.Query.IJSAMObject<ModifiableValue>(jObject["MinOffcoilTemperature"] as JsonObject);
             }
 
             if (jObject.ContainsKey("MaxOffcoilTemperature"))
             {
-                MaxOffcoilTemperature = Core.Query.IJSAMObject<ModifiableValue>(jObject.Value<JObject>("MaxOffcoilTemperature"));
+                MaxOffcoilTemperature = Core.Query.IJSAMObject<ModifiableValue>(jObject["MaxOffcoilTemperature"] as JsonObject);
             }
 
             if (jObject.ContainsKey("BypassFactor"))
             {
-                BypassFactor = Core.Query.IJSAMObject<ModifiableValue>(jObject.Value<JObject>("BypassFactor"));
+                BypassFactor = Core.Query.IJSAMObject<ModifiableValue>(jObject["BypassFactor"] as JsonObject);
             }
 
             if (jObject.ContainsKey("CoolingDuty"))
             {
-                CoolingDuty = Core.Query.IJSAMObject<SizableValue>(jObject.Value<JObject>("CoolingDuty"));
+                CoolingDuty = Core.Query.IJSAMObject<SizableValue>(jObject["CoolingDuty"] as JsonObject);
             }
 
             if (jObject.ContainsKey("HeatingDuty"))
             {
-                HeatingDuty = Core.Query.IJSAMObject<SizableValue>(jObject.Value<JObject>("HeatingDuty"));
+                HeatingDuty = Core.Query.IJSAMObject<SizableValue>(jObject["HeatingDuty"] as JsonObject);
             }
 
             if (jObject.ContainsKey("ScheduleName"))
             {
-                ScheduleName = jObject.Value<string>("ScheduleName");
+                ScheduleName = jObject["ScheduleName"]?.GetValue<string>() ?? null;
             }
 
             return result;
         }
 
-        public override JObject ToJObject()
+        public override JsonObject ToJsonObject()
         {
-            JObject result = base.ToJObject();
+            JsonObject result = base.ToJsonObject();
             if (result == null)
             {
                 return null;
@@ -141,37 +143,37 @@ namespace SAM.Analytical.Systems
 
             if (CoolingSetpoint != null)
             {
-                result.Add("CoolingSetpoint", CoolingSetpoint.ToJObject());
+                result.Add("CoolingSetpoint", CoolingSetpoint.ToJsonObject());
             }
 
             if (HeatingSetpoint != null)
             {
-                result.Add("HeatingSetpoint", HeatingSetpoint.ToJObject());
+                result.Add("HeatingSetpoint", HeatingSetpoint.ToJsonObject());
             }
 
             if (MinOffcoilTemperature != null)
             {
-                result.Add("MinOffcoilTemperature", MinOffcoilTemperature.ToJObject());
+                result.Add("MinOffcoilTemperature", MinOffcoilTemperature.ToJsonObject());
             }
 
             if (MaxOffcoilTemperature != null)
             {
-                result.Add("MaxOffcoilTemperature", MaxOffcoilTemperature.ToJObject());
+                result.Add("MaxOffcoilTemperature", MaxOffcoilTemperature.ToJsonObject());
             }
 
             if (BypassFactor != null)
             {
-                result.Add("BypassFactor", BypassFactor.ToJObject());
+                result.Add("BypassFactor", BypassFactor.ToJsonObject());
             }
 
             if (CoolingDuty != null)
             {
-                result.Add("CoolingDuty", CoolingDuty.ToJObject());
+                result.Add("CoolingDuty", CoolingDuty.ToJsonObject());
             }
 
             if (HeatingDuty != null)
             {
-                result.Add("HeatingDuty", HeatingDuty.ToJObject());
+                result.Add("HeatingDuty", HeatingDuty.ToJsonObject());
             }
 
             if (ScheduleName != null)

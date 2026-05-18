@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json.Linq;
+﻿// SPDX-License-Identifier: LGPL-3.0-or-later
+// Copyright (c) 2020–2026 Michal Dengusiak & Jakub Ziolkowski and contributors
+using System.Text.Json.Nodes;
 using SAM.Core;
 
 namespace SAM.Analytical.Systems
@@ -28,7 +30,7 @@ namespace SAM.Analytical.Systems
             }
         }
 
-        public RangeSetpoint(JObject jObject)
+        public RangeSetpoint(JsonObject jObject)
             : base(jObject)
         {
 
@@ -91,9 +93,9 @@ namespace SAM.Analytical.Systems
             }
         }
 
-        public override bool FromJObject(JObject jObject)
+        public override bool FromJsonObject(JsonObject jObject)
         {
-            bool result = base.FromJObject(jObject);
+            bool result = base.FromJsonObject(jObject);
             if(!result)
             {
                 return result;
@@ -101,30 +103,30 @@ namespace SAM.Analytical.Systems
 
             if (jObject.ContainsKey("InputRange"))
             {
-                inputRange = new Range<double>(jObject.Value<JObject>("InputRange"));
+                inputRange = new Range<double>(jObject["InputRange"] as JsonObject);
             }
 
             if (jObject.ContainsKey("InputGradient"))
             {
-                inputGradient = Core.Query.Enum<Gradient>(jObject.Value<string>("InputGradient"));
+                inputGradient = Core.Query.Enum<Gradient>(jObject["InputGradient"]?.GetValue<string>() ?? null);
             }
 
             if (jObject.ContainsKey("OutputRange"))
             {
-                outputRange = new Range<double>(jObject.Value<JObject>("OutputRange"));
+                outputRange = new Range<double>(jObject["OutputRange"] as JsonObject);
             }
 
             if (jObject.ContainsKey("OutputGradient"))
             {
-                outputGradient = Core.Query.Enum<Gradient>(jObject.Value<string>("OutputGradient"));
+                outputGradient = Core.Query.Enum<Gradient>(jObject["OutputGradient"]?.GetValue<string>() ?? null);
             }
 
             return result;
         }
 
-        public override JObject ToJObject()
+        public override JsonObject ToJsonObject()
         {
-            JObject result = base.ToJObject();
+            JsonObject result = base.ToJsonObject();
             if(result == null)
             {
                 return null;
@@ -132,7 +134,7 @@ namespace SAM.Analytical.Systems
 
             if (inputRange != null)
             {
-                result.Add("InputRange", inputRange.ToJObject());
+                result.Add("InputRange", inputRange.ToJsonObject());
             }
 
             if(inputGradient != Gradient.Undefined)
@@ -142,7 +144,7 @@ namespace SAM.Analytical.Systems
 
             if (outputRange != null)
             {
-                result.Add("OutputRange", outputRange.ToJObject());
+                result.Add("OutputRange", outputRange.ToJsonObject());
             }
 
             if (outputGradient != Gradient.Undefined)

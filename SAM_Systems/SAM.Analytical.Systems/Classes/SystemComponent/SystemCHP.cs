@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json.Linq;
+﻿// SPDX-License-Identifier: LGPL-3.0-or-later
+// Copyright (c) 2020–2026 Michal Dengusiak & Jakub Ziolkowski and contributors
+using System.Text.Json.Nodes;
 using SAM.Core;
 using SAM.Core.Systems;
 using System;
@@ -61,7 +63,7 @@ namespace SAM.Analytical.Systems
             }
         }
 
-        public SystemCHP(JObject jObject)
+        public SystemCHP(JsonObject jObject)
             : base(jObject)
         {
 
@@ -80,9 +82,9 @@ namespace SAM.Analytical.Systems
             }
         }
 
-        public override bool FromJObject(JObject jObject)
+        public override bool FromJsonObject(JsonObject jObject)
         {
-            bool result = base.FromJObject(jObject);
+            bool result = base.FromJsonObject(jObject);
             if(!result)
             {
                 return false;
@@ -90,60 +92,60 @@ namespace SAM.Analytical.Systems
 
             if(jObject.ContainsKey("Setpoint"))
             {
-                Setpoint = Core.Query.IJSAMObject<ModifiableValue>(jObject.Value<JObject>("Setpoint"));
+                Setpoint = Core.Query.IJSAMObject<ModifiableValue>(jObject["Setpoint"] as JsonObject);
             }
 
             if (jObject.ContainsKey("Efficiency"))
             {
-                Efficiency = Core.Query.IJSAMObject<ModifiableValue>(jObject.Value<JObject>("Efficiency"));
+                Efficiency = Core.Query.IJSAMObject<ModifiableValue>(jObject["Efficiency"] as JsonObject);
             }
 
             if (jObject.ContainsKey("HeatPowerRatio"))
             {
-                HeatPowerRatio = Core.Query.IJSAMObject<ModifiableValue>(jObject.Value<JObject>("HeatPowerRatio"));
+                HeatPowerRatio = Core.Query.IJSAMObject<ModifiableValue>(jObject["HeatPowerRatio"] as JsonObject);
             }
 
             if (jObject.ContainsKey("Duty"))
             {
-                Duty = Core.Query.IJSAMObject<SizableValue>(jObject.Value<JObject>("Duty"));
+                Duty = Core.Query.IJSAMObject<SizableValue>(jObject["Duty"] as JsonObject);
             }
 
             if (jObject.ContainsKey("DesignTemperatureDifference"))
             {
-                DesignTemperatureDifference = jObject.Value<double>("DesignTemperatureDifference");
+                DesignTemperatureDifference = jObject["DesignTemperatureDifference"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("Capacity"))
             {
-                Capacity = jObject.Value<double>("Capacity");
+                Capacity = jObject["Capacity"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("DesignPressureDrop"))
             {
-                DesignPressureDrop = jObject.Value<double>("DesignPressureDrop");
+                DesignPressureDrop = jObject["DesignPressureDrop"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("LossesInSizing"))
             {
-                LossesInSizing = jObject.Value<bool>("LossesInSizing");
+                LossesInSizing = jObject["LossesInSizing"]?.GetValue<bool>() ?? default(bool);
             }
 
             if (jObject.ContainsKey("IsDomesticHotWater"))
             {
-                IsDomesticHotWater = jObject.Value<bool>("IsDomesticHotWater");
+                IsDomesticHotWater = jObject["IsDomesticHotWater"]?.GetValue<bool>() ?? default(bool);
             }
 
             if (jObject.ContainsKey("ScheduleName"))
             {
-                ScheduleName = jObject.Value<string>("ScheduleName");
+                ScheduleName = jObject["ScheduleName"]?.GetValue<string>() ?? null;
             }
 
             return result;
         }
 
-        public override JObject ToJObject()
+        public override JsonObject ToJsonObject()
         {
-            JObject result = base.ToJObject();
+            JsonObject result = base.ToJsonObject();
             if(result == null)
             {
                 return result;
@@ -151,22 +153,22 @@ namespace SAM.Analytical.Systems
 
             if (Setpoint != null)
             {
-                result.Add("Setpoint", Setpoint.ToJObject());
+                result.Add("Setpoint", Setpoint.ToJsonObject());
             }
 
             if (Efficiency != null)
             {
-                result.Add("Efficiency", Efficiency.ToJObject());
+                result.Add("Efficiency", Efficiency.ToJsonObject());
             }
 
             if (HeatPowerRatio != null)
             {
-                result.Add("HeatPowerRatio", HeatPowerRatio.ToJObject());
+                result.Add("HeatPowerRatio", HeatPowerRatio.ToJsonObject());
             }
 
             if (Duty != null)
             {
-                result.Add("Duty", Duty.ToJObject());
+                result.Add("Duty", Duty.ToJsonObject());
             }
 
             if (!double.IsNaN(DesignTemperatureDifference))

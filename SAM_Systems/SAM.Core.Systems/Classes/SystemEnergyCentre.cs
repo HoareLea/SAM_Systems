@@ -1,7 +1,7 @@
 ﻿// SPDX-License-Identifier: LGPL-3.0-or-later
 // Copyright (c) 2020–2026 Michal Dengusiak & Jakub Ziolkowski and contributors
 
-using Newtonsoft.Json.Linq;
+using System.Text.Json.Nodes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +16,7 @@ namespace SAM.Core.Systems
 
         }
 
-        public SystemEnergyCentre(JObject jObject)
+        public SystemEnergyCentre(JsonObject jObject)
             : base(jObject)
         {
 
@@ -87,7 +87,7 @@ namespace SAM.Core.Systems
 
         }
 
-        public SystemEnergyCentre(JObject jObject)
+        public SystemEnergyCentre(JsonObject jObject)
             : base(jObject)
         {
 
@@ -243,9 +243,9 @@ namespace SAM.Core.Systems
             return result;
         }
 
-        public override bool FromJObject(JObject jObject)
+        public override bool FromJsonObject(JsonObject jObject)
         {
-            bool result = base.FromJObject(jObject);
+            bool result = base.FromJsonObject(jObject);
             if (!result)
             {
                 return result;
@@ -253,12 +253,17 @@ namespace SAM.Core.Systems
 
             if (jObject.ContainsKey("SystemEnergySources"))
             {
-                JArray jArray = jObject.Value<JArray>("SystemEnergySources");
+                JsonArray jArray = jObject["SystemEnergySources"] as JsonArray;
                 if (jArray != null)
                 {
                     systemEnergySources = new Dictionary<Guid, SystemEnergySource>();
-                    foreach (JObject jObject_Temp in jArray)
+                    foreach (JsonNode jsonNode in jArray)
                     {
+                        if (!(jsonNode is JsonObject jObject_Temp))
+                        {
+                            continue;
+                        }
+
                         SystemEnergySource systemEnergySource = Core.Query.IJSAMObject<SystemEnergySource>(jObject_Temp);
                         if (systemEnergySource == null)
                         {
@@ -272,12 +277,17 @@ namespace SAM.Core.Systems
 
             if (jObject.ContainsKey("SystemPlantRooms"))
             {
-                JArray jArray = jObject.Value<JArray>("SystemPlantRooms");
+                JsonArray jArray = jObject["SystemPlantRooms"] as JsonArray;
                 if (jArray != null)
                 {
                     systemPlantRooms = new Dictionary<Guid, T>();
-                    foreach (JObject jObject_Temp in jArray)
+                    foreach (JsonNode jsonNode in jArray)
                     {
+                        if (!(jsonNode is JsonObject jObject_Temp))
+                        {
+                            continue;
+                        }
+
                         T systemPlantRoom = Core.Query.IJSAMObject<T>(jObject_Temp);
                         if (systemPlantRoom == null)
                         {
@@ -344,9 +354,9 @@ namespace SAM.Core.Systems
             return null;
         }
 
-        public override JObject ToJObject()
+        public override JsonObject ToJsonObject()
         {
-            JObject result = base.ToJObject();
+            JsonObject result = base.ToJsonObject();
             if (result == null)
             {
                 return result;
@@ -354,10 +364,10 @@ namespace SAM.Core.Systems
 
             if (systemPlantRooms != null)
             {
-                JArray jArray = new JArray();
+                JsonArray jArray = new JsonArray();
                 foreach (T systemPlantRoom in systemPlantRooms.Values)
                 {
-                    jArray.Add(systemPlantRoom.ToJObject());
+                    jArray.Add(systemPlantRoom.ToJsonObject());
                 }
 
                 result.Add("SystemPlantRooms", jArray);
@@ -365,10 +375,10 @@ namespace SAM.Core.Systems
 
             if (systemEnergySources != null)
             {
-                JArray jArray = new JArray();
+                JsonArray jArray = new JsonArray();
                 foreach (SystemEnergySource systemEnergySource in systemEnergySources.Values)
                 {
-                    jArray.Add(systemEnergySource.ToJObject());
+                    jArray.Add(systemEnergySource.ToJsonObject());
                 }
 
                 result.Add("SystemEnergySources", jArray);

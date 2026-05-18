@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json.Linq;
+﻿// SPDX-License-Identifier: LGPL-3.0-or-later
+// Copyright (c) 2020–2026 Michal Dengusiak & Jakub Ziolkowski and contributors
+using System.Text.Json.Nodes;
 using SAM.Core;
 using SAM.Core.Systems;
 using System;
@@ -58,7 +60,7 @@ namespace SAM.Analytical.Systems
             }
         }
 
-        public SystemDamper(JObject jObject)
+        public SystemDamper(JsonObject jObject)
             : base(jObject)
         {
 
@@ -78,9 +80,9 @@ namespace SAM.Analytical.Systems
             }
         }
 
-        public override bool FromJObject(JObject jObject)
+        public override bool FromJsonObject(JsonObject jObject)
         {
-            bool result = base.FromJObject(jObject);
+            bool result = base.FromJsonObject(jObject);
             if (!result)
             {
                 return result;
@@ -88,55 +90,55 @@ namespace SAM.Analytical.Systems
 
             if (jObject.ContainsKey("Capacity"))
             {
-                Capacity = jObject.Value<double>("Capacity");
+                Capacity = jObject["Capacity"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("DesignCapacitySignal"))
             {
-                DesignCapacitySignal = jObject.Value<double>("DesignCapacitySignal");
+                DesignCapacitySignal = jObject["DesignCapacitySignal"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("DesignFlowRate"))
             {
-                DesignFlowRate = Core.Query.IJSAMObject<SizedFlowValue>(jObject.Value<JObject>("DesignFlowRate"));
+                DesignFlowRate = Core.Query.IJSAMObject<SizedFlowValue>(jObject["DesignFlowRate"] as JsonObject);
             }
 
             if (jObject.ContainsKey("DesignFlowType"))
             {
-                DesignFlowType = Core.Query.Enum<FlowRateType>(jObject.Value<string>("DesignFlowType"));
+                DesignFlowType = Core.Query.Enum<FlowRateType>(jObject["DesignFlowType"]?.GetValue<string>() ?? null);
             }
 
             if (jObject.ContainsKey("MinimumFlowRate"))
             {
-                MinimumFlowRate = Core.Query.IJSAMObject<SizedFlowValue>(jObject.Value<JObject>("MinimumFlowRate"));
+                MinimumFlowRate = Core.Query.IJSAMObject<SizedFlowValue>(jObject["MinimumFlowRate"] as JsonObject);
             }
 
             if (jObject.ContainsKey("MinimumFlowType"))
             {
-                MinimumFlowType = Core.Query.Enum<FlowRateType>(jObject.Value<string>("MinimumFlowType"));
+                MinimumFlowType = Core.Query.Enum<FlowRateType>(jObject["MinimumFlowType"]?.GetValue<string>() ?? null);
             }
 
             if (jObject.ContainsKey("MinimumFlowFraction"))
             {
-                MinimumFlowFraction = jObject.Value<double>("MinimumFlowFraction");
+                MinimumFlowFraction = jObject["MinimumFlowFraction"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("DesignPressureDrop"))
             {
-                DesignPressureDrop = jObject.Value<double>("DesignPressureDrop");
+                DesignPressureDrop = jObject["DesignPressureDrop"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("ScheduleName"))
             {
-                ScheduleName = jObject.Value<string>("ScheduleName");
+                ScheduleName = jObject["ScheduleName"]?.GetValue<string>() ?? null;
             }
 
             return result;
         }
 
-        public override JObject ToJObject()
+        public override JsonObject ToJsonObject()
         {
-            JObject result = base.ToJObject();
+            JsonObject result = base.ToJsonObject();
             if (result == null)
             {
                 return null;
@@ -154,14 +156,14 @@ namespace SAM.Analytical.Systems
 
             if (DesignFlowRate != null)
             {
-                result.Add("DesignFlowRate", DesignFlowRate.ToJObject());
+                result.Add("DesignFlowRate", DesignFlowRate.ToJsonObject());
             }
 
             result.Add("DesignFlowType", DesignFlowType.ToString());
 
             if (MinimumFlowRate != null)
             {
-                result.Add("MinimumFlowRate", MinimumFlowRate.ToJObject());
+                result.Add("MinimumFlowRate", MinimumFlowRate.ToJsonObject());
             }
 
             result.Add("MinimumFlowType", MinimumFlowType.ToString());

@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json.Linq;
+﻿// SPDX-License-Identifier: LGPL-3.0-or-later
+// Copyright (c) 2020–2026 Michal Dengusiak & Jakub Ziolkowski and contributors
+using System.Text.Json.Nodes;
 using SAM.Core;
 using SAM.Core.Systems;
 using System;
@@ -94,7 +96,7 @@ namespace SAM.Analytical.Systems
             }
         }
 
-        public SystemLiquidExchanger(JObject jObject)
+        public SystemLiquidExchanger(JsonObject jObject)
             : base(jObject)
         {
 
@@ -115,9 +117,9 @@ namespace SAM.Analytical.Systems
             }
         }
 
-        public override bool FromJObject(JObject jObject)
+        public override bool FromJsonObject(JsonObject jObject)
         {
-            bool result = base.FromJObject(jObject);
+            bool result = base.FromJsonObject(jObject);
             if (!result)
             {
                 return result;
@@ -125,80 +127,80 @@ namespace SAM.Analytical.Systems
 
             if (jObject.ContainsKey("Efficiency"))
             {
-                Efficiency = Core.Query.IJSAMObject<ModifiableValue>(jObject.Value<JObject>("Efficiency"));
+                Efficiency = Core.Query.IJSAMObject<ModifiableValue>(jObject["Efficiency"] as JsonObject);
             }
 
             if (jObject.ContainsKey("Capacity1"))
             {
-                Capacity1 = jObject.Value<double>("Capacity1");
+                Capacity1 = jObject["Capacity1"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("Capacity2"))
             {
-                Capacity2 = jObject.Value<double>("Capacity2");
+                Capacity2 = jObject["Capacity2"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("DesignPressureDrop1"))
             {
-                DesignPressureDrop1 = jObject.Value<double>("DesignPressureDrop1");
+                DesignPressureDrop1 = jObject["DesignPressureDrop1"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("DesignPressureDrop2"))
             {
-                DesignPressureDrop2 = jObject.Value<double>("DesignPressureDrop2");
+                DesignPressureDrop2 = jObject["DesignPressureDrop2"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("Setpoint"))
             {
-                Setpoint = Core.Query.IJSAMObject<ModifiableValue>(jObject.Value<JObject>("Setpoint"));
+                Setpoint = Core.Query.IJSAMObject<ModifiableValue>(jObject["Setpoint"] as JsonObject);
             }
 
             //if (jObject.ContainsKey("Setpoint2"))
             //{
-            //    Setpoint2 = Core.Query.IJSAMObject<ModifiableValue>(jObject.Value<JObject>("Setpoint2"));
+            //    Setpoint2 = Core.Query.IJSAMObject<ModifiableValue>(jObject["Setpoint2"] as JsonObject);
             //}
 
             if (jObject.ContainsKey("BypassPosition"))
             {
-                BypassPosition = Core.Query.Enum<ExchangerPosition>(jObject.Value<string>("BypassPosition"));
+                BypassPosition = Core.Query.Enum<ExchangerPosition>(jObject["BypassPosition"]?.GetValue<string>() ?? null);
             }
 
             if (jObject.ContainsKey("SetpointPosition"))
             {
-                SetpointPosition = Core.Query.Enum<ExchangerPosition>(jObject.Value<string>("SetpointPosition"));
+                SetpointPosition = Core.Query.Enum<ExchangerPosition>(jObject["SetpointPosition"]?.GetValue<string>() ?? null);
             }
 
             if (jObject.ContainsKey("ExchangerCalculationMethod"))
             {
-                ExchangerCalculationMethod = Core.Query.Enum<ExchangerCalculationMethod>(jObject.Value<string>("ExchangerCalculationMethod"));
+                ExchangerCalculationMethod = Core.Query.Enum<ExchangerCalculationMethod>(jObject["ExchangerCalculationMethod"]?.GetValue<string>() ?? null);
             }
 
             if (jObject.ContainsKey("ExchangerType"))
             {
-                ExchangerType = Core.Query.Enum<ExchangerType>(jObject.Value<string>("ExchangerType"));
+                ExchangerType = Core.Query.Enum<ExchangerType>(jObject["ExchangerType"]?.GetValue<string>() ?? null);
             }
 
             if (jObject.ContainsKey("HeatTransferSurfaceArea"))
             {
-                HeatTransferSurfaceArea = jObject.Value<double>("HeatTransferSurfaceArea");
+                HeatTransferSurfaceArea = jObject["HeatTransferSurfaceArea"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("HeatTransferCoefficient"))
             {
-                HeatTransferCoefficient = jObject.Value<double>("HeatTransferCoefficient");
+                HeatTransferCoefficient = jObject["HeatTransferCoefficient"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("ScheduleName"))
             {
-                ScheduleName = jObject.Value<string>("ScheduleName");
+                ScheduleName = jObject["ScheduleName"]?.GetValue<string>() ?? null;
             }
 
             return result;
         }
 
-        public override JObject ToJObject()
+        public override JsonObject ToJsonObject()
         {
-            JObject result = base.ToJObject();
+            JsonObject result = base.ToJsonObject();
             if (result == null)
             {
                 return result;
@@ -206,7 +208,7 @@ namespace SAM.Analytical.Systems
 
             if (Efficiency != null)
             {
-                result.Add("Efficiency", Efficiency.ToJObject());
+                result.Add("Efficiency", Efficiency.ToJsonObject());
             }
 
             if (!double.IsNaN(Capacity1))
@@ -231,12 +233,12 @@ namespace SAM.Analytical.Systems
 
             if (Setpoint != null)
             {
-                result.Add("Setpoint", Setpoint.ToJObject());
+                result.Add("Setpoint", Setpoint.ToJsonObject());
             }
 
             //if (Setpoint2 != null)
             //{
-            //    result.Add("Setpoint2", Setpoint2.ToJObject());
+            //    result.Add("Setpoint2", Setpoint2.ToJsonObject());
             //}
 
             result.Add("BypassPosition", BypassPosition.ToString());

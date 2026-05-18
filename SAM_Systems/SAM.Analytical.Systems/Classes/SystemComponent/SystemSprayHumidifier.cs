@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json.Linq;
+﻿// SPDX-License-Identifier: LGPL-3.0-or-later
+// Copyright (c) 2020–2026 Michal Dengusiak & Jakub Ziolkowski and contributors
+using System.Text.Json.Nodes;
 using SAM.Core;
 using SAM.Core.Systems;
 using System;
@@ -45,15 +47,15 @@ namespace SAM.Analytical.Systems
             }
         }
 
-        public SystemSprayHumidifier(JObject jObject)
+        public SystemSprayHumidifier(JsonObject jObject)
             : base(jObject)
         {
 
         }
 
-        public override bool FromJObject(JObject jObject)
+        public override bool FromJsonObject(JsonObject jObject)
         {
-            bool result = base.FromJObject(jObject);
+            bool result = base.FromJsonObject(jObject);
             if (!result)
             {
                 return result;
@@ -61,30 +63,30 @@ namespace SAM.Analytical.Systems
 
             if (jObject.ContainsKey("Setpoint"))
             {
-                Setpoint = Core.Query.IJSAMObject<ModifiableValue>(jObject.Value<JObject>("Setpoint"));
+                Setpoint = Core.Query.IJSAMObject<ModifiableValue>(jObject["Setpoint"] as JsonObject);
             }
 
             if (jObject.ContainsKey("Effectiveness"))
             {
-                Effectiveness = Core.Query.IJSAMObject<ModifiableValue>(jObject.Value<JObject>("Effectiveness"));
+                Effectiveness = Core.Query.IJSAMObject<ModifiableValue>(jObject["Effectiveness"] as JsonObject);
             }
 
             if (jObject.ContainsKey("WaterFlowCapacity"))
             {
-                WaterFlowCapacity = Core.Query.IJSAMObject<SizableValue>(jObject.Value<JObject>("WaterFlowCapacity"));
+                WaterFlowCapacity = Core.Query.IJSAMObject<SizableValue>(jObject["WaterFlowCapacity"] as JsonObject);
             }
 
             if (jObject.ContainsKey("ElectricalLoad"))
             {
-                ElectricalLoad = Core.Query.IJSAMObject<ModifiableValue>(jObject.Value<JObject>("ElectricalLoad"));
+                ElectricalLoad = Core.Query.IJSAMObject<ModifiableValue>(jObject["ElectricalLoad"] as JsonObject);
             }
 
             return result;
         }
 
-        public override JObject ToJObject()
+        public override JsonObject ToJsonObject()
         {
-            JObject result = base.ToJObject();
+            JsonObject result = base.ToJsonObject();
             if (result == null)
             {
                 return null;
@@ -92,22 +94,22 @@ namespace SAM.Analytical.Systems
 
             if (Setpoint != null)
             {
-                result.Add("Setpoint", Setpoint.ToJObject());
+                result.Add("Setpoint", Setpoint.ToJsonObject());
             }
 
             if (Effectiveness != null)
             {
-                result.Add("Effectiveness", Effectiveness.ToJObject());
+                result.Add("Effectiveness", Effectiveness.ToJsonObject());
             }
 
             if (WaterFlowCapacity != null)
             {
-                result.Add("WaterFlowCapacity", WaterFlowCapacity.ToJObject());
+                result.Add("WaterFlowCapacity", WaterFlowCapacity.ToJsonObject());
             }
 
             if (ElectricalLoad != null)
             {
-                result.Add("ElectricalLoad", ElectricalLoad.ToJObject());
+                result.Add("ElectricalLoad", ElectricalLoad.ToJsonObject());
             }
 
             return result;

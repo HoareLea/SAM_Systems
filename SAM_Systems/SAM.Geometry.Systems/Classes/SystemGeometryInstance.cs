@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json.Linq;
+﻿// SPDX-License-Identifier: LGPL-3.0-or-later
+// Copyright (c) 2020–2026 Michal Dengusiak & Jakub Ziolkowski and contributors
+using System.Text.Json.Nodes;
 using SAM.Core;
 using SAM.Core.Systems;
 using SAM.Geometry.Object.Planar;
@@ -21,9 +23,9 @@ namespace SAM.Geometry.Systems
             }
         }
 
-        public SystemGeometryInstance(JObject jObject)
+        public SystemGeometryInstance(JsonObject jObject)
         {
-            FromJObject(jObject);
+            FromJsonObject(jObject);
         }
 
         public SystemGeometryInstance(SystemGeometrySymbol systemGeometrySymbol, Point2D location)
@@ -60,7 +62,7 @@ namespace SAM.Geometry.Systems
             return true;
         }
 
-        public bool FromJObject(JObject jObject)
+        public bool FromJsonObject(JsonObject jObject)
         {
             if (jObject == null)
             {
@@ -69,30 +71,30 @@ namespace SAM.Geometry.Systems
 
             if (jObject.ContainsKey("SystemGeometrySymbol"))
             {
-                systemGeometrySymbol = new SystemGeometrySymbol(jObject.Value<JObject>("SystemGeometrySymbol"));
+                systemGeometrySymbol = new SystemGeometrySymbol(jObject["SystemGeometrySymbol"] as JsonObject);
             }
 
             if (jObject.ContainsKey("CoordinateSystem"))
             {
-                coordinateSystem = new CoordinateSystem2D(jObject.Value<JObject>("CoordinateSystem"));
+                coordinateSystem = new CoordinateSystem2D(jObject["CoordinateSystem"] as JsonObject);
             }
 
             return true;
         }
 
-        public JObject ToJObject()
+        public JsonObject ToJsonObject()
         {
-            JObject result = new JObject();
+            JsonObject result = new JsonObject();
             result.Add("_type", Core.Query.FullTypeName(this));
 
             if (systemGeometrySymbol != null)
             {
-                result.Add("SystemGeometrySymbol", systemGeometrySymbol.ToJObject());
+                result.Add("SystemGeometrySymbol", systemGeometrySymbol.ToJsonObject());
             }
 
             if (coordinateSystem != null)
             {
-                result.Add("CoordinateSystem", coordinateSystem.ToJObject());
+                result.Add("CoordinateSystem", coordinateSystem.ToJsonObject());
             }
 
             return result;

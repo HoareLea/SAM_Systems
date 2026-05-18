@@ -1,5 +1,7 @@
-﻿using SAM.Geometry.Object.Planar;
-using Newtonsoft.Json.Linq;
+﻿// SPDX-License-Identifier: LGPL-3.0-or-later
+// Copyright (c) 2020–2026 Michal Dengusiak & Jakub Ziolkowski and contributors
+using SAM.Geometry.Object.Planar;
+using System.Text.Json.Nodes;
 using SAM.Geometry.Planar;
 using System.Collections.Generic;
 
@@ -12,7 +14,7 @@ namespace SAM.Geometry.Systems
         {
         }
 
-        public SystemPolygon(JObject jObject)
+        public SystemPolygon(JsonObject jObject)
             : base(jObject)
         {
         }

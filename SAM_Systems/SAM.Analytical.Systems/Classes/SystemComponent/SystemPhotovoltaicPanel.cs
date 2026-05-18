@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json.Linq;
+﻿// SPDX-License-Identifier: LGPL-3.0-or-later
+// Copyright (c) 2020–2026 Michal Dengusiak & Jakub Ziolkowski and contributors
+using System.Text.Json.Nodes;
 using SAM.Core;
 using SAM.Core.Systems;
 using System;
@@ -75,7 +77,7 @@ namespace SAM.Analytical.Systems
             }
         }
 
-        public SystemPhotovoltaicPanel(JObject jObject)
+        public SystemPhotovoltaicPanel(JsonObject jObject)
             : base(jObject)
         {
 
@@ -94,9 +96,9 @@ namespace SAM.Analytical.Systems
             }
         }
 
-        public override bool FromJObject(JObject jObject)
+        public override bool FromJsonObject(JsonObject jObject)
         {
-            bool result = base.FromJObject(jObject);
+            bool result = base.FromJsonObject(jObject);
             if (!result)
             {
                 return result;
@@ -104,85 +106,85 @@ namespace SAM.Analytical.Systems
 
             if (jObject.ContainsKey("PanelEfficiency"))
             {
-                PanelEfficiency = Core.Query.IJSAMObject<ModifiableValue>(jObject.Value<JObject>("PanelEfficiency"));
+                PanelEfficiency = Core.Query.IJSAMObject<ModifiableValue>(jObject["PanelEfficiency"] as JsonObject);
             }
 
             if (jObject.ContainsKey("InverterSize"))
             {
-                InverterSize = Core.Query.IJSAMObject<SizableValue>(jObject.Value<JObject>("InverterSize"));
+                InverterSize = Core.Query.IJSAMObject<SizableValue>(jObject["InverterSize"] as JsonObject);
             }
 
             if (jObject.ContainsKey("Multiplicity"))
             {
-                Multiplicity = jObject.Value<int>("Multiplicity");
+                Multiplicity = jObject["Multiplicity"]?.GetValue<int>() ?? default(int);
             }
 
             if (jObject.ContainsKey("InverterEfficiency"))
             {
-                InverterEfficiency = Core.Query.IJSAMObject<ModifiableValue>(jObject.Value<JObject>("InverterEfficiency"));
+                InverterEfficiency = Core.Query.IJSAMObject<ModifiableValue>(jObject["InverterEfficiency"] as JsonObject);
             }
 
             if (jObject.ContainsKey("UseZoneSurface"))
             {
-                UseZoneSurface = jObject.Value<bool>("UseZoneSurface");
+                UseZoneSurface = jObject["UseZoneSurface"]?.GetValue<bool>() ?? default(bool);
             }
 
             if (jObject.ContainsKey("Area"))
             {
-                Area = jObject.Value<double>("Area");
+                Area = jObject["Area"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("Inclination"))
             {
-                Inclination = Core.Query.IJSAMObject<ModifiableValue>(jObject.Value<JObject>("Inclination"));
+                Inclination = Core.Query.IJSAMObject<ModifiableValue>(jObject["Inclination"] as JsonObject);
             }
 
             if (jObject.ContainsKey("Orientation"))
             {
-                Orientation = Core.Query.IJSAMObject<ModifiableValue>(jObject.Value<JObject>("Orientation"));
+                Orientation = Core.Query.IJSAMObject<ModifiableValue>(jObject["Orientation"] as JsonObject);
             }
 
             if (jObject.ContainsKey("Reflectance"))
             {
-                Reflectance = jObject.Value<double>("Reflectance");
+                Reflectance = jObject["Reflectance"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("MinIrradiance"))
             {
-                MinIrradiance = jObject.Value<double>("MinIrradiance");
+                MinIrradiance = jObject["MinIrradiance"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("NOCT"))
             {
-                NOCT = jObject.Value<double>("NOCT");
+                NOCT = jObject["NOCT"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("PowerTemperatureCoefficient"))
             {
-                PowerTemperatureCoefficient = jObject.Value<double>("PowerTemperatureCoefficient");
+                PowerTemperatureCoefficient = jObject["PowerTemperatureCoefficient"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("UseSTC"))
             {
-                UseSTC = jObject.Value<bool>("UseSTC");
+                UseSTC = jObject["UseSTC"]?.GetValue<bool>() ?? default(bool);
             }
 
             if (jObject.ContainsKey("OutputAtSTC"))
             {
-                OutputAtSTC = jObject.Value<double>("OutputAtSTC");
+                OutputAtSTC = jObject["OutputAtSTC"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("DeratingFactor"))
             {
-                DeratingFactor = jObject.Value<double>("DeratingFactor");
+                DeratingFactor = jObject["DeratingFactor"]?.GetValue<double>() ?? default(double);
             }
 
             return result;
         }
 
-        public override JObject ToJObject()
+        public override JsonObject ToJsonObject()
         {
-            JObject result = base.ToJObject();
+            JsonObject result = base.ToJsonObject();
             if (result == null)
             {
                 return result;
@@ -190,19 +192,19 @@ namespace SAM.Analytical.Systems
 
             if (PanelEfficiency != null)
             {
-                result.Add("PanelEfficiency", PanelEfficiency.ToJObject());
+                result.Add("PanelEfficiency", PanelEfficiency.ToJsonObject());
             }
 
             if (InverterSize != null)
             {
-                result.Add("InverterSize", InverterSize.ToJObject());
+                result.Add("InverterSize", InverterSize.ToJsonObject());
             }
 
             result.Add("Multiplicity", Multiplicity);
 
             if (InverterEfficiency != null)
             {
-                result.Add("InverterEfficiency", InverterEfficiency.ToJObject());
+                result.Add("InverterEfficiency", InverterEfficiency.ToJsonObject());
             }
 
             result.Add("UseZoneSurface", UseZoneSurface);
@@ -214,12 +216,12 @@ namespace SAM.Analytical.Systems
 
             if (Inclination != null)
             {
-                result.Add("Inclination", Inclination.ToJObject());
+                result.Add("Inclination", Inclination.ToJsonObject());
             }
 
             if (Orientation != null)
             {
-                result.Add("Orientation", Orientation.ToJObject());
+                result.Add("Orientation", Orientation.ToJsonObject());
             }
 
             if (!double.IsNaN(Reflectance))

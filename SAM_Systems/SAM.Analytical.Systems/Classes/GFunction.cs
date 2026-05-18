@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json.Linq;
+﻿// SPDX-License-Identifier: LGPL-3.0-or-later
+// Copyright (c) 2020–2026 Michal Dengusiak & Jakub Ziolkowski and contributors
+using System.Text.Json.Nodes;
 using SAM.Core;
 using SAM.Geometry.Planar;
 using System.Collections.Generic;
@@ -21,9 +23,9 @@ namespace SAM.Analytical.Systems
 
         }
 
-        public GFunction(JObject jObject)
+        public GFunction(JsonObject jObject)
         {
-            FromJObject(jObject);
+            FromJsonObject(jObject);
         }
 
         public List<Point2D> Point2Ds
@@ -83,7 +85,7 @@ namespace SAM.Analytical.Systems
             return point2Ds?.ConvertAll(x => x.Y);
         }
 
-        public virtual bool FromJObject(JObject jObject)
+        public virtual bool FromJsonObject(JsonObject jObject)
         {
             if (jObject == null)
             {
@@ -92,20 +94,25 @@ namespace SAM.Analytical.Systems
 
             if (jObject.ContainsKey("Point2Ds"))
             {
-                point2Ds = Core.Create.IJSAMObjects<Point2D>(jObject.Value<JArray>("Point2Ds"));
+                point2Ds = Core.Create.IJSAMObjects<Point2D>(jObject["Point2Ds"] as JsonArray);
             }
 
             return true;
         }
 
-        public virtual JObject ToJObject()
+        public virtual JsonObject ToJsonObject()
         {
-            JObject result = new JObject();
+            JsonObject result = new JsonObject();
             result.Add("_type", Core.Query.FullTypeName(this));
 
             if (point2Ds != null)
             {
-                result.Add("Point2Ds", Core.Create.JArray(point2Ds));
+                JsonArray jArray = new JsonArray();
+                foreach(Point2D point2D in point2Ds)
+                {
+                    jArray.Add(point2D?.ToJsonObject());
+                }
+                result.Add("Point2Ds", jArray);
             }
 
             return result;

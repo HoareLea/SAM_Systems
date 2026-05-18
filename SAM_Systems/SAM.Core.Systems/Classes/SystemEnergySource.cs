@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json.Linq;
+﻿// SPDX-License-Identifier: LGPL-3.0-or-later
+// Copyright (c) 2020–2026 Michal Dengusiak & Jakub Ziolkowski and contributors
+using System.Text.Json.Nodes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -56,7 +58,7 @@ namespace SAM.Core.Systems
             }
         }
 
-        public SystemEnergySource(JObject jObject)
+        public SystemEnergySource(JsonObject jObject)
             : base(jObject)
         {
 
@@ -74,9 +76,9 @@ namespace SAM.Core.Systems
 
         }
 
-        public override bool FromJObject(JObject jObject)
+        public override bool FromJsonObject(JsonObject jObject)
         {
-            bool result = base.FromJObject(jObject);
+            bool result = base.FromJsonObject(jObject);
             if(!result)
             {
                 return result;
@@ -84,49 +86,54 @@ namespace SAM.Core.Systems
 
             if(jObject.ContainsKey("CO2Factor"))
             {
-                CO2Factor = Core.Query.IJSAMObject<IndexedDoubles>(jObject.Value<JObject>("CO2Factor"));
+                CO2Factor = Core.Query.IJSAMObject<IndexedDoubles>(jObject["CO2Factor"] as JsonObject);
             }
 
             if (jObject.ContainsKey("PeakCost"))
             {
-                PeakCost = Core.Query.IJSAMObject<IndexedDoubles>(jObject.Value<JObject>("PeakCost"));
+                PeakCost = Core.Query.IJSAMObject<IndexedDoubles>(jObject["PeakCost"] as JsonObject);
             }
 
             if (jObject.ContainsKey("PrimaryEnergyFactor"))
             {
-                PrimaryEnergyFactor = Core.Query.IJSAMObject<IndexedDoubles>(jObject.Value<JObject>("PrimaryEnergyFactor"));
+                PrimaryEnergyFactor = Core.Query.IJSAMObject<IndexedDoubles>(jObject["PrimaryEnergyFactor"] as JsonObject);
             }
 
             if (jObject.ContainsKey("OffPeakCost"))
             {
-                OffPeakCost = jObject.Value<double>("OffPeakCost");
+                OffPeakCost = jObject["OffPeakCost"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("ScheduleName"))
             {
-                ScheduleName = jObject.Value<string>("ScheduleName");
+                ScheduleName = jObject["ScheduleName"]?.GetValue<string>() ?? null;
             }
 
             if (jObject.ContainsKey("CustomerMonthlyCharge"))
             {
-                CustomerMonthlyCharge = jObject.Value<double>("CustomerMonthlyCharge");
+                CustomerMonthlyCharge = jObject["CustomerMonthlyCharge"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("FuelCostAdjustment"))
             {
-                FuelCostAdjustment = jObject.Value<double>("FuelCostAdjustment");
+                FuelCostAdjustment = jObject["FuelCostAdjustment"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("Discount"))
             {
-                Discount = jObject.Value<double>("Discount");
+                Discount = jObject["Discount"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("DemandTariffProfiles"))
             {
                 DemandTariffProfiles = new List<TariffProfile>();
-                foreach(JObject jObject_Temp in jObject.Value<JArray>("DemandTariffProfiles"))
+                foreach(JsonNode jsonNode in jObject["DemandTariffProfiles"] as JsonArray)
                 {
+                    if (!(jsonNode is JsonObject jObject_Temp))
+                    {
+                        continue;
+                    }
+
                     TariffProfile tariffProfile = Core.Query.IJSAMObject<TariffProfile>(jObject_Temp);
                     if(tariffProfile != null)
                     {
@@ -138,8 +145,13 @@ namespace SAM.Core.Systems
             if (jObject.ContainsKey("ConsumptionTariffProfiles"))
             {
                 ConsumptionTariffProfiles = new List<TariffProfile>();
-                foreach (JObject jObject_Temp in jObject.Value<JArray>("ConsumptionTariffProfiles"))
+                foreach (JsonNode jsonNode in jObject["ConsumptionTariffProfiles"] as JsonArray)
                 {
+                    if (!(jsonNode is JsonObject jObject_Temp))
+                    {
+                        continue;
+                    }
+
                     TariffProfile tariffProfile = Core.Query.IJSAMObject<TariffProfile>(jObject_Temp);
                     if (tariffProfile != null)
                     {
@@ -151,9 +163,9 @@ namespace SAM.Core.Systems
             return result;
         }
 
-        public override JObject ToJObject()
+        public override JsonObject ToJsonObject()
         {
-            JObject result = base.ToJObject();
+            JsonObject result = base.ToJsonObject();
             if(result == null)
             {
                 return result;
@@ -161,17 +173,17 @@ namespace SAM.Core.Systems
 
             if(CO2Factor != null)
             {
-                result.Add("CO2Factor", CO2Factor.ToJObject());
+                result.Add("CO2Factor", CO2Factor.ToJsonObject());
             }
 
             if (PeakCost != null)
             {
-                result.Add("PeakCost", PeakCost.ToJObject());
+                result.Add("PeakCost", PeakCost.ToJsonObject());
             }
 
             if (PrimaryEnergyFactor != null)
             {
-                result.Add("PrimaryEnergyFactor", PrimaryEnergyFactor.ToJObject());
+                result.Add("PrimaryEnergyFactor", PrimaryEnergyFactor.ToJsonObject());
             }
 
             if(!double.IsNaN(OffPeakCost))
@@ -201,10 +213,10 @@ namespace SAM.Core.Systems
 
             if(DemandTariffProfiles != null)
             {
-                JArray jArray = new JArray();
+                JsonArray jArray = new JsonArray();
                 foreach(TariffProfile tariffProfile in DemandTariffProfiles)
                 {
-                    jArray.Add(tariffProfile.ToJObject());
+                    jArray.Add(tariffProfile.ToJsonObject());
                 }
 
                 result.Add("DemandTariffProfiles", jArray);
@@ -212,10 +224,10 @@ namespace SAM.Core.Systems
 
             if (ConsumptionTariffProfiles != null)
             {
-                JArray jArray = new JArray();
+                JsonArray jArray = new JsonArray();
                 foreach (TariffProfile tariffProfile in ConsumptionTariffProfiles)
                 {
-                    jArray.Add(tariffProfile.ToJObject());
+                    jArray.Add(tariffProfile.ToJsonObject());
                 }
 
                 result.Add("ConsumptionTariffProfiles", jArray);

@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json.Linq;
+﻿// SPDX-License-Identifier: LGPL-3.0-or-later
+// Copyright (c) 2020–2026 Michal Dengusiak & Jakub Ziolkowski and contributors
+using System.Text.Json.Nodes;
 using SAM.Core;
 using SAM.Core.Systems;
 using System;
@@ -57,7 +59,7 @@ namespace SAM.Analytical.Systems
             }
         }
 
-        public SystemPump(JObject jObject)
+        public SystemPump(JsonObject jObject)
             : base(jObject)
         {
 
@@ -76,9 +78,9 @@ namespace SAM.Analytical.Systems
             }
         }
 
-        public override bool FromJObject(JObject jObject)
+        public override bool FromJsonObject(JsonObject jObject)
         {
-            bool result = base.FromJObject(jObject);
+            bool result = base.FromJsonObject(jObject);
             if (!result)
             {
                 return result;
@@ -86,45 +88,45 @@ namespace SAM.Analytical.Systems
 
             if (jObject.ContainsKey("FanControlType"))
             {
-                FanControlType = Core.Query.Enum<FanControlType>(jObject.Value<string>("FanControlType"));
+                FanControlType = Core.Query.Enum<FanControlType>(jObject["FanControlType"]?.GetValue<string>() ?? null);
             }
 
             if (jObject.ContainsKey("OverallEfficiency"))
             {
-                OverallEfficiency = Core.Create.IJSAMObject<ModifiableValue>(jObject.Value<JObject>("OverallEfficiency"));
+                OverallEfficiency = Core.Create.IJSAMObject<ModifiableValue>(jObject["OverallEfficiency"] as JsonObject);
             }
 
             if (jObject.ContainsKey("Pressure"))
             {
-                Pressure = jObject.Value<double>("Pressure");
+                Pressure = jObject["Pressure"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("DesignFlowRate"))
             {
-                DesignFlowRate = jObject.Value<double>("DesignFlowRate");
+                DesignFlowRate = jObject["DesignFlowRate"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("Capacity"))
             {
-                Capacity = jObject.Value<double>("Capacity");
+                Capacity = jObject["Capacity"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("PartLoad"))
             {
-                PartLoad = Core.Create.IJSAMObject<ModifiableValue>(jObject.Value<JObject>("PartLoad"));
+                PartLoad = Core.Create.IJSAMObject<ModifiableValue>(jObject["PartLoad"] as JsonObject);
             }
 
             if (jObject.ContainsKey("ScheduleName"))
             {
-                ScheduleName = jObject.Value<string>("ScheduleName");
+                ScheduleName = jObject["ScheduleName"]?.GetValue<string>() ?? null;
             }
 
             return true;
         }
 
-        public override JObject ToJObject()
+        public override JsonObject ToJsonObject()
         {
-            JObject result = base.ToJObject();
+            JsonObject result = base.ToJsonObject();
             if (result == null)
             {
                 return null;
@@ -134,7 +136,7 @@ namespace SAM.Analytical.Systems
 
             if(OverallEfficiency != null)
             {
-                result.Add("OverallEfficiency", OverallEfficiency.ToJObject());
+                result.Add("OverallEfficiency", OverallEfficiency.ToJsonObject());
             }
 
             if(!double.IsNaN(Pressure))
@@ -154,7 +156,7 @@ namespace SAM.Analytical.Systems
 
             if (PartLoad != null)
             {
-                result.Add("PartLoad", PartLoad.ToJObject());
+                result.Add("PartLoad", PartLoad.ToJsonObject());
             }
 
             if (ScheduleName != null)

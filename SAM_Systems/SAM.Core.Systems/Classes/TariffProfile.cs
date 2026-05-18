@@ -1,5 +1,6 @@
-﻿using Newtonsoft.Json.Linq;
-
+﻿// SPDX-License-Identifier: LGPL-3.0-or-later
+// Copyright (c) 2020–2026 Michal Dengusiak & Jakub Ziolkowski and contributors
+using System.Text.Json.Nodes;
 namespace SAM.Core.Systems
 {
     public class TariffProfile : ISystemJSAMObject
@@ -20,9 +21,9 @@ namespace SAM.Core.Systems
             }
         }
 
-        public TariffProfile(JObject jObject)
+        public TariffProfile(JsonObject jObject)
         {
-            FromJObject(jObject);
+            FromJsonObject(jObject);
         }
 
         public TariffProfile()
@@ -38,7 +39,7 @@ namespace SAM.Core.Systems
             MinimumDemand = minimumDemand;
         }
 
-        public bool FromJObject(JObject jObject)
+        public bool FromJsonObject(JsonObject jObject)
         {
             if (jObject == null)
             {
@@ -47,30 +48,30 @@ namespace SAM.Core.Systems
 
             if (jObject.ContainsKey("Description"))
             {
-                Description = jObject.Value<string>("Description");
+                Description = jObject["Description"]?.GetValue<string>() ?? null;
             }
 
             if (jObject.ContainsKey("FirstDay"))
             {
-                FirstDay = jObject.Value<int>("FirstDay");
+                FirstDay = jObject["FirstDay"]?.GetValue<int>() ?? default(int);
             }
 
             if (jObject.ContainsKey("LastDay"))
             {
-                LastDay = jObject.Value<int>("LastDay");
+                LastDay = jObject["LastDay"]?.GetValue<int>() ?? default(int);
             }
 
             if (jObject.ContainsKey("MinimumDemand"))
             {
-                MinimumDemand = jObject.Value<double>("MinimumDemand");
+                MinimumDemand = jObject["MinimumDemand"]?.GetValue<double>() ?? default(double);
             }
 
             return true;
         }
 
-        public JObject ToJObject()
+        public JsonObject ToJsonObject()
         {
-            JObject result = new JObject();
+            JsonObject result = new JsonObject();
             result.Add("_type", Core.Query.FullTypeName(this));
 
             if (Description != null)

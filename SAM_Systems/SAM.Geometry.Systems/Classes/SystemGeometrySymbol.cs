@@ -1,5 +1,7 @@
-﻿using SAM.Geometry.Object.Planar;
-using Newtonsoft.Json.Linq;
+﻿// SPDX-License-Identifier: LGPL-3.0-or-later
+// Copyright (c) 2020–2026 Michal Dengusiak & Jakub Ziolkowski and contributors
+using SAM.Geometry.Object.Planar;
+using System.Text.Json.Nodes;
 using SAM.Core;
 using System.Collections.Generic;
 using SAM.Core.Systems;
@@ -26,7 +28,7 @@ namespace SAM.Geometry.Systems
             displaySystemConnectorManager = displaySystemConnectors == null ? null : new DisplaySystemConnectorManager(displaySystemConnectors);
         }
 
-        public SystemGeometrySymbol(JObject jObject)
+        public SystemGeometrySymbol(JsonObject jObject)
             :base(jObject)
         {
 
@@ -119,9 +121,9 @@ namespace SAM.Geometry.Systems
             return null;
         }
 
-        public override bool FromJObject(JObject jObject)
+        public override bool FromJsonObject(JsonObject jObject)
         {
-            bool result = base.FromJObject(jObject);
+            bool result = base.FromJsonObject(jObject);
             if (!result)
             {
                 return result;
@@ -129,29 +131,29 @@ namespace SAM.Geometry.Systems
 
             if (jObject.ContainsKey("Geometry"))
             {
-                geometry = Core.Query.IJSAMObject<ISAMGeometry2DObject>(jObject.Value<JObject>("Geometry"));
+                geometry = Core.Query.IJSAMObject<ISAMGeometry2DObject>(jObject["Geometry"] as JsonObject);
             }
 
             if (jObject.ContainsKey("DisplaySystemConnectorManager"))
             {
-                displaySystemConnectorManager = new DisplaySystemConnectorManager(jObject.Value<JObject>("DisplaySystemConnectorManager"));
+                displaySystemConnectorManager = new DisplaySystemConnectorManager(jObject["DisplaySystemConnectorManager"] as JsonObject);
             }
 
             return result;
         }
 
-        public override JObject ToJObject()
+        public override JsonObject ToJsonObject()
         {
-            JObject result = base.ToJObject();
+            JsonObject result = base.ToJsonObject();
 
             if(geometry != null)
             {
-                result.Add("Geometry", geometry.ToJObject());
+                result.Add("Geometry", geometry.ToJsonObject());
             }
 
             if(displaySystemConnectorManager != null)
             {
-                result.Add("DisplaySystemConnectorManager", displaySystemConnectorManager.ToJObject());
+                result.Add("DisplaySystemConnectorManager", displaySystemConnectorManager.ToJsonObject());
             }
 
             return result;

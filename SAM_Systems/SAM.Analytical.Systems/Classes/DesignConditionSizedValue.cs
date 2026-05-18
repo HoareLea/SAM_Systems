@@ -1,7 +1,7 @@
 ﻿// SPDX-License-Identifier: LGPL-3.0-or-later
 // Copyright (c) 2020–2026 Michal Dengusiak & Jakub Ziolkowski and contributors
 
-using Newtonsoft.Json.Linq;
+using System.Text.Json.Nodes;
 using System.Collections.Generic;
 
 namespace SAM.Analytical.Systems
@@ -25,7 +25,7 @@ namespace SAM.Analytical.Systems
             }
         }
 
-        public DesignConditionSizableValue(JObject jObject)
+        public DesignConditionSizableValue(JsonObject jObject)
             : base(jObject)
         {
 
@@ -44,9 +44,9 @@ namespace SAM.Analytical.Systems
             }
         }
 
-        public override bool FromJObject(JObject jObject)
+        public override bool FromJsonObject(JsonObject jObject)
         {
-            if(!base.FromJObject(jObject))
+            if(!base.FromJsonObject(jObject))
             {
                 return false;
             }
@@ -60,8 +60,9 @@ namespace SAM.Analytical.Systems
             {
                 designConditionNames = new HashSet<string>();
 
-                foreach(string designConditionName in jObject.Value<JArray>("DesignConditionNames"))
+                foreach(JsonNode jsonNode in jObject["DesignConditionNames"] as JsonArray)
                 {
+                    string designConditionName = jsonNode?.GetValue<string>();
                     if(designConditionName == null)
                     {
                         continue;
@@ -74,9 +75,9 @@ namespace SAM.Analytical.Systems
             return true;
         }
 
-        public override JObject ToJObject()
+        public override JsonObject ToJsonObject()
         {
-            JObject result = base.ToJObject();
+            JsonObject result = base.ToJsonObject();
             if(result == null)
             {
                 return result;
@@ -84,7 +85,7 @@ namespace SAM.Analytical.Systems
 
             if (designConditionNames != null)
             {
-                JArray jArray = new JArray();
+                JsonArray jArray = new JsonArray();
                 foreach (string designConditionName in designConditionNames)
                 {
                     jArray.Add(designConditionName);
