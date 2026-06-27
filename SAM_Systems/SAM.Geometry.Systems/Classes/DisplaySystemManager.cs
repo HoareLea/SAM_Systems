@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json.Linq;
+﻿// SPDX-License-Identifier: LGPL-3.0-or-later
+// Copyright (c) 2020–2026 Michal Dengusiak & Jakub Ziolkowski and contributors
+using System.Text.Json.Nodes;
 using SAM.Core;
 using SAM.Core.Systems;
 
@@ -13,9 +15,9 @@ namespace SAM.Geometry.Systems
 
         }
 
-        public DisplaySystemManager(JObject jObject)
+        public DisplaySystemManager(JsonObject jObject)
         {
-            FromJObject(jObject);
+            FromJsonObject(jObject);
         }
 
         public DisplaySystemManager(DisplaySystemManager displaySystemManager)
@@ -36,7 +38,7 @@ namespace SAM.Geometry.Systems
             }
         }
 
-        public bool FromJObject(JObject jObject)
+        public bool FromJsonObject(JsonObject jObject)
         {
             if(jObject == null)
             {
@@ -45,20 +47,20 @@ namespace SAM.Geometry.Systems
 
             if(jObject.ContainsKey("SystemGeometrySymbolManager"))
             {
-                systemGeometrySymbolManager = new SystemGeometrySymbolManager(jObject.Value<JObject>("SystemGeometrySymbolManager")); 
+                systemGeometrySymbolManager = new SystemGeometrySymbolManager(jObject["SystemGeometrySymbolManager"] as JsonObject); 
             }
 
             return true;
         }
 
-        public JObject ToJObject()
+        public JsonObject ToJsonObject()
         {
-            JObject jObject = new JObject();
+            JsonObject jObject = new JsonObject();
             jObject.Add("_type", Core.Query.FullTypeName(this));
 
             if(systemGeometrySymbolManager != null)
             {
-                jObject.Add("SystemGeometrySymbolManager", systemGeometrySymbolManager.ToJObject());
+                jObject.Add("SystemGeometrySymbolManager", systemGeometrySymbolManager.ToJsonObject());
             }
 
             return jObject;

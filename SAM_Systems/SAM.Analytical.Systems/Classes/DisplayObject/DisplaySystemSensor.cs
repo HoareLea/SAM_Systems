@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json.Linq;
+﻿// SPDX-License-Identifier: LGPL-3.0-or-later
+// Copyright (c) 2020–2026 Michal Dengusiak & Jakub Ziolkowski and contributors
+using System.Text.Json.Nodes;
 using SAM.Core.Systems;
 using SAM.Geometry.Planar;
 using SAM.Geometry.Systems;
@@ -32,7 +34,7 @@ namespace SAM.Analytical.Systems
             systemPolyline = new SystemPolyline(new Polyline2D(point2Ds));
         }
 
-        public DisplaySystemSensor(JObject jObject)
+        public DisplaySystemSensor(JsonObject jObject)
             : base(jObject)
         {
 
@@ -70,9 +72,9 @@ namespace SAM.Analytical.Systems
             return true;
         }
 
-        public override bool FromJObject(JObject jObject)
+        public override bool FromJsonObject(JsonObject jObject)
         {
-            bool result = base.FromJObject(jObject);
+            bool result = base.FromJsonObject(jObject);
             if (!result)
             {
                 return result;
@@ -80,15 +82,15 @@ namespace SAM.Analytical.Systems
 
             if (jObject.ContainsKey("SystemPolyline"))
             {
-                systemPolyline = new SystemPolyline(jObject.Value<JObject>("SystemPolyline"));
+                systemPolyline = new SystemPolyline(jObject["SystemPolyline"] as JsonObject);
             }
 
             return result;
         }
 
-        public override JObject ToJObject()
+        public override JsonObject ToJsonObject()
         {
-            JObject result = base.ToJObject();
+            JsonObject result = base.ToJsonObject();
             if (result == null)
             {
                 return result;
@@ -96,7 +98,7 @@ namespace SAM.Analytical.Systems
 
             if (systemPolyline != null)
             {
-                result.Add("SystemPolyline", systemPolyline.ToJObject());
+                result.Add("SystemPolyline", systemPolyline.ToJsonObject());
             }
 
             return result;

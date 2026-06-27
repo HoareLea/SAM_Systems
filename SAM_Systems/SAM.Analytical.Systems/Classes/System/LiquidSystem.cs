@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json.Linq;
+﻿// SPDX-License-Identifier: LGPL-3.0-or-later
+// Copyright (c) 2020–2026 Michal Dengusiak & Jakub Ziolkowski and contributors
+using System.Text.Json.Nodes;
 using SAM.Core.Systems;
 using System;
 
@@ -16,7 +18,7 @@ namespace SAM.Analytical.Systems
         {
         }
 
-        public LiquidSystem(JObject jObject)
+        public LiquidSystem(JsonObject jObject)
             : base(jObject)
         {
         }
@@ -26,14 +28,14 @@ namespace SAM.Analytical.Systems
         {
         }
 
-        public override bool FromJObject(JObject jObject)
+        public override bool FromJsonObject(JsonObject jObject)
         {
-            return base.FromJObject(jObject);
+            return base.FromJsonObject(jObject);
         }
 
-        public override JObject ToJObject()
+        public override JsonObject ToJsonObject()
         {
-            return base.ToJObject();
+            return base.ToJsonObject();
         }
 
         public override SystemObject Duplicate(Guid? guid = null)

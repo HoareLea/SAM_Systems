@@ -1,11 +1,14 @@
-﻿using Newtonsoft.Json.Linq;
+﻿// SPDX-License-Identifier: LGPL-3.0-or-later
+// Copyright (c) 2020–2026 Michal Dengusiak & Jakub Ziolkowski and contributors
+
+using System.Text.Json.Nodes;
 using SAM.Core;
 using SAM.Core.Systems;
 using System;
 
 namespace SAM.Analytical.Systems
 {
-    public class SystemCoolingCoil: SystemComponent,IAirSystemComponent
+    public class SystemCoolingCoil: SystemComponent, IAirSystemComponent
     {
         public ModifiableValue Setpoint { get; set; }
         public ModifiableValue BypassFactor { get; set; }
@@ -46,7 +49,7 @@ namespace SAM.Analytical.Systems
             }
         }
 
-        public SystemCoolingCoil(JObject jObject)
+        public SystemCoolingCoil(JsonObject jObject)
             : base(jObject)
         {
 
@@ -67,9 +70,9 @@ namespace SAM.Analytical.Systems
             }
         }
 
-        public override bool FromJObject(JObject jObject)
+        public override bool FromJsonObject(JsonObject jObject)
         {
-            bool result = base.FromJObject(jObject);
+            bool result = base.FromJsonObject(jObject);
             if(!result)
             {
                 return result;
@@ -77,35 +80,35 @@ namespace SAM.Analytical.Systems
 
             if (jObject.ContainsKey("Setpoint"))
             {
-                Setpoint = Core.Query.IJSAMObject<ModifiableValue>(jObject.Value<JObject>("Setpoint"));
+                Setpoint = Core.Query.IJSAMObject<ModifiableValue>(jObject["Setpoint"] as JsonObject);
             }
 
             if (jObject.ContainsKey("BypassFactor"))
             {
-                BypassFactor = Core.Query.IJSAMObject<ModifiableValue>(jObject.Value<JObject>("BypassFactor"));
+                BypassFactor = Core.Query.IJSAMObject<ModifiableValue>(jObject["BypassFactor"] as JsonObject);
             }
 
             if (jObject.ContainsKey("Duty"))
             {
-                Duty = Core.Query.IJSAMObject<SizableValue>(jObject.Value<JObject>("Duty"));
+                Duty = Core.Query.IJSAMObject<SizableValue>(jObject["Duty"] as JsonObject);
             }
 
             if (jObject.ContainsKey("MinimumOffcoil"))
             {
-                MinimumOffcoil = Core.Query.IJSAMObject<ModifiableValue>(jObject.Value<JObject>("MinimumOffcoil"));
+                MinimumOffcoil = Core.Query.IJSAMObject<ModifiableValue>(jObject["MinimumOffcoil"] as JsonObject);
             }
 
             if (jObject.ContainsKey("ScheduleName"))
             {
-                ScheduleName = jObject.Value<string>("ScheduleName");
+                ScheduleName = jObject["ScheduleName"]?.GetValue<string>() ?? null;
             }
 
             return result;
         }
 
-        public override JObject ToJObject()
+        public override JsonObject ToJsonObject()
         {
-            JObject result = base.ToJObject();
+            JsonObject result = base.ToJsonObject();
             if(result == null)
             {
                 return result;
@@ -114,22 +117,22 @@ namespace SAM.Analytical.Systems
 
             if (Setpoint != null)
             {
-                result.Add("Setpoint", Setpoint.ToJObject());
+                result.Add("Setpoint", Setpoint.ToJsonObject());
             }
 
             if (BypassFactor != null)
             {
-                result.Add("BypassFactor", BypassFactor.ToJObject());
+                result.Add("BypassFactor", BypassFactor.ToJsonObject());
             }
 
             if (Duty != null)
             {
-                result.Add("Duty", Duty.ToJObject());
+                result.Add("Duty", Duty.ToJsonObject());
             }
 
             if (MinimumOffcoil != null)
             {
-                result.Add("MinimumOffcoil", MinimumOffcoil.ToJObject());
+                result.Add("MinimumOffcoil", MinimumOffcoil.ToJsonObject());
             }
 
             if (ScheduleName != null)

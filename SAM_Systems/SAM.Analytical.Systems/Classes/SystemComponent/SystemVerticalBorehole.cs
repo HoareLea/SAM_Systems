@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json.Linq;
+﻿// SPDX-License-Identifier: LGPL-3.0-or-later
+// Copyright (c) 2020–2026 Michal Dengusiak & Jakub Ziolkowski and contributors
+using System.Text.Json.Nodes;
 using SAM.Core;
 using SAM.Core.Systems;
 using System;
@@ -75,7 +77,7 @@ namespace SAM.Analytical.Systems
             }
         }
 
-        public SystemVerticalBorehole(JObject jObject)
+        public SystemVerticalBorehole(JsonObject jObject)
             : base(jObject)
         {
 
@@ -94,9 +96,9 @@ namespace SAM.Analytical.Systems
             }
         }
 
-        public override bool FromJObject(JObject jObject)
+        public override bool FromJsonObject(JsonObject jObject)
         {
-            bool result = base.FromJObject(jObject);
+            bool result = base.FromJsonObject(jObject);
             if (!result)
             {
                 return result;
@@ -104,85 +106,85 @@ namespace SAM.Analytical.Systems
 
             if (jObject.ContainsKey("Capacity"))
             {
-                Capacity = jObject.Value<double>("Capacity");
+                Capacity = jObject["Capacity"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("DesignPressureDrop"))
             {
-                DesignPressureDrop = jObject.Value<double>("DesignPressureDrop");
+                DesignPressureDrop = jObject["DesignPressureDrop"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("Length"))
             {
-                Length = jObject.Value<double>("Length");
+                Length = jObject["Length"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("Diameter"))
             {
-                Diameter = jObject.Value<double>("Diameter");
+                Diameter = jObject["Diameter"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("GroundConductivity"))
             {
-                GroundConductivity = jObject.Value<double>("GroundConductivity");
+                GroundConductivity = jObject["GroundConductivity"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("GroundHeatCapacity"))
             {
-                GroundHeatCapacity = jObject.Value<double>("GroundHeatCapacity");
+                GroundHeatCapacity = jObject["GroundHeatCapacity"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("GroundDensity"))
             {
-                GroundDensity = jObject.Value<double>("GroundDensity");
+                GroundDensity = jObject["GroundDensity"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("NumberOfBoreholes"))
             {
-                NumberOfBoreholes = jObject.Value<int>("NumberOfBoreholes");
+                NumberOfBoreholes = jObject["NumberOfBoreholes"]?.GetValue<int>() ?? default(int);
             }
 
             if (jObject.ContainsKey("GFunction"))
             {
-                GFunction = Core.Query.IJSAMObject<GFunction>(jObject.Value<JObject>("GFunction"));
+                GFunction = Core.Query.IJSAMObject<GFunction>(jObject["GFunction"] as JsonObject);
             }
 
             if (jObject.ContainsKey("GFunctionReferenceRatio"))
             {
-                GFunctionReferenceRatio = jObject.Value<double>("GFunctionReferenceRatio");
+                GFunctionReferenceRatio = jObject["GFunctionReferenceRatio"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("PipeInDiameter"))
             {
-                PipeInDiameter = jObject.Value<double>("PipeInDiameter");
+                PipeInDiameter = jObject["PipeInDiameter"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("PipeOutDiameter"))
             {
-                PipeOutDiameter = jObject.Value<double>("PipeOutDiameter");
+                PipeOutDiameter = jObject["PipeOutDiameter"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("PipeConductivity"))
             {
-                PipeConductivity = jObject.Value<double>("PipeConductivity");
+                PipeConductivity = jObject["PipeConductivity"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("GroutConductivity"))
             {
-                GroutConductivity = jObject.Value<double>("GroutConductivity");
+                GroutConductivity = jObject["GroutConductivity"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("GroundTemperatureAve"))
             {
-                GroundTemperatureAve = jObject.Value<double>("GroundTemperatureAve");
+                GroundTemperatureAve = jObject["GroundTemperatureAve"]?.GetValue<double>() ?? default(double);
             }
 
             return result;
         }
 
-        public override JObject ToJObject()
+        public override JsonObject ToJsonObject()
         {
-            JObject result = base.ToJObject();
+            JsonObject result = base.ToJsonObject();
             if (result == null)
             {
                 return result;
@@ -227,7 +229,7 @@ namespace SAM.Analytical.Systems
 
             if (GFunction != null)
             {
-                result.Add("GFunction", GFunction.ToJObject());
+                result.Add("GFunction", GFunction.ToJsonObject());
             }
 
             if (!double.IsNaN(GFunctionReferenceRatio))

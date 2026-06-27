@@ -1,5 +1,6 @@
-﻿using Newtonsoft.Json.Linq;
-
+﻿// SPDX-License-Identifier: LGPL-3.0-or-later
+// Copyright (c) 2020–2026 Michal Dengusiak & Jakub Ziolkowski and contributors
+using System.Text.Json.Nodes;
 namespace SAM.Analytical.Systems
 {
     public class FunctionSchedule : Schedule
@@ -27,7 +28,7 @@ namespace SAM.Analytical.Systems
             }
         }
 
-        public FunctionSchedule(JObject jObject)
+        public FunctionSchedule(JsonObject jObject)
             : base(jObject)
         {
 
@@ -41,9 +42,9 @@ namespace SAM.Analytical.Systems
         
         public ScheduleFunctionType ScheduleFunctionType { get; set; }
         
-        public override bool FromJObject(JObject jObject)
+        public override bool FromJsonObject(JsonObject jObject)
         {
-            bool result = base.FromJObject(jObject);
+            bool result = base.FromJsonObject(jObject);
             if (!result)
             {
                 return result;
@@ -51,30 +52,30 @@ namespace SAM.Analytical.Systems
 
             if (jObject.ContainsKey("ScheduleFunctionType"))
             {
-                ScheduleFunctionType = Core.Query.Enum<ScheduleFunctionType>(jObject.Value<string>("ScheduleFunctionType"));
+                ScheduleFunctionType = Core.Query.Enum<ScheduleFunctionType>(jObject["ScheduleFunctionType"]?.GetValue<string>() ?? null);
             }
 
             if (jObject.ContainsKey("Heating"))
             {
-                Heating = jObject.Value<bool>("Heating");
+                Heating = jObject["Heating"]?.GetValue<bool>() ?? default(bool);
             }
 
             if (jObject.ContainsKey("Cooling"))
             {
-                Cooling = jObject.Value<bool>("Cooling");
+                Cooling = jObject["Cooling"]?.GetValue<bool>() ?? default(bool);
             }
 
             if (jObject.ContainsKey("OccupancySensible"))
             {
-                OccupancySensible = jObject.Value<bool>("OccupancySensible");
+                OccupancySensible = jObject["OccupancySensible"]?.GetValue<bool>() ?? default(bool);
             }
 
             return true;
         }
 
-        public override JObject ToJObject()
+        public override JsonObject ToJsonObject()
         {
-            JObject result = base.ToJObject();
+            JsonObject result = base.ToJsonObject();
             if(result == null)
             {
                 return result;

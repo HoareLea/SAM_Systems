@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json.Linq;
+﻿// SPDX-License-Identifier: LGPL-3.0-or-later
+// Copyright (c) 2020–2026 Michal Dengusiak & Jakub Ziolkowski and contributors
+using System.Text.Json.Nodes;
 using SAM.Core;
 using SAM.Core.Systems;
 using System;
@@ -106,7 +108,7 @@ namespace SAM.Analytical.Systems
             }
         }
 
-        public SystemCoolingTower(JObject jObject)
+        public SystemCoolingTower(JsonObject jObject)
             : base(jObject)
         {
 
@@ -125,9 +127,9 @@ namespace SAM.Analytical.Systems
             }
         }
 
-        public override bool FromJObject(JObject jObject)
+        public override bool FromJsonObject(JsonObject jObject)
         {
-            bool result = base.FromJObject(jObject);
+            bool result = base.FromJsonObject(jObject);
             if(!result)
             {
                 return result;
@@ -135,135 +137,135 @@ namespace SAM.Analytical.Systems
 
             if (jObject.ContainsKey("Capacity"))
             {
-                Capacity = jObject.Value<double>("Capacity");
+                Capacity = jObject["Capacity"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("DesignPressureDrop"))
             {
-                DesignPressureDrop = jObject.Value<double>("DesignPressureDrop");
+                DesignPressureDrop = jObject["DesignPressureDrop"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("Setpoint"))
             {
-                Setpoint = Core.Query.IJSAMObject<ModifiableValue>(jObject.Value<JObject>("Setpoint"));
+                Setpoint = Core.Query.IJSAMObject<ModifiableValue>(jObject["Setpoint"] as JsonObject);
             }
 
             if (jObject.ContainsKey("MinApproach"))
             {
-                MinApproach = jObject.Value<double>("MinApproach");
+                MinApproach = jObject["MinApproach"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("VariableFans"))
             {
-                VariableFans = jObject.Value<bool>("VariableFans");
+                VariableFans = jObject["VariableFans"]?.GetValue<bool>() ?? default(bool);
             }
 
             if (jObject.ContainsKey("FanSFP"))
             {
-                FanSFP = Core.Query.IJSAMObject<ModifiableValue>(jObject.Value<JObject>("FanSFP"));
+                FanSFP = Core.Query.IJSAMObject<ModifiableValue>(jObject["FanSFP"] as JsonObject);
             }
 
             if (jObject.ContainsKey("HeatTransferCoefficient"))
             {
-                HeatTransferCoefficient = jObject.Value<double>("HeatTransferCoefficient");
+                HeatTransferCoefficient = jObject["HeatTransferCoefficient"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("HeatTransferSurfaceAreaSizingType"))
             {
-                HeatTransferSurfaceAreaSizingType = Core.Query.Enum<SizingType>(jObject.Value<string>("HeatTransferSurfaceAreaSizingType"));
+                HeatTransferSurfaceAreaSizingType = Core.Query.Enum<SizingType>(jObject["HeatTransferSurfaceAreaSizingType"]?.GetValue<string>() ?? null);
             }
 
             if (jObject.ContainsKey("HeatTransferSurfaceArea"))
             {
-                HeatTransferSurfaceArea = Core.Query.IJSAMObject<SizableValue>(jObject.Value<JObject>("HeatTransferSurfaceArea"));
+                HeatTransferSurfaceArea = Core.Query.IJSAMObject<SizableValue>(jObject["HeatTransferSurfaceArea"] as JsonObject);
             }
 
             if (jObject.ContainsKey("ExternalWetBulbTemperatureSizingType"))
             {
-                ExternalWetBulbTemperatureSizingType = Core.Query.Enum<TemperatureSizingType>(jObject.Value<string>("ExternalWetBulbTemperatureSizingType"));
+                ExternalWetBulbTemperatureSizingType = Core.Query.Enum<TemperatureSizingType>(jObject["ExternalWetBulbTemperatureSizingType"]?.GetValue<string>() ?? null);
             }
 
             if (jObject.ContainsKey("ExternalWetBulbTemperature"))
             {
-                ExternalWetBulbTemperature = jObject.Value<double>("ExternalWetBulbTemperature");
+                ExternalWetBulbTemperature = jObject["ExternalWetBulbTemperature"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("DesignApproach"))
             {
-                DesignApproach = jObject.Value<double>("DesignApproach");
+                DesignApproach = jObject["DesignApproach"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("DesignRange"))
             {
-                DesignRange = jObject.Value<double>("DesignRange");
+                DesignRange = jObject["DesignRange"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("DesignWaterFlowRateSizingType"))
             {
-                DesignWaterFlowRateSizingType = Core.Query.Enum<DesignWaterFlowRateSizingType>(jObject.Value<string>("DesignWaterFlowRateSizingType"));
+                DesignWaterFlowRateSizingType = Core.Query.Enum<DesignWaterFlowRateSizingType>(jObject["DesignWaterFlowRateSizingType"]?.GetValue<string>() ?? null);
             }
 
             if (jObject.ContainsKey("DesignWaterFlowRate"))
             {
-                DesignWaterFlowRate = jObject.Value<double>("DesignWaterFlowRate");
+                DesignWaterFlowRate = jObject["DesignWaterFlowRate"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("MaxAirFlowRateSizingType"))
             {
-                MaxAirFlowRateSizingType = Core.Query.Enum<MaxAirFlowRateSizingType>(jObject.Value<string>("MaxAirFlowRateSizingType"));
+                MaxAirFlowRateSizingType = Core.Query.Enum<MaxAirFlowRateSizingType>(jObject["MaxAirFlowRateSizingType"]?.GetValue<string>() ?? null);
             }
 
             if (jObject.ContainsKey("MaxAirFlowRate"))
             {
-                MaxAirFlowRate = Core.Query.IJSAMObject<ModifiableValue>(jObject.Value<JObject>("MaxAirFlowRate"));
+                MaxAirFlowRate = Core.Query.IJSAMObject<ModifiableValue>(jObject["MaxAirFlowRate"] as JsonObject);
             }
 
             if (jObject.ContainsKey("FanLoadRatio"))
             {
-                FanLoadRatio = jObject.Value<double>("FanLoadRatio");
+                FanLoadRatio = jObject["FanLoadRatio"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("AirWaterFlowRatio"))
             {
-                AirWaterFlowRatio = jObject.Value<double>("AirWaterFlowRatio");
+                AirWaterFlowRatio = jObject["AirWaterFlowRatio"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("MinAirFlowRate"))
             {
-                MinAirFlowRate = jObject.Value<double>("MinAirFlowRate");
+                MinAirFlowRate = jObject["MinAirFlowRate"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("FanMode2Ratio"))
             {
-                FanMode2Ratio = jObject.Value<double>("FanMode2Ratio");
+                FanMode2Ratio = jObject["FanMode2Ratio"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("WaterDriftLoss"))
             {
-                WaterDriftLoss = jObject.Value<double>("WaterDriftLoss");
+                WaterDriftLoss = jObject["WaterDriftLoss"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("BlowdownConcentrationRatio"))
             {
-                BlowdownConcentrationRatio = jObject.Value<double>("BlowdownConcentrationRatio");
+                BlowdownConcentrationRatio = jObject["BlowdownConcentrationRatio"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("AncillaryLoad"))
             {
-                AncillaryLoad = Core.Query.IJSAMObject<ModifiableValue>(jObject.Value<JObject>("AncillaryLoad"));
+                AncillaryLoad = Core.Query.IJSAMObject<ModifiableValue>(jObject["AncillaryLoad"] as JsonObject);
             }
 
             if (jObject.ContainsKey("ScheduleName"))
             {
-                ScheduleName = jObject.Value<string>("ScheduleName");
+                ScheduleName = jObject["ScheduleName"]?.GetValue<string>() ?? null;
             }
 
             return result;
         }
 
-        public override JObject ToJObject()
+        public override JsonObject ToJsonObject()
         {
-            JObject result = base.ToJObject();
+            JsonObject result = base.ToJsonObject();
             if (result == null)
             {
                 return result;
@@ -281,7 +283,7 @@ namespace SAM.Analytical.Systems
 
             if (Setpoint != null)
             {
-                result.Add("Setpoint", Setpoint.ToJObject());
+                result.Add("Setpoint", Setpoint.ToJsonObject());
             }
 
             if (!double.IsNaN(MinApproach))
@@ -293,7 +295,7 @@ namespace SAM.Analytical.Systems
 
             if (FanSFP != null)
             {
-                result.Add("FanSFP", FanSFP.ToJObject());
+                result.Add("FanSFP", FanSFP.ToJsonObject());
             }
 
             if (!double.IsNaN(HeatTransferCoefficient))
@@ -305,7 +307,7 @@ namespace SAM.Analytical.Systems
 
             if (HeatTransferSurfaceArea != null)
             {
-                result.Add("HeatTransferSurfaceArea", HeatTransferSurfaceArea.ToJObject());
+                result.Add("HeatTransferSurfaceArea", HeatTransferSurfaceArea.ToJsonObject());
             }
 
             result.Add("ExternalWetBulbTemperatureSizingType", ExternalWetBulbTemperatureSizingType.ToString());
@@ -336,7 +338,7 @@ namespace SAM.Analytical.Systems
 
             if (MaxAirFlowRate != null)
             {
-                result.Add("MaxAirFlowRate", MaxAirFlowRate.ToJObject());
+                result.Add("MaxAirFlowRate", MaxAirFlowRate.ToJsonObject());
             }
 
             if (!double.IsNaN(FanLoadRatio))
@@ -371,7 +373,7 @@ namespace SAM.Analytical.Systems
 
             if (AncillaryLoad != null)
             {
-                result.Add("AncillaryLoad", AncillaryLoad.ToJObject());
+                result.Add("AncillaryLoad", AncillaryLoad.ToJsonObject());
             }
 
             if (ScheduleName != null)

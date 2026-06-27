@@ -1,7 +1,7 @@
 ﻿// SPDX-License-Identifier: LGPL-3.0-or-later
 // Copyright (c) 2020–2026 Michal Dengusiak & Jakub Ziolkowski and contributors
 
-using Newtonsoft.Json.Linq;
+using System.Text.Json.Nodes;
 using SAM.Core;
 
 namespace SAM.Analytical.Systems
@@ -31,7 +31,7 @@ namespace SAM.Analytical.Systems
             }
         }
 
-        public Distribution(JObject jObject)
+        public Distribution(JsonObject jObject)
             : base(jObject)
         {
 
@@ -45,9 +45,9 @@ namespace SAM.Analytical.Systems
             }
         }
 
-        public override bool FromJObject(JObject jObject)
+        public override bool FromJsonObject(JsonObject jObject)
         {
-            bool result = base.FromJObject(jObject);
+            bool result = base.FromJsonObject(jObject);
             if (!result)
             {
                 return result;
@@ -55,15 +55,15 @@ namespace SAM.Analytical.Systems
 
             if (jObject.ContainsKey("IsEfficiency"))
             {
-                isEfficiency = jObject.Value<bool>("IsEfficiency");
+                isEfficiency = jObject["IsEfficiency"]?.GetValue<bool>() ?? default(bool);
             }
 
             return result;
         }
 
-        public override JObject ToJObject()
+        public override JsonObject ToJsonObject()
         {
-            JObject result = base.ToJObject();
+            JsonObject result = base.ToJsonObject();
             if (result == null)
             {
                 return result;

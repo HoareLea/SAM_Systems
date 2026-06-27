@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json.Linq;
+﻿// SPDX-License-Identifier: LGPL-3.0-or-later
+// Copyright (c) 2020–2026 Michal Dengusiak & Jakub Ziolkowski and contributors
+using System.Text.Json.Nodes;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -18,7 +20,7 @@ namespace SAM.Core.Systems
 
         }
 
-        public SystemMultiComponent(JObject jObject)
+        public SystemMultiComponent(JsonObject jObject)
             : base(jObject)
         {
 
@@ -71,7 +73,7 @@ namespace SAM.Core.Systems
             }
         }
 
-        public SystemMultiComponent(JObject jObject)
+        public SystemMultiComponent(JsonObject jObject)
             : base(jObject)
         {
 
@@ -133,9 +135,9 @@ namespace SAM.Core.Systems
             return items.ElementAt(index)?.Clone();
         }
 
-        public override bool FromJObject(JObject jObject)
+        public override bool FromJsonObject(JsonObject jObject)
         {
-            bool result = base.FromJObject(jObject);
+            bool result = base.FromJsonObject(jObject);
             if(!result)
             {
                 return result;
@@ -143,11 +145,16 @@ namespace SAM.Core.Systems
 
             if(jObject.ContainsKey("Items"))
             {
-                JArray jArray = jObject.Value<JArray>("Items");
+                JsonArray jArray = jObject["Items"] as JsonArray;
                 if(jArray != null)
                 {
-                    foreach(JObject jObject_Item in jArray)
+                    foreach(JsonNode jsonNode in jArray)
                     {
+                        if (!(jsonNode is JsonObject jObject_Item))
+                        {
+                            continue;
+                        }
+
                         TSystemObject item = Core.Query.IJSAMObject<TSystemObject>(jObject_Item);
                         if(item == null)
                         {
@@ -162,9 +169,9 @@ namespace SAM.Core.Systems
             return result;
         }
 
-        public override JObject ToJObject()
+        public override JsonObject ToJsonObject()
         {
-            JObject result = base.ToJObject();
+            JsonObject result = base.ToJsonObject();
             if(result == null)
             {
                 return result;
@@ -172,10 +179,10 @@ namespace SAM.Core.Systems
 
             if(dictionary != null)
             {
-                JArray jArray = new JArray();
+                JsonArray jArray = new JsonArray();
                 foreach(TSystemObject item in dictionary.Values)
                 {
-                    jArray.Add(item.ToJObject());
+                    jArray.Add(item.ToJsonObject());
                 }
 
                 result.Add("Items", jArray);

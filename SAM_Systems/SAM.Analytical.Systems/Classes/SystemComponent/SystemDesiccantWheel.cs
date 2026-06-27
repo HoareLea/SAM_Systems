@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json.Linq;
+﻿// SPDX-License-Identifier: LGPL-3.0-or-later
+// Copyright (c) 2020–2026 Michal Dengusiak & Jakub Ziolkowski and contributors
+using System.Text.Json.Nodes;
 using SAM.Analytical.Systems.Interfaces;
 using SAM.Core;
 using SAM.Core.Systems;
@@ -63,7 +65,7 @@ namespace SAM.Analytical.Systems
             }
         }
 
-        public SystemDesiccantWheel(JObject jObject)
+        public SystemDesiccantWheel(JsonObject jObject)
             : base(jObject)
         {
 
@@ -84,9 +86,9 @@ namespace SAM.Analytical.Systems
             }
         }
 
-        public override bool FromJObject(JObject jObject)
+        public override bool FromJsonObject(JsonObject jObject)
         {
-            bool result = base.FromJObject(jObject);
+            bool result = base.FromJsonObject(jObject);
             if (!result)
             {
                 return result;
@@ -94,60 +96,60 @@ namespace SAM.Analytical.Systems
 
             if (jObject.ContainsKey("SensibleEfficiency"))
             {
-                SensibleEfficiency = Core.Query.IJSAMObject<ModifiableValue>(jObject.Value<JObject>("SensibleEfficiency"));
+                SensibleEfficiency = Core.Query.IJSAMObject<ModifiableValue>(jObject["SensibleEfficiency"] as JsonObject);
             }
 
             if (jObject.ContainsKey("Reactivation"))
             {
-                Reactivation = Core.Query.IJSAMObject<ModifiableValue>(jObject.Value<JObject>("Reactivation"));
+                Reactivation = Core.Query.IJSAMObject<ModifiableValue>(jObject["Reactivation"] as JsonObject);
             }
 
             if (jObject.ContainsKey("MinimumRH"))
             {
-                MinimumRH = Core.Query.IJSAMObject<ModifiableValue>(jObject.Value<JObject>("MinimumRH"));
+                MinimumRH = Core.Query.IJSAMObject<ModifiableValue>(jObject["MinimumRH"] as JsonObject);
             }
 
             if (jObject.ContainsKey("MaximumRH"))
             {
-                MaximumRH = Core.Query.IJSAMObject<ModifiableValue>(jObject.Value<JObject>("MaximumRH"));
+                MaximumRH = Core.Query.IJSAMObject<ModifiableValue>(jObject["MaximumRH"] as JsonObject);
             }
 
             if (jObject.ContainsKey("SensibleHEEfficiency"))
             {
-                SensibleHEEfficiency = Core.Query.IJSAMObject<ModifiableValue>(jObject.Value<JObject>("SensibleHEEfficiency"));
+                SensibleHEEfficiency = Core.Query.IJSAMObject<ModifiableValue>(jObject["SensibleHEEfficiency"] as JsonObject);
             }
 
             if (jObject.ContainsKey("LatentHEEfficiency"))
             {
-                LatentHEEfficiency = Core.Query.IJSAMObject<ModifiableValue>(jObject.Value<JObject>("LatentHEEfficiency"));
+                LatentHEEfficiency = Core.Query.IJSAMObject<ModifiableValue>(jObject["LatentHEEfficiency"] as JsonObject);
             }
 
             if (jObject.ContainsKey("HESetpointMethod"))
             {
-                HESetpointMethod = Core.Query.Enum<SetpointMode>(jObject.Value<string>("HESetpointMethod"));
+                HESetpointMethod = Core.Query.Enum<SetpointMode>(jObject["HESetpointMethod"]?.GetValue<string>() ?? null);
             }
 
             if (jObject.ContainsKey("HESetpoint"))
             {
-                HESetpoint = Core.Query.IJSAMObject<ModifiableValue>(jObject.Value<JObject>("HESetpoint"));
+                HESetpoint = Core.Query.IJSAMObject<ModifiableValue>(jObject["HESetpoint"] as JsonObject);
             }
 
             if (jObject.ContainsKey("ElectricalLoad"))
             {
-                ElectricalLoad = Core.Query.IJSAMObject<ModifiableValue>(jObject.Value<JObject>("ElectricalLoad"));
+                ElectricalLoad = Core.Query.IJSAMObject<ModifiableValue>(jObject["ElectricalLoad"] as JsonObject);
             }
 
             if (jObject.ContainsKey("ScheduleName"))
             {
-                ScheduleName = jObject.Value<string>("ScheduleName");
+                ScheduleName = jObject["ScheduleName"]?.GetValue<string>() ?? null;
             }
 
             return result;
         }
 
-        public override JObject ToJObject()
+        public override JsonObject ToJsonObject()
         {
-            JObject result = base.ToJObject();
+            JsonObject result = base.ToJsonObject();
             if (result == null)
             {
                 return null;
@@ -155,44 +157,44 @@ namespace SAM.Analytical.Systems
 
             if (SensibleEfficiency != null)
             {
-                result.Add("SensibleEfficiency", SensibleEfficiency.ToJObject());
+                result.Add("SensibleEfficiency", SensibleEfficiency.ToJsonObject());
             }
 
             if (Reactivation != null)
             {
-                result.Add("Reactivation", Reactivation.ToJObject());
+                result.Add("Reactivation", Reactivation.ToJsonObject());
             }
 
             if (MinimumRH != null)
             {
-                result.Add("MinimumRH", MinimumRH.ToJObject());
+                result.Add("MinimumRH", MinimumRH.ToJsonObject());
             }
 
             if (MaximumRH != null)
             {
-                result.Add("MaximumRH", MaximumRH.ToJObject());
+                result.Add("MaximumRH", MaximumRH.ToJsonObject());
             }
 
             if (SensibleHEEfficiency != null)
             {
-                result.Add("SensibleHEEfficiency", SensibleHEEfficiency.ToJObject());
+                result.Add("SensibleHEEfficiency", SensibleHEEfficiency.ToJsonObject());
             }
 
             if (LatentHEEfficiency != null)
             {
-                result.Add("LatentHEEfficiency", LatentHEEfficiency.ToJObject());
+                result.Add("LatentHEEfficiency", LatentHEEfficiency.ToJsonObject());
             }
 
             result.Add("HESetpointMethod", HESetpointMethod.ToString());
 
             if (HESetpoint != null)
             {
-                result.Add("HESetpoint", HESetpoint.ToJObject());
+                result.Add("HESetpoint", HESetpoint.ToJsonObject());
             }
 
             if (ElectricalLoad != null)
             {
-                result.Add("ElectricalLoad", ElectricalLoad.ToJObject());
+                result.Add("ElectricalLoad", ElectricalLoad.ToJsonObject());
             }
 
             if (ScheduleName != null)

@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json.Linq;
+﻿// SPDX-License-Identifier: LGPL-3.0-or-later
+// Copyright (c) 2020–2026 Michal Dengusiak & Jakub Ziolkowski and contributors
+using System.Text.Json.Nodes;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -29,9 +31,9 @@ namespace SAM.Core.Systems
 
         }
 
-        public SystemConnectorManager(JObject jObject)
+        public SystemConnectorManager(JsonObject jObject)
         {
-            FromJObject(jObject);
+            FromJsonObject(jObject);
         }
 
         public SystemConnectorManager(SystemConnectorManager<T> systemConnectorManager)
@@ -434,7 +436,7 @@ namespace SAM.Core.Systems
             return GetSystemConnectors(indexes);
         }
 
-        public virtual bool FromJObject(JObject jObject)
+        public virtual bool FromJsonObject(JsonObject jObject)
         {
             if(jObject == null)
             {
@@ -443,35 +445,35 @@ namespace SAM.Core.Systems
 
             if(jObject.ContainsKey("SystemConnectors"))
             {
-                JArray jArray = jObject.Value<JArray>("SystemConnectors");
+                JsonArray jArray = jObject["SystemConnectors"] as JsonArray;
                 if(jArray != null)
                 {
                     sortedDictionary = new SortedDictionary<int, T>();
-                    foreach(JToken jToken in jArray)
+                    foreach(JsonNode jToken in jArray)
                     {
-                        if(jToken is JArray)
+                        if(jToken is JsonArray)
                         {
-                            JArray jArray_Temp = (JArray)jToken;
+                            JsonArray jArray_Temp = (JsonArray)jToken;
                             
                             if (jArray_Temp == null || jArray_Temp.Count < 1)
                             {
                                 continue;
                             }
 
-                            int index = jArray_Temp[0].Value<int>();
+                            int index = jArray_Temp[0]?.GetValue<int>() ?? default(int);
 
                             T systemConnector = null;
                             if (jArray_Temp.Count > 1)
                             {
-                                systemConnector = Core.Query.IJSAMObject<T>(jArray_Temp[1].Value<JObject>());
+                                systemConnector = Core.Query.IJSAMObject<T>(jArray_Temp[1] as JsonObject);
                             }
 
                             sortedDictionary[index] = systemConnector;
                         }
-                        else if (jToken is JObject)
+                        else if (jToken is JsonObject)
                         {
                             int index = sortedDictionary.Keys.Count == 0 ? 0 : sortedDictionary.Keys.Max() + 1;
-                            T systemConnector = Core.Query.IJSAMObject<T>((JObject)jToken);
+                            T systemConnector = Core.Query.IJSAMObject<T>((JsonObject)jToken);
                             sortedDictionary[index] = systemConnector;
                         }
 
@@ -483,20 +485,20 @@ namespace SAM.Core.Systems
             return true;
         }
 
-        public virtual JObject ToJObject()
+        public virtual JsonObject ToJsonObject()
         {
-            JObject result = new JObject();
+            JsonObject result = new JsonObject();
             result.Add("_type", Core.Query.FullTypeName(this));
 
             if(sortedDictionary != null)
             {
-                JArray jArray = new JArray();
+                JsonArray jArray = new JsonArray();
                 foreach(KeyValuePair<int, T> keyValuePair in sortedDictionary)
                 {
-                    JArray jArray_Temp = new JArray() { keyValuePair.Key };
+                    JsonArray jArray_Temp = new JsonArray() { keyValuePair.Key };
                     if(keyValuePair.Value != null)
                     {
-                        jArray_Temp.Add(keyValuePair.Value.ToJObject());
+                        jArray_Temp.Add(keyValuePair.Value.ToJsonObject());
                     }
                     jArray.Add(jArray_Temp);
                 }
@@ -520,7 +522,7 @@ namespace SAM.Core.Systems
 
         }
 
-        public SystemConnectorManager(JObject jObject)
+        public SystemConnectorManager(JsonObject jObject)
             :base(jObject)
         {
 

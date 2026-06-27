@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json.Linq;
+﻿// SPDX-License-Identifier: LGPL-3.0-or-later
+// Copyright (c) 2020–2026 Michal Dengusiak & Jakub Ziolkowski and contributors
+using System.Text.Json.Nodes;
 using SAM.Core.Systems;
 using System;
 
@@ -16,7 +18,7 @@ namespace SAM.Analytical.Systems
         {
         }
 
-        public FuelSystemCollection(JObject jObject)
+        public FuelSystemCollection(JsonObject jObject)
             : base(jObject)
         {
 
@@ -39,9 +41,9 @@ namespace SAM.Analytical.Systems
             return new FuelSystemCollection(guid == null ? Guid.NewGuid() : guid.Value, this);
         }
 
-        public override bool FromJObject(JObject jObject)
+        public override bool FromJsonObject(JsonObject jObject)
         {
-            bool result = base.FromJObject(jObject);
+            bool result = base.FromJsonObject(jObject);
             if (!result)
             {
                 return result;
@@ -50,9 +52,9 @@ namespace SAM.Analytical.Systems
             return true;
         }
 
-        public override JObject ToJObject()
+        public override JsonObject ToJsonObject()
         {
-            JObject result = base.ToJObject();
+            JsonObject result = base.ToJsonObject();
             if (result == null)
             {
                 return null;

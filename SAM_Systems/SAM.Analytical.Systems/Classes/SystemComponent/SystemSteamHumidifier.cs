@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json.Linq;
+﻿// SPDX-License-Identifier: LGPL-3.0-or-later
+// Copyright (c) 2020–2026 Michal Dengusiak & Jakub Ziolkowski and contributors
+using System.Text.Json.Nodes;
 using SAM.Core;
 using SAM.Core.Systems;
 using System;
@@ -42,15 +44,15 @@ namespace SAM.Analytical.Systems
             }
         }
 
-        public SystemSteamHumidifier(JObject jObject)
+        public SystemSteamHumidifier(JsonObject jObject)
             : base(jObject)
         {
 
         }
 
-        public override bool FromJObject(JObject jObject)
+        public override bool FromJsonObject(JsonObject jObject)
         {
-            bool result = base.FromJObject(jObject);
+            bool result = base.FromJsonObject(jObject);
             if (!result)
             {
                 return result;
@@ -58,30 +60,30 @@ namespace SAM.Analytical.Systems
 
             if (jObject.ContainsKey("Duty"))
             {
-                Duty = Core.Query.IJSAMObject<SizableValue>(jObject.Value<JObject>("Duty"));
+                Duty = Core.Query.IJSAMObject<SizableValue>(jObject["Duty"] as JsonObject);
             }
 
             if (jObject.ContainsKey("Setpoint"))
             {
-                Setpoint = Core.Query.IJSAMObject<ModifiableValue>(jObject.Value<JObject>("Setpoint"));
+                Setpoint = Core.Query.IJSAMObject<ModifiableValue>(jObject["Setpoint"] as JsonObject);
             }
 
             if (jObject.ContainsKey("WaterSupplyTemperature"))
             {
-                WaterSupplyTemperature = Core.Query.IJSAMObject<ModifiableValue>(jObject.Value<JObject>("WaterSupplyTemperature"));
+                WaterSupplyTemperature = Core.Query.IJSAMObject<ModifiableValue>(jObject["WaterSupplyTemperature"] as JsonObject);
             }
 
             if (jObject.ContainsKey("WaterTemperatureSource"))
             {
-                WaterTemperatureSource = Core.Query.Enum<SizingType>(jObject.Value<string>("WaterTemperatureSource"));
+                WaterTemperatureSource = Core.Query.Enum<SizingType>(jObject["WaterTemperatureSource"]?.GetValue<string>() ?? null);
             }
 
             return result;
         }
 
-        public override JObject ToJObject()
+        public override JsonObject ToJsonObject()
         {
-            JObject result = base.ToJObject();
+            JsonObject result = base.ToJsonObject();
             if (result == null)
             {
                 return null;
@@ -89,17 +91,17 @@ namespace SAM.Analytical.Systems
 
             if (Duty != null)
             {
-                result.Add("Duty", Duty.ToJObject());
+                result.Add("Duty", Duty.ToJsonObject());
             }
 
             if (Setpoint != null)
             {
-                result.Add("Setpoint", Setpoint.ToJObject());
+                result.Add("Setpoint", Setpoint.ToJsonObject());
             }
 
             if (WaterSupplyTemperature != null)
             {
-                result.Add("WaterSupplyTemperature", WaterSupplyTemperature.ToJObject());
+                result.Add("WaterSupplyTemperature", WaterSupplyTemperature.ToJsonObject());
             }
 
             result.Add("WaterTemperatureSource", WaterTemperatureSource.ToString());

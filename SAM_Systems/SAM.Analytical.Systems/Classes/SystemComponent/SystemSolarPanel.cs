@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json.Linq;
+﻿// SPDX-License-Identifier: LGPL-3.0-or-later
+// Copyright (c) 2020–2026 Michal Dengusiak & Jakub Ziolkowski and contributors
+using System.Text.Json.Nodes;
 using SAM.Core;
 using SAM.Core.Systems;
 using System;
@@ -69,7 +71,7 @@ namespace SAM.Analytical.Systems
             }
         }
 
-        public SystemSolarPanel(JObject jObject)
+        public SystemSolarPanel(JsonObject jObject)
             : base(jObject)
         {
 
@@ -88,9 +90,9 @@ namespace SAM.Analytical.Systems
             }
         }
 
-        public override bool FromJObject(JObject jObject)
+        public override bool FromJsonObject(JsonObject jObject)
         {
-            bool result = base.FromJObject(jObject);
+            bool result = base.FromJsonObject(jObject);
             if (!result)
             {
                 return result;
@@ -98,75 +100,75 @@ namespace SAM.Analytical.Systems
 
             if (jObject.ContainsKey("EtaZero"))
             {
-                EtaZero = jObject.Value<double>("EtaZero");
+                EtaZero = jObject["EtaZero"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("AlphaOne"))
             {
-                AlphaOne = jObject.Value<double>("AlphaOne");
+                AlphaOne = jObject["AlphaOne"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("AlphaTwo"))
             {
-                AlphaTwo = jObject.Value<double>("AlphaTwo");
+                AlphaTwo = jObject["AlphaTwo"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("Multiplicity"))
             {
-                Multiplicity = jObject.Value<int>("Multiplicity");
+                Multiplicity = jObject["Multiplicity"]?.GetValue<int>() ?? default(int);
             }
 
             if (jObject.ContainsKey("Capacity"))
             {
-                Capacity = jObject.Value<double>("Capacity");
+                Capacity = jObject["Capacity"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("DesignPressureDrop"))
             {
-                DesignPressureDrop = jObject.Value<double>("DesignPressureDrop");
+                DesignPressureDrop = jObject["DesignPressureDrop"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("NoNegativeLoad"))
             {
-                NoNegativeLoad = jObject.Value<bool>("NoNegativeLoad");
+                NoNegativeLoad = jObject["NoNegativeLoad"]?.GetValue<bool>() ?? default(bool);
             }
 
             if (jObject.ContainsKey("NoNegativeLoad"))
             {
-                NoNegativeLoad = jObject.Value<bool>("NoNegativeLoad");
+                NoNegativeLoad = jObject["NoNegativeLoad"]?.GetValue<bool>() ?? default(bool);
             }
 
             if (jObject.ContainsKey("SweptArea"))
             {
-                SweptArea = jObject.Value<double>("SweptArea");
+                SweptArea = jObject["SweptArea"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("Inclination"))
             {
-                Inclination = Core.Query.IJSAMObject<ModifiableValue>(jObject.Value<JObject>("Inclination"));
+                Inclination = Core.Query.IJSAMObject<ModifiableValue>(jObject["Inclination"] as JsonObject);
             }
 
             if (jObject.ContainsKey("Orientation"))
             {
-                Orientation = Core.Query.IJSAMObject<ModifiableValue>(jObject.Value<JObject>("Orientation"));
+                Orientation = Core.Query.IJSAMObject<ModifiableValue>(jObject["Orientation"] as JsonObject);
             }
 
             if (jObject.ContainsKey("Reflectance"))
             {
-                Reflectance = jObject.Value<double>("Reflectance");
+                Reflectance = jObject["Reflectance"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("DesignFlowPerM2"))
             {
-                DesignFlowPerM2 = jObject.Value<double>("DesignFlowPerM2");
+                DesignFlowPerM2 = jObject["DesignFlowPerM2"]?.GetValue<double>() ?? default(double);
             }
 
             return result;
         }
 
-        public override JObject ToJObject()
+        public override JsonObject ToJsonObject()
         {
-            JObject result = base.ToJObject();
+            JsonObject result = base.ToJsonObject();
             if (result == null)
             {
                 return result;
@@ -210,12 +212,12 @@ namespace SAM.Analytical.Systems
 
             if (Inclination != null)
             {
-                result.Add("Inclination", Inclination.ToJObject());
+                result.Add("Inclination", Inclination.ToJsonObject());
             }
 
             if (Orientation != null)
             {
-                result.Add("Orientation", Orientation.ToJObject());
+                result.Add("Orientation", Orientation.ToJsonObject());
             }
 
             if (!double.IsNaN(Reflectance))

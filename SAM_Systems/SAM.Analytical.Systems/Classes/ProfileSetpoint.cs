@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json.Linq;
+﻿// SPDX-License-Identifier: LGPL-3.0-or-later
+// Copyright (c) 2020–2026 Michal Dengusiak & Jakub Ziolkowski and contributors
+using System.Text.Json.Nodes;
 using SAM.Core;
 using SAM.Geometry.Planar;
 using System.Collections.Generic;
@@ -28,7 +30,7 @@ namespace SAM.Analytical.Systems
             }
         }
 
-        public ProfileSetpoint(JObject jObject)
+        public ProfileSetpoint(JsonObject jObject)
             : base(jObject)
         {
 
@@ -93,9 +95,9 @@ namespace SAM.Analytical.Systems
             }
         }
 
-        public override bool FromJObject(JObject jObject)
+        public override bool FromJsonObject(JsonObject jObject)
         {
-            bool result = base.FromJObject(jObject);
+            bool result = base.FromJsonObject(jObject);
             if(!result)
             {
                 return result;
@@ -103,12 +105,17 @@ namespace SAM.Analytical.Systems
 
             if(jObject.ContainsKey("Point2Ds"))
             {
-                JArray jArray = jObject.Value<JArray>("Point2Ds");
+                JsonArray jArray = jObject["Point2Ds"] as JsonArray;
                 if(jArray != null)
                 {
                     point2Ds = new List<Point2D>();
-                    foreach(JObject jObject_Point2D in jArray)
+                    foreach(JsonNode jsonNode in jArray)
                     {
+                        if (!(jsonNode is JsonObject jObject_Point2D))
+                        {
+                            continue;
+                        }
+
                         point2Ds.Add(new Point2D(jObject_Point2D));
                     }
                 }
@@ -118,9 +125,9 @@ namespace SAM.Analytical.Systems
             return result;
         }
 
-        public override JObject ToJObject()
+        public override JsonObject ToJsonObject()
         {
-            JObject result = base.ToJObject();
+            JsonObject result = base.ToJsonObject();
             if(result == null)
             {
                 return null;
@@ -128,10 +135,10 @@ namespace SAM.Analytical.Systems
 
             if(point2Ds != null)
             {
-                JArray jArray = new JArray();
+                JsonArray jArray = new JsonArray();
                 foreach(Point2D point2D in point2Ds)
                 {
-                    jArray.Add(point2D.ToJObject());
+                    jArray.Add(point2D.ToJsonObject());
                 }
 
                 result.Add("Point2Ds", jArray);

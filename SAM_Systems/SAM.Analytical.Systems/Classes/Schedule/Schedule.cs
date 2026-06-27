@@ -1,5 +1,6 @@
-﻿using Newtonsoft.Json.Linq;
-
+﻿// SPDX-License-Identifier: LGPL-3.0-or-later
+// Copyright (c) 2020–2026 Michal Dengusiak & Jakub Ziolkowski and contributors
+using System.Text.Json.Nodes;
 namespace SAM.Analytical.Systems
 {
     public abstract class Schedule : ISchedule
@@ -24,9 +25,9 @@ namespace SAM.Analytical.Systems
             }
         }
 
-        public Schedule(JObject jObject)
+        public Schedule(JsonObject jObject)
         {
-            FromJObject(jObject);
+            FromJsonObject(jObject);
         }
 
         public string Description { get; set; }
@@ -39,7 +40,7 @@ namespace SAM.Analytical.Systems
             }
         }
 
-        public virtual bool FromJObject(JObject jObject)
+        public virtual bool FromJsonObject(JsonObject jObject)
         {
             if (jObject == null)
             {
@@ -48,20 +49,20 @@ namespace SAM.Analytical.Systems
 
             if(jObject.ContainsKey("Name"))
             {
-                name = jObject.Value<string>("Name");
+                name = jObject["Name"]?.GetValue<string>() ?? null;
             }
 
             if (jObject.ContainsKey("Description"))
             {
-                Description = jObject.Value<string>("Description");
+                Description = jObject["Description"]?.GetValue<string>() ?? null;
             }
 
             return true;
         }
 
-        public virtual JObject ToJObject()
+        public virtual JsonObject ToJsonObject()
         {
-            JObject result = new JObject();
+            JsonObject result = new JsonObject();
             result.Add("_type", Core.Query.FullTypeName(this));
 
             if(name != null)

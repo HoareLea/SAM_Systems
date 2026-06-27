@@ -1,7 +1,7 @@
 ﻿// SPDX-License-Identifier: LGPL-3.0-or-later
 // Copyright (c) 2020–2026 Michal Dengusiak & Jakub Ziolkowski and contributors
 
-using Newtonsoft.Json.Linq;
+using System.Text.Json.Nodes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,7 +30,7 @@ namespace SAM.Core.Systems
             }
         }
 
-        public SystemPlantRoom(JObject jObject)
+        public SystemPlantRoom(JsonObject jObject)
             : base(jObject)
         {
 
@@ -774,9 +774,9 @@ namespace SAM.Core.Systems
             return ts.ConvertAll(x => x.Clone());
         }
 
-        public override bool FromJObject(JObject jObject)
+        public override bool FromJsonObject(JsonObject jObject)
         {
-            bool result = base.FromJObject(jObject);
+            bool result = base.FromJsonObject(jObject);
             if (!result)
             {
                 return result;
@@ -784,7 +784,7 @@ namespace SAM.Core.Systems
 
             if (jObject.ContainsKey("SystemRelationCluster"))
             {
-                systemRelationCluster = Core.Query.IJSAMObject<SystemRelationCluster>(jObject.Value<JObject>("SystemRelationCluster"));
+                systemRelationCluster = Core.Query.IJSAMObject<SystemRelationCluster>(jObject["SystemRelationCluster"] as JsonObject);
             }
 
             return result;
@@ -1570,9 +1570,9 @@ namespace SAM.Core.Systems
             }
         }
 
-        public override JObject ToJObject()
+        public override JsonObject ToJsonObject()
         {
-            JObject result = base.ToJObject();
+            JsonObject result = base.ToJsonObject();
             if (result == null)
             {
                 return result;
@@ -1580,7 +1580,7 @@ namespace SAM.Core.Systems
 
             if (systemRelationCluster != null)
             {
-                result.Add("SystemRelationCluster", systemRelationCluster.ToJObject());
+                result.Add("SystemRelationCluster", systemRelationCluster.ToJsonObject());
             }
 
             return result;

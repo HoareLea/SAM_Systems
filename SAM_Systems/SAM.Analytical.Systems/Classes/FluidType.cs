@@ -1,7 +1,7 @@
 ﻿// SPDX-License-Identifier: LGPL-3.0-or-later
 // Copyright (c) 2020–2026 Michal Dengusiak & Jakub Ziolkowski and contributors
 
-using Newtonsoft.Json.Linq;
+using System.Text.Json.Nodes;
 using SAM.Core;
 
 namespace SAM.Analytical.Systems
@@ -31,15 +31,15 @@ namespace SAM.Analytical.Systems
             }
         }
 
-        public FluidType(JObject jObject)
+        public FluidType(JsonObject jObject)
             :base(jObject)
         {
             
         }
 
-        public override bool FromJObject(JObject jObject)
+        public override bool FromJsonObject(JsonObject jObject)
         {
-            bool result = base.FromJObject(jObject);
+            bool result = base.FromJsonObject(jObject);
             if(!result)
             {
                 return false;
@@ -47,30 +47,30 @@ namespace SAM.Analytical.Systems
 
             if (jObject.ContainsKey("Description"))
             {
-                Description = jObject.Value<string>("Description");
+                Description = jObject["Description"]?.GetValue<string>() ?? null;
             }
 
             if (jObject.ContainsKey("SpecificHeatCapacity"))
             {
-                SpecificHeatCapacity = jObject.Value<double>("SpecificHeatCapacity");
+                SpecificHeatCapacity = jObject["SpecificHeatCapacity"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("Density"))
             {
-                Density = jObject.Value<double>("Density");
+                Density = jObject["Density"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("FreezingPoint"))
             {
-                FreezingPoint = jObject.Value<double>("FreezingPoint");
+                FreezingPoint = jObject["FreezingPoint"]?.GetValue<double>() ?? default(double);
             }
 
             return result;
         }
 
-        public override JObject ToJObject()
+        public override JsonObject ToJsonObject()
         {
-            JObject result = base.ToJObject();
+            JsonObject result = base.ToJsonObject();
             if(result == null)
             {
                 return result;

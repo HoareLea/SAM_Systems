@@ -1,4 +1,7 @@
-﻿using Newtonsoft.Json.Linq;
+﻿// SPDX-License-Identifier: LGPL-3.0-or-later
+// Copyright (c) 2020–2026 Michal Dengusiak & Jakub Ziolkowski and contributors
+
+using System.Text.Json.Nodes;
 using SAM.Core.Systems;
 
 namespace SAM.Analytical.Systems
@@ -27,9 +30,9 @@ namespace SAM.Analytical.Systems
             }
         }
 
-        public SizedFlowValue(JObject jObject)
+        public SizedFlowValue(JsonObject jObject)
         {
-            FromJObject(jObject);
+            FromJsonObject(jObject);
         }
 
         public double Value
@@ -37,6 +40,11 @@ namespace SAM.Analytical.Systems
             get
             {
                 return value;
+            }
+
+            set
+            {
+                this.value = value;
             }
         }
 
@@ -48,7 +56,7 @@ namespace SAM.Analytical.Systems
             }
         }
 
-        public virtual bool FromJObject(JObject jObject)
+        public virtual bool FromJsonObject(JsonObject jObject)
         {
             if (jObject == null)
             {
@@ -57,20 +65,20 @@ namespace SAM.Analytical.Systems
 
             if(jObject.ContainsKey("Value"))
             {
-                value = jObject.Value<double>("Value");
+                value = jObject["Value"]?.GetValue<double>() ?? default(double);
             }
 
             if (jObject.ContainsKey("SizeFranction"))
             {
-                sizeFranction = jObject.Value<double>("SizeFranction");
+                sizeFranction = jObject["SizeFranction"]?.GetValue<double>() ?? default(double);
             }
 
             return true;
         }
 
-        public virtual JObject ToJObject()
+        public virtual JsonObject ToJsonObject()
         {
-            JObject result = new JObject();
+            JsonObject result = new JsonObject();
             result.Add("_type", Core.Query.FullTypeName(this));
 
             if(!double.IsNaN(value))

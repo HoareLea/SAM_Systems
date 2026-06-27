@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json.Linq;
+﻿// SPDX-License-Identifier: LGPL-3.0-or-later
+// Copyright (c) 2020–2026 Michal Dengusiak & Jakub Ziolkowski and contributors
+using System.Text.Json.Nodes;
 using SAM.Core;
 
 namespace SAM.Analytical.Systems
@@ -9,10 +11,10 @@ namespace SAM.Analytical.Systems
         private string name;
         private string unitName;
 
-        public SystemEnergyCentreValues(JObject jObject)
+        public SystemEnergyCentreValues(JsonObject jObject)
             : base(jObject)
         {
-            FromJObject(jObject);
+            FromJsonObject(jObject);
         }
 
         public SystemEnergyCentreValues(SystemEnergyCentreValues systemEnergyCentreValues)
@@ -58,9 +60,9 @@ namespace SAM.Analytical.Systems
             }
         }
 
-        public override bool FromJObject(JObject jObject)
+        public override bool FromJsonObject(JsonObject jObject)
         {
-            bool result = base.FromJObject(jObject);
+            bool result = base.FromJsonObject(jObject);
             if (!result)
             {
                 return result;
@@ -68,25 +70,25 @@ namespace SAM.Analytical.Systems
 
             if (jObject.ContainsKey("Category"))
             {
-                category = jObject.Value<string>("Category");
+                category = jObject["Category"]?.GetValue<string>() ?? null;
             }
 
             if (jObject.ContainsKey("Name"))
             {
-                name = jObject.Value<string>("Name");
+                name = jObject["Name"]?.GetValue<string>() ?? null;
             }
 
             if (jObject.ContainsKey("UnitName"))
             {
-                unitName = jObject.Value<string>("UnitName");
+                unitName = jObject["UnitName"]?.GetValue<string>() ?? null;
             }
 
             return result;
         }
 
-        public override JObject ToJObject()
+        public override JsonObject ToJsonObject()
         {
-            JObject jObject = base.ToJObject();
+            JsonObject jObject = base.ToJsonObject();
             if (jObject == null)
             {
                 return null;
