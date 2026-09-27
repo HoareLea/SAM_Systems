@@ -1,6 +1,28 @@
 # Project Progress
 
-## Current: Nuaire reply (24 Sep 2026) - exchanger then DX drop, 13 C floor
+## Current: mixed Part O strategies PR3B-2 - cooled and uncooled units in one materialisation (27 Sep 2026)
+
+Branch `feature/parto-mixed-cooling-pr3b2-2026-09-27` from `sow/2026-Q3` `2213373`. **Needs SAM PR3B-1
+(SAM-BIM/SAM#161) merged first** - the new guidance overload calls SAM's `Query.PartOCoolingOperatingAirFlow`. Record:
+SAM `documentation/PartO-MixedDwellingStrategies-PR3B.md` §2.
+
+- **Mixed call.** New `MechanicalVentilationSettings.GuidanceTemplate` (the MVRE topology). Stated, `GuidanceSettings`
+  may be partial: a named unit is the product's arrangement (MVRE exchanger + supply DX coil) from the imported
+  MVRE prototype; every other unit is ordinary MV from the call's template - one plant room, one set of plant
+  collections (the import maps shared collections by kind and name; anything else shared refuses). Null = the legacy
+  call, unchanged (partial guidance still refuses). Identity key adds the topology and `-` per uncooled unit only
+  when stated.
+- **Displacement.** Every materialised zone `DisplacementVentilation = false` (owner decision, SAM#129) - replaces the
+  parity-driven `true`. **Moves legacy Iteration 3 B0/MG results**; re-acceptance on licensed TAS is part of the PR3B
+  gate.
+- **Airflow.** `Query.MechanicalVentilationGuidanceSettings(template, designSupply, designExtract, out refusal)`
+  operates at SAM's cooling airflow (max(design, guidance) within the published range and capacity) - the rule is
+  SAM's, called, not restated. The legacy overload is unchanged.
+- **Tests.** `MechanicalVentilationMixedCoolingTests` (new, 11 facts + 2-row theory); two DV pins inverted. 8 red on the
+  old behaviour (`docs/evidence/parto-mixed-pr3b/`); **268/268**; `SAM_Systems.sln` Release 0 errors.
+- **Next step.** SAM_Tas PR3B-3 (mixed TPD regression, diagnostic-log iterations), then the licensed gate.
+
+## Previous: Nuaire reply (24 Sep 2026) - exchanger then DX drop, 13 C floor
 
 **Status.** MERGED into `sow/2026-Q3` on 2026-09-24, in order: SAM-BIM/SAM#133 (`54c43438`) -> SAM-BIM/SAM_Systems#29 (`c88c9b37`) -> SAM-BIM/SAM_Tas#65 (`1b659756`) -> SAM-BIM/SAM_UI#107 (`8f58144c`). CI green and Codex review clean (all findings fixed and answered) on every PR. The `feature/parto-nuaire-reply-2026-09-24` branches are deleted.
 The full cross-repo record (evidence, decisions, TAS probes, MG

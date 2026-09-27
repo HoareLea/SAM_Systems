@@ -58,12 +58,12 @@ namespace SAM.Analytical.Systems.Tests
         }
 
         /// <summary>
-        /// The zone-flag normalisation below is a no-op on <c>MV.json</c>: it already states
-        /// <c>DisplacementVentilation = true</c>, so B0's own materialised rooms are unaffected by this
-        /// PR5A change existing.
+        /// Owner decision, mixed Part O strategies PR3 (27 Sep 2026, SAM#129): every materialised dwelling zone states
+        /// <c>DisplacementVentilation = false</c> (mixing ventilation), whatever the template. <c>MV.json</c>'s
+        /// prototype states <c>true</c>, so this is the MV side of that normalisation.
         /// </summary>
         [Fact]
-        public void MVTemplate_DisplacementVentilation_StaysTrue()
+        public void MVTemplate_DisplacementVentilation_IsNormalisedToFalse()
         {
             AdjacencyCluster adjacencyCluster = MechanicalVentilationTestModel.Dwelling(out AirHandlingUnit _);
 
@@ -71,9 +71,12 @@ namespace SAM.Analytical.Systems.Tests
 
             AssertMaterialised(mechanicalVentilationMaterialisation);
 
+            //Confirms the fixture exercises the normalisation: the shipped MV prototype states true.
+            Assert.True(FindSystemSpace(MechanicalVentilationTestModel.Template()).DisplacementVentilation);
+
             foreach (SystemSpace systemSpace in MechanicalVentilationTestModel.SystemSpaces(mechanicalVentilationMaterialisation))
             {
-                Assert.True(systemSpace.DisplacementVentilation);
+                Assert.False(systemSpace.DisplacementVentilation);
             }
         }
 
@@ -82,15 +85,12 @@ namespace SAM.Analytical.Systems.Tests
         // =====================================================================================================
 
         /// <summary>
-        /// <b>The shipped MVRE.json states <c>DisplacementVentilation = false</c> on its zone prototype.</b>
-        /// Licensed measurement (SAM#111, "PARTO-ITERATION3-B0-PARITY-DECOMPOSITION") proved the direction:
-        /// normalising to <c>true</c> reproduces B0 at MVRE epsilon 0; normalising to <c>false</c> moves
-        /// every variant away from it. This materialisation normalises every zone to <c>true</c> regardless
-        /// of which template it came from, so MVRE-materialised rooms must come out <c>true</c> even though
-        /// the shipped file itself states <c>false</c>.
+        /// <b>The shipped MVRE.json states <c>DisplacementVentilation = false</c> on its zone prototype</b> - the value
+        /// every zone now states (owner decision, PR3; formerly normalised to <c>true</c> for B0 parity). So the MVRE
+        /// rooms come out <c>false</c>, the same as MV rooms, and switching topology never moves zone physics.
         /// </summary>
         [Fact]
-        public void MVRETemplate_DisplacementVentilation_IsNormalisedToTrue()
+        public void MVRETemplate_DisplacementVentilation_IsFalse_AsForMV()
         {
             SystemEnergyCentre systemEnergyCentre_MVRE = MechanicalVentilationTestModel.TemplateMVRE();
 
@@ -109,7 +109,7 @@ namespace SAM.Analytical.Systems.Tests
 
             foreach (SystemSpace systemSpace in systemSpaces)
             {
-                Assert.True(systemSpace.DisplacementVentilation);
+                Assert.False(systemSpace.DisplacementVentilation);
             }
         }
 
