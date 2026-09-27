@@ -18,7 +18,7 @@ SAM `documentation/PartO-MixedDwellingStrategies-PR3B.md` §2.
 - **Airflow.** `Query.MechanicalVentilationGuidanceSettings(template, designSupply, designExtract, out refusal)`
   operates at SAM's cooling airflow (max(design, guidance) within the published range and capacity) - the rule is
   SAM's, called, not restated. The legacy overload is unchanged.
-- **Tests.** `MechanicalVentilationMixedCoolingTests` (new, 11 facts + 2-row theory); two DV pins inverted. 8 red on the
+- **Tests.** `MechanicalVentilationMixedCoolingTests` (new, 10 facts + a 2-row theory); two DV pins inverted. 8 red on the
   old behaviour (`docs/evidence/parto-mixed-pr3b/`); **268/268**; `SAM_Systems.sln` Release 0 errors.
 - **Next step.** SAM_Tas PR3B-3 (mixed TPD regression, diagnostic-log iterations), then the licensed gate.
 
