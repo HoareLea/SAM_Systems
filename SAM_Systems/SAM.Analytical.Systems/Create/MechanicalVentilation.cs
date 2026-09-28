@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: LGPL-3.0-or-later
 // Copyright (c) 2020–2026 Michal Dengusiak & Jakub Ziolkowski and contributors
 
+using SAM.Core;
 using SAM.Core.Systems;
 using System;
 using System.Collections.Generic;
@@ -103,6 +104,15 @@ namespace SAM.Analytical.Systems
             }
 
             AirSystem airSystem_Template = airSystems_Template[0];
+
+            //PR3B-2: the manufacturer-guidance units' own prototype, imported into the one plant room so every unit
+            //of the call - ordinary and cooled - is materialised into the same plant room and shares its plant.
+            AirSystem airSystem_Guidance = null;
+
+            if (context.Settings.GuidanceTemplate != null && !TryImportGuidancePrototype(context, systemPlantRoom, context.Settings.GuidanceTemplate, out airSystem_Guidance))
+            {
+                return Result(context, null);
+            }
 
             if (context.Settings.Schedule != null)
             {
@@ -367,6 +377,13 @@ namespace SAM.Analytical.Systems
                 {
                     if (!context.Settings.GuidanceSettings.TryGetValue(guid_AirHandlingUnit_Check, out MechanicalVentilationGuidanceSettings mechanicalVentilationGuidanceSettings_Check))
                     {
+                        //PR3B-2: with a guidance topology stated, a unit it does not name is ordinary uncooled
+                        //ventilation on the call's own template - a stated choice, not a gap.
+                        if (airSystem_Guidance != null)
+                        {
+                            continue;
+                        }
+
                         context.Refuse(string.Format("Air handling unit '{0}' has no manufacturer-guidance cooling unit while other units in this call do, so the graph would be only partly configured.", dictionary_AirHandlingUnit[guid_AirHandlingUnit_Check].Name));
                         return Result(context, null);
                     }
@@ -452,13 +469,22 @@ namespace SAM.Analytical.Systems
                 }
             }
 
-            //SAM#123: the same, for manufacturer-guidance units - nothing when none is stated.
+            //SAM#123: the same, for manufacturer-guidance units - nothing when none is stated. PR3B-2: a unit a
+            //partial dictionary does not name is "-" (uncooled), and the guidance topology is part of the identity -
+            //neither is added on the legacy path, whose identities stay byte-identical.
             if (context.Settings.GuidanceSettings.Count != 0)
             {
                 foreach (Guid guid_AirHandlingUnit_Identity in guids_AirHandlingUnit)
                 {
-                    components_EnergyCentre.Add(context.Settings.GuidanceSettings[guid_AirHandlingUnit_Identity]?.IdentityComponent());
+                    components_EnergyCentre.Add(context.Settings.GuidanceSettings.TryGetValue(guid_AirHandlingUnit_Identity, out MechanicalVentilationGuidanceSettings mechanicalVentilationGuidanceSettings_Identity) ? mechanicalVentilationGuidanceSettings_Identity?.IdentityComponent() : "-");
                 }
+            }
+
+            if (airSystem_Guidance != null)
+            {
+                components_EnergyCentre.Add("GuidanceTemplate");
+                components_EnergyCentre.Add(Query.MechanicalVentilationGuidComponent(context.Settings.GuidanceTemplate.Guid));
+                components_EnergyCentre.Add(Query.MechanicalVentilationGuidComponent(airSystem_Guidance.Guid));
             }
 
             context.Key_EnergyCentre = string.Join("|", components_EnergyCentre);
@@ -493,7 +519,10 @@ namespace SAM.Analytical.Systems
                 context.Settings.CoolingSettings.TryGetValue(guid_AirHandlingUnit, out MechanicalVentilationCoolingSettings mechanicalVentilationCoolingSettings);
                 context.Settings.GuidanceSettings.TryGetValue(guid_AirHandlingUnit, out MechanicalVentilationGuidanceSettings mechanicalVentilationGuidanceSettings);
 
-                if (!MechanicalVentilationAirSystem(context, systemPlantRoom, airSystem_Template, dictionary_AirHandlingUnit[guid_AirHandlingUnit], dictionary_Member[guid_AirHandlingUnit], mechanicalVentilationUnitSettings, mechanicalVentilationCoolingSettings, mechanicalVentilationGuidanceSettings))
+                //PR3B-2: a guidance unit on the guidance topology where one is stated; every other unit on the call's own.
+                AirSystem airSystem_Prototype = airSystem_Guidance != null && mechanicalVentilationGuidanceSettings != null ? airSystem_Guidance : airSystem_Template;
+
+                if (!MechanicalVentilationAirSystem(context, systemPlantRoom, airSystem_Prototype, dictionary_AirHandlingUnit[guid_AirHandlingUnit], dictionary_Member[guid_AirHandlingUnit], mechanicalVentilationUnitSettings, mechanicalVentilationCoolingSettings, mechanicalVentilationGuidanceSettings))
                 {
                     return Result(context, null);
                 }
@@ -537,6 +566,17 @@ namespace SAM.Analytical.Systems
             //=============================================================================================
 
             MechanicalVentilationTemplateSubgraph(systemPlantRoom, airSystem_Template, true, out Dictionary<Guid, ISystemJSAMObject> dictionary_Template, out Dictionary<Guid, ISystemJSAMObject> _);
+
+            //PR3B-2: the imported guidance prototype is template air plant too, and goes the same way.
+            if (airSystem_Guidance != null)
+            {
+                MechanicalVentilationTemplateSubgraph(systemPlantRoom, airSystem_Guidance, true, out Dictionary<Guid, ISystemJSAMObject> dictionary_Guidance, out Dictionary<Guid, ISystemJSAMObject> _);
+
+                foreach (KeyValuePair<Guid, ISystemJSAMObject> keyValuePair in dictionary_Guidance)
+                {
+                    dictionary_Template[keyValuePair.Key] = keyValuePair.Value;
+                }
+            }
 
             foreach (ISystemJSAMObject systemJSAMObject in dictionary_Template.Values)
             {
@@ -592,6 +632,108 @@ namespace SAM.Analytical.Systems
             context.Bindings.Sort((x, y) => x.CompareTo(y));
 
             return Result(context, result);
+        }
+
+        /// <summary>
+        /// PR3B-2: imports the guidance topology's prototype air system - its own air plant, walked exactly as a unit's
+        /// copy is walked - into <paramref name="systemPlantRoom"/>, so guidance units can be materialised from it
+        /// beside the ordinary units. Guids are kept (a collision refuses), and every relation it had to a shared plant
+        /// collection is re-made to the plant room's own collection of the same kind and name - collections are
+        /// referenced by name and type, so the imported fans and exchanger join the one installation rather than
+        /// bringing a second one. Anything else shared with the prototype refuses rather than being dropped.
+        /// </summary>
+        private static bool TryImportGuidancePrototype(MechanicalVentilationContext context, SystemPlantRoom systemPlantRoom, SystemEnergyCentre systemEnergyCentre_Guidance, out AirSystem airSystem_Guidance)
+        {
+            airSystem_Guidance = null;
+
+            List<SystemPlantRoom> systemPlantRooms_Guidance = systemEnergyCentre_Guidance.GetSystemPlantRooms() ?? new List<SystemPlantRoom>();
+
+            if (systemPlantRooms_Guidance.Count != 1)
+            {
+                context.Refuse(string.Format("The manufacturer-guidance topology template contains {0} plant rooms, so which one its prototype comes from is ambiguous.", systemPlantRooms_Guidance.Count));
+                return false;
+            }
+
+            SystemPlantRoom systemPlantRoom_Guidance = systemPlantRooms_Guidance[0];
+
+            List<AirSystem> airSystems_Guidance = systemPlantRoom_Guidance.GetSystems<AirSystem>() ?? new List<AirSystem>();
+
+            if (airSystems_Guidance.Count != 1)
+            {
+                context.Refuse(string.Format("The manufacturer-guidance topology template's plant room contains {0} air systems, so which one is the prototype is ambiguous.", airSystems_Guidance.Count));
+                return false;
+            }
+
+            AirSystem airSystem_Prototype = airSystems_Guidance[0];
+
+            MechanicalVentilationTemplateSubgraph(systemPlantRoom_Guidance, airSystem_Prototype, context.Settings.MaterialiseSystemSpaceComponents, out Dictionary<Guid, ISystemJSAMObject> dictionary_Import, out Dictionary<Guid, ISystemJSAMObject> dictionary_Shared);
+
+            foreach (KeyValuePair<Guid, ISystemJSAMObject> keyValuePair in dictionary_Import)
+            {
+                if (keyValuePair.Value is SAMObject sAMObject && systemPlantRoom.GetSystemObject<ISystemJSAMObject>(new ObjectReference(sAMObject)) != null)
+                {
+                    context.Refuse(string.Format("The manufacturer-guidance topology template's '{0}' has the identity of an object the call's template already holds, so the two cannot share one plant room.", sAMObject.Name));
+                    return false;
+                }
+            }
+
+            List<ISystemCollection> systemCollections = systemPlantRoom.GetSystemComponents<ISystemCollection>() ?? new List<ISystemCollection>();
+            Dictionary<Guid, ISystemJSAMObject> dictionary_Collection = new Dictionary<Guid, ISystemJSAMObject>();
+
+            foreach (KeyValuePair<Guid, ISystemJSAMObject> keyValuePair in dictionary_Shared)
+            {
+                if (!(keyValuePair.Value is ISystemCollection systemCollection_Guidance))
+                {
+                    context.Refuse(string.Format("The manufacturer-guidance topology template's prototype shares '{0}' ({1}) with plant outside its air system, which has no counterpart in the call's template.", (keyValuePair.Value as SAMObject)?.Name, keyValuePair.Value?.GetType()?.Name));
+                    return false;
+                }
+
+                string name = (systemCollection_Guidance as SAMObject)?.Name;
+                List<ISystemCollection> systemCollections_Match = systemCollections.FindAll(x => x.GetType() == systemCollection_Guidance.GetType() && (x as SAMObject)?.Name == name);
+
+                if (systemCollections_Match.Count != 1)
+                {
+                    context.Refuse(string.Format("The manufacturer-guidance topology template's prototype belongs to plant collection '{0}', which the call's template holds {1} time(s), so the unit could not join the one installation.", name, systemCollections_Match.Count));
+                    return false;
+                }
+
+                dictionary_Collection[keyValuePair.Key] = systemCollections_Match[0];
+            }
+
+            foreach (ISystemJSAMObject systemJSAMObject in dictionary_Import.Values)
+            {
+                Add(systemPlantRoom, systemJSAMObject);
+            }
+
+            foreach (KeyValuePair<Guid, ISystemJSAMObject> keyValuePair in dictionary_Import)
+            {
+                foreach (ISystemJSAMObject systemJSAMObject_Related in systemPlantRoom_Guidance.GetRelatedObjects(keyValuePair.Value) ?? new List<ISystemJSAMObject>())
+                {
+                    if (!(systemJSAMObject_Related is SAMObject sAMObject_Related))
+                    {
+                        continue;
+                    }
+
+                    if (dictionary_Import.TryGetValue(sAMObject_Related.Guid, out ISystemJSAMObject systemJSAMObject_Partner))
+                    {
+                        Relate(systemPlantRoom, keyValuePair.Value, systemJSAMObject_Partner);
+                    }
+                    else if (dictionary_Collection.TryGetValue(sAMObject_Related.Guid, out ISystemJSAMObject systemJSAMObject_Collection))
+                    {
+                        Relate(systemPlantRoom, keyValuePair.Value, systemJSAMObject_Collection);
+                    }
+                }
+            }
+
+            airSystem_Guidance = (systemPlantRoom.GetSystems<AirSystem>() ?? new List<AirSystem>()).Find(x => x.Guid == airSystem_Prototype.Guid);
+
+            if (airSystem_Guidance == null)
+            {
+                context.Refuse("The manufacturer-guidance topology template's prototype air system could not be imported into the call's plant room.");
+                return false;
+            }
+
+            return true;
         }
 
         private static MechanicalVentilationMaterialisation Result(MechanicalVentilationContext context, SystemEnergyCentre systemEnergyCentre)

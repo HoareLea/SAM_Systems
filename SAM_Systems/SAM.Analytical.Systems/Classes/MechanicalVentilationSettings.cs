@@ -153,6 +153,19 @@ namespace SAM.Analytical.Systems
             }
         }
 
+        /// <summary>
+        /// PR3B-2 (mixed Part O strategies): the topology the manufacturer-guidance units are materialised onto - the
+        /// shipped MVRE topology, whose exchanger the product's arrangement needs - while every other unit of the same
+        /// call is materialised onto the call's own template (the ordinary MV topology).
+        /// <para>
+        /// <b>Null (the default) is the legacy call, unchanged:</b> every unit on the call's template, and a non-empty
+        /// <see cref="GuidanceSettings"/> naming every unit. <b>Stated, it makes <see cref="GuidanceSettings"/> partial:</b>
+        /// a unit it names is cooled on this topology, a unit it does not name is ordinary uncooled ventilation on the
+        /// call's template. Read only - its plant room is deep-cloned before anything is taken from it.
+        /// </para>
+        /// </summary>
+        public SystemEnergyCentre GuidanceTemplate { get; set; }
+
         public MechanicalVentilationSettings()
         {
 
@@ -168,6 +181,7 @@ namespace SAM.Analytical.Systems
                 UnitSettings = mechanicalVentilationSettings.UnitSettings;
                 CoolingSettings = mechanicalVentilationSettings.CoolingSettings;
                 GuidanceSettings = mechanicalVentilationSettings.GuidanceSettings;
+                GuidanceTemplate = mechanicalVentilationSettings.GuidanceTemplate;
             }
         }
 
@@ -226,6 +240,11 @@ namespace SAM.Analytical.Systems
                 }
 
                 dictionary_CoolingSettings = dictionary;
+            }
+
+            if (jsonObject["GuidanceTemplate"] is JsonObject jsonObject_GuidanceTemplate)
+            {
+                GuidanceTemplate = new SystemEnergyCentre(jsonObject_GuidanceTemplate);
             }
 
             if (jsonObject["GuidanceSettings"] is JsonObject jsonObject_GuidanceSettings)
@@ -300,6 +319,12 @@ namespace SAM.Analytical.Systems
                 }
 
                 result.Add("GuidanceSettings", jsonObject_GuidanceSettings);
+            }
+
+            //Omitted when unstated, so a legacy settings object serializes exactly as it did before.
+            if (GuidanceTemplate != null)
+            {
+                result.Add("GuidanceTemplate", GuidanceTemplate.ToJsonObject());
             }
 
             return result;

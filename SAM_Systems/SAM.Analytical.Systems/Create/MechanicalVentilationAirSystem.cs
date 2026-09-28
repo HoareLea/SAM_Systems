@@ -400,23 +400,14 @@ namespace SAM.Analytical.Systems
                     systemSpace_Prototype.TemperatureSetpoint,
                     systemSpace_Prototype.RelativeHumiditySetpoint,
                     systemSpace_Prototype.PollutantSetpoint,
-                    //PR5A topology normalisation (SAM#111 plan, Phase 0 "Test A" + the licensed B0/A parity
-                    //decomposition): MV.json's zone prototype states true; MVRE.json's states false, though
-                    //both model the same physical rooms - that difference is authoring residue, not a stated
-                    //design choice, and switching MV -> MVRE would otherwise silently move a room's zone
-                    //physics by up to several K with nothing to do with heat recovery. Measurement proved the
-                    //direction: true reproduces the frozen B0 control (MVRE at epsilon 0 matches B0 exactly);
-                    //false moves every variant away from it.
-                    //
-                    //This is deliberately a code-level normalisation, not a template edit: the frozen plan
-                    //states MV.json and MVRE.json are both read-only (plan §C), so the shipped MVRE.json's own
-                    //`false` cannot be corrected in place. It is unconditional across every template this
-                    //method is ever called with - not a heuristic scoped to "looks like an MV/MVRE swap" - so
-                    //it is explicitly a two-template, plan-mandated correction (only MV and MVRE exist in
-                    //scope for PR5A), not a general claim that every ventilation topology should be
-                    //displacement. A third template genuinely needing false would need this revisited, not
-                    //silently overridden by a future maintainer who missed this comment.
-                    true,
+                    //Stated, never inherited from a template, and the same for every topology (MV.json states
+                    //true, MVRE.json false - authoring residue, not a design choice). Owner decision, mixed Part O
+                    //strategies PR3 (27 Sep 2026; SAM#129): FALSE. Dwelling MVHR supply valves and door-undercut
+                    //transfer are mixing ventilation; TAS's displacement model hands the upper layer on (an 8 l/s
+                    //bathroom extract reached 80 degC) and that inflated extract suppressed the unit's bypass ~12x.
+                    //The earlier TRUE was chosen because it reproduced the frozen B0 parity control - a parity
+                    //choice, superseded (SAM_UI documentation/PartO-MixedDwellingStrategies-PR3A.md §14.1).
+                    false,
                     systemSpace_Prototype.ModelInterzoneFlow,
                     systemSpace_Prototype.ModelVentilationFlow,
                     flowRate,

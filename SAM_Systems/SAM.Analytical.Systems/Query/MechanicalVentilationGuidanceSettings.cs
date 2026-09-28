@@ -80,5 +80,36 @@ namespace SAM.Analytical.Systems
 
             return refusal == null ? result : null;
         }
+
+        /// <summary>
+        /// PR3B-2 (mixed Part O strategies): the same settings for one cooled dwelling, at the cooling operating airflow
+        /// SAM resolves for its design (<c>SAM.Analytical.Query.PartOCoolingOperatingAirFlow</c>: the larger of the
+        /// dwelling's design total and the guidance airflow, within the published cooling range and the unit's capacity).
+        /// The rule is SAM's, called here, never restated - so the airflow a unit is materialised at is exactly the one
+        /// the materialisation record carries.
+        /// </summary>
+        /// <param name="ventilationUnitTemplate">The selected product's catalogue entry.</param>
+        /// <param name="designSupply_Lps">The dwelling's design supply total [l/s].</param>
+        /// <param name="designExtract_Lps">The dwelling's design extract total [l/s].</param>
+        /// <param name="refusal">Why no settings could be stated, or null.</param>
+        public static MechanicalVentilationGuidanceSettings MechanicalVentilationGuidanceSettings(this VentilationUnitTemplate ventilationUnitTemplate, double designSupply_Lps, double designExtract_Lps, out string refusal)
+        {
+            double coolingOperatingAirFlow_Lps = Analytical.Query.PartOCoolingOperatingAirFlow(ventilationUnitTemplate, designSupply_Lps, designExtract_Lps, out refusal);
+            if (refusal != null)
+            {
+                return null;
+            }
+
+            MechanicalVentilationGuidanceSettings result = new MechanicalVentilationGuidanceSettings
+            {
+                OperatingStrategy = ventilationUnitTemplate.OperatingStrategy.WithElevatedAirFlow(coolingOperatingAirFlow_Lps),
+                SupplyAirTemperatureTable = ventilationUnitTemplate.PerformanceTable,
+                SourceIdentifier = string.Format("{0} | {1}", ventilationUnitTemplate.VentilationUnitReference, ventilationUnitTemplate.OperatingStrategy.Source),
+            };
+
+            refusal = result.Refusal();
+
+            return refusal == null ? result : null;
+        }
     }
 }
