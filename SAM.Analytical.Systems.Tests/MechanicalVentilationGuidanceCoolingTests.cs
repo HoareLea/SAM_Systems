@@ -34,6 +34,38 @@ namespace SAM.Analytical.Systems.Tests
             Assert.Empty(empty.GuidanceCoolings);
         }
 
+        /// <summary>
+        /// Presentation, pinned because it misled (2026-09-29 real project): the coil was drawn 4 units left of the
+        /// supply fan - on the MVRE template that is left of the fresh-air inlet, so the TPD read as "DX, then heat
+        /// recovery" while its ducts were exchanger -> DX -> fan. It is drawn where it is connected.
+        /// </summary>
+        [Fact]
+        public void TheCoil_IsDrawnBetweenTheExchangerAndTheSupplyFan()
+        {
+            AdjacencyCluster adjacencyCluster = MechanicalVentilationTestModel.Dwelling(out AirHandlingUnit airHandlingUnit);
+            MechanicalVentilationMaterialisation guidance = adjacencyCluster.MechanicalVentilation(MechanicalVentilationTestModel.TemplateMVRE(), Settings(airHandlingUnit, GuidanceSettings()));
+
+            AssertMaterialised(guidance);
+            MechanicalVentilationGuidanceCooling guidanceCooling = Assert.Single(guidance.GuidanceCoolings);
+
+            SystemPlantRoom systemPlantRoom = MechanicalVentilationTestModel.PlantRoom(guidance);
+
+            Geometry.Planar.Point2D exchanger = Origin(Component(systemPlantRoom, guidanceCooling.Guid_Exchanger));
+            Geometry.Planar.Point2D coil = Origin(Component(systemPlantRoom, guidanceCooling.Guid_DXCoil));
+            Geometry.Planar.Point2D fan = Origin(Component(systemPlantRoom, guidanceCooling.Guid_Fan_Supply));
+
+            Assert.True(exchanger.X < fan.X, "the MVRE template draws the exchanger before the supply fan");
+            Assert.InRange(coil.X, exchanger.X + Tolerance, fan.X - Tolerance);
+            Assert.Equal(fan.Y, coil.Y, 9);
+        }
+
+        private static Geometry.Planar.Point2D Origin(ISystemComponent systemComponent)
+        {
+            Geometry.Planar.Point2D result = (systemComponent as Geometry.Systems.IDisplaySystemObject<Geometry.Systems.SystemGeometryInstance>)?.SystemGeometry?.CoordinateSystem2D?.Origin;
+            Assert.NotNull(result);
+            return result;
+        }
+
         [Fact]
         public void TheCoil_SitsBetweenTheExchangerAndTheSupplyFan()
         {
