@@ -165,8 +165,17 @@ namespace SAM.Analytical.Systems
                 HeatingDuty = new SizableValue(0.0) { SizingType = SizingType.Value },
             };
 
+            //Drawn where it is connected: between the exchanger's supply outlet and the supply fan, on the fan's row.
+            //Presentation only (the ducts, not the drawing, are the topology) - but "fan X - 4" put it 4 units LEFT of
+            //the fan, which on the MVRE template is to the left of the fresh-air inlet and read as a coil upstream of
+            //the heat exchanger (2026-09-29 real project).
             Point2D point2D_Fan = (systemFan_Supply as DisplaySystemFan)?.SystemGeometry?.CoordinateSystem2D?.Origin;
-            Point2D point2D_DXCoil = point2D_Fan == null ? new Point2D(0, 0) : new Point2D(point2D_Fan.X - 4.0, point2D_Fan.Y);
+            Point2D point2D_Exchanger = (systemExchanger as DisplaySystemExchanger)?.SystemGeometry?.CoordinateSystem2D?.Origin;
+            Point2D point2D_DXCoil = point2D_Fan == null
+                ? new Point2D(0, 0)
+                : point2D_Exchanger == null
+                    ? new Point2D(point2D_Fan.X - 1.0, point2D_Fan.Y)
+                    : new Point2D((point2D_Exchanger.X + point2D_Fan.X) / 2.0, point2D_Fan.Y);
 
             DisplaySystemDXCoil displaySystemDXCoil = systemDXCoil.DisplayObject<DisplaySystemDXCoil>(point2D_DXCoil, Query.DefaultDisplaySystemManager());
             if (displaySystemDXCoil == null || !(displaySystemDXCoil.Duplicate(guid_DXCoil) is DisplaySystemDXCoil displaySystemDXCoil_Keyed))
