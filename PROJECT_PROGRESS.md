@@ -1,5 +1,18 @@
 # Project Progress
 
+## Current: guidance DX coil schematic layout (29 Sep 2026) - MERGED as SAM_Systems#33 (`948542d`)
+
+**Status.** Merged into `sow/2026-Q3`: [SAM-BIM/SAM_Systems#33](https://github.com/SAM-BIM/SAM_Systems/pull/33), PR head
+`79c02f5`, merge `948542d`. Final CI green, no unresolved review comments. Part of the Iteration 3 validation stream
+(SAM_Tas#74/#75, SAM#167, SAM_UI#140-#142).
+
+- **Change.** Graphical layout only: in the guidance cooling schematic the DX cooling coil is placed between the heat
+  exchanger and the supply fan. TAS topology and connectivity were already correct and are unchanged. Files:
+  `SAM_Systems/SAM.Analytical.Systems/Create/MechanicalVentilationGuidanceCooling.cs`,
+  `SAM.Analytical.Systems.Tests/MechanicalVentilationGuidanceCoolingTests.cs`.
+- **Validation.** 269/269 tests; licensed TPD inspection confirmed the corrected coil position.
+- **Next step.** None for this entry.
+
 ## Current: mixed Part O strategies PR3B-2 - cooled and uncooled units in one materialisation (27 Sep 2026)
 
 Branch `feature/parto-mixed-cooling-pr3b2-2026-09-27` from `sow/2026-Q3` `2213373`. **Needs SAM PR3B-1
