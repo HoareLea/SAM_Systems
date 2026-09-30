@@ -53,6 +53,12 @@ namespace SAM.Analytical.Systems
         /// </summary>
         internal Dictionary<Guid, bool> Dictionary_ScopeComplete { get; } = new Dictionary<Guid, bool>();
 
+        /// <summary>
+        /// Part O PR-3: the ventilation systems the caller stated this call materialises, by guid. Null where the
+        /// caller stated none, which is every ventilation system of the model - the legacy call, unchanged.
+        /// </summary>
+        internal HashSet<Guid> Guids_VentilationSystem { get; set; }
+
         /// <summary>The design supply duty [l/s] of each member space, absent where it has no supply terminal.</summary>
         internal Dictionary<Guid, double> Dictionary_SupplyDuty_Lps { get; } = new Dictionary<Guid, double>();
 

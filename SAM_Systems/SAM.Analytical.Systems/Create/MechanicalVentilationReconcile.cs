@@ -152,7 +152,7 @@ namespace SAM.Analytical.Systems
                 {
                     //Cross-check against the analytical roll-up, which derives the same duties independently
                     //and catches a whole class of grouping mistake for one model pass.
-                    if (adjacencyCluster.AirHandlingUnitDesignDuty(dictionary_AirHandlingUnit[keyValuePair.Key], out double supply_Analytical_Lps, out double extract_Analytical_Lps))
+                    if (AirHandlingUnitDesignDuty(context, adjacencyCluster, dictionary_AirHandlingUnit[keyValuePair.Key], out double supply_Analytical_Lps, out double extract_Analytical_Lps))
                     {
                         if (Math.Abs(supply_Analytical_Lps - supply_Expected_Lps) > Tolerance_Lps || Math.Abs(extract_Analytical_Lps - extract_Expected_Lps) > Tolerance_Lps)
                         {
@@ -316,6 +316,49 @@ namespace SAM.Analytical.Systems
             }
 
             context.Note(string.Format("{0} air system(s), {1} room(s) and {2} lineage binding(s) materialised and reconciled against the design.", airSystems.Count, guids_SystemSpace.Count, context.Bindings.Count));
+        }
+
+        /// <summary>
+        /// The analytical roll-up the duty cross-check compares against.
+        /// <para>
+        /// <b>Unscoped</b> (the legacy call): <c>Query.AirHandlingUnitDesignDuty</c> itself, unchanged. <b>Scoped</b>
+        /// (Part O PR-3): the same roll-up - SAM's own <c>VentilationSystems</c> of the unit and each one's
+        /// <c>VentilationSystemDesignDuty</c>, found by the unit's name independently of the grouping above - over the
+        /// stated systems only. A system outside the scope that names the same unit is the caller's decision to leave
+        /// out, so its duty must not be added back here; only its <c>SupplyUnitName</c> is read.
+        /// </para>
+        /// </summary>
+        private static bool AirHandlingUnitDesignDuty(MechanicalVentilationContext context, AdjacencyCluster adjacencyCluster, AirHandlingUnit airHandlingUnit, out double supplyDuty_Lps, out double extractDuty_Lps)
+        {
+            if (context.Guids_VentilationSystem == null)
+            {
+                return adjacencyCluster.AirHandlingUnitDesignDuty(airHandlingUnit, out supplyDuty_Lps, out extractDuty_Lps);
+            }
+
+            supplyDuty_Lps = 0;
+            extractDuty_Lps = 0;
+
+            bool result = false;
+
+            foreach (VentilationSystem ventilationSystem in adjacencyCluster.VentilationSystems(airHandlingUnit))
+            {
+                if (!context.Guids_VentilationSystem.Contains(ventilationSystem.Guid))
+                {
+                    continue;
+                }
+
+                if (!adjacencyCluster.VentilationSystemDesignDuty(ventilationSystem, out double supplyDuty_System_Lps, out double extractDuty_System_Lps))
+                {
+                    continue;
+                }
+
+                result = true;
+
+                supplyDuty_Lps += supplyDuty_System_Lps;
+                extractDuty_Lps += extractDuty_System_Lps;
+            }
+
+            return result;
         }
 
         /// <summary>

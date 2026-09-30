@@ -59,6 +59,37 @@ namespace SAM.Analytical.Systems
         /// </param>
         public static MechanicalVentilationMaterialisation MechanicalVentilation(this AdjacencyCluster adjacencyCluster, SystemEnergyCentre systemEnergyCentre_Template, MechanicalVentilationSettings mechanicalVentilationSettings = null, IEnumerable<Space> spaces = null)
         {
+            return MechanicalVentilation(adjacencyCluster, systemEnergyCentre_Template, mechanicalVentilationSettings, spaces, null);
+        }
+
+        /// <summary>
+        /// The same materialisation, limited to the ventilation systems the caller states (Part O PR-3).
+        /// <para>
+        /// <b>The caller decides what participates; this processes only that.</b> A stated system is read exactly as
+        /// before, with every refusal it had. A system that is not stated is never processed: its air handling unit is
+        /// not resolved, its terminals and related spaces are not visited, and its duty does not enter the reconciliation
+        /// (only its guid, and the unit name the reconciliation matches on, are compared).
+        /// So a model's natural, uncontrolled or legacy systems (<c>NV 1</c>, <c>UV 1</c>, <c>MV 1 → AHU1</c>) stay on
+        /// the model untouched, and a malformed one cannot refuse the call. A unit or a space follows from the stated
+        /// systems, as it always has: a unit no stated system names is not materialised.
+        /// </para>
+        /// <para>
+        /// <b>The model-wide identity checks stay model-wide.</b> A space, air handling unit or transfer movement with
+        /// no identity still refuses: those are preconditions for a deterministic binding, not ventilation systems.
+        /// </para>
+        /// <para>
+        /// <b>Identities are unchanged.</b> Stating the scope materialises exactly what the unscoped call materialises
+        /// on the same model with the other systems removed - the same graph and the same derived guids. The scope is
+        /// not part of the derived identity, just as which systems exist in the model never was.
+        /// </para>
+        /// </summary>
+        /// <param name="guids_VentilationSystem">
+        /// The <c>VentilationSystem.Guid</c>s to materialise. <b>Null means every ventilation system of the cluster</b> -
+        /// the legacy call, unchanged. Stated, it is a set: a repeated guid counts once. It refuses when it names no
+        /// system, names <c>Guid.Empty</c>, or names a guid that is not a ventilation system of the cluster.
+        /// </param>
+        public static MechanicalVentilationMaterialisation MechanicalVentilation(this AdjacencyCluster adjacencyCluster, SystemEnergyCentre systemEnergyCentre_Template, MechanicalVentilationSettings mechanicalVentilationSettings, IEnumerable<Space> spaces, IEnumerable<Guid> guids_VentilationSystem)
+        {
             MechanicalVentilationContext context = new MechanicalVentilationContext
             {
                 //Copied on the way in, so the caller cannot reach into the materialisation afterwards.
@@ -236,6 +267,12 @@ namespace SAM.Analytical.Systems
             //=============================================================================================
 
             List<VentilationSystem> ventilationSystems = adjacencyCluster.GetObjects<VentilationSystem>() ?? new List<VentilationSystem>();
+
+            //Part O PR-3: only the stated systems go any further. Nothing below processes another one.
+            if (guids_VentilationSystem != null && !TryGetVentilationSystems(context, ventilationSystems, guids_VentilationSystem, out ventilationSystems))
+            {
+                return Result(context, null);
+            }
 
             ventilationSystems.Sort((x, y) => x.Guid.CompareTo(y.Guid));
 
@@ -756,6 +793,67 @@ namespace SAM.Analytical.Systems
             }
 
             keys.Add(key);
+        }
+
+        /// <summary>
+        /// Part O PR-3: the model's ventilation systems the caller stated, and nothing else. Only the guid of a system
+        /// that is not stated is compared here, so a malformed one cannot refuse the call. Every stated guid has to be a
+        /// ventilation system of the model: a scope naming nothing, naming no identity, or naming something the model
+        /// does not hold as a ventilation system refuses rather than materialising less than the caller asked for.
+        /// </summary>
+        private static bool TryGetVentilationSystems(MechanicalVentilationContext context, List<VentilationSystem> ventilationSystems, IEnumerable<Guid> guids_VentilationSystem, out List<VentilationSystem> ventilationSystems_Scope)
+        {
+            ventilationSystems_Scope = null;
+
+            HashSet<Guid> guids = new HashSet<Guid>();
+
+            foreach (Guid guid in guids_VentilationSystem)
+            {
+                if (guid == System.Guid.Empty)
+                {
+                    context.Refuse("The stated ventilation system scope names a system with no identity, so which system it means could not be resolved.");
+                    return false;
+                }
+
+                guids.Add(guid);
+            }
+
+            if (guids.Count == 0)
+            {
+                context.Refuse("The stated ventilation system scope names no system, so there is nothing to materialise.");
+                return false;
+            }
+
+            Dictionary<Guid, VentilationSystem> dictionary = new Dictionary<Guid, VentilationSystem>();
+
+            foreach (VentilationSystem ventilationSystem in ventilationSystems)
+            {
+                if (ventilationSystem != null && guids.Contains(ventilationSystem.Guid))
+                {
+                    dictionary[ventilationSystem.Guid] = ventilationSystem;
+                }
+            }
+
+            List<Guid> guids_Sorted = new List<Guid>(guids);
+            guids_Sorted.Sort();
+
+            foreach (Guid guid in guids_Sorted)
+            {
+                if (!dictionary.ContainsKey(guid))
+                {
+                    context.Refuse(string.Format("The stated ventilation system scope names {0}, which is not a ventilation system of the model.", guid));
+                }
+            }
+
+            if (context.HasRefusals)
+            {
+                return false;
+            }
+
+            context.Guids_VentilationSystem = guids;
+            ventilationSystems_Scope = new List<VentilationSystem>(dictionary.Values);
+
+            return true;
         }
 
         private static bool TryGetAirHandlingUnit(MechanicalVentilationContext context, Dictionary<string, List<AirHandlingUnit>> dictionary_AirHandlingUnitName, VentilationSystem ventilationSystem, VentilationSystemParameter ventilationSystemParameter, bool required, out AirHandlingUnit airHandlingUnit)

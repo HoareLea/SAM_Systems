@@ -179,7 +179,7 @@ namespace SAM.Analytical.Systems.Tests
 
         private static MechanicalVentilationSettings Mixed(AirHandlingUnit airHandlingUnit_Cooled) => Mixed(airHandlingUnit_Cooled.Guid);
 
-        private static MechanicalVentilationSettings Mixed(Guid guid_AirHandlingUnit_Cooled)
+        internal static MechanicalVentilationSettings Mixed(Guid guid_AirHandlingUnit_Cooled)
         {
             return new MechanicalVentilationSettings
             {
