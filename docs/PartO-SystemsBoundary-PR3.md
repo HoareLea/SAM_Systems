@@ -3,8 +3,8 @@
 
 # Part O PR-3 (SAM_Systems half): `Create.MechanicalVentilation` honours a stated ventilation system scope
 
-**Status (30 Sep 2026): implemented and tested. The PR is open against `sow/2026-Q3` and is NOT merged. Merge it
-first; SAM_UI PR-3 (branch of the same name) calls the new overload.**
+**Status (30 Sep 2026): implemented and tested. [SAM-BIM/SAM_Systems#34](https://github.com/SAM-BIM/SAM_Systems/pull/34) is open against
+`sow/2026-Q3` and is NOT merged. Merge it first; [SAM-BIM/SAM_UI#153](https://github.com/SAM-BIM/SAM_UI/pull/153) calls the new overload.**
 
 - Branch `feature/parto-pr3-systems-scope-2026-09-30`, from `sow/2026-Q3` `aadb1b1`.
 - Architecture authority: SAM_UI `documentation/PartO-ModelStateArchitecture.md`, step 4 (PR-3). Nothing here
@@ -102,6 +102,7 @@ No Part O, dwelling or effective-duty rule is added here. SAM decides; this seam
   - `SAM.Analytical.Systems.Tests` **303/303** (269 before, +34);
   - `SAM.Analytical.Systems.Mollier.Tests` 123/123;
   - `SAM_Systems.sln` Release: 0 errors.
+  - SAM_Tas (unchanged) `SAM.Analytical.Tas.TM59.Tests`, rebuilt against this branch: 1023/1023.
 - **Real model** (SAM_UI record): the whole materialised `-Cleaned.sam` refuses on `UV` unscoped. With SAM's scope,
   exactly `MVHR Flat 2` and `MVHR Flat 3` are processed, and `NV 1`/`UV 1`/`MV 1`/`AHU1` are on the model but unread.
   The graph is identical to PR-1's working copy, and the source SHA is unchanged.
