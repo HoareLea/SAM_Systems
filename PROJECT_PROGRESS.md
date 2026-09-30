@@ -1,5 +1,23 @@
 # Project Progress
 
+## Current: Part O PR-3 - `MechanicalVentilation` honours a stated ventilation system scope (30 Sep 2026) - MERGED as SAM_Systems#34 (`1893e71`)
+
+**Status.** Merged into `sow/2026-Q3`: [SAM-BIM/SAM_Systems#34](https://github.com/SAM-BIM/SAM_Systems/pull/34), PR head
+`e14e729`, merge `1893e71`. Final CI green (build, spdx), no review blockers. Its SAM_UI counterpart is SAM_UI#153
+(calls the new overload; merges next). Record: `docs/PartO-SystemsBoundary-PR3.md`.
+
+- **Change.** Additive overload `Create.MechanicalVentilation(..., IEnumerable<Guid> guids_VentilationSystem)`. Null is the
+  legacy call; stated, only those systems are read (D2) and D10's duty cross-check sums only them. New refusals: empty
+  scope, `Guid.Empty`, a guid that is not a ventilation system of the model. The 4-parameter signature is unchanged.
+  Files: `Create/MechanicalVentilation.cs`, `Create/MechanicalVentilationReconcile.cs`,
+  `Classes/MechanicalVentilationContext.cs`, new `MechanicalVentilationSystemScopeTests.cs`.
+- **Decisions.** No Part O/dwelling/duty rule added here - SAM decides the scope, this seam processes it. The scope is
+  not a component of any derived guid. Model-wide identity preconditions stay model-wide.
+- **Validation.** `SAM.Analytical.Systems.Tests` 303/303 (+34), Mollier 123/123, SAM_Tas TM59 1023/1023 against this
+  branch, solution Release 0 errors; 7 mutation checks all killed; real-model replay in the SAM_UI record.
+- **Risks.** Legacy messages name the type (`'UV'`), not `FullName`; pinned text, could improve in PR-6.
+- **Next step.** Merge SAM_UI#153, then the real licensed Mixed Design acceptance.
+
 ## Current: guidance DX coil schematic layout (29 Sep 2026) - MERGED as SAM_Systems#33 (`948542d`)
 
 **Status.** Merged into `sow/2026-Q3`: [SAM-BIM/SAM_Systems#33](https://github.com/SAM-BIM/SAM_Systems/pull/33), PR head
