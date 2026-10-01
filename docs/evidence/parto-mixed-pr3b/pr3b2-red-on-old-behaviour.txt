@@ -1,9 +1,0 @@
-  Failed SAM.Analytical.Systems.Tests.MechanicalVentilationMixedCoolingTests.ThePlantCollections_AreOneInstallation_NotDuplicatedByTheImport [559 ms]
-  Failed SAM.Analytical.Systems.Tests.MechanicalVentilationMixedCoolingTests.CooledAndUncooledUnits_MaterialiseInOneCall_AndOnlyTheCooledUnitIsCooled [264 ms]
-  Failed SAM.Analytical.Systems.Tests.MechanicalVentilationUnitSettingsTests.MVTemplate_DisplacementVentilation_IsNormalisedToFalse [337 ms]
-  Failed SAM.Analytical.Systems.Tests.MechanicalVentilationMixedCoolingTests.TheSettings_CarryTheGuidanceTopology_ThroughJson [509 ms]
-  Failed SAM.Analytical.Systems.Tests.MechanicalVentilationMixedCoolingTests.EveryZone_IsMixingVentilation_OnBothTopologies [245 ms]
-  Failed SAM.Analytical.Systems.Tests.MechanicalVentilationMixedCoolingTests.TheMixedMaterialisation_IsDeterministic_AndDiffersFromTheUncooledOne [635 ms]
-  Failed SAM.Analytical.Systems.Tests.MechanicalVentilationMixedCoolingTests.TheUncooledUnit_IsExactlyTheOrdinaryMvUnit [352 ms]
-  Failed SAM.Analytical.Systems.Tests.MechanicalVentilationUnitSettingsTests.MVRETemplate_DisplacementVentilation_IsFalse_AsForMV [132 ms]
-Failed!  - Failed:     8, Passed:   260, Skipped:     0, Total:   268, Duration: 38 s - SAM.Analytical.Systems.Tests.dll (net8.0)
