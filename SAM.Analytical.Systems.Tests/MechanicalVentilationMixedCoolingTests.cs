@@ -27,7 +27,7 @@ namespace SAM.Analytical.Systems.Tests
         {
             AdjacencyCluster adjacencyCluster = TwoDwellings(out AirHandlingUnit airHandlingUnit_Cooled, out AirHandlingUnit airHandlingUnit_Uncooled);
 
-            MechanicalVentilationMaterialisation mixed = adjacencyCluster.MechanicalVentilation(MechanicalVentilationTestModel.Template(), Mixed(airHandlingUnit_Cooled));
+            MechanicalVentilationMaterialisation mixed = adjacencyCluster.MechanicalVentilation(MechanicalVentilationTestModel.Template(), Mixed(airHandlingUnit_Cooled, adjacencyCluster));
             AssertMaterialised(mixed);
 
             //One guidance record, for the cooled unit only.
@@ -51,7 +51,7 @@ namespace SAM.Analytical.Systems.Tests
         {
             AdjacencyCluster adjacencyCluster = TwoDwellings(out AirHandlingUnit airHandlingUnit_Cooled, out AirHandlingUnit airHandlingUnit_Uncooled);
 
-            MechanicalVentilationMaterialisation mixed = adjacencyCluster.MechanicalVentilation(MechanicalVentilationTestModel.Template(), Mixed(airHandlingUnit_Cooled));
+            MechanicalVentilationMaterialisation mixed = adjacencyCluster.MechanicalVentilation(MechanicalVentilationTestModel.Template(), Mixed(airHandlingUnit_Cooled, adjacencyCluster));
             MechanicalVentilationMaterialisation plain = adjacencyCluster.MechanicalVentilation(MechanicalVentilationTestModel.Template());
             AssertMaterialised(mixed);
             AssertMaterialised(plain);
@@ -64,8 +64,10 @@ namespace SAM.Analytical.Systems.Tests
         {
             AdjacencyCluster adjacencyCluster = MechanicalVentilationTestModel.Dwelling(out AirHandlingUnit airHandlingUnit);
 
-            MechanicalVentilationMaterialisation legacy = adjacencyCluster.MechanicalVentilation(MechanicalVentilationTestModel.TemplateMVRE(), new MechanicalVentilationSettings { GuidanceSettings = new Dictionary<Guid, MechanicalVentilationGuidanceSettings> { { airHandlingUnit.Guid, GuidanceSettings() } } });
-            MechanicalVentilationMaterialisation mixed = adjacencyCluster.MechanicalVentilation(MechanicalVentilationTestModel.Template(), Mixed(airHandlingUnit));
+            MechanicalVentilationGuidanceSettings selected = GuidanceSettings();
+            selected.CoolingStatSpaceGuid = adjacencyCluster.GetSpaces().Single(x => x.Name == "Living").Guid;
+            MechanicalVentilationMaterialisation legacy = adjacencyCluster.MechanicalVentilation(MechanicalVentilationTestModel.TemplateMVRE(), new MechanicalVentilationSettings { GuidanceSettings = new Dictionary<Guid, MechanicalVentilationGuidanceSettings> { { airHandlingUnit.Guid, selected } } });
+            MechanicalVentilationMaterialisation mixed = adjacencyCluster.MechanicalVentilation(MechanicalVentilationTestModel.Template(), Mixed(airHandlingUnit, adjacencyCluster));
             AssertMaterialised(legacy);
             AssertMaterialised(mixed);
 
@@ -83,7 +85,7 @@ namespace SAM.Analytical.Systems.Tests
             AdjacencyCluster adjacencyCluster = TwoDwellings(out AirHandlingUnit airHandlingUnit_Cooled, out AirHandlingUnit _);
 
             int count_Template = MechanicalVentilationTestModel.PlantRoom(adjacencyCluster.MechanicalVentilation(MechanicalVentilationTestModel.Template())).GetSystemComponents<ISystemCollection>().Count;
-            int count_Mixed = MechanicalVentilationTestModel.PlantRoom(adjacencyCluster.MechanicalVentilation(MechanicalVentilationTestModel.Template(), Mixed(airHandlingUnit_Cooled))).GetSystemComponents<ISystemCollection>().Count;
+            int count_Mixed = MechanicalVentilationTestModel.PlantRoom(adjacencyCluster.MechanicalVentilation(MechanicalVentilationTestModel.Template(), Mixed(airHandlingUnit_Cooled, adjacencyCluster))).GetSystemComponents<ISystemCollection>().Count;
 
             Assert.Equal(count_Template, count_Mixed);
         }
@@ -93,7 +95,7 @@ namespace SAM.Analytical.Systems.Tests
         {
             AdjacencyCluster adjacencyCluster = TwoDwellings(out AirHandlingUnit airHandlingUnit_Cooled, out AirHandlingUnit _);
 
-            MechanicalVentilationMaterialisation mixed = adjacencyCluster.MechanicalVentilation(MechanicalVentilationTestModel.Template(), Mixed(airHandlingUnit_Cooled));
+            MechanicalVentilationMaterialisation mixed = adjacencyCluster.MechanicalVentilation(MechanicalVentilationTestModel.Template(), Mixed(airHandlingUnit_Cooled, adjacencyCluster));
             AssertMaterialised(mixed);
 
             List<SystemSpace> systemSpaces = MechanicalVentilationTestModel.SystemSpaces(mixed);
@@ -106,7 +108,7 @@ namespace SAM.Analytical.Systems.Tests
         {
             AdjacencyCluster adjacencyCluster = TwoDwellings(out AirHandlingUnit airHandlingUnit_Cooled, out AirHandlingUnit _);
 
-            MechanicalVentilationSettings settings = Mixed(airHandlingUnit_Cooled);
+            MechanicalVentilationSettings settings = Mixed(airHandlingUnit_Cooled, adjacencyCluster);
             settings.GuidanceTemplate = null;
 
             AssertRefused(adjacencyCluster.MechanicalVentilation(MechanicalVentilationTestModel.TemplateMVRE(), settings), "only partly configured");
@@ -125,8 +127,8 @@ namespace SAM.Analytical.Systems.Tests
         {
             AdjacencyCluster adjacencyCluster = TwoDwellings(out AirHandlingUnit airHandlingUnit_Cooled, out AirHandlingUnit _);
 
-            MechanicalVentilationMaterialisation mixed_1 = adjacencyCluster.MechanicalVentilation(MechanicalVentilationTestModel.Template(), Mixed(airHandlingUnit_Cooled));
-            MechanicalVentilationMaterialisation mixed_2 = adjacencyCluster.MechanicalVentilation(MechanicalVentilationTestModel.Template(), Mixed(airHandlingUnit_Cooled));
+            MechanicalVentilationMaterialisation mixed_1 = adjacencyCluster.MechanicalVentilation(MechanicalVentilationTestModel.Template(), Mixed(airHandlingUnit_Cooled, adjacencyCluster));
+            MechanicalVentilationMaterialisation mixed_2 = adjacencyCluster.MechanicalVentilation(MechanicalVentilationTestModel.Template(), Mixed(airHandlingUnit_Cooled, adjacencyCluster));
             MechanicalVentilationMaterialisation plain = adjacencyCluster.MechanicalVentilation(MechanicalVentilationTestModel.Template());
 
             Assert.Equal(MechanicalVentilationTestModel.Json(mixed_1.SystemEnergyCentre), MechanicalVentilationTestModel.Json(mixed_2.SystemEnergyCentre));
@@ -138,7 +140,7 @@ namespace SAM.Analytical.Systems.Tests
         {
             AdjacencyCluster adjacencyCluster = TwoDwellings(out AirHandlingUnit airHandlingUnit_Cooled, out AirHandlingUnit _);
 
-            MechanicalVentilationSettings roundTrip = new(Mixed(airHandlingUnit_Cooled).ToJsonObject());
+            MechanicalVentilationSettings roundTrip = new(Mixed(airHandlingUnit_Cooled, adjacencyCluster).ToJsonObject());
 
             Assert.NotNull(roundTrip.GuidanceTemplate);
             AssertMaterialised(adjacencyCluster.MechanicalVentilation(MechanicalVentilationTestModel.Template(), roundTrip));
@@ -177,14 +179,17 @@ namespace SAM.Analytical.Systems.Tests
             return MechanicalVentilationTestModel.Dwelling(out airHandlingUnit_2, " B", adjacencyCluster);
         }
 
-        private static MechanicalVentilationSettings Mixed(AirHandlingUnit airHandlingUnit_Cooled) => Mixed(airHandlingUnit_Cooled.Guid);
+        private static MechanicalVentilationSettings Mixed(AirHandlingUnit airHandlingUnit_Cooled, AdjacencyCluster adjacencyCluster) =>
+            Mixed(airHandlingUnit_Cooled.Guid, adjacencyCluster.GetSpaces().Single(x => x.Name == (airHandlingUnit_Cooled.Name == "AHU A" ? "Living A" : "Living")).Guid);
 
-        internal static MechanicalVentilationSettings Mixed(Guid guid_AirHandlingUnit_Cooled)
+        internal static MechanicalVentilationSettings Mixed(Guid guid_AirHandlingUnit_Cooled, Guid guid_CoolingStatSpace = default)
         {
+            MechanicalVentilationGuidanceSettings guidance = GuidanceSettings();
+            guidance.CoolingStatSpaceGuid = guid_CoolingStatSpace;
             return new MechanicalVentilationSettings
             {
                 GuidanceTemplate = MechanicalVentilationTestModel.TemplateMVRE(),
-                GuidanceSettings = new Dictionary<Guid, MechanicalVentilationGuidanceSettings> { { guid_AirHandlingUnit_Cooled, GuidanceSettings() } },
+                GuidanceSettings = new Dictionary<Guid, MechanicalVentilationGuidanceSettings> { { guid_AirHandlingUnit_Cooled, guidance } },
             };
         }
 

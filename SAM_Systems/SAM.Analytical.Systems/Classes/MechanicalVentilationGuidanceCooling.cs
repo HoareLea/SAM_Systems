@@ -60,8 +60,7 @@ namespace SAM.Analytical.Systems
         public Guid Guid_Fan_Extract { get; }
 
         /// <summary>
-        /// The analytical space whose air the cooling-stat senses - the unit's habitable room with the largest
-        /// design supply. PROVISIONAL: the manufacturer states a room stat without stating which room.
+        /// The engineer-selected analytical space whose air the cooling-stat senses.
         /// </summary>
         public Guid Guid_Space_Stat { get; }
 

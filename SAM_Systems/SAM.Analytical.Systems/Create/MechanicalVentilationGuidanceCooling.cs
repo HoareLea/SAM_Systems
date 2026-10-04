@@ -89,24 +89,16 @@ namespace SAM.Analytical.Systems
             IReadOnlyDictionary<Guid, double> elevatedSupply_Lps = mechanicalVentilationOperatingFlows.OperatingSupply_Lps;
             IReadOnlyDictionary<Guid, double> elevatedExtract_Lps = mechanicalVentilationOperatingFlows.OperatingExtract_Lps;
 
-            //The cooling-stat's room: the supplied room with the largest design supply (ascending space guid
-            //breaks a tie, so the choice is deterministic). PROVISIONAL - the manufacturer states a wall
-            //cooling-stat in a habitable room without naming the room.
-            Guid guid_Space_Stat = System.Guid.Empty;
-            double supply_Stat = double.NegativeInfinity;
-
-            foreach (Guid guid_Space in spaceGuids)
+            Guid guid_Space_Stat = mechanicalVentilationGuidanceSettings.CoolingStatSpaceGuid;
+            if (guid_Space_Stat == System.Guid.Empty || !spaceGuids.Contains(guid_Space_Stat))
             {
-                if (designSupply_Lps.TryGetValue(guid_Space, out double supply_Lps) && supply_Lps > supply_Stat)
-                {
-                    supply_Stat = supply_Lps;
-                    guid_Space_Stat = guid_Space;
-                }
+                context.Refuse(string.Format("{0}, but its selected cooling control room is missing or is not served by this unit. Confirm a room in the cooled dwelling before simulation.", label));
+                return false;
             }
 
-            if (guid_Space_Stat == System.Guid.Empty)
+            if (!designSupply_Lps.ContainsKey(guid_Space_Stat))
             {
-                context.Refuse(string.Format("{0}, but none of its rooms is supplied, so there is no habitable room to host its cooling-stat.", label));
+                context.Refuse(string.Format("{0}, but its selected cooling control room is not supplied by this unit.", label));
                 return false;
             }
 
