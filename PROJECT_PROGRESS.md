@@ -12,4 +12,4 @@ MechanicalVentilationGuidanceSettings, Create.MechanicalVentilationGuidanceCooli
 Focused MechanicalVentilationGuidanceCoolingTests: 11 passed. Mixed cooling and scope fixtures: 46 passed. Broader mechanical ventilation and unit suite: 260 passed.
 
 ## Next step
-Review final diff, commit and open PR.
+PR opened: SAM-BIM/SAM_Systems#35. Wait for CI/review on SAM-BIM/SAM_Systems#35; merge after SAM#176, then update local base.
