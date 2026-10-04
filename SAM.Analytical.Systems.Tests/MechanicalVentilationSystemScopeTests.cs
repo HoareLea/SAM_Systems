@@ -373,7 +373,7 @@ namespace SAM.Analytical.Systems.Tests
                 //B1+: MVRE.json with manufacturer-aware unit settings.
                 (MechanicalVentilationTestModel.TemplateMVRE(), new MechanicalVentilationSettings { UnitSettings = new Dictionary<Guid, MechanicalVentilationUnitSettings> { { airHandlingUnit_A.Guid, new MechanicalVentilationUnitSettings() }, { airHandlingUnit_B.Guid, new MechanicalVentilationUnitSettings() } } }),
                 //Mixed: one cooled unit.
-                (MechanicalVentilationTestModel.Template(), MechanicalVentilationMixedCoolingTests.Mixed(airHandlingUnit_A.Guid)),
+                (MechanicalVentilationTestModel.Template(), MechanicalVentilationMixedCoolingTests.Mixed(airHandlingUnit_A.Guid, adjacencyCluster.GetSpaces().Single(x => x.Name == "Living A").Guid)),
             ];
 
             foreach ((SystemEnergyCentre systemEnergyCentre, MechanicalVentilationSettings mechanicalVentilationSettings) in variants)
@@ -573,7 +573,7 @@ namespace SAM.Analytical.Systems.Tests
             }
         }
 
-        private static MechanicalVentilationSettings Mixed(Scaffold scaffold) => MechanicalVentilationMixedCoolingTests.Mixed(scaffold.Unit_Flat3.Guid);
+        private static MechanicalVentilationSettings Mixed(Scaffold scaffold) => MechanicalVentilationMixedCoolingTests.Mixed(scaffold.Unit_Flat3.Guid, scaffold.Spaces_Flat3.Single(x => x.Name == "Bedroom 2_6").Guid);
 
         private static Space SpaceNamed(AdjacencyCluster adjacencyCluster, string name) => adjacencyCluster.GetSpaces().Single(x => x.Name == name);
 

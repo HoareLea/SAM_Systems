@@ -43,7 +43,7 @@ namespace SAM.Analytical.Systems.Tests
         public void TheCoil_IsDrawnBetweenTheExchangerAndTheSupplyFan()
         {
             AdjacencyCluster adjacencyCluster = MechanicalVentilationTestModel.Dwelling(out AirHandlingUnit airHandlingUnit);
-            MechanicalVentilationMaterialisation guidance = adjacencyCluster.MechanicalVentilation(MechanicalVentilationTestModel.TemplateMVRE(), Settings(airHandlingUnit, GuidanceSettings()));
+            MechanicalVentilationMaterialisation guidance = adjacencyCluster.MechanicalVentilation(MechanicalVentilationTestModel.TemplateMVRE(), Settings(airHandlingUnit, GuidanceSettings(adjacencyCluster)));
 
             AssertMaterialised(guidance);
             MechanicalVentilationGuidanceCooling guidanceCooling = Assert.Single(guidance.GuidanceCoolings);
@@ -70,7 +70,7 @@ namespace SAM.Analytical.Systems.Tests
         public void TheCoil_SitsBetweenTheExchangerAndTheSupplyFan()
         {
             AdjacencyCluster adjacencyCluster = MechanicalVentilationTestModel.Dwelling(out AirHandlingUnit airHandlingUnit);
-            MechanicalVentilationMaterialisation guidance = adjacencyCluster.MechanicalVentilation(MechanicalVentilationTestModel.TemplateMVRE(), Settings(airHandlingUnit, GuidanceSettings()));
+            MechanicalVentilationMaterialisation guidance = adjacencyCluster.MechanicalVentilation(MechanicalVentilationTestModel.TemplateMVRE(), Settings(airHandlingUnit, GuidanceSettings(adjacencyCluster)));
 
             AssertMaterialised(guidance);
             MechanicalVentilationGuidanceCooling guidanceCooling = Assert.Single(guidance.GuidanceCoolings);
@@ -99,7 +99,7 @@ namespace SAM.Analytical.Systems.Tests
         public void TheRecord_KeepsDesignAndElevatedAirflowsDistinct_InDesignProportions()
         {
             AdjacencyCluster adjacencyCluster = MechanicalVentilationTestModel.Dwelling(out AirHandlingUnit airHandlingUnit);
-            MechanicalVentilationMaterialisation guidance = adjacencyCluster.MechanicalVentilation(MechanicalVentilationTestModel.TemplateMVRE(), Settings(airHandlingUnit, GuidanceSettings()));
+            MechanicalVentilationMaterialisation guidance = adjacencyCluster.MechanicalVentilation(MechanicalVentilationTestModel.TemplateMVRE(), Settings(airHandlingUnit, GuidanceSettings(adjacencyCluster)));
 
             AssertMaterialised(guidance);
             MechanicalVentilationGuidanceCooling guidanceCooling = Assert.Single(guidance.GuidanceCoolings);
@@ -116,9 +116,9 @@ namespace SAM.Analytical.Systems.Tests
                 Assert.Equal(room.DesignExtract_Lps * Elevated_Lps / 25.0, room.ElevatedExtract_Lps, Tolerance);
             }
 
-            //The stat room: the supplied room with the largest design supply (the fixture's 13 l/s bedroom).
+            //The selected stat room has less design supply than the bedroom: no largest-supply heuristic.
             MechanicalVentilationGuidanceRoom room_Stat = guidanceCooling.Rooms.Single(x => x.Guid_Space == guidanceCooling.Guid_Space_Stat);
-            Assert.Equal(13.0, room_Stat.DesignSupply_Lps, Tolerance);
+            Assert.Equal(12.0, room_Stat.DesignSupply_Lps, Tolerance);
 
             Assert.Equal(CoolingActivationSignal.RoomTemperature, guidanceCooling.Settings.OperatingStrategy.CoolingActivationSignal);
         }
@@ -129,7 +129,7 @@ namespace SAM.Analytical.Systems.Tests
             AdjacencyCluster adjacencyCluster = MechanicalVentilationTestModel.Dwelling(out AirHandlingUnit airHandlingUnit);
 
             MechanicalVentilationMaterialisation plain = adjacencyCluster.MechanicalVentilation(MechanicalVentilationTestModel.TemplateMVRE());
-            MechanicalVentilationMaterialisation guidance = adjacencyCluster.MechanicalVentilation(MechanicalVentilationTestModel.TemplateMVRE(), Settings(airHandlingUnit, GuidanceSettings()));
+            MechanicalVentilationMaterialisation guidance = adjacencyCluster.MechanicalVentilation(MechanicalVentilationTestModel.TemplateMVRE(), Settings(airHandlingUnit, GuidanceSettings(adjacencyCluster)));
 
             AssertMaterialised(plain);
             AssertMaterialised(guidance);
@@ -144,7 +144,7 @@ namespace SAM.Analytical.Systems.Tests
         {
             AdjacencyCluster adjacencyCluster = MechanicalVentilationTestModel.Dwelling(out AirHandlingUnit airHandlingUnit);
 
-            AssertRefused(adjacencyCluster.MechanicalVentilation(MechanicalVentilationTestModel.Template(), Settings(airHandlingUnit, GuidanceSettings())), "heat exchanger");
+            AssertRefused(adjacencyCluster.MechanicalVentilation(MechanicalVentilationTestModel.Template(), Settings(airHandlingUnit, GuidanceSettings(adjacencyCluster))), "heat exchanger");
         }
 
         [Fact]
@@ -152,7 +152,7 @@ namespace SAM.Analytical.Systems.Tests
         {
             AdjacencyCluster adjacencyCluster = MechanicalVentilationTestModel.Dwelling(out AirHandlingUnit airHandlingUnit);
 
-            MechanicalVentilationSettings settings = Settings(airHandlingUnit, GuidanceSettings());
+            MechanicalVentilationSettings settings = Settings(airHandlingUnit, GuidanceSettings(adjacencyCluster));
             settings.CoolingSettings = new Dictionary<Guid, MechanicalVentilationCoolingSettings> { { airHandlingUnit.Guid, new MechanicalVentilationCoolingSettings() } };
 
             AssertRefused(adjacencyCluster.MechanicalVentilation(MechanicalVentilationTestModel.TemplateMVRE(), settings), "never both");
@@ -166,6 +166,7 @@ namespace SAM.Analytical.Systems.Tests
             MechanicalVentilationGuidanceSettings guidanceSettings = GuidanceSettings();
             guidanceSettings.OperatingStrategy.ElevatedAirFlow_Lps = double.NaN;
 
+            guidanceSettings.CoolingStatSpaceGuid = adjacencyCluster.GetSpaces().Single(x => x.Name == "Living").Guid;
             AssertRefused(adjacencyCluster.MechanicalVentilation(MechanicalVentilationTestModel.TemplateMVRE(), Settings(airHandlingUnit, guidanceSettings)), "elevated cooling airflow");
         }
 
@@ -180,6 +181,38 @@ namespace SAM.Analytical.Systems.Tests
             Assert.Null(guidanceSettings.Refusal());
             Assert.Equal(SupplyTemperatureRuleType.IntakeOffset, guidanceSettings.OperatingStrategy.CoolingSupplyTemperatureRule.SupplyTemperatureRuleType);
             Assert.False(new MechanicalVentilationSettings().ToJsonObject().ContainsKey("GuidanceSettings"));
+        }
+
+        [Fact]
+        public void ControlRoom_MustBeExplicitServedAndSupplied()
+        {
+            AdjacencyCluster adjacencyCluster = MechanicalVentilationTestModel.Dwelling(out AirHandlingUnit unit);
+            MechanicalVentilationGuidanceSettings guidance = GuidanceSettings();
+            AssertRefused(adjacencyCluster.MechanicalVentilation(MechanicalVentilationTestModel.TemplateMVRE(), Settings(unit, guidance)), "selected cooling control room is missing");
+
+            guidance.CoolingStatSpaceGuid = Guid.NewGuid();
+            AssertRefused(adjacencyCluster.MechanicalVentilation(MechanicalVentilationTestModel.TemplateMVRE(), Settings(unit, guidance)), "not served by this unit");
+
+            guidance.CoolingStatSpaceGuid = adjacencyCluster.GetSpaces().Single(x => x.Name == "Kitchen").Guid;
+            AssertRefused(adjacencyCluster.MechanicalVentilation(MechanicalVentilationTestModel.TemplateMVRE(), Settings(unit, guidance)), "not supplied by this unit");
+
+            guidance.CoolingStatSpaceGuid = adjacencyCluster.GetSpaces().Single(x => x.Name == "Living").Guid;
+            MechanicalVentilationSettings saved = Settings(unit, guidance);
+            MechanicalVentilationSettings reopened = new(saved.ToJsonObject());
+            Assert.Equal(guidance.CoolingStatSpaceGuid, reopened.GuidanceSettings[unit.Guid].CoolingStatSpaceGuid);
+        }
+
+        [Fact]
+        public void HeatingAnotherRoomAlone_DoesNotCallCoolingAtTheSelectedRoomStat()
+        {
+            MechanicalVentilationGuidanceSettings guidance = GuidanceSettings();
+            guidance.SupplyTemperature(30.0, 25.0, 22.0, 25.0, out VentilationUnitOperatingMode off, out double airflow_Off);
+            guidance.SupplyTemperature(30.0, 25.0, 22.1, 25.0, out VentilationUnitOperatingMode on, out double airflow_On);
+
+            Assert.NotEqual(VentilationUnitOperatingMode.Cooling, off);
+            Assert.Equal(VentilationUnitOperatingMode.Cooling, on);
+            Assert.Equal(25.0, airflow_Off);
+            Assert.Equal(Elevated_Lps, airflow_On);
         }
 
         // =====================================================================================================
@@ -208,6 +241,13 @@ namespace SAM.Analytical.Systems.Tests
                     CoolingSupplyTemperatureRule = SupplyTemperatureRule.IntakeOffset([70.0, 80.0, 90.0], [15.0, 14.0, 13.0]),
                 },
             };
+        }
+
+        private static MechanicalVentilationGuidanceSettings GuidanceSettings(AdjacencyCluster adjacencyCluster)
+        {
+            MechanicalVentilationGuidanceSettings result = GuidanceSettings();
+            result.CoolingStatSpaceGuid = adjacencyCluster.GetSpaces().Single(x => x.Name == "Living").Guid;
+            return result;
         }
 
         private static MechanicalVentilationSettings Settings(AirHandlingUnit airHandlingUnit, MechanicalVentilationGuidanceSettings guidanceSettings)

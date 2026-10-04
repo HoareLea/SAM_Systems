@@ -77,6 +77,9 @@ namespace SAM.Analytical.Systems
         /// </summary>
         public string SourceIdentifier { get; set; }
 
+        /// <summary>The engineer-selected analytical room for the cooling stat; required when building cooling.</summary>
+        public Guid CoolingStatSpaceGuid { get; set; } = Guid.Empty;
+
         public MechanicalVentilationGuidanceSettings()
         {
         }
@@ -88,6 +91,7 @@ namespace SAM.Analytical.Systems
                 OperatingStrategy = mechanicalVentilationGuidanceSettings.OperatingStrategy == null ? null : new VentilationUnitOperatingStrategy(mechanicalVentilationGuidanceSettings.OperatingStrategy);
                 SupplyAirTemperatureTable = mechanicalVentilationGuidanceSettings.SupplyAirTemperatureTable == null ? null : new VentilationUnitPerformanceTable(mechanicalVentilationGuidanceSettings.SupplyAirTemperatureTable);
                 SourceIdentifier = mechanicalVentilationGuidanceSettings.SourceIdentifier;
+                CoolingStatSpaceGuid = mechanicalVentilationGuidanceSettings.CoolingStatSpaceGuid;
             }
         }
 
@@ -233,6 +237,7 @@ namespace SAM.Analytical.Systems
             stringBuilder.Append('|').Append(SourceIdentifier);
             stringBuilder.Append('|').Append(OperatingStrategy?.ToJsonObject()?.ToJsonString());
             stringBuilder.Append('|').Append(SupplyAirTemperatureTable?.ToJsonObject()?.ToJsonString());
+            stringBuilder.Append('|').Append(CoolingStatSpaceGuid.ToString("D", CultureInfo.InvariantCulture));
 
             return stringBuilder.ToString();
         }
@@ -254,6 +259,7 @@ namespace SAM.Analytical.Systems
             OperatingStrategy = jsonObject["OperatingStrategy"] is JsonObject jsonObject_OperatingStrategy ? new VentilationUnitOperatingStrategy(jsonObject_OperatingStrategy) : null;
             SupplyAirTemperatureTable = jsonObject["SupplyAirTemperatureTable"] is JsonObject jsonObject_Table ? new VentilationUnitPerformanceTable(jsonObject_Table) : null;
             SourceIdentifier = jsonObject.ContainsKey("SourceIdentifier") ? jsonObject["SourceIdentifier"]?.GetValue<string>() : null;
+            CoolingStatSpaceGuid = Guid.TryParse(jsonObject["CoolingStatSpaceGuid"]?.GetValue<string>(), out Guid guid_Stat) ? guid_Stat : Guid.Empty;
 
             return true;
         }
@@ -278,6 +284,11 @@ namespace SAM.Analytical.Systems
             if (!string.IsNullOrWhiteSpace(SourceIdentifier))
             {
                 result.Add("SourceIdentifier", SourceIdentifier);
+            }
+
+            if (CoolingStatSpaceGuid != Guid.Empty)
+            {
+                result.Add("CoolingStatSpaceGuid", CoolingStatSpaceGuid.ToString("D", CultureInfo.InvariantCulture));
             }
 
             return result;
