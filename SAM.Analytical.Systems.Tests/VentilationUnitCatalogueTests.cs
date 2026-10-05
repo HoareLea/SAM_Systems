@@ -626,7 +626,7 @@ namespace SAM.Analytical.Systems.Tests
         // =================================================================================================
 
         /// <summary>
-        /// <b>The Codex P1: a legacy persisted Setting must still resolve the shipped catalogue.</b>
+        /// <b>A legacy persisted Setting must still resolve the shipped catalogue.</b>
         /// <para>
         /// <c>ActiveSetting.Load()</c> can hand back a <c>Setting</c> that was persisted before
         /// <c>DefaultVentilationUnitFileDirectory</c>/<c>DefaultVentilationUnitDirectoryName</c> existed, as-is -
